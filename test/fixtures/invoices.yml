@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  customer_name: MyString
+  customer_identification: MyString
+  customer_email: MyString
+  base_amount: 9.99
+
+two:
+  customer_name: MyString
+  customer_identification: MyString
+  customer_email: MyString
+  base_amount: 9.99
