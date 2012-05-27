@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120527114728) do
+ActiveRecord::Schema.define(:version => 20120527174151) do
 
   create_table "invoice_items", :force => true do |t|
     t.integer  "invoice_id"
@@ -46,6 +46,15 @@ ActiveRecord::Schema.define(:version => 20120527114728) do
     t.date     "due_date"
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
+  end
+
+  create_table "taxes", :force => true do |t|
+    t.string   "name"
+    t.decimal  "value",      :precision => 5, :scale => 2
+    t.boolean  "active"
+    t.boolean  "is_default"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
 end
