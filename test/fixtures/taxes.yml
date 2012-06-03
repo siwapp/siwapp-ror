@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
-  value: 9.99
-  active: false
-  is_default: false
+  name: VAT
+  value: 20
+  active: true
+  is_default: true
 
 two:
-  name: MyString
-  value: 9.99
-  active: false
+  name: IRPF
+  value: -18
+  active: true
   is_default: false

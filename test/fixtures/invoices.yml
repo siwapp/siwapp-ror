@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  customer_name: MyString
-  customer_identification: MyString
-  customer_email: MyString
-  base_amount: 9.99
+  customer_name: Customer one
+  customer_identification: X-1234-C1
+  customer_email: one@customer.com
 
 two:
-  customer_name: MyString
-  customer_identification: MyString
-  customer_email: MyString
-  base_amount: 9.99
+  customer_name: Customer two
+  customer_identification: X-1234-C2
+  customer_email: two@customer.com

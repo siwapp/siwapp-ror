@@ -3,11 +3,13 @@
 one:
   quantity: 1
   discount: 9.99
-  description: MyText
-  unitary_cost: 9.99
+  description: item 1
+  unitary_cost: 29.79
+  invoice: one
 
 two:
   quantity: 1
-  discount: 9.99
-  description: MyText
+  discount: 0
+  description: item 2
   unitary_cost: 9.99
+  invoice: one
