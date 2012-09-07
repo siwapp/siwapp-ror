@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(:version => 20120603144059) do
   end
 
   create_table "invoice_items_taxes", :force => true do |t|
-    t.integer  "invoice_item_id"
-    t.integer  "tax_id"
+    t.integer "invoice_item_id"
+    t.integer "tax_id"
   end
 
   create_table "invoices", :force => true do |t|
