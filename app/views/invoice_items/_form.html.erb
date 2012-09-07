@@ -1,0 +1,11 @@
+<%= semantic_form_for @invoice_item do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :invoice %>
+    <%= f.input :description %>
+    <%= f.input :quantity %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
