@@ -1,8 +1,10 @@
 class InvoiceItemsController < ApplicationController
-  # GET /invoice_items
-  # GET /invoice_items.json
+  # GET /invoices/:invoice_id/invoice_items
+  # GET /invoices/:invoice_id/invoice_items.json
   def index
-    @invoice_items = InvoiceItem.all
+    @invoice = Invoice.find(params[:invoice_id])
+    @invoice_items = @invoice.invoice_items
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +12,8 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # GET /invoice_items/1
-  # GET /invoice_items/1.json
+  # GET /invoices/:invoice_id/invoice_items/1
+  # GET /invoices/:invoice_id/invoice_items/1.json
   def show
     @invoice_item = InvoiceItem.find(params[:id])
 
@@ -21,8 +23,8 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # GET /invoice_items/new
-  # GET /invoice_items/new.json
+  # GET /invoices/:invoice_id/invoice_items/new
+  # GET /invoices/:invoice_id/invoice_items/new.json
   def new
     @invoice_item = InvoiceItem.new
 
@@ -32,13 +34,13 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # GET /invoice_items/1/edit
+  # GET /invoices/:invoice_id/invoice_items/1/edit
   def edit
     @invoice_item = InvoiceItem.find(params[:id])
   end
 
-  # POST /invoice_items
-  # POST /invoice_items.json
+  # POST /invoices/:invoice_id/invoice_items
+  # POST /invoices/:invoice_id/invoice_items.json
   def create
     @invoice_item = InvoiceItem.new(params[:invoice_item])
 
@@ -53,8 +55,8 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # PUT /invoice_items/1
-  # PUT /invoice_items/1.json
+  # PUT /invoices/:invoice_id/invoice_items/1
+  # PUT /invoices/:invoice_id/invoice_items/1.json
   def update
     @invoice_item = InvoiceItem.find(params[:id])
 
@@ -69,14 +71,15 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # DELETE /invoice_items/1
-  # DELETE /invoice_items/1.json
+  # DELETE /invoices/:invoice_id/invoice_items/1
+  # DELETE /invoices/:invoice_id/invoice_items/1.json
   def destroy
+    @invoice = Invoice.find(params[:invoice_id])
     @invoice_item = InvoiceItem.find(params[:id])
     @invoice_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to invoice_items_url }
+      format.html { redirect_to invoice_invoice_items_url() }
       format.json { head :no_content }
     end
   end

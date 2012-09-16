@@ -9,13 +9,14 @@
 
 <% @invoice_items.each do |invoice_item| %>
   <tr>
-    <td><%= link_to 'Show', invoice_item %></td>
-    <td><%= link_to 'Edit', edit_invoice_item_path(invoice_item) %></td>
-    <td><%= link_to 'Destroy', invoice_item, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', invoice_invoice_item_path(@invoice, invoice_item.id) %></td>
+    <td><%= link_to 'Edit', edit_invoice_invoice_item_path(@invoice, invoice_item.id) %></td>
+    <td><%= link_to 'Destroy', invoice_invoice_item_path(@invoice, invoice_item.id), confirm: 'Are you sure?', method: :delete  %></td>
+
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Invoice item', new_invoice_item_path %>
+

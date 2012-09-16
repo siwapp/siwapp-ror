@@ -1,6 +1,7 @@
 Siwapp::Application.routes.draw do
-  resources :invoices
-  resources :invoice_items
+  resources :invoices do 
+    resources :invoice_items
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
