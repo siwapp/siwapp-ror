@@ -1,4 +1,5 @@
-<%= semantic_form_for @invoice_item do |f| %>
+<%= semantic_form_for [@invoice, @invoice_item] do |f| %>
+
   <%= f.inputs do %>
     <%= f.input :invoice %>
     <%= f.input :description %>

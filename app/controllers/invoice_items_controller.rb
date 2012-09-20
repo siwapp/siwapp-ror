@@ -26,6 +26,7 @@ class InvoiceItemsController < ApplicationController
   # GET /invoices/:invoice_id/invoice_items/new
   # GET /invoices/:invoice_id/invoice_items/new.json
   def new
+    @invoice = Invoice.find(params[:invoice_id])
     @invoice_item = InvoiceItem.new
 
     respond_to do |format|
@@ -36,6 +37,7 @@ class InvoiceItemsController < ApplicationController
 
   # GET /invoices/:invoice_id/invoice_items/1/edit
   def edit
+    @invoice = Invoice.find(params[:invoice_id])
     @invoice_item = InvoiceItem.find(params[:id])
   end
 
@@ -46,7 +48,7 @@ class InvoiceItemsController < ApplicationController
 
     respond_to do |format|
       if @invoice_item.save
-        format.html { redirect_to @invoice_item, notice: 'Invoice item was successfully created.' }
+        format.html { redirect_to invoice_invoice_item_url(@invoice_item), notice: 'Invoice item was successfully created.' }
         format.json { render json: @invoice_item, status: :created, location: @invoice_item }
       else
         format.html { render action: "new" }
@@ -62,7 +64,7 @@ class InvoiceItemsController < ApplicationController
 
     respond_to do |format|
       if @invoice_item.update_attributes(params[:invoice_item])
-        format.html { redirect_to @invoice_item, notice: 'Invoice item was successfully updated.' }
+        format.html { redirect_to invoice_invoice_item_url(@invoice_item), notice: 'Invoice item was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
