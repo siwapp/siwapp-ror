@@ -112,7 +112,7 @@ DEPENDENCIES
   jquery-rails
   mysql2
   rails (= 3.2.3)
-  rb-readline
+  rb-readline (~> 0.4.2)
   sass-rails (~> 3.2.3)
   sqlite3
   uglifier (>= 1.0.3)

@@ -5,7 +5,7 @@ development:
   pool: 5
   username: siwapp
   password: wappis
-  socket: /tmp/mysql.sock
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -17,7 +17,7 @@ test:
   pool: 5
   username: siwapp
   password: wappis
-  socket: /tmp/mysql.sock
+  host: localhost
 
 production:
   adapter: mysql2
@@ -26,4 +26,4 @@ production:
   pool: 5
   username: siwapp
   password: wappis
-  socket: /tmp/mysql.sock
+  host: localhost
