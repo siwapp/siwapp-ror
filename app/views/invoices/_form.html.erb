@@ -12,9 +12,12 @@
     <%= f.input :issue_date %>
     <%= f.input :due_date %>
   <% end %>
-
+<br/>
+Items
+<hr/>
+<br/>
   <%= f.semantic_fields_for :invoice_items do |item| %>
-    <%= item.inputs :description, :quantity ,:taxes, :name => "Items" %>
+    <%= item.inputs :description, :quantity ,:taxes, :name => "Item" %>
   <% end %>
 
   <%= f.actions do %>
