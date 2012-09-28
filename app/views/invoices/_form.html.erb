@@ -14,7 +14,7 @@
   <% end %>
 
   <%= f.semantic_fields_for :invoice_items do |item| %>
-    <%= item.inputs :description, :quantity, :name => "Items" %>
+    <%= item.inputs :description, :quantity ,:taxes, :name => "Items" %>
   <% end %>
 
   <%= f.actions do %>

@@ -62,10 +62,11 @@ class InvoiceItemsController < ApplicationController
   # PUT /invoices/:invoice_id/invoice_items/1.json
   def update
     @invoice_item = InvoiceItem.find(params[:id])
+    @invoice = Invoice.find(params[:invoice_id])
 
     respond_to do |format|
       if @invoice_item.update_attributes(params[:invoice_item])
-        format.html { redirect_to invoice_invoice_item_url(@invoice_item), notice: 'Invoice item was successfully updated.' }
+        format.html { redirect_to invoice_invoice_item_url(@invoice, @invoice_item), notice: 'Invoice item was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
