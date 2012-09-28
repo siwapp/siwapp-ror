@@ -1,0 +1,12 @@
+<%= semantic_form_for @tax do |f| %>
+  <%= f.inputs do %>
+    <%= f.input :name %>
+    <%= f.input :value %>
+    <%= f.input :is_default %>
+    <%= f.input :active %>
+  <% end %>
+
+  <%= f.actions do %>
+    <%= f.action :submit, :as => :input %>
+  <% end %>
+<% end %>
