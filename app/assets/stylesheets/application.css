@@ -9,8 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree .
+ *= require_tree 
+ 
+ *= require formtastic
+ *= require twitter/bootstrap
+ 
 */
 
-*= require formtastic
-*= require my_formtastic_changes
