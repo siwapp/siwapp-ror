@@ -6,4 +6,10 @@ class Invoice < ActiveRecord::Base
     :due_date, :invoice_items_attributes
     
   accepts_nested_attributes_for :invoice_items
+  
+  validates_associated :invoice_items
+  validates :base_amount, :discount_amount, :net_amount, \
+  :gross_amount, :paid_amount, :tax_amount, :number, \
+    :numericality => true
+  validates :closed, :sent_by_email, :inclusion => { :in => [true, false] }
 end
