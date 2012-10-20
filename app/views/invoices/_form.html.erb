@@ -20,6 +20,8 @@ Items
   <%= item.inputs do %>
     <%= item.input :quantity %>
     <%= item.input :description %>
+    <%= item.input :discount %>
+    <%= item.input :unitary_cost %>
     <%= item.input :taxes  %>
     <%= item.check_box :_destroy %>
     <%= item.label :_destroy, "Remove Item" %>

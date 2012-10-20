@@ -7,9 +7,12 @@ class Invoice < ActiveRecord::Base
 
   accepts_nested_attributes_for :invoice_items, :allow_destroy => true
 
-  validates_associated :invoice_items
-  validates :base_amount, :discount_amount, :net_amount, \
-    :gross_amount, :paid_amount, :tax_amount, :number, \
-    :numericality => true
-  validates :closed, :sent_by_email, :inclusion => { :in => [true, false] }
+  #validates_associated :invoice_items
+  # these fields should be calculated, not validated
+  #validates :base_amount, :discount_amount, :net_amount, \
+  #  :gross_amount, :paid_amount, :tax_amount, \
+  #  :numericality => true
+  validates :number, :numericality => true
+  #validates :closed, :sent_by_email, :inclusion => { :in => [true, false] }
+
 end
