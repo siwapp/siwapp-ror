@@ -6,6 +6,7 @@ one:
   description: item 1
   unitary_cost: 29.79
   invoice: one
+  taxes: one, two
 
 two:
   quantity: 1
@@ -13,3 +14,4 @@ two:
   description: item 2
   unitary_cost: 9.99
   invoice: one
+  taxes: one
