@@ -16,10 +16,15 @@
 Items
 <hr/>
 <br/>
-  <%= f.semantic_fields_for :invoice_items do |item| %>
-    <%= item.inputs :description, :quantity ,:taxes, :name => "Item" %>
+<%= f.semantic_fields_for :invoice_items do |item| %>
+  <%= item.inputs do %>
+    <%= item.input :quantity %>
+    <%= item.input :description %>
+    <%= item.input :taxes  %>
+    <%= item.check_box :_destroy %>
+    <%= item.label :_destroy, "Remove Item" %>
   <% end %>
-
+<% end %>
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
   <% end %>
