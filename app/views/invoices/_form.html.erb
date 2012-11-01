@@ -2,11 +2,11 @@
   <%= f.input :customer_name %>
   <%= f.input :customer_identification %>
   <%= f.input :customer_email %>
-  <%= f.input :invoicing_address %>
-  <%= f.input :shipping_address %>
+  <%= f.input :invoicing_address, :input_html => { :class => 'autogrow', :rows => 2, :cols => 40 }%>
+  <%= f.input :shipping_address, :input_html => { :class => 'autogrow', :rows => 2, :cols => 40 } %>
   <%= f.input :contact_person %>
-  <%= f.input :terms %>
-  <%= f.input :notes %>
+  <%= f.input :terms, :input_html => { :class => 'autogrow', :rows => 2, :cols => 40 } %>
+  <%= f.input :notes, :input_html => { :class => 'autogrow', :rows => 2, :cols => 40 } %>
   <%= f.input :number %>
   <%= f.input :issue_date %>
   <%= f.input :due_date %>
