@@ -1,32 +1,23 @@
 <%= semantic_form_for @invoice do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :customer_name %>
-    <%= f.input :customer_identification %>
-    <%= f.input :customer_email %>
-    <%= f.input :invoicing_address %>
-    <%= f.input :shipping_address %>
-    <%= f.input :contact_person %>
-    <%= f.input :terms %>
-    <%= f.input :notes %>
-    <%= f.input :number %>
-    <%= f.input :issue_date %>
-    <%= f.input :due_date %>
+  <%= f.input :customer_name %>
+  <%= f.input :customer_identification %>
+  <%= f.input :customer_email %>
+  <%= f.input :invoicing_address %>
+  <%= f.input :shipping_address %>
+  <%= f.input :contact_person %>
+  <%= f.input :terms %>
+  <%= f.input :notes %>
+  <%= f.input :number %>
+  <%= f.input :issue_date %>
+  <%= f.input :due_date %>
+
+  <br/>
+  Items
+  <hr/>
+  <%= f.semantic_fields_for :invoice_items do |item| %>
+    <%= render "invoice_item_fields", :f => item %>
   <% end %>
-<br/>
-Items
-<hr/>
-<br/>
-<%= f.semantic_fields_for :invoice_items do |item| %>
-  <%= item.inputs do %>
-    <%= item.input :quantity %>
-    <%= item.input :description %>
-    <%= item.input :discount %>
-    <%= item.input :unitary_cost %>
-    <%= item.input :taxes  %>
-    <%= item.check_box :_destroy %>
-    <%= item.label :_destroy, "Remove Item" %>
-  <% end %>
-<% end %>
+  <br/>
   <%= f.actions do %>
     <%= f.action :submit, :as => :input %>
   <% end %>
