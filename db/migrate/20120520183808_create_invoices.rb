@@ -9,12 +9,6 @@ class CreateInvoices < ActiveRecord::Migration
       t.string :contact_person
       t.text :terms
       t.text :notes
-      t.decimal :base_amount, :precision => 15, :scale => 3
-      t.decimal :discount_amount, :precision => 15, :scale => 3
-      t.decimal :net_amount, :precision => 15, :scale => 3
-      t.decimal :gross_amount, :precision => 15, :scale => 3
-      t.decimal :paid_amount, :precision => 15, :scale => 3
-      t.decimal :tax_amount, :precision => 15, :scale => 3
       t.integer :status
       t.boolean :closed
       t.boolean :sent_by_email

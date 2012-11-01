@@ -1,4 +1,6 @@
 class Invoice < ActiveRecord::Base
+  extend ActiveSupport::Memoizable
+
   has_many :invoice_items, :dependent => :destroy
   attr_accessible :customer_name, :customer_identification, \
     :customer_email, :invoicing_address, :shipping_address, \
@@ -15,4 +17,9 @@ class Invoice < ActiveRecord::Base
   validates :number, :numericality => true
   #validates :closed, :sent_by_email, :inclusion => { :in => [true, false] }
 
+  def base_amount
+    self.invoice_items.each.inject(0) { |sum, i| sum += i.base_amount }
+  end
+
+  memoize :base_amount
 end
