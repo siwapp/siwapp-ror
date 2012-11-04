@@ -20,4 +20,11 @@ class Invoice < ActiveRecord::Base
     @base_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.base_amount }
   end
 
+  def discount_amount
+    @discount_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.discount_amount }
+  end
+
+  def net_amount
+    @net_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.net_amount }
+  end
 end
