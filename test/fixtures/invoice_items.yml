@@ -15,3 +15,11 @@ two:
   unitary_cost: 9.99
   invoice: one
   taxes: one
+
+three:
+  quantity: 2
+  discount: 4
+  description: item 3
+  unitary_cost: 5
+  invoice: two
+  taxes: one
