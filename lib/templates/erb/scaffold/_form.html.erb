@@ -1,11 +1,13 @@
-<%%= semantic_form_for @<%= singular_name %> do |f| %>
-  <%%= f.inputs do %>
-  <%- attributes.each do |attribute| -%>
-    <%%= f.input :<%= attribute.name %> %>
-  <%- end -%>
-  <%% end %>
+<%%= simple_form_for(@<%= singular_table_name %>) do |f| %>
+  <%%= f.error_notification %>
 
-  <%%= f.actions do %>
-    <%%= f.action :submit, :as => :input %>
-  <%% end %>
+  <div class="form-inputs">
+  <%- attributes.each do |attribute| -%>
+    <%%= f.<%= attribute.reference? ? :association : :input %> :<%= attribute.name %> %>
+  <%- end -%>
+  </div>
+
+  <div class="form-actions">
+    <%%= f.button :submit %>
+  </div>
 <%% end %>

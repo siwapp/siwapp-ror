@@ -7,7 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 gem 'mysql2'
-gem 'formtastic'
+gem 'simple_form'
 gem 'therubyracer'
 gem 'less-rails'
 gem 'less-rails-bootstrap'

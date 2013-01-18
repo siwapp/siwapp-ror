@@ -1,4 +1,4 @@
-<%= semantic_form_for @invoice do |f| %>
+<%= simple_form_for(@invoice, :html => {:class => 'form-horizontal' }) do |f| %>
   <%= f.input :customer_name %>
   <%= f.input :customer_identification %>
   <%= f.input :customer_email %>
@@ -14,11 +14,9 @@
   <br/>
   Items
   <hr/>
-  <%= f.semantic_fields_for :invoice_items do |item| %>
+  <%= f.simple_fields_for :invoice_items do |item| %>
     <%= render "invoice_item_fields", :f => item %>
   <% end %>
   <br/>
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+  <%= f.button :submit %>
 <% end %>
