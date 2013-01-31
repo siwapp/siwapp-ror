@@ -4,6 +4,6 @@
   <%= f.input :quantity %>
   <%= f.input :discount %>
   <%= f.input :unitary_cost %>
-  <%= f.input :taxes %>
+  <%= f.select :tax_ids, Tax.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
   <%= f.button :submit %>
 <% end %>
