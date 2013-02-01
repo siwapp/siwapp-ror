@@ -18,7 +18,7 @@ class TaxesControllerTest < ActionController::TestCase
 
   test "should create tax" do
     assert_difference('Tax.count') do
-      post :create, tax: {  }
+      post :create, tax: { name: 'test tax', value: 33.2 , active: false, is_default: true}
     end
 
     assert_redirected_to tax_path(assigns(:tax))
