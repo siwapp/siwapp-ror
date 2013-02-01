@@ -10,5 +10,5 @@ Taxes:<br/>
 <% end %>
 </ul>
 
-<%= link_to 'Edit', edit_invoice_invoice_item_path(@invoice) %> |
+<%= link_to 'Edit', edit_invoice_invoice_item_path(@invoice, @invoice_item.id) %> |
 <%= link_to 'Back', invoice_invoice_items_path(@invoice) %>

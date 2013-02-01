@@ -16,6 +16,7 @@ class InvoiceItemsController < ApplicationController
   # GET /invoices/:invoice_id/invoice_items/1.json
   def show
     @invoice_item = InvoiceItem.find(params[:id])
+    @invoice = Invoice.find(params[:invoice_id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -46,7 +47,6 @@ class InvoiceItemsController < ApplicationController
   def create
     @invoice = Invoice.find(params[:invoice_id])
     @invoice_item = InvoiceItem.new(params[:invoice_item])
-
     respond_to do |format|
       if @invoice_item.save
         format.html { redirect_to invoice_invoice_item_url(@invoice, @invoice_item), notice: 'Invoice item was successfully created.' }

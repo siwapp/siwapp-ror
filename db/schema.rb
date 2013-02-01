@@ -37,14 +37,20 @@ ActiveRecord::Schema.define(:version => 20120603144059) do
     t.string   "contact_person"
     t.text     "terms"
     t.text     "notes"
+    t.decimal  "base_amount",             :precision => 15, :scale => 3
+    t.decimal  "discount_amount",         :precision => 15, :scale => 3
+    t.decimal  "net_amount",              :precision => 15, :scale => 3
+    t.decimal  "gross_amount",            :precision => 15, :scale => 3
+    t.decimal  "paid_amount",             :precision => 15, :scale => 3
+    t.decimal  "tax_amount",              :precision => 15, :scale => 3
     t.integer  "status"
     t.boolean  "closed"
     t.boolean  "sent_by_email"
     t.integer  "number"
     t.date     "issue_date"
     t.date     "due_date"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
   end
 
   create_table "taxes", :force => true do |t|
