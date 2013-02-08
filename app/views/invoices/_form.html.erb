@@ -18,5 +18,6 @@
     <%= render "invoice_item_fields", :f => item %>
   <% end %>
   <br/>
+  <p><%= link_to_add_fields "Add Item", f, :invoice_items %></p>
   <%= f.button :submit %>
 <% end %>
