@@ -21,7 +21,4 @@ class TaxTest < ActiveSupport::TestCase
     assert !tax.save
   end
 
-  # test "the truth" do
-  #   assert true
-  # end
 end
