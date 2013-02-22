@@ -32,5 +32,6 @@ class InvoiceItemTest < ActiveSupport::TestCase
     assert_equal item.base_amount, 10
     assert_equal item.discount_amount, 0.4
     assert_equal item.net_amount, 9.6
+    assert_equal item.taxes_percent, 2
   end
 end
