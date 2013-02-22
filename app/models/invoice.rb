@@ -27,4 +27,5 @@ class Invoice < ActiveRecord::Base
   def net_amount
     @net_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.net_amount }
   end
+
 end

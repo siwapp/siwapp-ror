@@ -6,28 +6,20 @@ class InvoiceItem < ActiveRecord::Base
   validates :discount, :quantity, :unitary_cost, :numericality => true
   validates :description, :presence => true
 
+
   def base_amount
-    if self.unitary_cost and self.quantity
-      self.unitary_cost * self.quantity
-    else
-      0
-    end
+    self.unitary_cost * self.quantity
   end
 
   def net_amount
-    if self.base_amount and self.discount_amount
-      self.base_amount - self.discount_amount
-    else
-      0
-    end
+    self.base_amount - self.discount_amount
   end
 
   def discount_amount
-    if self.base_amount and self.discount
-      self.base_amount * self.discount / 100
-    else
-      0
-    end
+    self.base_amount * self.discount / 100
   end
 
+  def taxes_percent
+    taxes.select {|t| t.active}.each.inject(0) {|sum, t| sum += t.value}
+  end
 end
