@@ -2,12 +2,20 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.all
+    @invoices = Invoice.paginate(:page => params[:page], :per_page => 50)
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @invoices }
     end
+  end
+
+  # GET /invoices_ajax/:page
+  #
+  # Ajax call to implement the endless scroll
+  def invoices_ajax
+    @invoices = Invoice.paginate(:page => params[:page], :per_page => 10)
+    render :partial => 'invoices'
   end
 
   # GET /invoices/1
