@@ -22,4 +22,4 @@ three:
   description: item 3
   unitary_cost: 5
   invoice: two
-  taxes: one
+  taxes: one, two, three

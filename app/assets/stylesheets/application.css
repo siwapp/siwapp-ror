@@ -9,10 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require_tree 
+ *= require layout
+ *= require invoices
  
  *= require twitter/bootstrap
  
 */
 
-ol li textarea { height: 5em;}
