@@ -11,19 +11,7 @@
     <th></th>
     <th></th>
   </tr>
-
-<% @invoices.each do |invoice| %>
-  <tr>
-    <td><%= invoice.customer_name %></td>
-    <td><%= invoice.customer_identification %></td>
-    <td><%= invoice.customer_email %></td>
-    <td><%= invoice.base_amount %></td>
-    <td><%= link_to 'Show', invoice %></td>
-    <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
-    <td><%= link_to 'Items', invoice_invoice_items_path(invoice) %></td>
-    <td><%= link_to 'Destroy', invoice, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <%= render 'invoices' %>
 </table>
 
 <br />

@@ -4,6 +4,8 @@ Siwapp::Application.routes.draw do
   end
   resources :taxes
 
+  match 'invoices_ajax/:page' => 'invoices#invoices_ajax'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
