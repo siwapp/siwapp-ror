@@ -18,8 +18,8 @@ two:
 
 three:
   quantity: 2
-  discount: 4
+  discount: 4.5
   description: item 3
-  unitary_cost: 5
+  unitary_cost: 5.7
   invoice: two
   taxes: one, two, three

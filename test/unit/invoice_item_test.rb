@@ -29,9 +29,12 @@ class InvoiceItemTest < ActiveSupport::TestCase
    end
   test "basic calculations" do
     item = invoice_items(:three)
-    assert_equal item.base_amount, 10
-    assert_equal item.discount_amount, 0.4
-    assert_equal item.net_amount, 9.6
+    assert_equal item.base_amount, 11.4
+    assert_equal item.discount_amount, 0.513
+    assert_equal item.net_amount, 10.887
     assert_equal item.taxes_percent, 2
+    assert_equal item.taxes_percent('IRPF'), -18
+    assert_equal item.tax_amount, 0.21774
+    assert_equal item.gross_amount, 11.10474
   end
 end

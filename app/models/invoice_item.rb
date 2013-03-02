@@ -19,7 +19,19 @@ class InvoiceItem < ActiveRecord::Base
     self.base_amount * self.discount / 100
   end
 
-  def taxes_percent
-    taxes.select {|t| t.active}.each.inject(0) {|sum, t| sum += t.value}
+  def tax_amount tax_name=nil
+    self.net_amount * taxes_percent(tax_name)/100
   end
+
+  def gross_amount
+    self.net_amount + self.tax_amount
+  end
+
+  def taxes_percent tax_name=nil
+    taxes.select do |t| 
+      t.active && 
+        (tax_name ? tax_name.parameterize == t.name.parameterize: true )
+    end.each.inject(0) {|sum, t| sum += t.value}
+  end
+
 end
