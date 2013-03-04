@@ -16,6 +16,15 @@ class Invoice < ActiveRecord::Base
   validates :number, :numericality => true
   #validates :closed, :sent_by_email, :inclusion => { :in => [true, false] }
 
+  # attention. class method
+  def self.search(search_term)
+    where("customer_identification like :search_term or "+
+          "customer_name like :search_term or "+
+          "customer_email like :search_term or "+
+          "contact_person like :search_term or number like :search_term", 
+          {search_term: "%#{search_term}%"} )
+  end
+
   def base_amount
     @base_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.base_amount }
   end

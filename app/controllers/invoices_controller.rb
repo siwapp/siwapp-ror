@@ -2,7 +2,12 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.paginate(:page => params[:page], :per_page => 50)
+    if params[:search_term] and !params[:search_term].strip.empty?
+      @invoices = Invoice.search(search_term).paginate(page: params[:page], 
+                                                       per_page: 50)
+    else
+      @invoices = Invoice.paginate(:page => params[:page], :per_page => 50)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
