@@ -11,6 +11,14 @@ class InvoicesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:invoices)
   end
 
+  test "should search" do
+    get :index, search_term: 'X-1234-C2'
+    assert_response :success
+    assert_not_nil assigns(:invoices)
+    assert_equal assigns(:invoices).count, 1
+    assert_equal assigns(:invoices)[0].customer_name, 'Customer two'
+  end
+
   test "should get new" do
     get :new
     assert_response :success

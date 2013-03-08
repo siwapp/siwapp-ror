@@ -3,8 +3,8 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     if params[:search_term] and !params[:search_term].strip.empty?
-      @invoices = Invoice.search(search_term).paginate(page: params[:page], 
-                                                       per_page: 50)
+      @invoices = Invoice.search(params[:search_term]).
+        paginate(:page=>params[:page], :per_page=>50)
     else
       @invoices = Invoice.paginate(:page => params[:page], :per_page => 50)
     end
