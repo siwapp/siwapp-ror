@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222175853) do
+ActiveRecord::Schema.define(:version => 20130308222041) do
 
   create_table "invoice_items", :force => true do |t|
     t.integer  "invoice_id"
@@ -37,14 +37,29 @@ ActiveRecord::Schema.define(:version => 20130222175853) do
     t.string   "contact_person"
     t.text     "terms"
     t.text     "notes"
+    t.decimal  "base_amount",             :precision => 15, :scale => 3
+    t.decimal  "discount_amount",         :precision => 15, :scale => 3
+    t.decimal  "net_amount",              :precision => 15, :scale => 3
+    t.decimal  "gross_amount",            :precision => 15, :scale => 3
+    t.decimal  "paid_amount",             :precision => 15, :scale => 3
+    t.decimal  "tax_amount",              :precision => 15, :scale => 3
     t.integer  "status"
     t.boolean  "closed"
     t.boolean  "sent_by_email"
     t.integer  "number"
     t.date     "issue_date"
     t.date     "due_date"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+  end
+
+  create_table "payments", :force => true do |t|
+    t.date     "date"
+    t.decimal  "amount",     :precision => 5, :scale => 2
+    t.text     "notes"
+    t.integer  "invoice_id"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
   end
 
   create_table "taxes", :force => true do |t|

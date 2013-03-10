@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2013-03-08
+  amount: 15.01
+  notes: test payment for invoice one
+  invoice: one
+
+two:
+  date: 2013-03-08
+  amount: 3.33
+  notes: test payment 2 for invoice one
+  invoice: one
+
+three:
+  date: 2013-03-08
+  amount: 2
+  notes: test payment for invoice two
+  invoice: one

@@ -1,6 +1,7 @@
 class Invoice < ActiveRecord::Base
 
   has_many :invoice_items, :dependent => :destroy
+  has_many :payments, :dependent => :destroy
   attr_accessible :customer_name, :customer_identification, \
     :customer_email, :invoicing_address, :shipping_address, \
     :contact_person, :terms, :notes, :number, :issue_date, \
