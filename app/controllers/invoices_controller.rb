@@ -4,9 +4,9 @@ class InvoicesController < ApplicationController
   def index
     if params[:search_term] and !params[:search_term].strip.empty?
       @invoices = Invoice.search(params[:search_term]).
-        paginate(:page=>params[:page], :per_page=>50)
+        paginate(:page=>params[:page], :per_page=>20)
     else
-      @invoices = Invoice.paginate(:page => params[:page], :per_page => 50)
+      @invoices = Invoice.paginate(:page => params[:page], :per_page => 20)
     end
 
     respond_to do |format|
@@ -19,7 +19,7 @@ class InvoicesController < ApplicationController
   #
   # Ajax call to implement the endless scroll
   def invoices_ajax
-    @invoices = Invoice.paginate(:page => params[:page], :per_page => 10)
+    @invoices = Invoice.paginate(:page => params[:page], :per_page => 20)
     render :partial => 'invoices'
   end
 
