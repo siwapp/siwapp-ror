@@ -1,6 +1,7 @@
 Siwapp::Application.routes.draw do
   resources :invoices do 
     resources :invoice_items
+    resources :payments
   end
   resources :taxes
 

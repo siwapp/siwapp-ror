@@ -8,6 +8,7 @@ class Invoice < ActiveRecord::Base
     :due_date, :invoice_items_attributes
 
   accepts_nested_attributes_for :invoice_items, :allow_destroy => true
+  accepts_nested_attributes_for :payments, :allow_destroy => true
 
   #validates_associated :invoice_items
   # these fields should be calculated, not validated

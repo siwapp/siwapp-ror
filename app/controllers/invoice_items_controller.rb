@@ -29,6 +29,7 @@ class InvoiceItemsController < ApplicationController
   def new
     @invoice = Invoice.find(params[:invoice_id])
     @invoice_item = InvoiceItem.new
+    @invoice_item = @invoice.invoice_items.new
 
     respond_to do |format|
       format.html # new.html.erb

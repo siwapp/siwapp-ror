@@ -1,0 +1,23 @@
+<h1>Payments#index</h1>
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>Notes</th>
+    <th></th>
+  </tr>
+  <% @payments.each do |payment| %>
+  <tr>
+    <td><%= payment.date %></td>
+    <td><%= payment.amount %></td>
+    <td><%= payment.notes %></td>
+    <td><%= link_to 'Edit', edit_invoice_payment_path(@invoice, payment.id) %></td>
+    <td><%= link_to 'Destroy', invoice_payment_path(@invoice, payment.id), confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+  <% end %>
+</table>
+<br/>
+<%= link_to 'New Payment', new_invoice_payment_path(@invoice) %>
+<%= link_to 'Back to Invoice', invoice_path(@invoice) %>
+<%= link_to 'Back to Invoices', invoices_path %>
+

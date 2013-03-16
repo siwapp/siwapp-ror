@@ -7,6 +7,7 @@
     <td><%= link_to 'Show', invoice %></td>
     <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
     <td><%= link_to 'Items', invoice_invoice_items_path(invoice) %></td>
+    <td><%= link_to 'Payments', invoice_payments_path(invoice) %></td>
     <td><%= link_to 'Destroy', invoice, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
