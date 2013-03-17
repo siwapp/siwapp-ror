@@ -39,4 +39,20 @@ class Invoice < ActiveRecord::Base
     @net_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.net_amount }
   end
 
+  def tax_amount tax_name=nil
+    @tax_amount ||= self.invoice_items.each.inject(0) {|sum, i| sum += i.tax_amount tax_name}
+  end
+
+  def gross_amount
+    @gross_amount ||= self.invoice_items.inject(0) {|sum, i| sum += i.gross_amount}
+  end
+
+  def paid_amount
+    @paid_amount ||= self.payments.inject(0) {|sum, p| sum += p.amount}
+  end
+
+  def due_amount
+    @due_amount ||= self.gross_amount - self.paid_amount
+  end
+
 end
