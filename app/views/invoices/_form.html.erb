@@ -17,7 +17,15 @@
   <%= f.simple_fields_for :invoice_items do |item| %>
     <%= render "invoice_item_fields", :f => item %>
   <% end %>
-  <br/>
   <p><%= link_to_add_fields "Add Item", f, :invoice_items %></p>
+  <br/>
+  Payments
+  <hr/>
+  <%= f.simple_fields_for :payments do |payment| %>
+    <%= render 'payment_fields', :f => payment %>
+  <% end %>
+  <p><%= link_to_add_fields "Add Payment", f, :payments %></p>
+  <br/>
+
   <%= f.button :submit %>
 <% end %>

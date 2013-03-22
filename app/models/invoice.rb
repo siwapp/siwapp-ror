@@ -5,7 +5,7 @@ class Invoice < ActiveRecord::Base
   attr_accessible :customer_name, :customer_identification, \
     :customer_email, :invoicing_address, :shipping_address, \
     :contact_person, :terms, :notes, :number, :issue_date, \
-    :due_date, :invoice_items_attributes
+    :due_date, :invoice_items_attributes, :payments_attributes
 
   accepts_nested_attributes_for :invoice_items, :allow_destroy => true
   accepts_nested_attributes_for :payments, :allow_destroy => true

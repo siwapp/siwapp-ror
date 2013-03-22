@@ -1,0 +1,5 @@
+<%= f.input :date %>
+<%= f.input :notes, :input_html => {:class => 'autogrow', :rows=>1, :cols => 40}%>
+<%= f.input :amount %>
+<%= f.check_box :_destroy %>
+<%= f.label :_destroy, "Remove Payment" %>
