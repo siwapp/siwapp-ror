@@ -24,10 +24,23 @@ names = ["Allen", "Bob", "Carlton", "David", "Ernie", "Foster", "George", "Howar
 
 lastnames = ["Adams", "Bowden", "Conway", "Darden", "Edwards", "Flynn", "Gilliam", "Holiday", "Ingram", "Johnson", "Kraemer", "Hunter", "McDonald", "Nichols", "Pierce", "Sawyer", "Saunders", "Schmidt", "Schroeder", "Smith", "Douglas", "Ward", "Watson", "Williams", "Winters", "Yeager", "Ford", "Forman", "Dixon", "Clark", "Churchill", "Brown", "Blum", "Anderson", "Black", "Cavenaugh", "Hampton", "Jenkins", "Prichard", "Albert", "Aster", "Aylebourne", "Bailey", "Barclay", "Barrows", "Bates", "Benbeck", "Bennett", "Bell", "Benteen", "Bokai", "Boone", "Boyce", "Brack", "Brahms", "Brand", "Brianon", "Burleigh", "Bristow", "Burke", "Calloway", "Campio", "Castillo", "Cartwright", "Levia", "Samsonov", "Cheskis", "Chilton", "Clemons", "Coleman", "Crater", "deWitt", "deJan", "Danar", "Day", "Denning", "deSoto", "Evans", "Chancellor", "Farralon", "Yamamoto", "Finney", "Flint", "Frazier", "Fullerton", "Garcia", "Garrett", "Garth", "Green", "Harriman", "Hawk", "Haskins", "Hedford", "Henley", "Hill", "Howard", "Hudson", "Jakara", "Jared", "Jameson", "Jellico", "Jones", "Kalomi", "Kargan", "Karnas", "Karidian", "Keel", "Kelso", "Kennely", "Kim", "Singh", "Kolrami", "Komananov", "Kyle", "Landon", "Donovan", "Lavelle", "Lafite", "Leijten", "Lense", "Leyton", "Loran", "Louvois", "Maddox", "MacDuff", "MacDonald", "Maxwell", "Masters", "Merrick", "Mendez", "Miller", "Mirren", "Moriarty", "Mordock", "Mendon", "Muniz", "Rodriguez", "Martinez", "Nakamura", "Nechayev", "Abramowitz", "Neria", "Neyla", "Newton", "Nilrem", "Noah", "Nogami", "Terla", "O'Connel", "O'Malley", "Odan", "Ogawa", "Okala", "Onara", "Otner", "Palmer", "Pazlar", "Peers", "Perrin", "Piper", "Plasus", "Porter", "Potemkin", "Preston", "Quaice", "Quinn", "Ramart", "Radue", "Rasmussen", "Ramsey", "Palomar", "Remmick", "Tolen", "Ressik", "Rice", "Riley", "Robinson", "Rogers", "Ronin", "Sandoval", "Sargon", "Seyetik", "Shelby", "Shaw", "Sloane", "Sito", "Sobi", "Stadi", "Starling", "Decker", "Stone", "Styles", "Tagana", "T'su", "Tainer", "Talar", "Tarses", "Tayman", "Tiron", "Tracey", "Torres", "Tralesta", "Varani", "Valtane", "Vigo", "Wallace", "Wesley", "Yates", "Zweller", "Zimmerman", "Brickhouse", "Coxum", "Esquivias", "Aguilar", "Lockamy", "Ocampo", "Ballentine", "Cabrera", "Gautier", "Hoffman", "Ingram", "Soriano", "Farias", "Geddie", "Laraway", "Ponce", "Espino", "Cerda", "Barksdale", "Burnette", "Wetherington", "Cardone", "McCullen"]
 
+taxes = [['VAT', 8], ['IVA', 20], ['IRPF', -18], ['TVA', 21], ['IPI', 12], ['PPN', 10], ['GST', 20], ['PDV', 17], ['MVA', 15], ['ITBMS', 7]]
+
+
 
 desc "Creates invoices for testing purposes"
 task :generate_invoices, [:arg1] => :environment do |t, args|
   args.with_defaults(:arg1 => 10)
+
+  taxes.each do |t| 
+    if !Tax.find_by_name(t[0]) 
+      Tax.create(name: t[0], value: t[1], is_default: rand(1..3)>1, 
+                 active: rand(1..5)>1)
+    end
+  end
+
+  taxes = Tax.all
+
   1.upto(Integer(args[:arg1])) do |i|
     invoice = Invoice.create(
       :number => i,
@@ -43,6 +56,10 @@ task :generate_invoices, [:arg1] => :environment do |t, args|
         :quantity => 1 + Integer(rand * 10),
         :discount => 0,
         :unitary_cost => (rand * 10).round(2))
+      taxes.shuffle!
+      1.upto(rand(1..taxes.count - 1)) do |k|
+        item.taxes.push(taxes[k])
+      end
       invoice.invoice_items.push(item)
     end
     invoice.save!

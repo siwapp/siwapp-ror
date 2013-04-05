@@ -4,5 +4,5 @@ class Tax < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :value, :numericality => true
-  validates :active, :is_default, :inclusion => { :in => [true, false] }
+  validates :active, :is_default, inclusion: { in: [true, false] }
 end
