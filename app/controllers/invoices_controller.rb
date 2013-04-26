@@ -3,11 +3,16 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   def index
     if params[:search_term] and !params[:search_term].strip.empty?
-      @invoices = Invoice.search(params[:search_term]).
-        paginate(:page=>params[:page], :per_page=>20)
+      invoice_selection = Invoice.search(params[:search_term])
     else
-      @invoices = Invoice.paginate(:page => params[:page], :per_page => 20)
+      invoice_selection = Invoice.all
     end
+
+    @gross_total ||= invoice_selection.each.inject(0) { |sum, i| sum += i.gross_amount }
+    @net_total   ||= invoice_selection.each.inject(0) { |sum, i| sum += i.net_amount }
+    @tax_total   ||= invoice_selection.each.inject(0) { |sum, i| sum += i.tax_amount }
+
+    @invoices = invoice_selection[0...20]
 
     respond_to do |format|
       format.html # index.html.erb

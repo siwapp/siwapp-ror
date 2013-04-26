@@ -5,6 +5,9 @@
     <%= submit_tag("Search") %>
   <% end %>
 <% end %>
+<p>Gross Total: <%= @gross_total %></p>
+<p>Net Total: <%= @net_total %></p>
+<p>Tax Total: <%= @tax_total %></p>
 <h1>Listing invoices</h1>
 
 <%= link_to 'New Invoice', new_invoice_path %>
