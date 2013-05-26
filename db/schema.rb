@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308222041) do
+ActiveRecord::Schema.define(:version => 20130526102025) do
 
   create_table "invoice_items", :force => true do |t|
     t.integer  "invoice_id"
@@ -43,8 +43,14 @@ ActiveRecord::Schema.define(:version => 20130308222041) do
     t.integer  "number"
     t.date     "issue_date"
     t.date     "due_date"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
+    t.decimal  "base_amount",             :precision => 15, :scale => 3, :default => 0.0
+    t.decimal  "discount_amount",         :precision => 15, :scale => 3, :default => 0.0
+    t.decimal  "net_amount",              :precision => 15, :scale => 3, :default => 0.0
+    t.decimal  "tax_amount",              :precision => 15, :scale => 3, :default => 0.0
+    t.decimal  "gross_amount",            :precision => 15, :scale => 3, :default => 0.0
+    t.decimal  "paid_amount",             :precision => 15, :scale => 3, :default => 0.0
   end
 
   create_table "payments", :force => true do |t|

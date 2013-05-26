@@ -10,6 +10,8 @@ class Invoice < ActiveRecord::Base
   accepts_nested_attributes_for :invoice_items, :allow_destroy => true
   accepts_nested_attributes_for :payments, :allow_destroy => true
 
+  before_save :set_totals
+
   #validates_associated :invoice_items
   # these fields should be calculated, not validated
   #validates :base_amount, :discount_amount, :net_amount, \
@@ -27,32 +29,40 @@ class Invoice < ActiveRecord::Base
           {search_term: "%#{search_term}%"} )
   end
 
-  def base_amount
-    @base_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.base_amount }
+  def get_base_amount
+    self.invoice_items.each.inject(0) { |sum, i| sum += i.base_amount }
   end
 
-  def discount_amount
-    @discount_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.discount_amount }
+  def get_discount_amount
+    self.invoice_items.each.inject(0) { |sum, i| sum += i.discount_amount }
   end
 
-  def net_amount
-    @net_amount ||= self.invoice_items.each.inject(0) { |sum, i| sum += i.net_amount }
+  def get_net_amount
+    self.invoice_items.each.inject(0) { |sum, i| sum += i.net_amount }
   end
 
-  def tax_amount tax_name=nil
-    @tax_amount ||= self.invoice_items.each.inject(0) {|sum, i| sum += i.tax_amount tax_name}
+  def get_tax_amount tax_name=nil
+    self.invoice_items.each.inject(0) {|sum, i| sum += i.tax_amount tax_name}
   end
 
-  def gross_amount
-    @gross_amount ||= self.invoice_items.inject(0) {|sum, i| sum += i.gross_amount}
+  def get_gross_amount
+    self.invoice_items.inject(0) {|sum, i| sum += i.gross_amount}
   end
 
-  def paid_amount
-    @paid_amount ||= self.payments.inject(0) {|sum, p| sum += p.amount}
+  def get_paid_amount
+    self.payments.inject(0) {|sum, p| sum += p.amount}
   end
 
-  def due_amount
-    @due_amount ||= self.gross_amount - self.paid_amount
+  def get_due_amount
+    self.gross_amount - self.paid_amount
   end
 
+  def set_totals
+    self.base_amount = self.get_base_amount
+    self.discount_amount = self.get_discount_amount
+    self.net_amount = self.get_net_amount
+    self.tax_amount = self.get_tax_amount
+    self.gross_amount = self.get_gross_amount
+    self.paid_amount = self.get_paid_amount
+  end
 end
