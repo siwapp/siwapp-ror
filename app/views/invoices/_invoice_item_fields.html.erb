@@ -1,7 +1,0 @@
-<%= f.input :description, :input_html => { :class => 'autogrow', :rows => 2, :cols => 40 } %>
-<%= f.input :quantity %>
-<%= f.input :discount %>
-<%= f.input :unitary_cost %>
-<%= f.select :tax_ids, Tax.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
-<%= f.check_box :_destroy %>
-<%= f.label :_destroy, "Remove Item" %>
