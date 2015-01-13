@@ -1,5 +1,6 @@
 class CreateDatabase < ActiveRecord::Migration
   def self.up
+    # The database as it is on the symfony version of siwapp
     create_table "common", force: :cascade do |t|
       t.integer  "series_id",               limit: 8
       t.integer  "customer_id",             limit: 8
@@ -39,6 +40,8 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "updated_at",                                                                           null: false
     end
 
+    execute "ALTER TABLE common CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
+
     add_index "common", ["contact_person"], name: "cntct_idx", using: :btree
     add_index "common", ["customer_email"], name: "cstml_idx", using: :btree
     add_index "common", ["customer_id"], name: "customer_id_idx", using: :btree
@@ -57,6 +60,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.text   "invoicing_address", limit: 4294967295
       t.text   "shipping_address",  limit: 4294967295
     end
+    execute "ALTER TABLE customer CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "customer", ["name"], name: "cstm_idx", unique: true, using: :btree
     add_index "customer", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
@@ -69,6 +73,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
       t.integer "product_id",   limit: 8
     end
+    execute "ALTER TABLE item CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "item", ["common_id"], name: "common_id_idx", using: :btree
     add_index "item", ["description"], name: "desc_idx", using: :btree
@@ -89,6 +94,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.decimal "amount",                        precision: 53, scale: 15
       t.text    "notes",      limit: 4294967295
     end
+    execute "ALTER TABLE payment CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "payment", ["invoice_id"], name: "invoice_id_idx", using: :btree
 
@@ -99,10 +105,13 @@ class CreateDatabase < ActiveRecord::Migration
       t.datetime "created_at",                                                             null: false
       t.datetime "updated_at",                                                             null: false
     end
+    execute "ALTER TABLE product CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
-    create_table "property", primary_key: "keey", force: :cascade do |t|
+    create_table "property", force: :cascade, id: false do |t|
+      t.string "keey", limit: 50, null: false, default: ""
       t.text "value", limit: 4294967295
     end
+    execute "ALTER TABLE property ADD PRIMARY KEY (keey);"
 
     create_table "series", force: :cascade do |t|
       t.string  "name",         limit: 255
@@ -110,6 +119,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer "first_number", limit: 4,   default: 1
       t.boolean "enabled",      limit: 1,   default: true
     end
+    execute "ALTER TABLE series CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     create_table "sf_guard_group", force: :cascade do |t|
       t.string   "name",        limit: 255
@@ -205,6 +215,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.string  "triple_key",       limit: 100
       t.string  "triple_value",     limit: 100
     end
+    execute "ALTER TABLE tag CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "tag", ["name"], name: "name_idx", using: :btree
     add_index "tag", ["triple_key"], name: "triple2_idx", using: :btree
@@ -216,6 +227,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.string  "taggable_model", limit: 30
       t.integer "taggable_id",    limit: 8
     end
+    execute "ALTER TABLE tagging CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "tagging", ["tag_id"], name: "tag_idx", using: :btree
     add_index "tagging", ["taggable_model", "taggable_id"], name: "taggable_idx", using: :btree
@@ -226,6 +238,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.boolean "active",     limit: 1,                           default: true
       t.boolean "is_default", limit: 1,                           default: false
     end
+    execute "ALTER TABLE tax CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     create_table "template", force: :cascade do |t|
       t.string   "name",       limit: 255
@@ -235,6 +248,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.string   "slug",       limit: 255
       t.string   "models",     limit: 200
     end
+    execute "ALTER TABLE template CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT;"
 
     add_index "template", ["slug"], name: "template_sluggable_idx", unique: true, using: :btree
  
