@@ -31,5 +31,7 @@ class CommonTypes < ActiveRecord::Migration
     change_column :common, :customer_id, :integer
     change_column :common, :invoicing_address, :text
     change_column :common, :shipping_address, :text
+    change_column :common, :terms, :text
+    change_column :common, :notes, :text
   end
 end
