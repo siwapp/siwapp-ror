@@ -1,3 +1,2 @@
 class Invoice < Common
-
 end
