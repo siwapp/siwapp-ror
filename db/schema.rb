@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(version: 20150113162521) do
 
-  create_table "common", force: :cascade do |t|
+  create_table "commons", force: :cascade do |t|
     t.integer  "series_id",               limit: 4
     t.integer  "customer_id",             limit: 4
     t.string   "customer_name",           limit: 100
@@ -52,16 +52,16 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.datetime "updated_at",                                                                      null: false
   end
 
-  add_index "common", ["contact_person"], name: "cntct_idx", using: :btree
-  add_index "common", ["customer_email"], name: "cstml_idx", using: :btree
-  add_index "common", ["customer_id"], name: "customer_id_idx", using: :btree
-  add_index "common", ["customer_identification"], name: "cstid_idx", using: :btree
-  add_index "common", ["customer_name"], name: "cstnm_idx", using: :btree
-  add_index "common", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
-  add_index "common", ["series_id"], name: "series_id_idx", using: :btree
-  add_index "common", ["type"], name: "common_type_idx", using: :btree
+  add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
+  add_index "commons", ["customer_email"], name: "cstml_idx", using: :btree
+  add_index "commons", ["customer_id"], name: "customer_id_idx", using: :btree
+  add_index "commons", ["customer_identification"], name: "cstid_idx", using: :btree
+  add_index "commons", ["customer_name"], name: "cstnm_idx", using: :btree
+  add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
+  add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
+  add_index "commons", ["type"], name: "common_type_idx", using: :btree
 
-  create_table "customer", force: :cascade do |t|
+  create_table "customers", force: :cascade do |t|
     t.string "name",              limit: 100
     t.string "name_slug",         limit: 100
     t.string "identification",    limit: 50
@@ -71,10 +71,17 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.text   "shipping_address",  limit: 65535
   end
 
-  add_index "customer", ["name"], name: "cstm_idx", unique: true, using: :btree
-  add_index "customer", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
+  add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
+  add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
-  create_table "item", force: :cascade do |t|
+  create_table "item_tax", id: false, force: :cascade do |t|
+    t.integer "item_id", limit: 4, default: 0, null: false
+    t.integer "tax_id",  limit: 4, default: 0, null: false
+  end
+
+  add_index "item_tax", ["item_id"], name: "item_tax_item_id_item_id", using: :btree
+
+  create_table "items", force: :cascade do |t|
     t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
     t.integer "common_id",    limit: 4
@@ -83,25 +90,20 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.integer "product_id",   limit: 4
   end
 
-  add_index "item", ["common_id"], name: "common_id_idx", using: :btree
-  add_index "item", ["description"], name: "desc_idx", using: :btree
-  add_index "item", ["product_id"], name: "item_product_id_idx", using: :btree
+  add_index "items", ["common_id"], name: "common_id_idx", using: :btree
+  add_index "items", ["description"], name: "desc_idx", using: :btree
+  add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
 
-  create_table "item_tax", id: false, force: :cascade do |t|
-    t.integer "item_id", limit: 4, default: 0, null: false
-    t.integer "tax_id",  limit: 4, default: 0, null: false
-  end
-
-  create_table "payment", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.integer "invoice_id", limit: 4
     t.date    "date"
     t.decimal "amount",                   precision: 53, scale: 15
     t.text    "notes",      limit: 65535
   end
 
-  add_index "payment", ["invoice_id"], name: "invoice_id_idx", using: :btree
+  add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
 
-  create_table "product", force: :cascade do |t|
+  create_table "products", force: :cascade do |t|
     t.string   "reference",   limit: 100,                                           null: false
     t.text     "description", limit: 65535
     t.decimal  "price",                     precision: 53, scale: 15, default: 0.0, null: false
@@ -109,7 +111,7 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.datetime "updated_at",                                                        null: false
   end
 
-  create_table "property", primary_key: "keey", force: :cascade do |t|
+  create_table "properties", primary_key: "keey", force: :cascade do |t|
     t.text "value", limit: 65535
   end
 
@@ -149,7 +151,7 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.boolean "is_default", limit: 1,                           default: false
   end
 
-  create_table "template", force: :cascade do |t|
+  create_table "templates", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "template",   limit: 65535
     t.datetime "created_at",               null: false
@@ -158,6 +160,6 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.string   "models",     limit: 200
   end
 
-  add_index "template", ["slug"], name: "template_sluggable_idx", unique: true, using: :btree
+  add_index "templates", ["slug"], name: "template_sluggable_idx", unique: true, using: :btree
 
 end

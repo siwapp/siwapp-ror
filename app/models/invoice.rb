@@ -1,0 +1,3 @@
+class Invoice < Common
+
+end
