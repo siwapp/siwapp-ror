@@ -5,6 +5,7 @@ class CommonTypes < ActiveRecord::Migration
     remove_foreign_key :common, name: :common_series_id_series_id
     remove_foreign_key :item, name: :item_common_id_common_id
     remove_foreign_key :item, name: :item_product_id_product_id
+    remove_foreign_key :item_tax, name: :item_tax_item_id_item_id
     remove_foreign_key :payment, name: :payment_invoice_id_common_id
     remove_foreign_key :sf_guard_group_permission, name: :sf_guard_group_permission_group_id_sf_guard_group_id
     remove_foreign_key :sf_guard_group_permission, name: :sf_guard_group_permission_permission_id_sf_guard_permission_id

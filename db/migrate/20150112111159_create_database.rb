@@ -83,6 +83,7 @@ class CreateDatabase < ActiveRecord::Migration
       t.integer "item_id", limit: 8, default: 0, null: false
       t.integer "tax_id",  limit: 8, default: 0, null: false
     end
+    execute "ALTER TABLE item_tax ADD PRIMARY KEY (`item_id`,`tax_id`);"
 
     create_table "migration_version", id: false, force: :cascade do |t|
       t.integer "version", limit: 4
@@ -257,6 +258,7 @@ class CreateDatabase < ActiveRecord::Migration
     add_foreign_key "common", "series", name: "common_series_id_series_id", on_delete: :nullify
     add_foreign_key "item", "common", name: "item_common_id_common_id", on_delete: :cascade
     add_foreign_key "item", "product", name: "item_product_id_product_id", on_delete: :nullify
+    add_foreign_key "item_tax", "item", name: "item_tax_item_id_item_id", on_delete: :cascade
     add_foreign_key "payment", "common", column: "invoice_id", name: "payment_invoice_id_common_id", on_delete: :cascade
     add_foreign_key "sf_guard_group_permission", "sf_guard_group", column: "group_id", name: "sf_guard_group_permission_group_id_sf_guard_group_id", on_delete: :cascade
     add_foreign_key "sf_guard_group_permission", "sf_guard_permission", column: "permission_id", name: "sf_guard_group_permission_permission_id_sf_guard_permission_id", on_delete: :cascade
