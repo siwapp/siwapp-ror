@@ -44,3 +44,8 @@ group :development, :test do
 end
 
 gem 'mysql2', '0.3.17'
+gem 'bootstrap-sass', '3.3.1.0'
+# installed 4.0.2.2 version because an issue:
+# https://github.com/ai/autoprefixer-rails/issues/47
+gem 'autoprefixer-rails', '4.0.2.2'
+
