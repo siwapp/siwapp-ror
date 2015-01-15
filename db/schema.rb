@@ -79,8 +79,6 @@ ActiveRecord::Schema.define(version: 20150113162521) do
     t.integer "tax_id",  limit: 4, default: 0, null: false
   end
 
-  add_index "item_tax", ["item_id"], name: "item_tax_item_id_item_id", using: :btree
-
   create_table "items", force: :cascade do |t|
     t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
