@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20150113162521) do
 
   create_table "commons", force: :cascade do |t|
-    t.integer  "series_id",               limit: 4
+    t.integer  "serie_id",                limit: 4
     t.integer  "customer_id",             limit: 4
     t.string   "customer_name",           limit: 100
     t.string   "customer_identification", limit: 50
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150113162521) do
   add_index "commons", ["customer_identification"], name: "cstid_idx", using: :btree
   add_index "commons", ["customer_name"], name: "cstnm_idx", using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
-  add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
+  add_index "commons", ["serie_id"], name: "series_id_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree
 
   create_table "customers", force: :cascade do |t|
@@ -74,11 +74,6 @@ ActiveRecord::Schema.define(version: 20150113162521) do
   add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
-  create_table "item_tax", id: false, force: :cascade do |t|
-    t.integer "item_id", limit: 4, default: 0, null: false
-    t.integer "tax_id",  limit: 4, default: 0, null: false
-  end
-
   create_table "items", force: :cascade do |t|
     t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
@@ -91,6 +86,11 @@ ActiveRecord::Schema.define(version: 20150113162521) do
   add_index "items", ["common_id"], name: "common_id_idx", using: :btree
   add_index "items", ["description"], name: "desc_idx", using: :btree
   add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
+
+  create_table "items_taxes", id: false, force: :cascade do |t|
+    t.integer "item_id", limit: 4, default: 0, null: false
+    t.integer "tax_id",  limit: 4, default: 0, null: false
+  end
 
   create_table "payments", force: :cascade do |t|
     t.integer "invoice_id", limit: 4
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 20150113162521) do
   add_index "tagging", ["tag_id"], name: "tag_idx", using: :btree
   add_index "tagging", ["taggable_model", "taggable_id"], name: "taggable_idx", using: :btree
 
-  create_table "tax", force: :cascade do |t|
+  create_table "taxes", force: :cascade do |t|
     t.string  "name",       limit: 50
     t.decimal "value",                 precision: 53, scale: 2
     t.boolean "active",     limit: 1,                           default: true

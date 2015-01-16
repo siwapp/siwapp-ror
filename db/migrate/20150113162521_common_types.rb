@@ -68,7 +68,7 @@ class CommonTypes < ActiveRecord::Migration
     execute "ALTER TABLE template CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT;"
     change_column :template, :template, :text
 
-    # Table renaming
+    # Table renaming according to rails convention
     rename_table :common, :commons
     rename_table :customer, :customers
     rename_table :item, :items
@@ -76,5 +76,9 @@ class CommonTypes < ActiveRecord::Migration
     rename_table :product, :products
     rename_table :property, :properties
     rename_table :template, :templates
+    rename_table :tax, :taxes
+    rename_table :item_tax, :items_taxes
+
+    rename_column :commons, :series_id, :serie_id
   end
 end
