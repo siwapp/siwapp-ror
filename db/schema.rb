@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113162521) do
+ActiveRecord::Schema.define(version: 20150117155103) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "serie_id",                limit: 4
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20150113162521) do
   add_index "tag", ["triple_value"], name: "triple3_idx", using: :btree
 
   create_table "tagging", force: :cascade do |t|
-    t.integer "tag_id",         limit: 4,  null: false
+    t.integer "tag_id",         limit: 4
     t.string  "taggable_model", limit: 30
     t.integer "taggable_id",    limit: 4
   end
