@@ -46,6 +46,7 @@ class InvoicesController < ApplicationController
         format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
         format.json { render :show, status: :ok, location: @invoice }
       else
+        flash[:alert] = 'Invoice has not been saved.'
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
