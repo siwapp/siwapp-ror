@@ -1,5 +1,7 @@
 class Invoice < Common
   belongs_to :recurring_invoice
+  validates :customer_name, presence: true
+  validates :number, presence: true
 
   def to_s
     if serie

@@ -31,7 +31,8 @@ class InvoicesController < ApplicationController
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
         format.json { render :show, status: :created, location: @invoice }
       else
-        format.html { render :new }
+        flash[:alert] = "Invoice has not been created."
+        format.html { render :new}
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end

@@ -1,5 +1,6 @@
 <% title("Siwapp", "Invoices", @invoice.customer_name)  %>
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 <p><%= @invoice %></p>
 <p><%= @invoice.customer_name %></p>
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
