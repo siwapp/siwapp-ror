@@ -3,6 +3,11 @@
 <p id="alert"><%= alert %></p>
 <p><%= @invoice %></p>
 <p><%= @invoice.customer_name %></p>
+<ul id="items">
+  <% @invoice.items.each do |item| %>
+    <li><%= item.id %> - <%= link_to item.description, [@invoice, item] %></li>
+  <% end %>
+</ul>
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
 <%= link_to 'Back', invoices_path %> |
 <%= link_to 'New Item', new_invoice_item_path(@invoice) %>
