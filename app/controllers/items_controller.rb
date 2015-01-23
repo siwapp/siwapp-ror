@@ -6,6 +6,9 @@ class ItemsController < ApplicationController
     @item = Item.new
   end
 
+  def edit
+  end
+
   def create
     @item = @invoice.items.build(item_params)
 
@@ -17,6 +20,19 @@ class ItemsController < ApplicationController
         flash[:alert] = 'Item has not been created.'
         format.html { render :new}
         format.json { render json: @item.errors, status: :unprocessable_entity}    
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @item.update(item_params)
+        format.html {redirect_to [@invoice, @item], notice: 'Item was successfully updated.'}
+        format.json { render :show, status: :created, location: [@invoice, @item]}
+      else
+        flash[:alert] = 'Item has not been updated.'
+        format.html { render :edit}
+        format.json { render json: @item.errors, status: :unprocessable_entity }
       end
     end
   end
