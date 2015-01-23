@@ -1,0 +1,10 @@
+<% title("Siwapp", "Invoices", @invoice.customer_name)  %>
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+<p><%= @invoice %></p>
+<p><%= @item.description %></p>
+<p><%= @item.unitary_cost %></p>
+<p><%= @item.quantity %></p>
+<%= link_to 'Edit', edit_invoice_item_path(@invoice, @item) %> |
+<%= link_to 'Back', invoice_items_path %> |
+<%= link_to 'New Item', new_invoice_item_path(@invoice, @item) %>
