@@ -10,6 +10,7 @@ feature 'Creating Invoices' do
   scenario 'can create an invoice' do
     fill_in 'Customer name', with: 'Test Customer'
     fill_in 'Number', with: '1'
+    fill_in 'Customer email', with: 'pepe@abc.com'
     click_button 'Create Invoice'
     expect(page).to have_content('Invoice was successfully created.')
     invoice = Invoice.where(customer_name: 'Test Customer').first

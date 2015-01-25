@@ -14,7 +14,8 @@
   <p>
     <%= f.label :description %> <%= f.text_area :description %><br/>
     <%= f.label :quantity %> <%= f.text_area :quantity %><br/>
-    <%= f.label :unitary_cost %> <%= f.text_field :unitary_cost %>
+    <%= f.label :unitary_cost %> <%= f.text_field :unitary_cost %><br/>
+    <%= f.label :taxes %> <%= f.collection_select :taxes, @item.taxes, :id, :name %>
   </p>
 
   <div class="actions">
