@@ -16,12 +16,9 @@ class RecurringInvoicesController < ApplicationController
     if @recurring_invoice.save
       flash[:notice] = "Recurring Invoice was successfully created."
       redirect_to @recurring_invoice
-      #format.html { redirect_to @recurring_invoice, notice: 'Recurring Invoice was successfully created.' }
-      #format.json { render :show, status: :created, location: @recurring_invoice }
     else
-      #flash[:alert] = "Recurring Invoice has not been created."
-      #format.html { render :new}
-      #format.json { render json: @recurring_invoice.errors, status: :unprocessable_entity }
+      flash[:alert] = "Recurring Invoice has not been created."
+      render "new"
     end
 
   end

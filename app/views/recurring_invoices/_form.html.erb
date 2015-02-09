@@ -1,0 +1,24 @@
+<%= form_for(@recurring_invoice) do |f| %>
+  <% if @recurring_invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recurring_invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+      <% @recurring_invoice.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
+    <%= f.label :number %> <%= f.text_field :number %><br/>
+    <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
+    <%= f.label :due_date %> <%= f.date_field :due_date %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
