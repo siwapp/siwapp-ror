@@ -1,0 +1,6 @@
+language: ruby
+rvm: 2.2.0
+script: "bin/rake spec"
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
