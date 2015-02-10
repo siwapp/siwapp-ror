@@ -22,7 +22,7 @@ FactoryGirl.define do
                          "Smith and Co."
         ].sample }
         after(:create) do |invoice|
-          create_list(:item, rand(10), common: invoice)
+          create_list(:item_random, rand(1..10), common: invoice)
         end
       end
     end
