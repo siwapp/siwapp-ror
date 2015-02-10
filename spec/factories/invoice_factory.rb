@@ -1,3 +1,10 @@
+##
+# To generate random invoices do the following into the console:
+# > require 'factory_girl'
+# > FactoryGirl.find_definitions
+#.> FactoryGirl.create_list(:invoice_random, 20)
+##
+
 FactoryGirl.define do
   factory :common do
     customer_name "Example Customer Name"
