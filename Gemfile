@@ -49,9 +49,9 @@ end
 
 group :test do
   gem 'capybara'
-  gem 'factory_girl_rails'
 end
 
+gem 'factory_girl_rails', '4.5.0'
 gem 'mysql2', '0.3.17'
 gem 'bootstrap-sass', '3.3.1.0'
 # installed 4.0.2.2 version because an issue:

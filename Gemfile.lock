@@ -198,7 +198,7 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.1.0)
-  factory_girl_rails
+  factory_girl_rails (= 4.5.0)
   jbuilder (~> 2.0)
   jquery-rails
   mysql2 (= 0.3.17)
