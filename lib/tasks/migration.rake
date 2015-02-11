@@ -1,4 +1,5 @@
 namespace :siwapp do
+  desc "Makes the migration of old siwapp (sf1) to new one."
   task :migrate_old_database do
     client = Mysql2::Client.new(
         :host  => "localhost",
