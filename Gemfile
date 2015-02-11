@@ -57,3 +57,4 @@ gem 'bootstrap-sass', '3.3.1.0'
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'autoprefixer-rails', '4.0.2.2'
 gem 'pry-rails', :group => :development
+gem 'will_paginate', '3.0.7'

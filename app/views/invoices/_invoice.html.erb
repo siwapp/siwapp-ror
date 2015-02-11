@@ -1,0 +1,7 @@
+<tr>
+  <td><%= link_to invoice, invoice %></td>
+  <td><%= invoice.customer_name %></td>
+  <td><%= link_to 'Show', invoice %></td>
+  <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+  <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</tr>

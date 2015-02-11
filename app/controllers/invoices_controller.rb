@@ -4,7 +4,13 @@ class InvoicesController < ApplicationController
   # GET /invoices
   # GET /invoices.json
   def index
-    @invoices = Invoice.all.order(number: :desc)
+    @invoices = Invoice.paginate(page: params[:page], per_page: 20)
+      .order(number: :desc)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /invoices/1
