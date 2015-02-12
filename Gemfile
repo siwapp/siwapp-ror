@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+ruby "2.2.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -57,6 +58,7 @@ gem 'autoprefixer-rails', '4.0.2.2'
 gem 'bootstrap-sass', '3.3.1.0'
 gem 'factory_girl_rails', '4.5.0'
 gem 'mysql2', '0.3.17'
-gem 'pry-rails', :group => :development
+gem 'pry-rails', group: :development
 gem 'puma'
+gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
