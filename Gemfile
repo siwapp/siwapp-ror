@@ -51,11 +51,12 @@ group :test do
   gem 'capybara'
 end
 
-gem 'factory_girl_rails', '4.5.0'
-gem 'mysql2', '0.3.17'
-gem 'bootstrap-sass', '3.3.1.0'
 # installed 4.0.2.2 version because an issue:
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'autoprefixer-rails', '4.0.2.2'
+gem 'bootstrap-sass', '3.3.1.0'
+gem 'factory_girl_rails', '4.5.0'
+gem 'mysql2', '0.3.17'
 gem 'pry-rails', :group => :development
+gem 'puma'
 gem 'will_paginate', '3.0.7'
