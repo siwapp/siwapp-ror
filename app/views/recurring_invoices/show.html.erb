@@ -5,9 +5,9 @@
 <p><%= @recurring_invoice.customer_name %></p>
 <ul id="items">
   <% @recurring_invoice.items.each do |item| %>
-    <li><%= item.id %> - <%= link_to item.description, [@recurring_invoice, item] %></li>
+    <li><%= item.description %></li>
   <% end %>
 </ul>
 <%= link_to 'Edit', edit_recurring_invoice_path(@recurring_invoice) %> |
-<%= link_to 'Back', recurring_invoices_path %> |
-<%= link_to 'New Item', new_invoice_item_path(@recurring_invoice) %>
+<%= link_to 'Back', recurring_invoices_path %> 
+

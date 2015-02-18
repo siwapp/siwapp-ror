@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  resources :invoices do
-    resources :items
-  end
- 
+  resources :invoices
+
   resources :recurring_invoices
 
   resources :taxes 
