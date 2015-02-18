@@ -62,3 +62,7 @@ gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
+
+
+# to add items dinamically
+gem 'cocoon', '1.2.6'

@@ -19,13 +19,9 @@
   </p>
   Items: 
   <ul>
-
     <%= f.fields_for :items  do |item_form| %>
-      <li>
-	<%= item_form.label :description %> <%= item_form.text_area :description %>
-	<%= item_form.label :quantity %> <%= item_form.text_area :quantity %>
-	<%= item_form.label :unitary_cost %> <%= item_form.text_field :unitary_cost %> 
-      </li>
+    <%= render partial: 'item_fields', locals: {f: item_form} %>
+    <%= link_to_add_association 'add item', f, :items %>
     <% end %>
   </ul>
 

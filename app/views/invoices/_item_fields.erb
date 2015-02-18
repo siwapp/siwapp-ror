@@ -1,0 +1,6 @@
+      <li class="nested-fields">
+	<%= f.label :description %> <%= f.text_area :description %>
+	<%= f.label :quantity %> <%= f.text_area :quantity %>
+	<%= f.label :unitary_cost %> <%= f.text_field :unitary_cost %> 
+        <%= link_to_remove_association 'remove item', f %>
+      </li>

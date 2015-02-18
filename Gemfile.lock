@@ -54,6 +54,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    cocoon (1.2.6)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -204,6 +205,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.3.1.0)
   byebug
   capybara
+  cocoon (= 1.2.6)
   coffee-rails (~> 4.1.0)
   factory_girl_rails (= 4.5.0)
   jbuilder (~> 2.0)
