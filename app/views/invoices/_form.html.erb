@@ -1,7 +1,7 @@
-<%= form_for(@invoice) do |f| %>
+<%= form_for @invoice  do |f| %>
   <% if @invoice.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+      <h2><%= pluralize @invoice.errors.count, "error" %> prohibited this invoice from being saved:</h2>
 
       <ul>
       <% @invoice.errors.full_messages.each do |message| %>
@@ -17,6 +17,17 @@
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
     <%= f.label :due_date %> <%= f.date_field :due_date %>
   </p>
+  Items: 
+  <ul>
+
+    <%= f.fields_for :items  do |item_form| %>
+      <li>
+	<%= item_form.label :description %> <%= item_form.text_area :description %>
+	<%= item_form.label :quantity %> <%= item_form.text_area :quantity %>
+	<%= item_form.label :unitary_cost %> <%= item_form.text_field :unitary_cost %> 
+      </li>
+    <% end %>
+  </ul>
 
   <div class="actions">
     <%= f.submit %>

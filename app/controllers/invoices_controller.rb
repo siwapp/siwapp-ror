@@ -3,6 +3,7 @@ class InvoicesController < ApplicationController
 
   # GET /invoices
   # GET /invoices.json
+  # GET /invoices.js 
   def index
     @invoices = Invoice.paginate(page: params[:page], per_page: 20)
       .order(number: :desc)
@@ -21,6 +22,8 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    @invoice.items.build
+    #2.times { @invoice.items.build }
   end
 
   # GET /invoices/1/edit
@@ -78,6 +81,6 @@ class InvoicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
       params.require(:invoice).permit(:customer_name, :customer_email, :due_date, \
-                                      :invoicing_address, :draft, :number,)
+                                      :invoicing_address, :draft, :number, items_attributes: [:id, :description, :quantity, :unitary_cost])
     end
 end
