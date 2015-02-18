@@ -22,8 +22,6 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
-    @invoice.items.build
-    #2.times { @invoice.items.build }
   end
 
   # GET /invoices/1/edit
