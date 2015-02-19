@@ -12,7 +12,7 @@
   <tbody>
     <% @taxes.each do |tax| %>
       <tr>
-        <td><%= link_to 'Show', tax %></td>
+        <td><%= link_to tax.name, tax %></td>
         <td><%= link_to 'Edit', edit_tax_path(tax) %></td>
         <td><%= link_to 'Destroy', tax, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
