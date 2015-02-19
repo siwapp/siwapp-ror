@@ -22,10 +22,12 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
+    @taxes = Tax.where active:true
   end
 
   # GET /invoices/1/edit
   def edit
+    @taxes = Tax.where active:true
   end
 
   # POST /invoices
@@ -79,6 +81,6 @@ class InvoicesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
       params.require(:invoice).permit(:customer_name, :customer_email, :due_date, \
-                                      :invoicing_address, :draft, :number, items_attributes: [:id, :description, :quantity, :unitary_cost, :_destroy])
+                                      :invoicing_address, :draft, :number, items_attributes: [:id, :description, :quantity, :unitary_cost, {:tax_ids => []}, :_destroy])
     end
 end
