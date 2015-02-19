@@ -21,7 +21,6 @@
   <ul>
     <%= f.fields_for :items  do |item_form| %>
       <%= render partial: 'item_fields', locals: {f: item_form} %>
-
     <% end %>
       <%= link_to_add_association 'add item', f, :items %>
   </ul>

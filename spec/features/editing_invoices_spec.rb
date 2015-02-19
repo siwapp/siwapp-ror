@@ -23,7 +23,6 @@ feature 'Editing Invoices' do
     fill_in 'Customer email', with: 'pepe.com'
     click_button 'Update Invoice'
     expect(page).to have_content('Invoice has not been saved')
-    expect(page).to have_content("Customer name can't be blank")
     expect(page).to have_content("Number is not a number")
     expect(page).to have_content("Only valid emails")
   end
