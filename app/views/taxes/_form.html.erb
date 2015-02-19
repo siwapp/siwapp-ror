@@ -1,0 +1,24 @@
+<%= form_for(@tax) do |f| %>
+  <% if @tax.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@tax.errors.count, "error") %> prohibited this tax from being saved:</h2>
+
+      <ul>
+      <% @tax.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name %> <%= f.text_field :name %><br/>
+    <%= f.label :value %> <%= f.number_field :value %><br/>
+    <%= f.label :active %> <%= f.check_box :active %><br/>
+    <%= f.label :is_default %> <%= f.check_box :is_default %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
