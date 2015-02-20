@@ -12,7 +12,7 @@
   <tbody>
     <% @series.each do |serie| %>
       <tr>
-        <td><%= link_to 'Show', serie %></td>
+        <td><%= link_to serie.name, serie %></td>
         <td><%= link_to 'Edit', edit_serie_path(serie) %></td>
         <td><%= link_to 'Destroy', serie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
