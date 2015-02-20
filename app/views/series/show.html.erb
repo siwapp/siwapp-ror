@@ -1,0 +1,5 @@
+<% title "Siwapp", "Series", @serie.name %>
+<p id="notice"><%= notice %></p>
+<p><%= @serie.name %>: <%= @serie.value %></p>
+<%= link_to 'Edit', edit_serie_path(@serie) %> |
+<%= link_to 'Back', series_path %>

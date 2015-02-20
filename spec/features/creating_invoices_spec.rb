@@ -21,7 +21,7 @@ feature 'Creating Invoices' do
     expect(page).to have_title(title)
   end
 
-  scenario 'can not create invoice without  or number' do
+  scenario 'can not create invoice without number' do
     click_button 'Create Invoice'
     expect(page).to have_content("Invoice has not been created.")
     expect(page).to have_content("Number can't be blank")

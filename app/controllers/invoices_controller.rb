@@ -34,7 +34,7 @@ class InvoicesController < ApplicationController
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
-
+    @taxes = Tax.where active: true
     respond_to do |format|
       if @invoice.save
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
@@ -56,6 +56,7 @@ class InvoicesController < ApplicationController
         format.json { render :show, status: :ok, location: @invoice }
       else
         flash[:alert] = 'Invoice has not been saved.'
+        @taxes = Tax.where active: true
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
