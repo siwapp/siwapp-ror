@@ -23,11 +23,13 @@ class InvoicesController < ApplicationController
   def new
     @invoice = Invoice.new
     @taxes = Tax.where active:true
+    @series = Serie.where enabled: true
   end
 
   # GET /invoices/1/edit
   def edit
     @taxes = Tax.where active:true
+    @series = Serie.where enabled: true
   end
 
   # POST /invoices
@@ -35,6 +37,7 @@ class InvoicesController < ApplicationController
   def create
     @invoice = Invoice.new(invoice_params)
     @taxes = Tax.where active: true
+    @series = Serie.where enabled: true
     respond_to do |format|
       if @invoice.save
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
@@ -57,6 +60,7 @@ class InvoicesController < ApplicationController
       else
         flash[:alert] = 'Invoice has not been saved.'
         @taxes = Tax.where active: true
+        @series = Serie.where enabled: true
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
@@ -81,7 +85,7 @@ class InvoicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def invoice_params
-      params.require(:invoice).permit(:customer_name, :customer_email, :due_date, \
+      params.require(:invoice).permit(:customer_name, :customer_email, :due_date, :serie_id, \
                                       :invoicing_address, :draft, :number, items_attributes: [:id, :description, :quantity, :unitary_cost, {:tax_ids => []}, :_destroy])
     end
 end

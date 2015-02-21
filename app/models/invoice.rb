@@ -7,7 +7,7 @@ class Invoice < Common
 
   def to_s
     if serie
-      "#{serie.value}#{number}"
+      "#{serie.value}-#{number}"
     else
       "XXX-#{number}"
     end

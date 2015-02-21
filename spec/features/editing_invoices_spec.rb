@@ -4,7 +4,7 @@ feature 'Editing Invoices' do
   before do
     FactoryGirl.create(:invoice, customer_name:"Test Customer Name")
     visit "/invoices"
-    click_link "XXX-1"
+    click_link "ES-1"
     click_link "Edit"
   end
 

@@ -3,11 +3,13 @@ FactoryGirl.define do
     customer_name "Example Customer Name"
     customer_email 'example@example.com'
     number "1"
+    serie
 
     factory :invoice do
       type "Invoice"
-
+      
       factory :invoice_random do
+        association :serie, factory: :serie_random
         customer_name { ["Acme, inc.",
                          "Widget Corp",
                          "Warehousing",
