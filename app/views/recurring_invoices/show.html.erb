@@ -8,6 +8,12 @@
     <li><%= item.description %></li>
   <% end %>
 </ul>
-<%= link_to 'Edit', edit_recurring_invoice_path(@recurring_invoice) %> |
+<%= link_to 'Edit Recurring Invoice', edit_recurring_invoice_path(@recurring_invoice) %> |
 <%= link_to 'Back', recurring_invoices_path %> 
+<%= link_to "Delete Recurring Invoice", recurring_invoice_path(@recurring_invoice),
+  method: :delete,
+  data: { confirm:
+    "Are you sure you want to delete this project?"
+  } 
+%>
 

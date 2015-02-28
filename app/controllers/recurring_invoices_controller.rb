@@ -1,7 +1,8 @@
 class RecurringInvoicesController < ApplicationController
-
+  before_action :set_recurring_invoice, only: [:show, :edit, :update, :destroy]
   # GET /recurring_invoices
   def index
+    @recurring_invoices = RecurringInvoice.all
   end
 
   # GET /recurring_invoices/new
@@ -24,7 +25,25 @@ class RecurringInvoicesController < ApplicationController
   end
 
   def show
-    @recurring_invoice = RecurringInvoice.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    if @recurring_invoice.update(recurring_invoice_params)
+      flash[:notice] = "Recurring Invoice has been updated."
+      redirect_to @recurring_invoice
+    else
+      flash[:alert] = "Project has not been updated."
+      render "edit"
+    end
+  end
+
+  def destroy
+    @recurring_invoice.destroy
+    flash[:notice] = "Recurring Invoice has been destroyed."
+    redirect_to recurring_invoices_path
   end
 
 
@@ -35,5 +54,14 @@ class RecurringInvoicesController < ApplicationController
                                                 :due_date, :invoicing_address, \
                                                 :draft, :number)
     end
+
+    def set_recurring_invoice
+      @recurring_invoice = RecurringInvoice.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "The Recurring Invoice you were looking" +
+        " for could not be found."
+      redirect_to recurring_invoices_path
+    end
+
 
 end

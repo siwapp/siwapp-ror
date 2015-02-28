@@ -22,5 +22,22 @@ FactoryGirl.define do
       end
     end
 
+    factory :recurring_invoice do
+      type "RecurringInvoice"
+
+      factory :recurring_invoice_random do
+        association :serie, factory: :serie_random
+        customer_name { ["Acme, inc.",
+                         "Widget Corp",
+                         "Warehousing",
+                         "Demo Company",
+                         "Smith and Co."
+        ].sample }
+        after(:create) do |invoice|
+          create_list(:item_random, rand(1..10), common: invoice)
+        end
+      end
+    end
+
   end
 end

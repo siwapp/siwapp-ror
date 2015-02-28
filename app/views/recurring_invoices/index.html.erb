@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Invoices</h1>
-
+<h1>Listing Recurring Invoices</h1>
 <table class="table">
   <thead>
     <tr>
@@ -9,16 +8,16 @@
     </tr>
   </thead>
 
-  <tbody>
-
-      <tr>
-        <td></td>
-        <td>></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
+  <tbody id="recurring_invoices_list">
+    <% @recurring_invoices.each do |recurring_invoice| %>
+    <tr>
+      <td><%= link_to recurring_invoice, recurring_invoice %></td>
+      <td><%= recurring_invoice.customer_name %></td>
+      <td><%= link_to 'Show', recurring_invoice %></td>
+      <td><%= link_to 'Edit', edit_recurring_invoice_path(recurring_invoice) %></td>
+      <td><%= link_to 'Destroy', recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 
