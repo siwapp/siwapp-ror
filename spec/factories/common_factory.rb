@@ -35,6 +35,8 @@ FactoryGirl.define do
                          "Demo Company",
                          "Smith and Co."
         ].sample }
+        starting_date Date.today
+        finishing_date Date.tomorrow
         after(:create) do |invoice|
           create_list(:item_random, rand(1..10), common: invoice)
         end

@@ -1,0 +1,7 @@
+$('#recurring_invoices_list').append('<%= j render @recurring_invoices %>');
+<% if @recurring_invoices.next_page %>
+  $('.pagination').replaceWith('<%= j will_paginate @recurring_invoices %>');
+<% else %>
+  $(window).off('scroll');
+  $('.pagination').remove();
+<% end %>
