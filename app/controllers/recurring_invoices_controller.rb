@@ -52,7 +52,8 @@ class RecurringInvoicesController < ApplicationController
     def recurring_invoice_params
       params.require(:recurring_invoice).permit(:customer_name, :customer_email, \
                                                 :due_date, :invoicing_address, \
-                                                :draft, :number)
+                                                :draft, :number, :starting_date, \
+                                                :finishing_date)
     end
 
     def set_recurring_invoice

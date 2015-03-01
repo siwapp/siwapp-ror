@@ -11,6 +11,8 @@ feature 'Creating Recurring Invoices' do
     fill_in 'Customer name', with: 'Test Customer'
     fill_in 'Number', with: '1'
     fill_in 'Customer email', with: 'pepe@abc.com'
+    fill_in 'Starting date', with: '2015-02-28'
+    fill_in 'Finishing date', with: '2015-03-01'
     click_button 'Create Recurring invoice'
     expect(page).to have_content('Recurring Invoice was successfully created.')
     invoice = RecurringInvoice.where(customer_name: 'Test Customer').first

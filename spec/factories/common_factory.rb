@@ -24,6 +24,8 @@ FactoryGirl.define do
 
     factory :recurring_invoice do
       type "RecurringInvoice"
+      starting_date Date.today
+      finishing_date Date.tomorrow
 
       factory :recurring_invoice_random do
         association :serie, factory: :serie_random

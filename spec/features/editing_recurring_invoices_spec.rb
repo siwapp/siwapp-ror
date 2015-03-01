@@ -17,8 +17,11 @@ feature "Editing Recurring Invoices" do
 
   scenario "Updating a recurring invoice with invalid attributes is bad" do
     fill_in "Customer name", with: ""
+    fill_in "Starting date", with: Date.today
+    fill_in "Finishing date", with: Date.yesterday
     click_button "Update Recurring invoice"
     expect(page).to have_content("Customer name can't be blank")
+    expect(page).to have_content("Finishing Date must be after Starting Date")
   end
 
 end
