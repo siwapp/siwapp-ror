@@ -1,5 +1,7 @@
 class Invoice < Common
   belongs_to :recurring_invoice
+  has_many :payments, dependent: :delete_all
+
   validates :customer_email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true

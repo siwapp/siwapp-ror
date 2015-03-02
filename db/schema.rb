@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150117155103) do
+ActiveRecord::Schema.define(version: 20150302134419) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "serie_id",                limit: 4
@@ -93,10 +93,12 @@ ActiveRecord::Schema.define(version: 20150117155103) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer "invoice_id", limit: 4
-    t.date    "date"
-    t.decimal "amount",                   precision: 53, scale: 15
-    t.text    "notes",      limit: 65535
+    t.integer  "invoice_id", limit: 4,                               null: false
+    t.date     "date"
+    t.decimal  "amount",                   precision: 53, scale: 15
+    t.text     "notes",      limit: 65535
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
