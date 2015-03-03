@@ -18,13 +18,27 @@
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
     <%= f.label :due_date %> <%= f.date_field :due_date %>
   </p>
-  Items: 
-  <ul>
+
+  <fieldset id="items">
+    <legend>Items</legend>
+
     <%= f.fields_for :items  do |item_form| %>
       <%= render partial: 'item_fields', locals: {f: item_form} %>
     <% end %>
-      <%= link_to_add_association 'add item', f, :items %>
-  </ul>
+  </fieldset>
+  <%= link_to_add_association 'add item', f, :items, 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#items' %>
+
+  <% unless @invoice.new_record? %>
+    <fieldset id="payments">
+      <legend>Payments</legend>
+
+      <%= f.fields_for :payments  do |payment_form| %>
+        <%= render partial: 'payment_fields', locals: {f: payment_form} %>
+      <% end %>
+    </fieldset>
+
+    <%= link_to_add_association 'add payment', f, :payments, 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#payments' %>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>
