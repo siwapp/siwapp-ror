@@ -102,7 +102,7 @@ class InvoicesController < ApplicationController
           :description,
           :quantity,
           :unitary_cost,
-          # {:tax_ids => []},
+          {:tax_ids => []},
           :_destroy
         ],
 
