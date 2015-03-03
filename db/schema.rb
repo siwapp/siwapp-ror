@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302134419) do
+ActiveRecord::Schema.define(version: 20150303112415) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "serie_id",                limit: 4
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20150302134419) do
   create_table "items", force: :cascade do |t|
     t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4
+    t.integer "common_id",    limit: 4,                                           null: false
     t.string  "description",  limit: 255
     t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
