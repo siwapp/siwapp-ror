@@ -1,16 +1,13 @@
 FactoryGirl.define do
   factory :serie do
-    name 'example serie'
+    name 'Example Series'
     value 'ES'
     first_number 1
     enabled true
-    
+
     factory :serie_random do
-      name { ["Agricultural supplies", 
-              "Internet Services",
-              "Escort Services"
-             ].sample }
-      value { ["AS", "IS", "ES"].sample}
+      sequence(:name, "A") {|n| "Sample Series #{n}"}
+      sequence(:value, "A") {|n| "SS#{n}"}
       first_number {rand(1..10)}
     end
   end

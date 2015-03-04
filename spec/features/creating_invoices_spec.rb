@@ -9,7 +9,7 @@ feature 'Creating Invoices' do
   end
 
   scenario 'can create an invoice' do
-    select 'example serie', from: 'invoice_serie_id'
+    select 'Example Series', from: 'invoice_serie_id'
     fill_in 'Number', with: '1'
 
     fill_in 'Customer name', with: 'Test Customer'

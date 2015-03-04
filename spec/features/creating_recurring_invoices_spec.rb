@@ -9,7 +9,7 @@ feature 'Creating Recurring Invoices' do
   end
 
   scenario 'can create a recurring invoice' do
-    select 'example serie', from: 'recurring_invoice_serie_id'
+    select 'Example Series', from: 'recurring_invoice_serie_id'
 
     fill_in 'Starting date', with: '2015-02-28'
     fill_in 'Finishing date', with: '2015-03-01'
