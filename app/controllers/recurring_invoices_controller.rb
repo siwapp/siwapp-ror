@@ -1,5 +1,6 @@
 class RecurringInvoicesController < ApplicationController
   before_action :set_recurring_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_extra_stuff, only: [:new, :edit, :create, :update]
 
   # GET /recurring_invoices
   def index
@@ -57,10 +58,17 @@ class RecurringInvoicesController < ApplicationController
   private
 
     def recurring_invoice_params
-      params.require(:recurring_invoice).permit(:customer_name, :customer_email, \
-                                                :due_date, :invoicing_address, \
-                                                :draft, :number, :starting_date, \
-                                                :finishing_date)
+      params
+        .require(:recurring_invoice)
+        .permit(
+          :customer_name,
+          :customer_email,
+          :due_date,
+          :invoicing_address,
+          :draft,
+          :starting_date,
+          :finishing_date
+        )
     end
 
     def set_recurring_invoice
@@ -71,5 +79,8 @@ class RecurringInvoicesController < ApplicationController
       redirect_to recurring_invoices_path
     end
 
-
+    def set_extra_stuff
+      @taxes = Tax.where active:true
+      @series = Serie.where enabled: true
+    end
 end

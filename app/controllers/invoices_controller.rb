@@ -1,5 +1,6 @@
 class InvoicesController < ApplicationController
   before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+  before_action :set_extra_stuff, only: [:new, :edit, :create, :update]
 
   # GET /invoices
   # GET /invoices.json
@@ -23,22 +24,17 @@ class InvoicesController < ApplicationController
   # GET /invoices/new
   def new
     @invoice = Invoice.new
-    @taxes = Tax.where active:true
-    @series = Serie.where enabled: true
   end
 
   # GET /invoices/1/edit
   def edit
-    @taxes = Tax.where active:true
-    @series = Serie.where enabled: true
   end
 
   # POST /invoices
   # POST /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
-    @taxes = Tax.where active: true
-    @series = Serie.where enabled: true
+
     respond_to do |format|
       if @invoice.save
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
@@ -60,8 +56,6 @@ class InvoicesController < ApplicationController
         format.json { render :show, status: :ok, location: @invoice }
       else
         flash[:alert] = 'Invoice has not been saved.'
-        @taxes = Tax.where active: true
-        @series = Serie.where enabled: true
         format.html { render :edit }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
@@ -82,6 +76,14 @@ class InvoicesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = "The Invoice you were looking for could not be found."
+      redirect_to recurring_invoices_path
+    end
+
+    def set_extra_stuff
+      @taxes = Tax.where active: true
+      @series = Serie.where enabled: true
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
