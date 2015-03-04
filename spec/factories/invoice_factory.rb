@@ -6,15 +6,11 @@ FactoryGirl.define do
     number 1
 
     factory :invoice_random do
+      # Find an existing series or generate a random one
       serie { Serie.all.sample || generate(:serie_random) }
-      number do
-        invoices = serie.commons.where(type: :invoice).order(number: 'desc').limit(1)
-        if invoices.any?
-          invoices[0].number + 1
-        else
-          1
-        end
-      end
+
+      # Set the invoice number to the next number in the current series
+      number { serie.next_number }
 
       customer_name do
         ["Acme, inc.", "Widget Corp", "Warehousing", "Demo Company",
