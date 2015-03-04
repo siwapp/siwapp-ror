@@ -61,9 +61,12 @@ class RecurringInvoicesController < ApplicationController
       params
         .require(:recurring_invoice)
         .permit(
+          :serie_id,
+
           :customer_name,
           :customer_email,
-          :due_date,
+
+          :days_to_due,
           :invoicing_address,
           :draft,
           :starting_date,
