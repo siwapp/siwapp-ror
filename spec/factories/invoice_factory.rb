@@ -6,8 +6,16 @@ FactoryGirl.define do
     number 1
 
     factory :invoice_random do
-      association :serie, factory: :serie_random
-      sequence(:number)
+      serie { Serie.all.sample || generate(:serie_random) }
+      number do
+        invoices = serie.commons.where(type: :invoice).order(number: 'desc').limit(1)
+        if invoices.any?
+          invoices[0].number + 1
+        else
+          1
+        end
+      end
+
       customer_name { ["Acme, inc.",
                        "Widget Corp",
                        "Warehousing",

@@ -8,7 +8,7 @@ FactoryGirl.define do
     finishing_date Date.tomorrow
 
     factory :recurring_invoice_random do
-      association :serie, factory: :serie_random
+      serie { Serie.all.sample || generate(:serie_random) }
       customer_name { ["Acme, inc.",
                        "Widget Corp",
                        "Warehousing",
