@@ -20,7 +20,7 @@ FactoryGirl.define do
       starting_date { Date.today >> rand(-8..1) }
       finishing_date { Date.today >> rand(1..12) }
 
-      after(:create) do |invoice|
+      after(:create) do |recurring_invoice|
         create_list(:item_random, rand(1..10), common: recurring_invoice)
       end
     end
