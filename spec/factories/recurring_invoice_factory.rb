@@ -3,7 +3,6 @@ FactoryGirl.define do
     customer_name "Example Customer Name"
     customer_email 'example@example.com'
     serie
-    number 1
 
     starting_date Date.today
     finishing_date Date.tomorrow
