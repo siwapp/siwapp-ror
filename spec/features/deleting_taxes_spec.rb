@@ -7,7 +7,7 @@ feature 'Deleting taxes' do
     click_link 'Destroy'
     expect(page).to have_content('Tax was successfully destroyed')
     visit '/taxes'
-    expect(page).to have_no_content('example tax')
+    expect(page).to have_no_content('VAT 21%')
   end
 end
 
