@@ -5,7 +5,7 @@ FactoryGirl.define do
     serie
 
     starting_date Date.today
-    finishing_date Date.tomorrow
+    finishing_date Date.today >> 1  # 1 month later
 
     factory :recurring_invoice_random do
       # Find an existing series or generate a random one
