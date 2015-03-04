@@ -9,12 +9,10 @@ FactoryGirl.define do
 
     factory :recurring_invoice_random do
       serie { Serie.all.sample || generate(:serie_random) }
-      customer_name { ["Acme, inc.",
-                       "Widget Corp",
-                       "Warehousing",
-                       "Demo Company",
-                       "Smith and Co."
-      ].sample }
+      customer_name do
+        ["Acme, inc.", "Widget Corp", "Warehousing", "Demo Company",
+         "Smith and Co."].sample
+      end
       starting_date Date.today
       finishing_date Date.tomorrow
       after(:create) do |invoice|

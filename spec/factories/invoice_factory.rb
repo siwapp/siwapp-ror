@@ -16,12 +16,11 @@ FactoryGirl.define do
         end
       end
 
-      customer_name { ["Acme, inc.",
-                       "Widget Corp",
-                       "Warehousing",
-                       "Demo Company",
-                       "Smith and Co."
-      ].sample }
+      customer_name do
+        ["Acme, inc.", "Widget Corp", "Warehousing", "Demo Company",
+         "Smith and Co."].sample
+      end
+
       after(:create) do |invoice|
         create_list(:item_random, rand(1..10), common: invoice)
         create_list(:payment_random, rand(1..10), invoice: invoice)
