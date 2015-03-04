@@ -13,8 +13,8 @@ FactoryGirl.define do
         ["Acme, inc.", "Widget Corp", "Warehousing", "Demo Company",
          "Smith and Co."].sample
       end
-      starting_date Date.today
-      finishing_date Date.tomorrow
+      starting_date { Date.today >> rand(-8..1) }
+      finishing_date { Date.today >> rand(1..12) }
       after(:create) do |invoice|
         create_list(:item_random, rand(1..10), common: invoice)
       end
