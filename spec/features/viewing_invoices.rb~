@@ -1,7 +1,0 @@
-require 'rails_helper'
-
-feature 'Viewing invoices' do
-  scenarion 'Listing all invoices' do
-    invoice = FactoryGirl.create(:invoice, customer_name: "Test Invoice")
-    visit "/invoices"
-    click_link "Test Invoice"
