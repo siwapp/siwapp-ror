@@ -23,6 +23,7 @@ class RecurringInvoicesController < ApplicationController
     @recurring_invoice = RecurringInvoice.new(recurring_invoice_params)
 
     if @recurring_invoice.save
+      @recurring_invoice.set_amounts!
       flash[:notice] = "Recurring Invoice was successfully created."
       redirect_to @recurring_invoice
     else
@@ -40,6 +41,7 @@ class RecurringInvoicesController < ApplicationController
 
   def update
     if @recurring_invoice.update(recurring_invoice_params)
+      @recurring_invoice.set_amounts!
       flash[:notice] = "Recurring Invoice has been updated."
       redirect_to @recurring_invoice
     else

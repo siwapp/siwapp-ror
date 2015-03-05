@@ -20,4 +20,7 @@ class Invoice < Common
       self.paid_amount += payment.amount
     end
   end
+
+  # TODO (@carlosescri): Change the set_amounts! method to update also the
+  # status of the invoice (closed, status, ...)
 end
