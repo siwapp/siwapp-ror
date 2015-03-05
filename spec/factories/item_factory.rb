@@ -10,6 +10,15 @@ FactoryGirl.define do
     factory :item_random do
       quantity { rand(1..10) }
       unitary_cost { rand(1..100.0).round(2) }
+
+      after(:create) do |item|
+        vat = Tax.find_by(is_default: true) || create(:tax)
+        item.taxes << vat
+        if [true, false].sample
+          irpf = Tax.find_by(is_retention: true) || create(:tax, value: 19, is_default: false, is_retention: true, vat_prefix: "IRPF")
+          item.taxes << irpf
+        end
+      end
     end
   end
 end
