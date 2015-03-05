@@ -19,7 +19,20 @@ FactoryGirl.define do
 
       after(:create) do |invoice|
         create_list(:item_random, rand(1..10), common: invoice)
-        create_list(:payment_random, rand(1..10), invoice: invoice)
+
+        # Payments
+        invoice.set_amounts
+        max_payments = rand(1..4)
+        paid_amount = invoice.gross_amount / max_payments
+
+        # Randomly decide whether to pay the entire invoice, part or none.
+        max_payments -= rand(0..max_payments)
+
+        if max_payments > 0
+          create_list(:payment_random, max_payments, invoice: invoice,
+                      amount: paid_amount)
+        end
+
         invoice.set_amounts!
       end
     end

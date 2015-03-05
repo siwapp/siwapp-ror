@@ -27,5 +27,15 @@ namespace :siwapp do
       args.with_defaults(:number => "10")
       FactoryGirl.create_list(:recurring_invoice_random, args[:number].to_i)
     end
+
+    desc "Create a basic set of series, taxes, invoices and recurring invoices."
+    task :all do
+      if Serie.count == 0
+        Rake::Task['siwapp:random:series'].invoke
+      end
+      Rake::Task['siwapp:random:taxes'].invoke
+      Rake::Task['siwapp:random:invoices'].invoke
+      Rake::Task['siwapp:random:recurring_invoices'].invoke
+    end
   end
 end
