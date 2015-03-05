@@ -22,6 +22,7 @@ FactoryGirl.define do
 
       after(:create) do |recurring_invoice|
         create_list(:item_random, rand(1..10), common: recurring_invoice)
+        recurring_invoice.set_amounts!
       end
     end
   end

@@ -12,4 +12,12 @@ class Invoice < Common
   def to_s
     "#{serie.value}-#{number}"
   end
+
+  def set_amounts
+    super
+    self.paid_amount = 0
+    payments.find_each do |payment|
+      self.paid_amount += payment.amount
+    end
+  end
 end

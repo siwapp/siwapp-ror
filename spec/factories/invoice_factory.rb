@@ -20,6 +20,7 @@ FactoryGirl.define do
       after(:create) do |invoice|
         create_list(:item_random, rand(1..10), common: invoice)
         create_list(:payment_random, rand(1..10), invoice: invoice)
+        invoice.set_amounts!
       end
     end
   end
