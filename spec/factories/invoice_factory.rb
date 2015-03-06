@@ -5,6 +5,29 @@ FactoryGirl.define do
     customer_email 'example@example.com'
     serie
     number 1
+
+    factory :invoice_complete do
+      after(:create) do |invoice|
+
+        # Add some items
+        # - 2x >> qty: 5 / price: 3.33 / discount: 0% / VAT: 21%
+        create_list(:item, 2, common: invoice)
+        # - 1x >> qty: 1 / price: 100 / discount: 10% / VAT: 21%
+        create(:item, common: invoice, quantity: 1, unitary_cost: 100, discount: 10)
+
+        # Add some payments
+        create(:payment, invoice: invoice, date: Date.today, amount: 100)
+        create(:payment, invoice: invoice, date: Date.today + 1, amount: 49.193)
+
+        # Don't update totals, perform that op in tests manually
+        # base:      133.30
+        # discount:      10
+        # net:       123.30
+        # tax:       25.893
+        # gross:    149.193
+        # paid:     149.193
+      end
+    end
   end
 
   factory :invoice_random, class: Invoice do
@@ -33,7 +56,7 @@ FactoryGirl.define do
                     amount: paid_amount)
       end
 
-      # Update totals in db
+      # Update totals in db, these fixtures are for dev purposes
       invoice.set_amounts!
     end
   end

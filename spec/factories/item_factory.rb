@@ -6,7 +6,13 @@ FactoryGirl.define do
     end
     quantity 5
     unitary_cost 3.33
+    discount 0
     common
+
+    after(:create) do |item|
+      vat = Tax.find_by(is_default: true) || create(:tax)
+      item.taxes << vat
+    end
   end
 
   factory :item_random, class: Item do
