@@ -31,6 +31,31 @@ class Invoice < Common
     end
   end
 
+  # Public: Returns the status of the invoice based on certain conditions.
+  #
+  # Returns a string.
+  def get_status
+    if draft
+      'draft'
+    elsif gross_amount > paid_amount
+      if due_date and due_date > Date.today
+        'overdue'
+      else
+        'pending'
+      end
+    else
+      'paid'
+    end
+  end
+
+  # Public: Returns the amount that has not been already paid.
+  #
+  # Returns a double.
+  def get_unpaid_amount
+    pending = gross_amount - paid_amount
+    pending > 0 ? pending : nil
+  end
+
   # Public: Calculate totals for this invoice by iterating items and payments.
   #
   # TODO (@carlosescri): Change the set_amounts! method to update also the
