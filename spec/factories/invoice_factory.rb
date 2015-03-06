@@ -43,7 +43,7 @@ FactoryGirl.define do
       create_list(:item_random, rand(1..10), common: invoice)
 
       # Payments
-      invoice.set_amounts
+      invoice.reload.set_amounts
 
       max_payments = rand(1..4)
       paid_amount = invoice.gross_amount / max_payments
@@ -52,12 +52,11 @@ FactoryGirl.define do
       max_payments -= rand(0..max_payments)
 
       if max_payments > 0
-        create_list(:payment_random, max_payments, invoice: invoice,
-                    amount: paid_amount)
+        create_list(:payment_random, max_payments, invoice: invoice, amount: paid_amount)
       end
 
       # Update totals in db, these fixtures are for dev purposes
-      invoice.set_amounts()
+      invoice.reload.set_amounts!
     end
   end
 
