@@ -33,6 +33,8 @@ class Invoice < Common
 
   # Public: Returns the status of the invoice based on certain conditions.
   #
+  # TODO (@carlosescri): That "rescue-retry" smells bad. Remove it and fix tests.
+  #
   # Returns a string.
   def get_status
     if draft
@@ -46,14 +48,16 @@ class Invoice < Common
     else
       'paid'
     end
+  rescue
+    set_amounts
+    retry
   end
 
   # Public: Returns the amount that has not been already paid.
   #
   # Returns a double.
   def get_unpaid_amount
-    pending = gross_amount - paid_amount
-    pending > 0 ? pending : nil
+    gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
