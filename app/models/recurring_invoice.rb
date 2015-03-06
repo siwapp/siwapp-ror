@@ -11,7 +11,7 @@ class RecurringInvoice < Common
   validates :serie, presence: true
 
   def to_s
-    "#{serie.value}"
+    "#{serie.value} - #{customer_name}"
   end
 
   private

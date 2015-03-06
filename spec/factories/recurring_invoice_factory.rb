@@ -13,7 +13,7 @@ FactoryGirl.define do
 
         # Add some items
         # - 1x >> qty: 2 / price: 100 / discount: 10% / VAT: 21%
-        create(:item_complete, common: recurring_invoice, quantity: 2, unitary_cost: 100, discount: 10)
+        create(:item_complete, common: recurring_invoice, quantity: 2, unitary_cost: 100, discount: 10, with_retention: true)
 
         recurring_invoice.set_amounts()
         # base:       200
