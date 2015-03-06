@@ -12,11 +12,15 @@
   <% end %>
 
   <p>
-    <%= f.label :serie %> <%= f.collection_select :serie_id, @series, :id, :name, {include_blank: true} %><br/>
+    <% if @invoice.new_record? or @invoice.draft %>
+      <%= f.label :serie %> <%= f.collection_select :serie_id, @series, :id, :name, {include_blank: true} %><br/>
+    <% end %>
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
-    <%= f.label :number %> <%= f.number_field :number %><br/>
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
-    <%= f.label :due_date %> <%= f.date_field :due_date %>
+    <%= f.label :due_date %> <%= f.date_field :due_date %><br/>
+    <% if @invoice.new_record? or @invoice.draft %>
+      <%= f.check_box :draft %> <%= f.label :draft %>
+    <% end %>
   </p>
 
   <fieldset id="items">

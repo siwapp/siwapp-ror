@@ -10,14 +10,14 @@ feature 'Creating Series' do
   scenario 'can create a serie' do
     fill_in 'Name', with: 'Agro supplies'
     fill_in 'Value', with: 'AGR'
-    fill_in 'First number', with: '3'
+    fill_in 'Next number', with: '3'
     check 'Enabled'
 
     click_button 'Create Serie'
     expect(page).to have_content('Serie was successfully created.')
     serie = Serie.where(name: 'Agro supplies').first
     expect(page.current_url).to eql(serie_url(serie))
-  
+
     title = "Siwapp - Series - Agro supplies"
     expect(page).to have_title(title)
   end

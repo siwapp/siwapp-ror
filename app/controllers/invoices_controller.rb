@@ -6,8 +6,7 @@ class InvoicesController < ApplicationController
   # GET /invoices.json
   # GET /invoices.js
   def index
-    @invoices = Invoice.paginate(page: params[:page], per_page: 20)
-      .order(number: :desc)
+    @invoices = Invoice.paginate(page: params[:page], per_page: 20).order(id: :desc)
 
     respond_to do |format|
       format.html
@@ -92,7 +91,6 @@ class InvoicesController < ApplicationController
     def invoice_params
       params.require(:invoice).permit(
         :serie_id,
-        :number,
         :due_date,
 
         :customer_name,

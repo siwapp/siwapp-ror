@@ -5,9 +5,19 @@ RSpec.describe Invoice, :type => :model do
     expect(FactoryGirl.build(:invoice, serie: nil)).not_to be_valid
   end
 
-  it "is invalid without a valid invoice number" do
-    expect(FactoryGirl.build(:invoice, number: nil)).not_to be_valid
-    expect(FactoryGirl.build(:invoice, number: "AAA")).not_to be_valid
+  it "has no invoice number if it is a draft" do
+    invoice = FactoryGirl.create(:invoice, draft: true)
+    expect(invoice.number).to be_nil
+  end
+
+  it "has an invoice number if it is not a draft" do
+    invoice1 = FactoryGirl.create(:invoice)
+    expect(invoice1.number).to eq(1)
+
+    invoice2 = FactoryGirl.create(:invoice, serie: invoice1.serie)
+    expect(invoice2.number).to eq(2)
+
+    expect(invoice2.serie.next_number).to eq(3)
   end
 
   it "is invalid with bad e-mails" do
@@ -16,7 +26,8 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "is represented with series + number as string" do
-    expect(FactoryGirl.build(:invoice).to_s).to eq("ES-1")
+    expect(FactoryGirl.build(:invoice).to_s).to eq("ES-(1)")
+    expect(FactoryGirl.create(:invoice).to_s).to eq("ES-1")
   end
 
   it "performs totals calculations properly" do

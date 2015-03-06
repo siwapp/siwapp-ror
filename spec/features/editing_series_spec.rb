@@ -11,7 +11,7 @@ feature 'Editing Series' do
   scenario 'Updating a Serie' do
     fill_in 'Name', with: 'NEW Test Serie'
     fill_in 'Value', with: 'NTS'
-    fill_in 'First number', with: '3'
+    fill_in 'Next number', with: '3'
     check 'Enabled'
     click_button 'Update Serie'
     expect(page).to have_content("Serie was successfully updated")

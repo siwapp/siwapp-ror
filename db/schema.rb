@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304173038) do
+ActiveRecord::Schema.define(version: 20150306130843) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "serie_id",                limit: 4
@@ -116,10 +116,10 @@ ActiveRecord::Schema.define(version: 20150304173038) do
   end
 
   create_table "series", force: :cascade do |t|
-    t.string  "name",         limit: 255
-    t.string  "value",        limit: 255
-    t.integer "first_number", limit: 4,   default: 1
-    t.boolean "enabled",      limit: 1,   default: true
+    t.string  "name",        limit: 255
+    t.string  "value",       limit: 255
+    t.integer "next_number", limit: 4,   default: 1
+    t.boolean "enabled",     limit: 1,   default: true
   end
 
   create_table "tag", force: :cascade do |t|
