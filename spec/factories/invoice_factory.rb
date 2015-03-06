@@ -7,7 +7,7 @@ FactoryGirl.define do
     number 1
 
     factory :invoice_complete do
-      after(:create) do |invoice|
+      after(:build) do |invoice|
 
         # Add some items
         # - 2x >> qty: 5 / price: 3.33 / discount: 0% / VAT: 21%
@@ -19,7 +19,7 @@ FactoryGirl.define do
         create(:payment, invoice: invoice, date: Date.today, amount: 100)
         create(:payment, invoice: invoice, date: Date.today + 1, amount: 49.193)
 
-        # Don't update totals, perform that op in tests manually
+        invoice.set_amounts()
         # base:      133.30
         # discount:      10
         # net:       123.30
@@ -38,7 +38,7 @@ FactoryGirl.define do
     serie  { Serie.all.sample || generate(:serie_random) }
     number { serie.next_number }
 
-    after(:create) do |invoice|
+    after(:build) do |invoice|
       # Items
       create_list(:item_random, rand(1..10), common: invoice)
 
@@ -57,7 +57,7 @@ FactoryGirl.define do
       end
 
       # Update totals in db, these fixtures are for dev purposes
-      invoice.set_amounts!
+      invoice.set_amounts()
     end
   end
 

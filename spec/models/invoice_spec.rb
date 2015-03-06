@@ -15,13 +15,15 @@ RSpec.describe Invoice, :type => :model do
     expect(FactoryGirl.build(:invoice, customer_email: "paquito@example")).not_to be_valid
   end
 
-  it "calculates totals properly" do
-    invoice = FactoryGirl.create(:invoice_complete)
+  it "is represented with series + number as string" do
+    expect(FactoryGirl.build(:invoice).to_s).to eq("ES-1")
+  end
+
+  it "performs totals calculations properly" do
+    invoice = FactoryGirl.build(:invoice_complete)
 
     expect(invoice.items.count).to eq(3)
     expect(invoice.payments.count).to eq(2)
-
-    invoice.set_amounts!()
 
     expect(invoice.base_amount).to eq(133.3)
     expect(invoice.discount_amount).to eq(10)
