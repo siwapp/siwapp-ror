@@ -1,19 +1,27 @@
 FactoryGirl.define do
 
   factory :invoice do
+    transient do
+      with_retention false
+    end
+
     customer_name "Example Customer Name"
     customer_email 'example@example.com'
     serie
     number 1
 
     factory :invoice_complete do
-      after(:build) do |invoice|
+      after(:build) do |invoice, evaluator|
 
         # Add some items
         # - 2x >> qty: 5 / price: 3.33 / discount: 0% / VAT: 21%
-        create_list(:item, 2, common: invoice)
+        create_list(:item_complete, 2, common: invoice)
         # - 1x >> qty: 1 / price: 100 / discount: 10% / VAT: 21%
-        create(:item, common: invoice, quantity: 1, unitary_cost: 100, discount: 10)
+        create(:item_complete, common: invoice, quantity: 1, unitary_cost: 100, discount: 10)
+
+        if evaluator.with_retention
+          create(:item_complete, common: invoice, quantity: 1, unitary_cost: 100, with_retention: true)
+        end
 
         # Add some payments
         create(:payment, invoice: invoice, date: Date.today, amount: 100)

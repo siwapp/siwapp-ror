@@ -3,7 +3,6 @@ class Tax < ActiveRecord::Base
 
   validates :name, presence: true
   validates :value, presence: true, numericality: true
-  validates :is_default, uniqueness: { if: :is_default }
 
   def to_s
     name

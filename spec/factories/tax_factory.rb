@@ -1,15 +1,16 @@
 FactoryGirl.define do
   factory :tax do
-    transient do
-      vat_prefix "VAT"
-    end
-
-    name { "#{vat_prefix} #{value}%" }
     value 21
+    name { "VAT #{value}%" }
 
-    # Only one default tax in db at a time
-    is_default { Tax.find_by(is_default: true).nil? ? true : false }
-    is_retention false  # IRPF, this must be specified manually
+    is_default false
+    is_retention false
     active true
+
+    factory :tax_retention do
+      value 19
+      name { "IRPF #{value}%" }
+      is_retention true
+    end
   end
 end

@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  belongs_to :common, touch: true
+  belongs_to :common
   has_and_belongs_to_many :taxes
 
   accepts_nested_attributes_for :taxes
@@ -18,7 +18,7 @@ class Item < ActiveRecord::Base
 
   def get_effective_tax_rate
     tax_percent = 0
-    self.taxes.find_each do |tax|
+    self.taxes.each do |tax|
       tax_percent += tax.is_retention ? -tax.value : tax.value
     end
     tax_percent

@@ -1,6 +1,10 @@
 FactoryGirl.define do
 
   factory :item do
+    transient do
+      with_retention false
+    end
+
     sequence :description do |n|
       "Item example description #{n}"
     end
@@ -9,9 +13,14 @@ FactoryGirl.define do
     discount 0
     common
 
-    after(:build) do |item|
-      vat = Tax.find_by(is_default: true) || build(:tax)
-      item.taxes << vat
+    factory :item_complete do
+      after(:build) do |item, evaluator|
+        vat = Tax.find_by(is_default: true) || build(:tax)
+        item.taxes << vat
+        if evaluator.with_retention
+          item.taxes << (Tax.find_by(is_retention: true) || build(:tax_retention))
+        end
+      end
     end
   end
 
@@ -23,7 +32,7 @@ FactoryGirl.define do
       vat = Tax.find_by(is_default: true) || build(:tax)
       item.taxes << vat
       if [true, false].sample
-        irpf = Tax.find_by(is_retention: true) || build(:tax, value: 19, is_default: false, is_retention: true, vat_prefix: "IRPF")
+        irpf = Tax.find_by(is_retention: true) || build(:tax_retention)
         item.taxes << irpf
       end
     end

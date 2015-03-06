@@ -10,7 +10,7 @@ class Common < ActiveRecord::Base
     self.discount_amount = 0
     self.tax_amount = 0
 
-    items.find_each do |item|
+    items.each do |item|
       self.base_amount += item.get_base_amount()
       self.discount_amount += item.get_discount_amount()
       self.tax_amount += item.get_tax_amount()
