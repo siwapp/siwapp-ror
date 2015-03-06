@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Item, :type => :model do
   it "performs its own calculations properly" do
-    item = FactoryGirl.build(:item)
+    item = FactoryGirl.create(:item)
 
     expect(item.taxes.length).to eq(0)
 
@@ -12,7 +12,7 @@ RSpec.describe Item, :type => :model do
     expect(item.get_effective_tax_rate()).to eq(0)
     expect(item.get_tax_amount()).to eq(0)
 
-    item = FactoryGirl.build(:item_complete, discount: 10)
+    item = FactoryGirl.create(:item_complete, discount: 10)
 
     expect(item.taxes.length).to eq(1)
 
@@ -22,7 +22,7 @@ RSpec.describe Item, :type => :model do
     expect(item.get_effective_tax_rate()).to eq(21)
     expect(item.get_tax_amount()).to eq(3.14685)
 
-    item.taxes << FactoryGirl.build(:tax_retention)
+    item.taxes << FactoryGirl.create(:tax_retention)
 
     expect(item.taxes.length).to eq(2)
 
@@ -32,8 +32,8 @@ RSpec.describe Item, :type => :model do
     expect(item.get_effective_tax_rate()).to eq(2)
     expect(item.get_tax_amount()).to eq(0.2997)
 
-    item = FactoryGirl.build(:item)
-    item.taxes << FactoryGirl.build(:tax_retention)
+    item = FactoryGirl.create(:item)
+    item.taxes << FactoryGirl.create(:tax_retention)
 
     expect(item.get_base_amount()).to eq(16.65)
     expect(item.get_discount_amount()).to eq(0)

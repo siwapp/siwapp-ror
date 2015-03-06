@@ -1,39 +1,31 @@
 FactoryGirl.define do
 
   factory :invoice do
-    transient do
-      with_retention false
-    end
-
     customer_name "Example Customer Name"
     customer_email 'example@example.com'
     serie
     number 1
 
     factory :invoice_complete do
-      after(:build) do |invoice, evaluator|
+      after(:create) do |invoice|
 
         # Add some items
-        # - 2x >> qty: 5 / price: 3.33 / discount: 0% / VAT: 21%
-        create_list(:item_complete, 2, common: invoice)
-        # - 1x >> qty: 1 / price: 100 / discount: 10% / VAT: 21%
-        create(:item_complete, common: invoice, quantity: 1, unitary_cost: 100, discount: 10)
-
-        if evaluator.with_retention
-          create(:item_complete, common: invoice, quantity: 1, unitary_cost: 100, with_retention: true)
-        end
+        # - 2x >> qty: 5 / price: 3.33 / discount: 0% / VAT: 21% / IRPF: 19%
+        create_list(:item_complete, 2, common: invoice, with_retention: true)
+        # - 1x >> qty: 1 / price: 100 / discount: 10% / VAT: 21% / IRPF: 19%
+        create(:item_complete, common: invoice, quantity: 1, unitary_cost: 100, discount: 10, with_retention: true)
 
         # Add some payments
         create(:payment, invoice: invoice, date: Date.today, amount: 100)
-        create(:payment, invoice: invoice, date: Date.today + 1, amount: 49.193)
+        create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.766)
 
         invoice.set_amounts()
         # base:      133.30
         # discount:      10
         # net:       123.30
-        # tax:       25.893
-        # gross:    149.193
-        # paid:     149.193
+        # tax:        2.466
+        # gross:    125.766
+        # paid:     125.766
       end
     end
   end
@@ -46,7 +38,7 @@ FactoryGirl.define do
     serie  { Serie.all.sample || generate(:serie_random) }
     number { serie.next_number }
 
-    after(:build) do |invoice|
+    after(:create) do |invoice|
       # Items
       create_list(:item_random, rand(1..10), common: invoice)
 

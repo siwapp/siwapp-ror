@@ -9,7 +9,7 @@ FactoryGirl.define do
     finishing_date Date.today >> 1  # 1 month later
 
     factory :recurring_invoice_complete do
-      after(:build) do |recurring_invoice|
+      after(:create) do |recurring_invoice|
 
         # Add some items
         # - 1x >> qty: 2 / price: 100 / discount: 10% / VAT: 21%
@@ -36,7 +36,7 @@ FactoryGirl.define do
     starting_date { Date.today >> rand(-8..1) }
     finishing_date { Date.today >> rand(1..12) }
 
-    after(:build) do |recurring_invoice|
+    after(:create) do |recurring_invoice|
       create_list(:item_random, rand(1..10), common: recurring_invoice)
       recurring_invoice.set_amounts()
     end
