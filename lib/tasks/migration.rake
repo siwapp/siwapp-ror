@@ -2,12 +2,9 @@ namespace :siwapp do
   namespace :migrate do
     desc "Makes the migration of old siwapp (sf1) to new one."
     task :old_database do
-      client = Mysql2::Client.new(
-          :host  => "localhost",
-          :database => "siwapp",
-          :username => "root",
-          :password => "",
-      )
+      # Get db config from databases.yml for the current environment
+      client = Mysql2::Client.new(**ActiveRecord::Base.connection_config)
+
       client.query("ALTER TABLE common DROP FOREIGN KEY common_recurring_invoice_id_common_id")
       client.query("ALTER TABLE common DROP FOREIGN KEY common_customer_id_customer_id")
       client.query("ALTER TABLE common DROP FOREIGN KEY common_series_id_series_id")
@@ -64,6 +61,16 @@ namespace :siwapp do
       client.query("ALTER TABLE property CHANGE value value TEXT")
 
       client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+      client.query("ALTER TABLE series CHANGE first_number next_number INT")
+
+      # Get max invoice number for each series and set the series next_number
+      # field accordingly.
+      series_info = client.query("SELECT `serie_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' GROUP BY `serie_id`")
+      series_info.each do |info|
+        serie_id = info['serie_id']
+        next_number = info['current_number'] + 1
+        client.query("UPDATE `series` SET `next_number` = #{next_number} WHERE `id` = #{serie_id};")
+      end
 
       client.query("ALTER TABLE tag CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
 
@@ -87,11 +94,20 @@ namespace :siwapp do
       client.query("RENAME TABLE tax TO taxes")
       client.query("RENAME TABLE item_tax TO items_taxes")
 
+      # Create migrations table
       client.query("CREATE TABLE `schema_migrations` (
          `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
          UNIQUE KEY `unique_schema_migrations` (`version`)
          ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
-      client.query("INSERT INTO `schema_migrations` VALUES ('20150117155103')")
+
+      # Get all migrations defined in the migrations directory
+      migrations = Dir.glob(File.expand_path('../../../db/migrate', __FILE__) + '/*.rb')
+      # Collect migration versions
+      timestamps = migrations.collect{ |f| f.split("/").last.split("_").first }
+      # And insert them into the schema_migrations table
+      timestamps.each do |version|
+        client.query("INSERT INTO `schema_migrations` (`version`) VALUES (#{version})")
+      end
     end
   end
 end
