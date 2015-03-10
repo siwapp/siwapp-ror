@@ -31,7 +31,7 @@ FactoryGirl.define do
   end
 
   factory :invoice_random, class: Invoice do
-    draft false
+    draft {rand > 0.5}
     sequence(:customer_name, "A")  { |n| "John #{n}. Smith" }
     sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
 

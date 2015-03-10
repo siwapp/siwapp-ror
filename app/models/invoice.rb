@@ -24,11 +24,8 @@ class Invoice < Common
   #
   # Returns a string.
   def to_s
-    if number
-      "#{serie.value}-#{number}"
-    else
-      "#{serie.value}-(#{serie.next_number})"
-    end
+    label = draft ? '[draft]' : number? ? number: "(#{serie.next_number})"
+    "#{serie.value}-#{label}"
   end
 
   # Public: Returns the status of the invoice based on certain conditions.
@@ -57,7 +54,7 @@ class Invoice < Common
   #
   # Returns a double.
   def unpaid_amount
-    gross_amount - paid_amount
+    draft ? Nil : gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -91,6 +88,6 @@ class Invoice < Common
     def ensure_invoice_number
       self.number = serie.next_number
       yield
-      serie.update_attribute(:next_number, number + 1)
+      serie.update_attribute :next_number, number + 1
     end
 end
