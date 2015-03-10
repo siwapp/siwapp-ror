@@ -56,7 +56,7 @@ class Invoice < Common
   # Public: Returns the amount that has not been already paid.
   #
   # Returns a double.
-  def get_unpaid_amount
+  def unpaid_amount
     gross_amount - paid_amount
   end
 
@@ -89,8 +89,8 @@ class Invoice < Common
     #
     # Returns nothing.
     def ensure_invoice_number
-      self.number = self.serie.next_number
+      self.number = serie.next_number
       yield
-      self.serie.update_attribute(:next_number, self.number + 1)
+      serie.update_attribute(:next_number, number + 1)
     end
 end

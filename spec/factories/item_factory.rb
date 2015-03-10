@@ -28,6 +28,12 @@ FactoryGirl.define do
     quantity { rand(1..10) }
     unitary_cost { rand(1..100.0).round(2) }
     discount { [0, 0, 0, 0, 10, 20].sample }
+    description {[
+                  'Weird shoe lazes', 
+                  'Drowning kit', 
+                  'Personal Drone', 
+                  'Paper', 
+                  'Fishing kit'].sample}
 
     after(:create) do |item|
       vat = Tax.find_by(is_default: true) || create(:tax)

@@ -21,7 +21,7 @@ class Common < ActiveRecord::Base
   end
 
   def set_amounts!
-    self.set_amounts()
-    self.save()
+    self.set_amounts
+    save
   end
 end

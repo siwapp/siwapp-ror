@@ -19,7 +19,7 @@ FactoryGirl.define do
         create(:payment, invoice: invoice, date: Date.today, amount: 100)
         create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.766)
 
-        invoice.set_amounts()
+        invoice.set_amounts
         # base:      133.30
         # discount:      10
         # net:       123.30
