@@ -4,27 +4,31 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :taxes
 
-  def get_base_amount
-    self.unitary_cost * self.quantity
+  def base_amount
+    unitary_cost * quantity
   end
 
-  def get_discount_amount
-    self.get_base_amount() * self.discount / 100.0
+  def discount_amount
+    base_amount * discount / 100.0
   end
 
-  def get_net_amount
-    self.get_base_amount() - self.get_discount_amount()
+  def net_amount
+    base_amount - discount_amount
   end
 
-  def get_effective_tax_rate
+  def effective_tax_rate
     tax_percent = 0
-    self.taxes.each do |tax|
+    taxes.each do |tax|
       tax_percent += tax.is_retention ? -tax.value : tax.value
     end
     tax_percent
   end
 
-  def get_tax_amount
-    self.get_net_amount() * self.get_effective_tax_rate() / 100
+  def tax_amount
+    net_amount * effective_tax_rate / 100
+  end
+
+  def to_s
+    description? ? description : 'No description'
   end
 end

@@ -11,9 +11,9 @@ class Common < ActiveRecord::Base
     self.tax_amount = 0
 
     items.each do |item|
-      self.base_amount += item.get_base_amount()
-      self.discount_amount += item.get_discount_amount()
-      self.tax_amount += item.get_tax_amount()
+      self.base_amount += item.base_amount
+      self.discount_amount += item.discount_amount
+      self.tax_amount += item.tax_amount
     end
 
     self.net_amount = self.base_amount - self.discount_amount
