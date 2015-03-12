@@ -19,6 +19,11 @@ FactoryGirl.define do
         create(:payment, invoice: invoice, date: Date.today, amount: 100)
         create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.766)
 
+        # super weird thing. iterating throug invoice.items or invoice.payments BEFORE
+        # the create_list calls, makes the newly created children not to be bound to invoice
+        # we need to do a reload
+        invoice.reload
+
         invoice.set_amounts
         # base:      133.30
         # discount:      10

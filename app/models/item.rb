@@ -1,6 +1,6 @@
 class Item < ActiveRecord::Base
   belongs_to :common
-  has_and_belongs_to_many :taxes
+  has_and_belongs_to_many :taxes 
 
   accepts_nested_attributes_for :taxes
 
@@ -31,4 +31,5 @@ class Item < ActiveRecord::Base
   def to_s
     description? ? description : 'No description'
   end
+
 end

@@ -32,7 +32,6 @@ RSpec.describe Invoice, :type => :model do
 
   it "performs totals calculations properly" do
     invoice = FactoryGirl.create(:invoice_complete)
-
     expect(invoice.items.length).to eq(3)
     expect(invoice.payments.length).to eq(2)
 

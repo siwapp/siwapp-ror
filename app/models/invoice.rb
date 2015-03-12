@@ -8,8 +8,16 @@ class Invoice < Common
              message: "Only valid emails"}, allow_blank: true
   validates :serie, presence: true
   validates :number, numericality: { only_integer: true, allow_nil: true }
-
+  
+  before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
+
+  CLOSED = 1
+  OPENED = 2
+  OVERDUE = 3
+
+  STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
+
 
   # Public: Get a string representation of this object
   #
@@ -34,27 +42,23 @@ class Invoice < Common
   #
   # Returns a string.
   def get_status
-    if draft
-      'draft'
-    elsif gross_amount > paid_amount
-      if due_date and due_date > Date.today
-        'overdue'
-      else
-        'pending'
-      end
-    else
-      'paid'
-    end
-  rescue
     set_amounts
-    retry
+    if draft
+      :draft
+    elsif closed || gross_amount <= paid_amount
+      :closed
+    elsif due_date and due_date > Date.today
+      :opened
+    else
+      :overdue
+    end
   end
 
   # Public: Returns the amount that has not been already paid.
   #
   # Returns a double.
   def unpaid_amount
-    draft ? Nil : gross_amount - paid_amount
+    draft ? nil : gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -90,4 +94,13 @@ class Invoice < Common
       yield
       serie.update_attribute :next_number, number + 1
     end
+
+    # Protected: Update instance's status digit to reflect its status
+    def set_status
+      if !draft
+        self.status = STATUS[get_status]
+      end
+    end
+
+
 end
