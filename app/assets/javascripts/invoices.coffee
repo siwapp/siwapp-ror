@@ -12,3 +12,20 @@ jQuery ->
           $.getScript more_posts_url
         return
       return
+
+$ ->
+  $('a.calculate-amounts').on 'click', ->
+    # obtain form fields
+    fields = $('form[data-model=invoice]').serializeArray()
+    # remove id field from item rows
+    newFields = {}
+    for f in fields
+      if f.name.match(/\[items_attributes\]\[\d\]\[id\]/)
+        continue
+      newFields[f.name] = f.value
+    # add fields to query params
+    href = $(this).attr('href')
+    if '?' in href
+      href = href.substring(0, href.indexOf('?'))
+    href += '?' + jQuery.param newFields
+    $(this).attr('href', href)

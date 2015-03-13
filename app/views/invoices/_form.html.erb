@@ -1,4 +1,4 @@
-<%= form_for @invoice  do |f| %>
+<%= form_for @invoice, data: {model: 'invoice'}  do |f| %>
   <% if @invoice.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize @invoice.errors.count, "error" %> prohibited this invoice from being saved:</h2>
@@ -48,3 +48,8 @@
     <%= f.submit %>
   </div>
 <% end %>
+<p id="gross"> gross: <span><%= @invoice.gross_amount %></span></p>
+<p id="discount"> tax: <span><%= @invoice.discount_amount %></span></p>
+<p id="net"> net: <span><%= @invoice.net_amount %></span></p>
+<p id="tax"> tax: <span><%= @invoice.tax_amount %></span></p>
+<p><%= link_to 'Calculate', invoice_amounts_path, remote: true , class: "calculate-amounts"%></p>

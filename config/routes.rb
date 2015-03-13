@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get "invoices/amounts" => 'invoices#amounts', as: :invoice_amounts
+
   resources :invoices
 
   resources :recurring_invoices
