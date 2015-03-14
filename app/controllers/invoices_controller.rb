@@ -65,11 +65,24 @@ class InvoicesController < ApplicationController
     respond_to do |format|
       if @invoice.update(invoice_params)
         @invoice.set_amounts!
-        format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
+        format.html do
+          if request.xhr? # is ajax
+            set_extra_stuff
+            render partial: "invoices/form", locals: {invoice: @invoice, taxes: @taxes, series: @series}
+          else
+            redirect_to @invoice, notice: 'Invoice was successfully updated.' 
+          end
+        end
         format.json { render :show, status: :ok, location: @invoice }
       else
         flash[:alert] = 'Invoice has not been saved.'
-        format.html { render :edit }
+        format.html do
+          if request.xhr? # ajax?
+            render json: @invoice.errors, status: :unprocessable_entity
+          else
+            render :edit             
+          end
+        end
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end
