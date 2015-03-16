@@ -39,6 +39,12 @@ namespace :siwapp do
       client.query("ALTER TABLE common CHANGE shipping_address shipping_address TEXT")
       client.query("ALTER TABLE common CHANGE terms terms TEXT")
       client.query("ALTER TABLE common CHANGE notes notes TEXT")
+      client.query("ALTER TABLE common CHANGE base_amount base_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE discount_amount discount_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE net_amount net_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE gross_amount gross_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE paid_amount paid_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE tax_amount tax_amount DECIMAL(53, 15) DEFAULT 0")
 
       client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")

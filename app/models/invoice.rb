@@ -38,11 +38,8 @@ class Invoice < Common
 
   # Public: Returns the status of the invoice based on certain conditions.
   #
-  # TODO (@carlosescri): That "rescue-retry" smells bad. Remove it and fix tests.
-  #
-  # Returns a string.
+  # Returns a symbol.
   def get_status
-    set_amounts
     if draft
       :draft
     elsif closed || gross_amount <= paid_amount
@@ -62,9 +59,6 @@ class Invoice < Common
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
-  #
-  # TODO (@carlosescri): Change the set_amounts! method to update also the
-  # status of the invoice (closed, status, ...)
   #
   # Returns nothing.
   def set_amounts

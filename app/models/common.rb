@@ -6,9 +6,6 @@ class Common < ActiveRecord::Base
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   def set_amounts
-    self.base_amount = 0
-    self.discount_amount = 0
-    self.tax_amount = 0
     items.each do |item|
       self.base_amount += item.base_amount
       self.discount_amount += item.discount_amount
@@ -20,7 +17,7 @@ class Common < ActiveRecord::Base
   end
 
   def set_amounts!
-    self.set_amounts
+    set_amounts
     save
   end
 end
