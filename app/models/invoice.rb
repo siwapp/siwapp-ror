@@ -12,11 +12,12 @@ class Invoice < Common
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
 
-  # Status values
-  DRAFT = 0
   CLOSED = 1
   OPENED = 2
   OVERDUE = 3
+
+  STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
+
 
   # Public: Get a string representation of this object
   #
@@ -37,17 +38,19 @@ class Invoice < Common
 
   # Public: Returns the status of the invoice based on certain conditions.
   #
-  # Returns an integer.
+  # TODO (@carlosescri): That "rescue-retry" smells bad. Remove it and fix tests.
+  #
+  # Returns a string.
   def get_status
     set_amounts
     if draft
-      DRAFT
+      :draft
     elsif closed || gross_amount <= paid_amount
-      CLOSED
+      :closed
     elsif due_date and due_date > Date.today
-      OPENED
+      :opened
     else
-      OVERDUE
+      :overdue
     end
   end
 
@@ -95,7 +98,7 @@ class Invoice < Common
     # Protected: Update instance's status digit to reflect its status
     def set_status
       if !draft
-        self.status = get_status
+        self.status = STATUS[get_status]
       end
     end
 
