@@ -28,9 +28,7 @@ RSpec.describe RecurringInvoice, :type => :model do
 
   it "performs totals calculations properly" do
     recurring_invoice = FactoryGirl.create(:recurring_invoice_complete)
-    # factories are weirds. reload and resave has to be done
-    recurring_invoice.reload
-    recurring_invoice.save # so its totals are updated
+
     expect(recurring_invoice.items.length).to eq(1)
 
     expect(recurring_invoice.base_amount).to eq(200)

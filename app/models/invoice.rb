@@ -9,8 +9,7 @@ class Invoice < Common
   validates :serie, presence: true
   validates :number, numericality: { only_integer: true, allow_nil: true }
   
-  before_save :set_status, if: lambda { !draft }
-
+  before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
 
   CLOSED = 1
@@ -37,27 +36,16 @@ class Invoice < Common
     "#{serie.value}-#{label}"
   end
 
-  def amounts
-    if draft 
-      return nil
-    end
-    paid = 0
-    payments.each do |p|
-      paid += p.amount
-    end
-    super.merge paid: paid, unpaid: super[:gross] - paid
-  end
-
   # Public: Returns the status of the invoice based on certain conditions.
   #
   # TODO (@carlosescri): That "rescue-retry" smells bad. Remove it and fix tests.
   #
   # Returns a string.
-  def get_status my_amounts=nil
-    my_amounts ||= amounts
+  def get_status
+    set_amounts
     if draft
       :draft
-    elsif closed || my_amounts[:gross] <= my_amounts[:paid]
+    elsif closed || gross_amount <= paid_amount
       :closed
     elsif due_date and due_date > Date.today
       :opened
@@ -70,8 +58,7 @@ class Invoice < Common
   #
   # Returns a double.
   def unpaid_amount
-    cached = amounts
-    draft ? nil : cached[:gross] - cached[:paid]
+    draft ? nil : gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -80,8 +67,12 @@ class Invoice < Common
   # status of the invoice (closed, status, ...)
   #
   # Returns nothing.
-  def set_amounts 
-    self.paid_amount = draft ? nil : super[:paid]
+  def set_amounts
+    super
+    self.paid_amount = 0
+    payments.each do |payment|
+      self.paid_amount += payment.amount
+    end
   end
 
   protected
@@ -105,8 +96,10 @@ class Invoice < Common
     end
 
     # Protected: Update instance's status digit to reflect its status
-    def set_status 
+    def set_status
+      if !draft
         self.status = STATUS[get_status]
+      end
     end
 
 

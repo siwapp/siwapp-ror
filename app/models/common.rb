@@ -5,34 +5,22 @@ class Common < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
-  before_save :set_amounts
-
-
-  def amounts
-    base = 0
-    discount = 0
-    tax = 0
-    items.each do |it|
-      base += it.base_amount
-      discount += it.discount_amount
-      tax += it.tax_amount
+  def set_amounts
+    self.base_amount = 0
+    self.discount_amount = 0
+    self.tax_amount = 0
+    items.each do |item|
+      self.base_amount += item.base_amount
+      self.discount_amount += item.discount_amount
+      self.tax_amount += item.tax_amount
     end
-    {base: base, discount: discount, tax: tax, net: base - discount, 
-      gross: base - discount + tax}
-  end
 
-  def set_amounts 
-    cached_amounts = amounts
-    self.base_amount = cached_amounts[:base]
-    self.discount_amount = cached_amounts[:discount]
-    self.tax_amount = cached_amounts[:tax]
-    self.net_amount = cached_amounts[:base] - cached_amounts[:discount]
-    self.gross_amount = self.net_amount + cached_amounts[:tax]
-    cached_amounts
+    self.net_amount = base_amount - discount_amount
+    self.gross_amount = net_amount + tax_amount
   end
 
   def set_amounts!
-    set_amounts
+    self.set_amounts
     save
   end
 end
