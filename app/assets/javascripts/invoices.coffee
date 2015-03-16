@@ -13,11 +13,12 @@ jQuery ->
         return
       return
 
+
 $ ->
   $('a.calculate-amounts').on 'click', ->
     # obtain form fields
     fields = $('form[data-model=invoice]').serializeArray()
-    # remove id field from item rows
+    # remove id field from item rows. we wan tu build a "fake" invoice only for calculating amounts
     newFields = {}
     for f in fields
       if f.name.match(/\[items_attributes\]\[\d\]\[id\]/)
