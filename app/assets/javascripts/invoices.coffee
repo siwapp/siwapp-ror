@@ -13,20 +13,14 @@ jQuery ->
         return
       return
 
-
 $ ->
   $('a.calculate-amounts').on 'click', ->
     # obtain form fields
-    fields = $('form[data-model=invoice]').serializeArray()
-    # remove id field from item & payment rows. we wan tu build a "fake" invoice only for calculating amounts
-    newFields = {}
-    for f in fields
-      if f.name.match(/\[(items|payments)_attributes\]\[\d\]\[id\]/) 
-        continue
-      newFields[f.name] = f.value
+    fields = $('form[data-model=invoice]').serialize()
     # add fields to query params
-    href = $(this).attr('href')
-    if '?' in href
-      href = href.substring(0, href.indexOf('?'))
-    href += '?' + jQuery.param newFields
+    href = $(this).attr('href') + '?' + fields
     $(this).attr('href', href)
+
+$ ->
+  $('a[data-remote]').on 'ajax:success', (e, data, status, xhr) ->
+    alert(data.gross_amount)

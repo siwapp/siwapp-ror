@@ -47,14 +47,14 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/amounts
+  # GET /invoices/amounts/1.json
   def amounts
-    @invoice = Invoice.new()
-    @invoice.attributes = invoice_params # not saved
-    @invoice.set_amounts 
+    @invoice = Invoice.find(params[:id])
+    @invoice.update(invoice_params)
+    @invoice.set_amounts
 
     respond_to do |format|
-      format.js
+      format.json
     end
   end
 
