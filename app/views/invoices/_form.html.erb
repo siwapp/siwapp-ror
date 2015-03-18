@@ -48,10 +48,12 @@
     <%= f.submit %>
   </div>
 <% end %>
-<p id="gross"> gross: <span><%= @invoice.gross_amount %></span></p>
-<p id="discount"> discount: <span><%= @invoice.discount_amount %></span></p>
-<p id="net"> net: <span><%= @invoice.net_amount %></span></p>
-<p id="tax"> tax: <span><%= @invoice.tax_amount %></span></p>
+<div id="amounts">
+<p> gross: <%= @invoice.gross_amount %></p>
+<p> discount: <%= @invoice.discount_amount %></p>
+<p> net: <%= @invoice.net_amount %></p>
+<p> tax: <%= @invoice.tax_amount %></p>
+</div>
 <% if @invoice.new_record? %>
 <p><%= link_to 'Calculate', new_invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
 <% else %>

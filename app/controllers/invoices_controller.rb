@@ -47,7 +47,7 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/amounts/1.json
+  # GET /invoices/amounts/1
   # GET /invoices/amounts
   def amounts
     if params[:id]
@@ -59,7 +59,7 @@ class InvoicesController < ApplicationController
     @invoice.set_amounts
 
     respond_to do |format|
-      format.json
+      format.js
     end
   end
 
