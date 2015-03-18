@@ -48,14 +48,13 @@
     <%= f.submit %>
   </div>
 <% end %>
+
 <div id="amounts">
-<p> gross: <%= @invoice.gross_amount %></p>
-<p> discount: <%= @invoice.discount_amount %></p>
-<p> net: <%= @invoice.net_amount %></p>
-<p> tax: <%= @invoice.tax_amount %></p>
+  <%= render partial: 'amounts', locals: {invoice: @invoice} %>
 </div>
+
 <% if @invoice.new_record? %>
-<p><%= link_to 'Calculate', new_invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
+  <p><%= link_to 'Calculate', new_invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
 <% else %>
-<p><%= link_to 'Calculate', invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
+  <p><%= link_to 'Calculate', invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
 <% end %>
