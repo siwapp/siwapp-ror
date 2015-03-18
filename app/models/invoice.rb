@@ -8,7 +8,7 @@ class Invoice < Common
              message: "Only valid emails"}, allow_blank: true
   validates :serie, presence: true
   validates :number, numericality: { only_integer: true, allow_nil: true }
-  
+
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
 

@@ -41,15 +41,20 @@ class InvoicesController < ApplicationController
         format.json { render :show, status: :created, location: @invoice }
       else
         flash[:alert] = "Invoice has not been created."
-        format.html { render :new}
+        format.html { render :new }
         format.json { render json: @invoice.errors, status: :unprocessable_entity }
       end
     end
   end
 
   # GET /invoices/amounts/1.json
+  # GET /invoices/amounts
   def amounts
-    @invoice = Invoice.find(params[:id])
+    if params[:id]
+      @invoice = Invoice.find(params[:id])
+    else
+      @invoice = Invoice.new
+    end
     @invoice.update(invoice_params)
     @invoice.set_amounts
 
