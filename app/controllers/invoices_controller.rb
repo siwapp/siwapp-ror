@@ -48,9 +48,10 @@ class InvoicesController < ApplicationController
   end
 
   # GET /invoices/amounts
+  #
+  # Calculates the amounts totals
   def amounts
     @invoice = Invoice.new
-    @invoice_params = amounts_params
     @invoice.assign_attributes(amounts_params)
     @invoice.set_amounts
 

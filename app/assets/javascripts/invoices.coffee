@@ -13,11 +13,7 @@ jQuery ->
         return
       return
 
-$ ->
   $('a.calculate-amounts')
     .on 'ajax:beforeSend', (e, xhr, settings) ->
-      console.log('before');
       settings.url += '?' + $('form[data-model=invoice]').serialize()
-    .on 'ajax:success', (e, data, status, xhr) ->
-      console.log('hey there')
 
