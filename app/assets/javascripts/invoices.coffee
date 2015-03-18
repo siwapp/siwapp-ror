@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-jQuery ->
+ready = ->
   if $('#infinite-scrolling').size() > 0
     $(window).on 'scroll', ->
       more_posts_url = $('.pagination .next_page').attr('href')
@@ -16,4 +16,10 @@ jQuery ->
   $('a.calculate-amounts')
     .on 'ajax:beforeSend', (e, xhr, settings) ->
       settings.url += '?' + $('form[data-model=invoice]').serialize()
+      return
+
+# We have to use this because of turbolinks.
+# See http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
+$(document).ready(ready)
+$(document).on('page:load', ready)
 
