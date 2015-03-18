@@ -15,6 +15,7 @@ ready = ->
 
   $('a.calculate-amounts')
     .on 'ajax:beforeSend', (e, xhr, settings) ->
+      # Add all the form data to the url
       settings.url += '?' + $('form[data-model=invoice]').serialize()
       return
 
