@@ -51,8 +51,7 @@ class InvoicesController < ApplicationController
   #
   # Calculates the amounts totals
   def amounts
-    @invoice = Invoice.new
-    @invoice.assign_attributes(amounts_params)
+    @invoice = Invoice.new(amounts_params)
     @invoice.set_amounts
 
     respond_to do |format|
