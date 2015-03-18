@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
-  get "invoices/amounts/:id" => 'invoices#amounts', as: :invoice_amounts
-  get "invoices/amounts" => 'invoices#amounts', as: :new_invoice_amounts
+  get "invoices/amounts" => 'invoices#amounts', as: :invoice_amounts
 
   resources :invoices
 

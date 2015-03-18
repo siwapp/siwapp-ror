@@ -47,15 +47,11 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/amounts/1
   # GET /invoices/amounts
   def amounts
-    if params[:id]
-      @invoice = Invoice.find(params[:id])
-    else
-      @invoice = Invoice.new
-    end
-    @invoice.update(invoice_params)
+    @invoice = Invoice.new
+    @invoice_params = amounts_params
+    @invoice.assign_attributes(amounts_params)
     @invoice.set_amounts
 
     respond_to do |format|
@@ -131,6 +127,22 @@ class InvoicesController < ApplicationController
           :amount,
           :notes,
           :_destroy
+        ]
+      )
+    end
+
+    # This is to filter the parameters needed in #amounts
+    def amounts_params
+      params.require(:invoice).permit(
+
+        items_attributes: [
+          :quantity,
+          :unitary_cost,
+          {:tax_ids => []},
+        ],
+
+        payments_attributes: [
+          :amount,
         ]
       )
     end

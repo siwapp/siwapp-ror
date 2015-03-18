@@ -53,8 +53,4 @@
   <%= render partial: 'amounts', locals: {invoice: @invoice} %>
 </div>
 
-<% if @invoice.new_record? %>
-  <p><%= link_to 'Calculate', new_invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
-<% else %>
-  <p><%= link_to 'Calculate', invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
-<% end %>
+<p><%= link_to 'Calculate', invoice_amounts_path, remote: true, class: "calculate-amounts"%></p>
