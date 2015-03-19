@@ -13,10 +13,12 @@ ready = ->
         return
       return
 
-  $('a.calculate-amounts')
-    .on 'ajax:beforeSend', (e, xhr, settings) ->
-      # Add all the form data to the url
-      settings.url += '?' + $('form[data-model=invoice]').serialize()
+  $('#items').on 'change', (e)->
+    # If the change is on description do nothing
+    if $(e.target).prop('tagName') == 'TEXTAREA'
+      return
+    url = Routes.invoice_amounts_path() + '?' + $('form[data-model=invoice]').serialize()
+    $.get url, ->
       return
 
 # We have to use this because of turbolinks.
