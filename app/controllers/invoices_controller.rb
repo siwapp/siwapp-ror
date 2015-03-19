@@ -139,6 +139,7 @@ class InvoicesController < ApplicationController
           :unitary_cost,
           :discount,
           {:tax_ids => []},
+          :_destroy
         ],
 
         payments_attributes: [

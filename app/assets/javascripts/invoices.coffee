@@ -13,14 +13,21 @@ ready = ->
         return
       return
 
+  # Function to recalculate amounts
+  set_amounts = ->
+    url = Routes.invoice_amounts_path() + '?' + $('form[data-model=invoice]').serialize()
+    $.get url, ->
+      return
+
   # On changes on the inputs, recalculates amounts
   $('#items').on 'change', (e)->
     # If the change is on description do nothing
     if $(e.target).prop('tagName') == 'TEXTAREA'
       return
-    url = Routes.invoice_amounts_path() + '?' + $('form[data-model=invoice]').serialize()
-    $.get url, ->
-      return
+    set_amounts()
+
+  $('.remove_fields').click ->
+    setTimeout set_amounts, 500
 
 # We have to use this because of turbolinks.
 # See http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
