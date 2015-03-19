@@ -13,6 +13,7 @@ ready = ->
         return
       return
 
+  # On changes on the inputs, recalculates amounts
   $('#items').on 'change', (e)->
     # If the change is on description do nothing
     if $(e.target).prop('tagName') == 'TEXTAREA'
