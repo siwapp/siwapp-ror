@@ -36,7 +36,6 @@ class InvoicesController < ApplicationController
 
     respond_to do |format|
       if @invoice.save
-        @invoice.set_amounts!
         format.html { redirect_to @invoice, notice: 'Invoice was successfully created.' }
         format.json { render :show, status: :created, location: @invoice }
       else
@@ -65,7 +64,6 @@ class InvoicesController < ApplicationController
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
-        @invoice.set_amounts!
         format.html { redirect_to @invoice, notice: 'Invoice was successfully updated.' }
         format.json { render :show, status: :ok, location: @invoice }
       else

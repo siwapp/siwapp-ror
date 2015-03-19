@@ -61,7 +61,7 @@ FactoryGirl.define do
       end
 
       # Update totals in db, these fixtures are for dev purposes
-      invoice.reload.set_amounts!
+      invoice.reload.set_amounts
     end
   end
 

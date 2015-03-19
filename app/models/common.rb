@@ -5,6 +5,8 @@ class Common < ActiveRecord::Base
 
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
+  before_save :set_amounts
+
   def set_amounts
     self.base_amount = 0
     self.discount_amount = 0
@@ -19,8 +21,4 @@ class Common < ActiveRecord::Base
     self.gross_amount = net_amount + tax_amount
   end
 
-  def set_amounts!
-    set_amounts
-    save
-  end
 end

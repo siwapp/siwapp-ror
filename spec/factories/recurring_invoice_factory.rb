@@ -15,7 +15,8 @@ FactoryGirl.define do
         # - 1x >> qty: 2 / price: 100 / discount: 10% / VAT: 21%
         create(:item_complete, common: recurring_invoice, quantity: 2, unitary_cost: 100, discount: 10, with_retention: true)
 
-        recurring_invoice.set_amounts()
+        recurring_invoice.reload
+        recurring_invoice.set_amounts
         # base:       200
         # discount:    20
         # net:        180
@@ -38,7 +39,7 @@ FactoryGirl.define do
 
     after(:create) do |recurring_invoice|
       create_list(:item_random, rand(1..10), common: recurring_invoice)
-      recurring_invoice.reload.set_amounts!
+      recurring_invoice.reload.set_amounts
     end
   end
 
