@@ -117,6 +117,7 @@ class InvoicesController < ApplicationController
           :description,
           :quantity,
           :unitary_cost,
+          :discount,
           {:tax_ids => []},
           :_destroy
         ],
@@ -138,6 +139,7 @@ class InvoicesController < ApplicationController
         items_attributes: [
           :quantity,
           :unitary_cost,
+          :discount,
           {:tax_ids => []},
         ],
 
