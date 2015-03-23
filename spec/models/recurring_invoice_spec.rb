@@ -27,14 +27,14 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "performs totals calculations properly" do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice_complete)
+    recurring_invoice = FactoryGirl.create(:recurring_invoice)
 
-    expect(recurring_invoice.items.length).to eq(1)
+    expect(recurring_invoice.items.length).to eq(3)
 
-    expect(recurring_invoice.base_amount).to eq(200)
-    expect(recurring_invoice.discount_amount).to eq(20)
-    expect(recurring_invoice.net_amount).to eq(180)
-    expect(recurring_invoice.tax_amount).to eq(3.6)
-    expect(recurring_invoice.gross_amount).to eq(183.6)
+    expect(recurring_invoice.base_amount).to eq(133.3)
+    expect(recurring_invoice.discount_amount).to eq(10)
+    expect(recurring_invoice.net_amount).to eq(123.3)
+    expect(recurring_invoice.tax_amount).to eq(2.466)
+    expect(recurring_invoice.gross_amount).to eq(125.766)
   end
 end

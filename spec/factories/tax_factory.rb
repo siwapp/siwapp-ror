@@ -4,13 +4,11 @@ FactoryGirl.define do
     name { "VAT #{value}%" }
 
     is_default false
-    is_retention false
     active true
 
     factory :tax_retention do
-      value 19
-      name { "IRPF #{value}%" }
-      is_retention true
+      value (-19)
+      name "RETENTION"
     end
   end
 end

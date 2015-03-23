@@ -13,7 +13,7 @@ namespace :siwapp do
       FactoryGirl.create(:tax, value: 21, is_default: true) if Tax.find_by(is_default: true).nil?
       FactoryGirl.create(:tax, value: 10) if Tax.find_by(value: 10).nil?
       FactoryGirl.create(:tax, value: 4) if Tax.find_by(value: 4).nil?
-      FactoryGirl.create(:tax, value: 19, is_retention: true) if Tax.find_by(is_retention: true).nil?
+      FactoryGirl.create(:tax_retention) if Tax.find_by(name: 'RETENTION').nil?
     end
 
     desc "Create random invoices for testing and development."

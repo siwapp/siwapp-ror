@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316102838) do
+ActiveRecord::Schema.define(version: 20150323090229) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "serie_id",                limit: 4
@@ -145,11 +145,10 @@ ActiveRecord::Schema.define(version: 20150316102838) do
   add_index "tagging", ["taggable_model", "taggable_id"], name: "taggable_idx", using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string  "name",         limit: 50
-    t.decimal "value",                   precision: 53, scale: 2
-    t.boolean "active",       limit: 1,                           default: true
-    t.boolean "is_default",   limit: 1,                           default: false
-    t.boolean "is_retention", limit: 1,                           default: false
+    t.string  "name",       limit: 50
+    t.decimal "value",                 precision: 53, scale: 2
+    t.boolean "active",     limit: 1,                           default: true
+    t.boolean "is_default", limit: 1,                           default: false
   end
 
   create_table "templates", force: :cascade do |t|
