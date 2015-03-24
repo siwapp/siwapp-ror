@@ -94,6 +94,7 @@ class InvoicesController < ApplicationController
     end
 
     def set_extra_stuff
+      # TODO (@carlosescri): What happens with disabled taxes/series and old invoices?
       @taxes = Tax.where active: true
       @series = Serie.where enabled: true
     end
