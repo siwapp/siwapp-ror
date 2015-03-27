@@ -22,6 +22,9 @@ jQuery(document).ready ($) ->
 
   # Find forms that behave like an invoice
   $('form.js-invoice-like[data-controller]').each ->
+    # TODO(@carlos): If the form doesn't have the class and the data- attribute
+    # it won't match. Maybe it will be better to be less restrictive and throw
+    # an error to warn the developer.
     form = $(this)
     controller_name = form.data('controller')
 
