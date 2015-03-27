@@ -17,4 +17,5 @@
 //= require_tree
 //= require cocoon
 //= require js-routes
+//= require infinite-scroll
 //= require turbolinks

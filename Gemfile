@@ -65,3 +65,7 @@ gem 'puma'
 gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
 gem 'jquery-turbolinks', '2.1.0'
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-infinite-scroll'
+end

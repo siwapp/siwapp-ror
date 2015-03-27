@@ -6,7 +6,6 @@ class CommonsController < ApplicationController
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
   # GET /commons
-  # GET /commons.js
   # GET /commons.json
   def index
     set_listing model
@@ -16,7 +15,6 @@ class CommonsController < ApplicationController
 
     respond_to do |format|
       format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }
-      format.js
       format.json
     end
   end
