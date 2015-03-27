@@ -21,6 +21,8 @@ jQuery(document).ready ($) ->
   });
 
   # Find forms that behave like an invoice
+  # Those forms have a data-controller attribute that contains the current
+  # controller name and are matched also by a .js-invoice-like class.
   $('form.js-invoice-like[data-controller]').each ->
     # TODO(@carlos): If the form doesn't have the class and the data- attribute
     # it won't match. Maybe it will be better to be less restrictive and throw
