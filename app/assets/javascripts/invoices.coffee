@@ -6,4 +6,3 @@
 # - http://github.com/kossnocorp/jquery.turbolinks
 # - https://github.com/rails/turbolinks#jqueryturbolinks
 $(document).ready ->
-  console.log("Invoices Javascript")

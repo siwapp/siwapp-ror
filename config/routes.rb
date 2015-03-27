@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  get "commons/amounts"
+  get "invoices/amounts"
+  get "recurring_invoices/amounts"
 
   resources :invoices
 

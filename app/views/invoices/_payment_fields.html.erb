@@ -1,7 +1,7 @@
-<div class="nested-fields">
+<div class="js-payment">
   <%= f.label :date %> <%= f.date_field :date %>
   <%= f.label :amount %> <%= f.text_field :amount %><br/>
   <%= f.label :notes %> <%= f.text_area :notes %><br/>
 
-  <%= link_to_remove_association 'remove payment', f %>
+  <%= link_to_remove_association 'remove payment', f, { wrapper_class: 'js-payment' } %>
 </div>
