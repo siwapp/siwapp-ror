@@ -1,0 +1,7 @@
+<% content_for :content do %>
+  <%= yield %>
+  <div id="infinite-scrolling">
+    <%= will_paginate %>
+  </div>
+<% end %>
+<%= render template: "layouts/application" %>

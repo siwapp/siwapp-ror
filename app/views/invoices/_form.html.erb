@@ -14,6 +14,8 @@
   <p>
     <% if @invoice.new_record? or @invoice.draft %>
       <%= f.label :serie %> <%= f.collection_select :serie_id, @series, :id, :name, {include_blank: true} %><br/>
+    <% else %>
+      <%= @invoice %><br>
     <% end %>
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
@@ -30,6 +32,7 @@
       <%= render partial: 'item_fields', locals: {f: item_form} %>
     <% end %>
   </fieldset>
+
   <%= link_to_add_association 'add item', f, :items, 'data-association-insertion-method' => 'append', 'data-association-insertion-node' => '#items' %>
 
   <% unless @invoice.new_record? %>

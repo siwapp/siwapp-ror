@@ -5,7 +5,7 @@
     <% if content_for?(:title) %>
       <%= yield(:title) %>
     <% else %>
-      "Siwapp" 
+      Siwapp
     <% end %>
   </title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -16,7 +16,7 @@
   <div id="main-container" class="container-fluid">
     <div class="row">
       <div id="content" class="col-xs-12">
-        <%= yield %>
+        <%= content_for?(:content) ? yield(:content) : yield %>
       </div>
     </div>
   </div>

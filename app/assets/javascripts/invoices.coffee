@@ -15,7 +15,7 @@ ready = ->
 
   # Function to recalculate amounts
   set_amounts = ->
-    url = Routes.invoice_amounts_path() + '?' + $('form[data-model=invoice]').serialize()
+    url = Routes.commons_amounts_path() + '?' + $('form[data-model=invoice]').serialize()
     $.get url, ->
       return
 

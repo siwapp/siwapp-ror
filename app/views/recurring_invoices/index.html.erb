@@ -1,6 +1,9 @@
 <p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <h1>Listing Recurring Invoices</h1>
+
+<%= link_to 'New Recurring Invoice', new_recurring_invoice_path %>
 
 <table class="table">
   <thead>
@@ -15,10 +18,3 @@
     <%= render @recurring_invoices %>
   </tbody>
 </table>
-<div id="infinite-scrolling">
-  <%= will_paginate %>
-</div>
-
-<br>
-
-<%= link_to 'New Recurring Invoice', new_recurring_invoice_path %>

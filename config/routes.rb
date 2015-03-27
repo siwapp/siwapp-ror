@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get "invoices/amounts" => 'invoices#amounts', as: :invoice_amounts
+  get "commons/amounts"
 
   resources :invoices
 
