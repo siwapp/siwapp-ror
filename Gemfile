@@ -64,4 +64,4 @@ gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
-
+gem 'jquery-turbolinks', '2.1.0'
