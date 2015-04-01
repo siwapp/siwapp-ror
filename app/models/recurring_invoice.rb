@@ -1,7 +1,6 @@
 class RecurringInvoice < Common
   has_many :invoices
-  validates :customer_name, :customer_email, \
-    :starting_date, presence: true
+  validates :customer_name, presence: true
   validates :customer_email, \
     format: {
       with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
