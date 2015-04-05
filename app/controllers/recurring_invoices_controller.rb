@@ -31,7 +31,18 @@ class RecurringInvoicesController < CommonsController
         :finishing_date,
         :period,
         :period_type,
-        :max_occurrences
+        :max_occurrences,
+
+      items_attributes: [
+        :id,
+        :description,
+        :quantity,
+        :unitary_cost,
+        :discount,
+        {:tax_ids => []},
+        :_destroy
+      ]
+
       )
   end
 

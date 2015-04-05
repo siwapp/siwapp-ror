@@ -21,8 +21,9 @@
     <%= f.label :finishing_date %> <%= f.date_field :finishing_date %><br/>
     <%= f.label :period %> <%= f.number_field :period %>
     <%= f.label :period_type %> <%= f.select(:period_type, RecurringInvoice::PERIOD_TYPES) %>
-
   </p>
+
+  <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <div class="actions">
     <%= f.submit %>

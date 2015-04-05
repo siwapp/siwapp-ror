@@ -25,17 +25,7 @@
     <% end %>
   </p>
 
-  <fieldset data-changes="amount">
-    <legend>Items</legend>
-
-    <%= f.fields_for :items  do |item_form| %>
-      <%= render partial: 'item_fields', locals: {f: item_form} %>
-    <% end %>
-
-    <%= link_to_add_association 'add item', f, :items,
-          'data-association-insertion-node' => 'this',
-          'data-association-insertion-method' => 'before' %>
-  </fieldset>
+  <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <% unless @invoice.new_record? %>
     <fieldset data-changes="amount">

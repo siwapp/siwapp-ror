@@ -1,0 +1,13 @@
+  <fieldset data-changes="amount">
+    <legend>Items</legend>
+
+    <%= f.fields_for :items  do |item_form| %>
+      <%= render partial: 'shared/item_fields', locals: {f: item_form} %>
+    <% end %>
+
+    <%= link_to_add_association 'add item', f, :items,
+          'data-association-insertion-node' => 'this',
+          'data-association-insertion-method' => 'before',
+	  :partial => 'shared/item_fields'
+	  %>
+  </fieldset>
