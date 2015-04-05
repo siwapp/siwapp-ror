@@ -23,11 +23,15 @@ class RecurringInvoicesController < CommonsController
         :customer_name,
         :customer_email,
 
+        :status,
         :days_to_due,
         :invoicing_address,
         :draft,
         :starting_date,
-        :finishing_date
+        :finishing_date,
+        :period,
+        :period_type,
+        :max_occurrences
       )
   end
 
