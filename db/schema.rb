@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150323090229) do
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
     t.integer "common_id",    limit: 4,                                           null: false
     t.string  "description",  limit: 255
-    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
+    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0
     t.integer "product_id",   limit: 4
   end
 
