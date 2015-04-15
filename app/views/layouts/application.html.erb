@@ -18,8 +18,8 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Dashboard</a></li>
-          <li><a href="#">Invoices</a></li>
-          <li><a href="#">Recurring Invoices</a></li>
+          <li><%= link_to 'Invoices', invoices_path %></li>
+          <li><%= link_to 'Recurring Invoices', recurring_invoices_path %></li>
         </ul>
         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
