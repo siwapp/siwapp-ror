@@ -15,18 +15,35 @@
 <body>
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">siwapp</a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="main-menu">
         <ul class="nav navbar-nav">
           <li class="<%= active_link('dashboard') %>"><a href="#">Dashboard</a></li>
           <li class="<%= active_link('invoices') %>"><%= link_to 'Invoices', invoices_path %></li>
           <li class="<%= active_link('recurring_invoices') %>"><%= link_to 'Recurring Invoices', recurring_invoices_path %></li>
         </ul>
+
         <%= form_tag request.path, method: :get, class: 'navbar-form navbar-left', role: 'search' do %>
+          <div class="form-group">
+            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search' %>
+          </div>
           <div class="form-group">
             <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search' %>
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         <% end %>
+
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Link</a></li>
           <li class="dropdown">
@@ -41,15 +58,13 @@
           </li>
         </ul>
       </div><!-- /.navbar-collapse -->
+
     </div>
-  </nav>
+  </nav><!-- /.navbar -->
+
   <br/><br/><br/>
   <div class="container-fluid">
-    <div class="row">
-      <div id="content" class="col-xs-12">
-        <%= content_for?(:content) ? yield(:content) : yield %>
-      </div>
-    </div>
+    <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
 </body>
 </html>
