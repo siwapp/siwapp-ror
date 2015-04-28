@@ -25,6 +25,8 @@ class InvoicesController < CommonsController
       :invoicing_address,
       :draft,
 
+      :tag_list,
+
       items_attributes: [
         :id,
         :description,

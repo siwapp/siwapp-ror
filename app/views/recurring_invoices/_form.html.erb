@@ -23,6 +23,7 @@
     <%= f.label :period_type %> <%= f.select(:period_type, RecurringInvoice::PERIOD_TYPES) %>
   </p>
 
+  <%= render partial: 'shared/tagging_field', locals: {f: f, instance: @recurring_invoice} %>
   <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <div class="actions">

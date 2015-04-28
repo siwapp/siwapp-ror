@@ -33,16 +33,17 @@ class RecurringInvoicesController < CommonsController
         :period_type,
         :max_occurrences,
 
-      items_attributes: [
-        :id,
-        :description,
-        :quantity,
-        :unitary_cost,
-        :discount,
-        {:tax_ids => []},
-        :_destroy
-      ]
+        :tag_list,
 
+        items_attributes: [
+          :id,
+          :description,
+          :quantity,
+          :unitary_cost,
+          :discount,
+          {:tax_ids => []},
+          :_destroy
+        ]
       )
   end
 

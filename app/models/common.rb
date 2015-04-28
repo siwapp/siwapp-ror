@@ -3,6 +3,8 @@ class Common < ActiveRecord::Base
   belongs_to :customer
   belongs_to :serie
 
+  acts_as_taggable
+
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   before_save :set_amounts
