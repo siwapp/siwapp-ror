@@ -66,6 +66,12 @@ gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
 gem 'jquery-turbolinks', '2.1.0'
 
+# Tagging: https://github.com/mbleigh/acts-as-taggable-on
+# This is the most popular gem, but it's buggy:
+# - Don't distinguish types in STI: https://github.com/mbleigh/acts-as-taggable-on/issues/569
+# I'm tempted to create a simpler alternative
+gem 'acts-as-taggable-on', '3.5.0'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-infinite-scroll'
 end

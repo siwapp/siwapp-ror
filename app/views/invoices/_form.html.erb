@@ -25,6 +25,7 @@
     <% end %>
   </p>
 
+  <%= render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice} %>
   <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <% unless @invoice.new_record? %>

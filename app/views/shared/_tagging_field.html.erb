@@ -1,0 +1,4 @@
+<p>
+  <%# value is forced because text_field doesn't call the to_s method and you get spaces instead of commas  %>
+  <%= f.label :tag_list, "Tags (separated by commas)" %> <%= f.text_field :tag_list, value: instance.tag_list.to_s %>
+</p>
