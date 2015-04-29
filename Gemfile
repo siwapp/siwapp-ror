@@ -69,4 +69,5 @@ gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggabl
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-infinite-scroll'
+  gem 'rails-assets-typeahead.js'
 end

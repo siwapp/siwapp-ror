@@ -130,6 +130,9 @@ GEM
       railties (= 4.2.0)
       sprockets-rails
     rails-assets-infinite-scroll (2.1.0)
+    rails-assets-jquery (2.1.4)
+    rails-assets-typeahead.js (0.11.1)
+      rails-assets-jquery (>= 1.7)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.5)
@@ -228,6 +231,7 @@ DEPENDENCIES
   puma
   rails (= 4.2.0)
   rails-assets-infinite-scroll!
+  rails-assets-typeahead.js!
   rails_12factor
   rspec-rails
   sass-rails (~> 5.0)

@@ -18,4 +18,5 @@
 //= require cocoon
 //= require js-routes
 //= require infinite-scroll
+//= require typeahead
 //= require turbolinks
