@@ -78,13 +78,51 @@ namespace :siwapp do
         client.query("UPDATE `series` SET `next_number` = #{next_number} WHERE `id` = #{serie_id};")
       end
 
-      client.query("ALTER TABLE tag CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+      # Tags
 
-      client.query("ALTER TABLE tagging CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
-      client.query("ALTER TABLE tagging CHANGE tag_id tag_id INT")
-      client.query("ALTER TABLE tagging CHANGE taggable_id taggable_id INT")
+      client.query("ALTER TABLE `tag` CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+      client.query("ALTER TABLE `tag` CHANGE `name` `name` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL")
+      client.query("ALTER TABLE `tag` DROP `is_triple`")
+      client.query("ALTER TABLE `tag` DROP `triple_namespace`")
+      client.query("ALTER TABLE `tag` DROP `triple_key`")
+      client.query("ALTER TABLE `tag` DROP `triple_value`")
+      client.query("ALTER TABLE `tag` ADD `taggings_count` INT(11)  NULL  DEFAULT '0'  AFTER `name`")
+      client.query("ALTER TABLE `tag` DROP INDEX `name_idx`")
+      client.query("ALTER TABLE `tag` ADD UNIQUE INDEX `index_tags_on_name` (`name`)")
+      client.query("RENAME TABLE `tag` TO `tags`")
+
+      # Taggings
+
+      client.query("ALTER TABLE `tagging` CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+      client.query("ALTER TABLE `tagging` CHANGE `tag_id` `tag_id` INT")
+      client.query("ALTER TABLE `tagging` CHANGE `taggable_id` `taggable_id` INT")
+      client.query("ALTER TABLE `tagging` CHANGE `taggable_model` `taggable_type` VARCHAR(255)  CHARACTER SET utf8  COLLATE utf8_unicode_ci  NULL  DEFAULT NULL")
+      client.query("ALTER TABLE `tagging` ADD `tagger_id` INT(11)  NULL  DEFAULT NULL  AFTER `taggable_id`")
+      client.query("ALTER TABLE `tagging` ADD `tagger_type` VARCHAR(255)  CHARACTER SET utf8  COLLATE utf8_unicode_ci  NULL  DEFAULT NULL")
+      client.query("ALTER TABLE `tagging` ADD `context` VARCHAR(128)  NULL  DEFAULT NULL  AFTER `tagger_type`")
+      client.query("ALTER TABLE `tagging` ADD `created_at` DATETIME  NULL  AFTER `context`")
+      client.query("ALTER TABLE `tagging` DROP INDEX `tag_idx`")
+      client.query("ALTER TABLE `tagging` DROP INDEX `taggable_idx`")
+      client.query("ALTER TABLE `tagging` ADD UNIQUE INDEX `taggings_idx` (`tag_id`, `taggable_id`, `taggable_type`, `context`, `tagger_id`, `tagger_type`)")
+      client.query("ALTER TABLE `tagging` ADD INDEX `index_taggings_on_taggable_id_and_taggable_type_and_context` (`taggable_id`, `taggable_type`, `context`)")
+      client.query("RENAME TABLE `tagging` TO `taggings`")
+
+      client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.now.strftime('%Y/%m/%d %H:%M:%S') << "'")
+
+      # Update taggings_count
+
+      tags = client.query("SELECT `tag_id` AS `id`, COUNT(`tag_id`) AS `taggings_count` FROM `taggings` GROUP BY `tag_id`")
+      tags.each do |tag|
+         id = tag['id']
+         taggings_count = tag['taggings_count']
+         client.query("UPDATE `tags` SET `taggings_count` = #{taggings_count} WHERE `id` = #{id}")
+      end
+
+      # Taxes
 
       client.query("ALTER TABLE tax CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+
+      # Templates
 
       client.query("ALTER TABLE template CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE template CHANGE template template TEXT")
