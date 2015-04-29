@@ -50,6 +50,7 @@ class CommonsController < ApplicationController
 
   # GET /commons/1/edit
   def edit
+    @tags = commons_tags
     render sti_template(@type, action_name)
   end
 
@@ -186,6 +187,17 @@ class CommonsController < ApplicationController
         :amount,
       ]
     )
+  end
+
+  # Private: get all tags used with Common class and children classes
+  #
+  # Returns a list of tag names
+  def commons_tags
+    tag_ids = ActsAsTaggableOn::Tagging
+      .where(taggable_type: 'Common', context: :tags)
+      .collect(&:tag_id)
+      .uniq
+    ActsAsTaggableOn::Tag.where(id: tag_ids).collect(&:name).uniq
   end
 
 end

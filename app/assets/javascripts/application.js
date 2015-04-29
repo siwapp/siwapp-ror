@@ -19,4 +19,5 @@
 //= require js-routes
 //= require infinite-scroll
 //= require typeahead
+//= require bootstrap-tagsinput
 //= require turbolinks
