@@ -50,7 +50,6 @@ class CommonsController < ApplicationController
 
   # GET /commons/1/edit
   def edit
-    @tags = commons_tags
     render sti_template(@type, action_name)
   end
 
@@ -171,6 +170,7 @@ class CommonsController < ApplicationController
   def set_extra_stuff
     @taxes = Tax.where active: true
     @series = Serie.where enabled: true
+    @tags = commons_tags
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts
@@ -197,7 +197,9 @@ class CommonsController < ApplicationController
       .where(taggable_type: 'Common', context: :tags)
       .collect(&:tag_id)
       .uniq
-    ActsAsTaggableOn::Tag.where(id: tag_ids).collect(&:name).uniq
+    ActsAsTaggableOn::Tag
+      .where(id: tag_ids)
+      .collect(&:name)
   end
 
 end
