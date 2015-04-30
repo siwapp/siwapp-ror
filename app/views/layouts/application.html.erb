@@ -12,7 +12,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body style="padding-top: 70px;">
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
 
@@ -38,7 +38,15 @@
           <div class="form-group">
             <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search' %>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <% if content_for?(:advanced_search) %>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-default">
+              <input id="searchOptionsToggle" type="checkbox" autocomplete="off">
+              Advanced Options
+            </label>
+          </div>
+          <% end %>
+          <button type="submit" class="btn btn-primary">Search</button>
         <% end %>
 
         <ul class="nav navbar-nav navbar-right">
@@ -59,8 +67,9 @@
     </div>
   </nav><!-- /.navbar -->
 
-  <br/><br/><br/>
-  <div class="container-fluid">
+  <%= yield(:advanced_search) %>
+
+  <div class="container-fluid" role="main">
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
 </body>
