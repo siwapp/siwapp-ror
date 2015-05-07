@@ -9,6 +9,13 @@ class RecurringInvoice < Common
   validate :valid_date_range
   validates :serie, presence: true
 
+  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
+              available_filters: [
+                                  #:sorted_by,
+                                  :search_query,
+                                 ]
+              )
+
   PERIOD_TYPES = [
                   [ "Dayly","days" ],
                   [ "Monthly","months"],

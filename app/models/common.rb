@@ -9,6 +9,22 @@ class Common < ActiveRecord::Base
 
   before_save :set_amounts
 
+  scope :search_query, lambda{|query|
+    return nil  if query.blank?
+    # Split terms to search for
+    terms = query.downcase.split(/\s+/)
+    terms = terms.map { |e|
+      (e.gsub('*', '%') + '%').gsub(/%+/, '%')
+    }
+    num_or_conds = 2
+    where(
+          terms.map { |term|
+            "(LOWER(commons.customer_name) LIKE ? OR LOWER(commons.customer_email) LIKE ?)"
+          }.join(' AND '),
+          *terms.map { |e| [e] * num_or_conds }.flatten
+          )
+  }
+
   def set_amounts
     self.base_amount = 0
     self.discount_amount = 0
