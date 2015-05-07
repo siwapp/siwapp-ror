@@ -54,18 +54,19 @@ end
 
 # installed 4.0.2.2 version because an issue:
 # https://github.com/ai/autoprefixer-rails/issues/47
+gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '4.0.2.2'
 gem 'bootstrap-sass', '3.3.1.0'
 gem 'cocoon', '1.2.6'  # to add items dinamically
 gem 'factory_girl_rails', '4.5.0'
+gem 'filterrific'
+gem 'jquery-turbolinks', '2.1.0'
 gem 'js-routes', '1.0.0'
 gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
 gem 'will_paginate', '3.0.7'
-gem 'jquery-turbolinks', '2.1.0'
-gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-infinite-scroll'
