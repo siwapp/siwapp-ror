@@ -45,7 +45,7 @@
           <% end %>
         <% end %>
 
-	<% if content_for? :filterrific %>
+	<% if @filterrific then %>
 	  <%= form_for_filterrific @filterrific, html: {class: "navbar-form navbar-left"} do |f| %>
 	  <div class="form-group">
 	    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
