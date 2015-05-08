@@ -7,28 +7,6 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 
-<%= form_for_filterrific @filterrific do |f| %>
-  <div>
-    Search
-    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-    <%= f.text_field(
-      :search_query,
-      class: 'no-filterrific-periodically-observed'
-    ) %>
-  </div>
-  <div>
-    <%= link_to(
-      'Reset filters',
-      reset_filterrific_url,
-    ) %>
-  </div>
-  <div>
-  <%= f.submit 'Filter' %>
-  </div>
-  <%# add an automated spinner to your form when the list is refreshed %>
-  <%#= render_filterrific_spinner %>
-<% end %>
-
 <%= link_to 'New Recurring Invoice', new_recurring_invoice_path %>
 
 <table class="table">

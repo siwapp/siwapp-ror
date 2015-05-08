@@ -35,9 +35,6 @@
         </ul>
 
         <%= form_tag request.path, method: :get, class: 'navbar-form navbar-left', role: 'search' do %>
-          <div class="form-group">
-            <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search' %>
-          </div>
           <% if content_for?(:advanced_search) %>
           <div class="btn-group" data-toggle="buttons">
             <label class="btn btn-default">
@@ -46,8 +43,31 @@
             </label>
           </div>
           <% end %>
-          <button type="submit" class="btn btn-primary">Search</button>
         <% end %>
+
+	<% if content_for? :filterrific %>
+	  <%= form_for_filterrific @filterrific, html: {class: "navbar-form navbar-left"} do |f| %>
+	  <div class="form-group">
+	    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
+	    <%= f.text_field(
+	    :search_query,
+	    class: 'filterrific-periodically-observed form-control',
+	    placeholder: 'Search'
+	    ) %>
+	  </div>
+	  <div class="btn-group">
+	    <%= f.submit 'Filter', class: "btn btn-primary" %>
+	  </div>
+	  <div class="btn-group">
+	    <%= link_to(
+	    'Reset filters',
+	    reset_filterrific_url,
+	    ) %>
+	  </div>
+	  <%# add an automated spinner to your form when the list is refreshed %>
+	  <%#= render_filterrific_spinner %>
+	  <% end %>
+	<% end %>
 
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#">Link</a></li>
