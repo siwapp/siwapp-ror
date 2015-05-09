@@ -25,6 +25,10 @@ class Common < ActiveRecord::Base
           )
   }
 
+  scope :with_serie_id, lambda{|serie_ids|
+    where(serie_id: [*serie_ids] )
+  }
+
   def set_amounts
     self.base_amount = 0
     self.discount_amount = 0

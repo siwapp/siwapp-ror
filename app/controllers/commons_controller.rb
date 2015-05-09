@@ -10,7 +10,10 @@ class CommonsController < ApplicationController
   def index
     @filterrific = initialize_filterrific(
                                           model,
-                                          params[:filterrific]
+                                          params[:filterrific],
+                                          select_options:{
+                                            with_serie_id:Serie.options_for_select
+                                          },
                                           ) or return
 
     if not set_listing @filterrific.find.page(params[:page])

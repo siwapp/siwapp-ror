@@ -46,7 +46,7 @@
         <% end %>
 
 	<% if @filterrific then %>
-	  <%= form_for_filterrific @filterrific, html: {class: "navbar-form navbar-left"} do |f| %>
+	  <%= form_for_filterrific @filterrific, html: {class: "navbar-form navbar-left", id: "basicSearch"} do |f| %>
 	  <div class="form-group">
 	    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
 	    <%= f.text_field(

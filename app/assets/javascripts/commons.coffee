@@ -14,8 +14,10 @@ jQuery(document).ready ($) ->
   $('#searchOptionsToggle').on 'change', (e) ->
     if $(this).is ':checked'
       $('#searchOptions').slideDown('fast')
+      $('#basicSearch').hide()
     else
       $('#searchOptions').slideUp('fast')
+      $('#basicSearch').show()
 
 
   # Infinite Scroll for table based listings.
