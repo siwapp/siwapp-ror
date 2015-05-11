@@ -18,6 +18,12 @@ class Invoice < Common
 
   STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
 
+  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
+              available_filters: [
+                                  :with_serie_id,
+                                  :search_query,
+                                 ]
+              )
 
   # Public: Get a string representation of this object
   #

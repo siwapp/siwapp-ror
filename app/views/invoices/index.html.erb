@@ -1,9 +1,7 @@
-<% content_for :advanced_search do %>
-<div id="searchOptions" class="container-fluid" style="display: none;">
-  <p>Advanced Search Options for Invoices</p>
-</div>
-<% end %>
-
+<%= render(
+  partial: 'shared/advanced_search',
+  locals: { filterrific: @filterrific }
+) %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 

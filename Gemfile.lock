@@ -77,6 +77,8 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    filterrific (2.0.5)
+      rails (>= 3.1.0)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -224,6 +226,7 @@ DEPENDENCIES
   cocoon (= 1.2.6)
   coffee-rails (~> 4.1.0)
   factory_girl_rails (= 4.5.0)
+  filterrific
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks (= 2.1.0)
