@@ -32,6 +32,7 @@
           <li class="<%= active_link('dashboard') %>"><a href="#">Dashboard</a></li>
           <li class="<%= active_link('invoices') %>"><%= link_to 'Invoices', invoices_path %></li>
           <li class="<%= active_link('recurring_invoices') %>"><%= link_to 'Recurring Invoices', recurring_invoices_path %></li>
+          <li class="<%= active_link('customers') %>"><%= link_to 'Customers', customers_path %></li>
         </ul>
 
         <%= form_tag request.path, method: :get, class: 'navbar-form navbar-left', role: 'search' do %>

@@ -1,0 +1,17 @@
+
+<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
+
+<ul>
+  <li><b>Name:</b> <%= @customer.name %></li>
+  <li><b>Identification:</b> <%= @customer.identification %></li>
+  <li><b>Email:</b> <%= @customer.email %></li>
+  <li><b>Contact Person:</b> <%= @customer.contact_person %></li>
+  <li><b>Invoicing Address:</b> <%= @customer.invoicing_address %></li>
+  <li><b>Shipping Address:</b> <%= @customer.shipping_address %></li>
+</ul>
+
+
+
+<%= link_to 'Edit', edit_customer_path(@customer) %> |
+<%= link_to 'Back', customers_path %>
