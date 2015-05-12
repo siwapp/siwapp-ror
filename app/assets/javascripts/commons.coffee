@@ -27,7 +27,7 @@ jQuery(document).ready ($) ->
     nextSelector: '.pagination .next_page'
     itemSelector: '.js-iscroll > tr'
     prefill: true
-  })
+  }, clickable_rows)
 
   # Find forms that behave like an invoice
   # Those forms have a data-controller attribute that contains the current

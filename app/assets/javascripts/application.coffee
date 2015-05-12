@@ -23,6 +23,9 @@
 #= require turbolinks
 
 # All table rows with the clickable-row class act as links:
-jQuery(document).ready ($) ->
+window.clickable_rows = ->
   $(".clickable-row").click ->
     window.document.location = $(this).data("href")
+
+jQuery(document).ready ($) ->
+  clickable_rows()
