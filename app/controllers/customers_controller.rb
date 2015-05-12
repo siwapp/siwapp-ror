@@ -4,7 +4,11 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    @customers = Customer.all.paginate(page: params[:page], per_page: 20)
+
+    respond_to do |format|
+      format.html { render :index, layout: 'infinite-scrolling' }
+    end
   end
 
   # GET /customers/1
