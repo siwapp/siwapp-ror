@@ -4,7 +4,7 @@
 <a class="btn btn-primary" href="<%= new_customer_path %>" role="button">New Customer</a>
 <% end %>
 
-<table class="table">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Customer Name</th>
@@ -17,7 +17,7 @@
 
   <tbody class="js-iscroll">
     <% @customers.each do |customer| %>
-      <tr>
+      <tr class="clickable-row" data-href="<%= edit_customer_path(customer) %>">
         <td><%= customer.name %></td>
         <td><%= customer.identification %></td>
         <td></td>
