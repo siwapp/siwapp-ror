@@ -5,7 +5,10 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 
-<%= link_to 'New Invoice', new_invoice_path %>
+<% content_for :new_link do %>
+<a class="btn btn-primary" href="<%= new_invoice_path %>" role="button">New Invoice</a>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>

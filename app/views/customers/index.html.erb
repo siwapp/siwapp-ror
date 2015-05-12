@@ -1,6 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'New Customer', new_customer_path %>
+<% content_for :new_link do %>
+<a class="btn btn-primary" href="<%= new_customer_path %>" role="button">New Customer</a>
+<% end %>
 
 <table class="table">
   <thead>
