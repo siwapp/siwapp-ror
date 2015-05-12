@@ -2,5 +2,5 @@
 <p id="alert"><%= alert %></p>
 <%= render 'form' %>
 
-<%= link_to 'Show', @invoice %> |
-<%= link_to 'Back', invoices_path %>
+<%= link_to 'Back', invoices_path %> |
+<%= link_to 'Destroy', @invoice, method: :delete, data: { confirm: 'Are you sure?' } %>

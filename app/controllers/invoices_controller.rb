@@ -1,5 +1,12 @@
 class InvoicesController < CommonsController
 
+  def show
+    # Redirect to edit if invoice not closed
+    if @invoice.status != Invoice::CLOSED
+      redirect_to action: 'edit'
+    end
+  end
+
   protected
 
   def set_listing(instances)
