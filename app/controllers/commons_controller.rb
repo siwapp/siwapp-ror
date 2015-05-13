@@ -45,7 +45,8 @@ class CommonsController < ApplicationController
 
     respond_to do |format|
       if get_instance.save
-        format.html { redirect_to sti_path(@type, get_instance), notice: "#{type_label} was successfully created." }
+        # Redirect to index
+        format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
         format.json { render sti_template(@type, :show), status: :created, location: get_instance }  # TODO: test
       else
         flash[:alert] = "#{type_label} has not been created."
@@ -71,7 +72,8 @@ class CommonsController < ApplicationController
   def update
     respond_to do |format|
       if get_instance.update(type_params)
-        format.html { redirect_to sti_path(@type, get_instance), notice: "#{type_label} was successfully updated." }
+        # Redirect to index
+        format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
         format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
       else
         flash[:alert] = "#{type_label} has not been saved."
