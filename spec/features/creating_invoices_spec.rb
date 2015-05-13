@@ -17,8 +17,7 @@ feature 'Creating Invoices' do
     click_button 'Create Invoice'
     expect(page).to have_content('Invoice was successfully created.')
     invoice = Invoice.where(customer_name: 'Test Customer').first
-    expect(page.current_url).to eql(invoice_url(invoice))
+    expect(page.current_url).to eql invoices_url
 
-    expect(page).to have_title("Siwapp - Invoices - Test Customer")
   end
 end

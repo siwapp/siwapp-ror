@@ -21,10 +21,7 @@ feature 'Creating Recurring Invoices' do
     expect(page).to have_content('Recurring Invoice was successfully created.')
 
     invoice = RecurringInvoice.where(customer_name: 'Test Customer').first
-    expect(page.current_url).to eql(recurring_invoice_url(invoice))
-
-    title = "Siwapp - Recurring Invoices - Test Customer"
-    expect(page).to have_title(title)
+    expect(page.current_url).to eql recurring_invoices_url
   end
 
   scenario 'can not create recurring invoice without customer name' do
