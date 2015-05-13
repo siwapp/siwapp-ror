@@ -2,13 +2,12 @@ require 'spec_helper'
 
 feature "Editing Recurring Invoices" do
   before  do
-    FactoryGirl.create(:recurring_invoice)
-    visit "/recurring_invoices"
-    click_link 'Show'
-    click_link "Edit Recurring Invoice"
+    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    visit "/recurring_invoices/#{recurring_invoice.id}/edit"
   end
 
   scenario "Updating a recurring invoice" do
+    expect(page).to have_content("Edit Recurring Invoice")
     fill_in "Customer name", with: "TextMate 2 beta"
     click_button "Update Recurring invoice"
 
