@@ -4,7 +4,16 @@ class InvoicesController < CommonsController
     # Redirect to edit if invoice not closed
     if @invoice.status != Invoice::CLOSED
       redirect_to action: 'edit'
+    else
+      # Show the template in an iframe
+      render 'iframe_template'
     end
+  end
+
+  # Renders an invoice template
+  def template
+    @invoice = Invoice.find(params[:id])
+    render inline: "hey there <%= @invoice %>"
   end
 
   protected

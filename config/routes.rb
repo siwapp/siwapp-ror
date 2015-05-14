@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "recurring_invoices/amounts"
 
   resources :invoices
+  get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template'
 
   resources :recurring_invoices
 
