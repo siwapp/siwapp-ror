@@ -9,12 +9,10 @@ class CommonsController < ApplicationController
   # GET /commons.json
   def index
     @filterrific = initialize_filterrific(
-                                          model,
-                                          params[:filterrific],
-                                          select_options:{
-                                            with_serie_id:Serie.options_for_select
-                                          },
-                                          ) or return
+      model,
+      params[:filterrific],
+      select_options:{with_serie_id: Serie.options_for_select},
+    ) or return
 
     if not set_listing @filterrific.find.page(params[:page])
         .includes(:serie)
@@ -136,11 +134,16 @@ class CommonsController < ApplicationController
 
   # Protected: whitelist params for the current model and controller
   #
-  # Must be overriden in children controllers.
+  # Needs a <type>_params() method inside the child controller:
+  #
+  # - InvoicesController => "invoice_params"
+  # - RecurringInvoicesController => "recurring_invoice_params"
   #
   # Returns params
   def type_params
-    params.require(model.name.underscore.to_sym)
+    params
+      .require(model.name.underscore.to_sym)
+      .permit(send("#{model.name.underscore}_params"))
   end
 
   private

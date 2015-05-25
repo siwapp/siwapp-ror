@@ -14,37 +14,35 @@ class RecurringInvoicesController < CommonsController
     @recurring_invoice
   end
 
-  def type_params
-    params
-      .require(:recurring_invoice)
-      .permit(
-        :serie_id,
+  def recurring_invoice_params
+    [
+      :serie_id,
 
-        :customer_name,
-        :customer_email,
+      :customer_name,
+      :customer_email,
 
-        :status,
-        :days_to_due,
-        :invoicing_address,
-        :draft,
-        :starting_date,
-        :finishing_date,
-        :period,
-        :period_type,
-        :max_occurrences,
+      :status,
+      :days_to_due,
+      :invoicing_address,
+      :draft,
+      :starting_date,
+      :finishing_date,
+      :period,
+      :period_type,
+      :max_occurrences,
 
-        :tag_list,
+      :tag_list,
 
-        items_attributes: [
-          :id,
-          :description,
-          :quantity,
-          :unitary_cost,
-          :discount,
-          {:tax_ids => []},
-          :_destroy
-        ]
-      )
+      items_attributes: [
+        :id,
+        :description,
+        :quantity,
+        :unitary_cost,
+        :discount,
+        {:tax_ids => []},
+        :_destroy
+      ]
+    ]
   end
 
 end

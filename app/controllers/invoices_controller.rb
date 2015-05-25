@@ -21,8 +21,8 @@ class InvoicesController < CommonsController
     @invoice
   end
 
-  def type_params
-    params.require(:invoice).permit(
+  def invoice_params
+    [
       :serie_id,
       :due_date,
 
@@ -51,6 +51,6 @@ class InvoicesController < CommonsController
         :notes,
         :_destroy
       ]
-    )
+    ]
   end
 end
