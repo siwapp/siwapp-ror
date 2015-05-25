@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20150428083035) do
     t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
     t.integer "common_id",    limit: 4,                                           null: false
     t.string  "description",  limit: 255
-    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0
+    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
   end
 
@@ -122,32 +122,10 @@ ActiveRecord::Schema.define(version: 20150428083035) do
     t.boolean "enabled",     limit: 1,   default: true
   end
 
-  create_table "tag", force: :cascade do |t|
-    t.string  "name",             limit: 100
-    t.boolean "is_triple",        limit: 1
-    t.string  "triple_namespace", limit: 100
-    t.string  "triple_key",       limit: 100
-    t.string  "triple_value",     limit: 100
-  end
-
-  add_index "tag", ["name"], name: "name_idx", using: :btree
-  add_index "tag", ["triple_key"], name: "triple2_idx", using: :btree
-  add_index "tag", ["triple_namespace"], name: "triple1_idx", using: :btree
-  add_index "tag", ["triple_value"], name: "triple3_idx", using: :btree
-
-  create_table "tagging", force: :cascade do |t|
-    t.integer "tag_id",         limit: 4
-    t.string  "taggable_model", limit: 30
-    t.integer "taggable_id",    limit: 4
-  end
-
-  add_index "tagging", ["tag_id"], name: "tag_idx", using: :btree
-  add_index "tagging", ["taggable_model", "taggable_id"], name: "taggable_idx", using: :btree
-
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id",        limit: 4
-    t.integer  "taggable_id",   limit: 4
     t.string   "taggable_type", limit: 255
+    t.integer  "taggable_id",   limit: 4
     t.integer  "tagger_id",     limit: 4
     t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
