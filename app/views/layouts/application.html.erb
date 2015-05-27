@@ -77,24 +77,21 @@
   <div class="container-fluid" role="main">
 
     <div class="row">
-      <div class="col-xs-12 col-md-4 col-md-push-8">
-        Some useful content here, like totals
-      </div>
+      <% if content_for?(:searchform__summary) %>
+        <div class="col-xs-12 col-md-4 col-md-push-8">
+          <%= yield(:searchform__summary) %>
+        </div>
+      <% end %>
 
       <% if @filterrific %>
         <%= form_for_filterrific @filterrific, html: {id: "searchform"} do |f| %>
 
-          <div class="col-xs-12 col-md-8 col-md-pull-4">
+          <div class="col-xs-12 col-md-8<%= content_for?(:searchform__summary) ? " col-md-pull-4" : "" %>">
             <%= f.label(:terms, "Search Terms", class: "sr-only") %>
             <div class="input-group">
 
-              <% if content_for?(:advanced_search) %>
-                <div class="input-group-btn">
-                  <button type="button" class="btn btn-default --dropup-- --active--" data-toggle="collapse" data-target="#searchform__filters" aria-pressed="false" autocomplete="off">
-                    <span class="hidden-xs">Advanced</span>
-                    <span class="caret"></span>
-                  </button>
-                </div>
+              <% if searchform__filters? %>
+                <%= searchform__filters__toggle(f) %>
               <% end %>
 
               <%= f.text_field(:terms, class: "form-control", placeholder: "Customer, Item description…") %>
@@ -112,10 +109,10 @@
             </div><!-- .input-group:terms -->
           </div>
 
-          <% if @filterrific and content_for?(:advanced_search) %>
-          <div id="searchform__filters" class="col-xs-12 collapse" style="background: red;">
-            <%= yield(:advanced_search) %>
-          </div>
+          <% if searchform__filters? %>
+            <div id="searchform__filters" class="col-xs-12 collapse" style="background: red;">
+              <%= searchform__filters(f) %>
+            </div>
           <% end %>
 
         <% end %>

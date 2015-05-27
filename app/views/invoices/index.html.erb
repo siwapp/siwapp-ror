@@ -1,10 +1,8 @@
-<%= render partial: 'advanced_search', locals: {filterrific: @filterrific} %>
-
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 
-<% content_for :new_link do %>
-<a class="btn btn-primary" href="<%= new_invoice_path %>" role="button">New Invoice</a>
+<% content_for :searchform__summary do %>
+TOTAL: 10€
 <% end %>
 
 <table class="table table-hover">
