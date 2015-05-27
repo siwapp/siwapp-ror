@@ -19,6 +19,7 @@
     <% end %>
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
+    <%= f.label :issue_date %> <%= f.date_field :issue_date %><br/>
     <%= f.label :due_date %> <%= f.date_field :due_date %><br/>
     <% if @invoice.new_record? or @invoice.draft %>
       <%= f.check_box :draft %> <%= f.label :draft %>

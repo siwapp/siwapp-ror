@@ -1,32 +1,39 @@
 class Common < ActiveRecord::Base
-  has_many :items, dependent: :delete_all
+  # Relations
   belongs_to :customer
   belongs_to :serie
-
-  acts_as_taggable
-
+  has_many :items, dependent: :delete_all
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
+  # Behaviors
+  acts_as_taggable
+
+  # Events
   before_save :set_amounts
 
-  scope :search_query, lambda{|query|
+  # Search
+  scope :terms, lambda {|query|
     return nil  if query.blank?
+
     # Split terms to search for
     terms = query.downcase.split(/\s+/)
     terms = terms.map { |e|
       (e.gsub('*', '%') + '%').gsub(/%+/, '%')
     }
+
     num_or_conds = 2
+
     where(
-          terms.map { |term|
-            "(LOWER(commons.customer_name) LIKE ? OR LOWER(commons.customer_email) LIKE ?)"
-          }.join(' AND '),
-          *terms.map { |e| [e] * num_or_conds }.flatten
-          )
+      terms.map {|term|
+        "(LOWER(commons.customer_name) LIKE ? OR LOWER(commons.customer_email) LIKE ?)"
+      }.join(' AND '),
+      *terms.map {|e| [e] * num_or_conds }.flatten
+    )
   }
 
-  scope :with_serie_id, lambda{|serie_ids|
-    where(serie_id: [*serie_ids] )
+  # Filter by serie
+  scope :with_serie_id, lambda { |serie_ids|
+    where(serie_id: [*serie_ids])
   }
 
   def set_amounts

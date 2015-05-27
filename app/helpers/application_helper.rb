@@ -11,4 +11,12 @@ module ApplicationHelper
   def active_link(link)
     (link == params[:controller]) ? "active" : ""
   end
+
+  def current_type
+    controller_name.classify
+  end
+
+  def current_type_name
+    current_type.constantize.model_name.human
+  end
 end

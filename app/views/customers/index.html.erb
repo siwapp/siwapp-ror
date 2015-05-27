@@ -16,7 +16,7 @@
 
   <tbody class="js-iscroll">
     <% @customers.each do |customer| %>
-      <tr class="clickable-row" data-href="<%= edit_customer_path(customer) %>">
+      <tr data-href="<%= edit_customer_path(customer) %>">
         <td><%= customer.name %></td>
         <td><%= customer.identification %></td>
         <td></td>

@@ -1,29 +1,33 @@
 class Invoice < Common
+  # Relations
   belongs_to :recurring_invoice
   has_many :payments, dependent: :delete_all
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 
+  # Validation
   validates :customer_email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
   validates :serie, presence: true
+  validates :issue_date, presence: true
   validates :number, numericality: { only_integer: true, allow_nil: true }
 
+  # Events
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
 
+  # Status
   CLOSED = 1
   OPENED = 2
   OVERDUE = 3
 
   STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
 
-  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
-              available_filters: [
-                                  :with_serie_id,
-                                  :search_query,
-                                 ]
-              )
+  # Search
+  filterrific(
+    # default_filter_params: { sorted_by: 'created_at_desc' },
+    available_filters: [:with_serie_id, :terms]
+  )
 
   # Public: Get a string representation of this object
   #

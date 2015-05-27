@@ -1,11 +1,10 @@
 <% content_for :advanced_search do %>
-<div id="searchOptions" class="container-fluid" style="display: none;">
   <p>Advanced Search Options for Recurring Invoices</p>
   <%= form_for_filterrific @filterrific, html: {id: "my_filterrific_filter"} do |f| %>
   <div class="form-group">
     <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
     <%= f.text_field(
-    :search_query,
+    :terms,
     class: 'no-filterrific-periodically-observed',
     placeholder: 'Search'
     ) %>
@@ -30,7 +29,5 @@
     <%# add an automated spinner to your form when the list is refreshed %>
     <%#= render_filterrific_spinner %>
   <% end %>
-
-</div>
 <% end %>
 

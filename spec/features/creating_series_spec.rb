@@ -4,7 +4,7 @@ feature 'Creating Series' do
 
   before do
     visit '/series'
-    click_link 'New Serie'
+    first(:link, 'New Serie').click
   end
 
   scenario 'can create a serie' do
@@ -27,7 +27,5 @@ feature 'Creating Series' do
     expect(page).to have_content("1 error prohibited this serie from being saved")
     expect(page).to have_content("Value can't be blank")
   end
-
-
 
 end

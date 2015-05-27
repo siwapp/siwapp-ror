@@ -35,44 +35,13 @@
           <li class="<%= active_link('customers') %>"><%= link_to 'Customers', customers_path %></li>
         </ul>
 
-        <%= form_tag request.path, method: :get, class: 'navbar-form navbar-left', role: 'search' do %>
-          <% if content_for?(:advanced_search) %>
-          <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default">
-              <input id="searchOptionsToggle" type="checkbox" autocomplete="off">
-              Advanced
-            </label>
-          </div>
-          <% end %>
-        <% end %>
-
-	<% if @filterrific then %>
-	  <%= form_for_filterrific @filterrific, html: {class: "navbar-form navbar-left", id: "basicSearch"} do |f| %>
-	  <div class="form-group">
-	    <%# give the search field the 'filterrific-periodically-observed' class for live updates %>
-	    <%= f.text_field(
-	    :search_query,
-	    class: 'filterrific-periodically-observed form-control',
-	    placeholder: 'Search'
-	    ) %>
-	  </div>
-	  <div class="btn-group">
-	    <%= f.submit 'Filter', class: "btn btn-primary" %>
-	  </div>
-	  <div class="btn-group">
-	    <%= link_to(
-	    'Reset filters',
-	    reset_filterrific_url,
-	    ) %>
-	  </div>
-	  <%# add an automated spinner to your form when the list is refreshed %>
-	  <%#= render_filterrific_spinner %>
-	  <% end %>
-	<% end %>
-
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Configuration <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <span class="visible-xs-inline">Configuration</span>
+              <span class="hidden-xs glyphicon glyphicon-cog"></span>
+              <span class="caret"></span>
+            </a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Global Configuration</a></li>
               <li><a href="#">My Configuration</a></li>
@@ -83,15 +52,76 @@
             </ul>
           </li>
         </ul>
-        <div class="btn-group navbar-form navbar-right"><%= yield(:new_link) %></div>
+
+        <div class="btn-group navbar-btn navbar-right hidden-xs">
+          <!-- TODO: This is going to break in a different controller like configuration -->
+          <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="<%= new_invoice_path %>">New Invoice</a></li>
+            <li><a href="<%= new_recurring_invoice_path %>">New Recurring Invoice</a></li>
+            <li class="divider"></li>
+            <li><a href="<%= new_customer_path %>">New Customer</a></li>
+            <li><a href="<%= new_serie_path %>">New Serie</a></li>
+            <li><a href="<%= new_tax_path %>">New Tax</a></li>
+          </ul>
+        </div>
       </div><!-- /.navbar-collapse -->
 
     </div>
   </nav><!-- /.navbar -->
 
-  <%= yield(:advanced_search) %>
-
   <div class="container-fluid" role="main">
+
+    <div class="row">
+      <div class="col-xs-12 col-md-4 col-md-push-8">
+        Some useful content here, like totals
+      </div>
+
+      <% if @filterrific %>
+        <%= form_for_filterrific @filterrific, html: {id: "searchform"} do |f| %>
+
+          <div class="col-xs-12 col-md-8 col-md-pull-4">
+            <%= f.label(:terms, "Search Terms", class: "sr-only") %>
+            <div class="input-group">
+
+              <% if content_for?(:advanced_search) %>
+                <div class="input-group-btn">
+                  <button type="button" class="btn btn-default --dropup-- --active--" data-toggle="collapse" data-target="#searchform__filters" aria-pressed="false" autocomplete="off">
+                    <span class="hidden-xs">Advanced</span>
+                    <span class="caret"></span>
+                  </button>
+                </div>
+              <% end %>
+
+              <%= f.text_field(:terms, class: "form-control", placeholder: "Customer, Item description…") %>
+
+              <div class="input-group-btn">
+                <a href="<%= reset_filterrific_url() %>" class="btn btn-default">
+                  <span class="glyphicon glyphicon-refresh"></span>
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-search"></span>
+                  &nbsp;Search
+                </button>
+              </div>
+
+            </div><!-- .input-group:terms -->
+          </div>
+
+          <% if @filterrific and content_for?(:advanced_search) %>
+          <div id="searchform__filters" class="col-xs-12 collapse" style="background: red;">
+            <%= yield(:advanced_search) %>
+          </div>
+          <% end %>
+
+        <% end %>
+      <% end %>
+    </div>
+
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
 </body>

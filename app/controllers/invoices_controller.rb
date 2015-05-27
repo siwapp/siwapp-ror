@@ -24,6 +24,7 @@ class InvoicesController < CommonsController
   def invoice_params
     [
       :serie_id,
+      :issue_date,
       :due_date,
 
       :customer_name,

@@ -1,5 +1,8 @@
 class RecurringInvoice < Common
+  # Relations
   has_many :invoices
+
+  # Validation
   validates :customer_name, :starting_date, presence: true
   validates :customer_email, \
     format: {
@@ -9,18 +12,18 @@ class RecurringInvoice < Common
   validate :valid_date_range
   validates :serie, presence: true
 
-  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
-              available_filters: [
-                                  :with_serie_id,
-                                  :search_query,
-                                 ]
-              )
+  # Search
+  filterrific(
+    # default_filter_params: {sorted_by: 'created_at_desc'},
+    available_filters: [:with_serie_id, :terms]
+  )
 
+  # Status
   PERIOD_TYPES = [
-                  [ "Dayly","days" ],
-                  [ "Monthly","months"],
-                  [ "Yearly", "years"]
-                 ].freeze
+    ["Dayly", "days"],
+    ["Monthly", "months"],
+    ["Yearly", "years"]
+  ].freeze
 
   STATUS = ['Inactive', 'Active']
 

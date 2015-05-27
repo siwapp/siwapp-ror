@@ -5,7 +5,7 @@ feature 'Creating Invoices' do
   before do
     FactoryGirl.create(:serie)
     visit '/invoices'
-    click_link 'New Invoice'
+    first(:link, 'New Invoice').click
   end
 
   scenario 'can create an invoice' do
@@ -13,6 +13,7 @@ feature 'Creating Invoices' do
 
     fill_in 'Customer name', with: 'Test Customer'
     fill_in 'Customer email', with: 'pepe@abc.com'
+    fill_in 'Issue date', with: Date.today
 
     click_button 'Create Invoice'
     expect(page).to have_content('Invoice was successfully created.')

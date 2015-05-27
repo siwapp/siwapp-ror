@@ -31,6 +31,8 @@ FactoryGirl.define do
       end
 
       factory :invoice, class: Invoice do
+        issue_date Date.today - 1
+        due_date Date.today + 30
         after(:create) do |invoice|
           # Add some payments
           create(:payment, invoice: invoice, date: Date.today, amount: 100)

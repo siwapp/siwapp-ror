@@ -11,18 +11,15 @@ class CommonsController < ApplicationController
     @filterrific = initialize_filterrific(
       model,
       params[:filterrific],
-      select_options:{with_serie_id: Serie.options_for_select},
+      select_options: {
+        with_serie_id: Serie.options_for_select
+      },
     ) or return
 
-    if not set_listing @filterrific.find.page(params[:page])
-        .includes(:serie)
-        .paginate(page: params[:page], per_page: 20)
-        .order(id: :desc)
-      set_listing model
-        .includes(:serie)
-        .paginate(page: params[:page], per_page: 20)
-        .order(id: :desc)
-    end
+    set_listing @filterrific.find
+      .includes(:serie)
+      .paginate(page: params[:page], per_page: 20)
+      .order(id: :desc)
 
     respond_to do |format|
       format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }
