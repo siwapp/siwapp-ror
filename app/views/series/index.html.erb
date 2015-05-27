@@ -10,11 +10,11 @@
   </thead>
 
   <tbody>
-    <% @series.each do |serie| %>
+    <% @series.each do |series| %>
       <tr>
-        <td><%= link_to serie.name, serie %></td>
-        <td><%= link_to 'Edit', edit_serie_path(serie) %></td>
-        <td><%= link_to 'Destroy', serie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to series.name, series %></td>
+        <td><%= link_to 'Edit', edit_series_path(series) %></td>
+        <td><%= link_to 'Destroy', series, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New Serie', new_serie_path %>
+<%= link_to 'New Series', new_series_path %>

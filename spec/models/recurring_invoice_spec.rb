@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RecurringInvoice, :type => :model do
   it "is invalid without a series" do
-    expect(FactoryGirl.build(:recurring_invoice, serie: nil)).not_to be_valid
+    expect(FactoryGirl.build(:recurring_invoice, series: nil)).not_to be_valid
   end
 
   it "is invalid without a customer name" do

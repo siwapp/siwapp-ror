@@ -13,7 +13,7 @@
 
   <p>
     <% if @invoice.new_record? or @invoice.draft %>
-      <%= f.label :serie %> <%= f.collection_select :serie_id, @series, :id, :name, {include_blank: true} %><br/>
+      <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :name, {include_blank: true} %><br/>
     <% else %>
       <%= @invoice %><br>
     <% end %>

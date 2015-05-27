@@ -1,4 +1,4 @@
-class Serie < ActiveRecord::Base
+class Series < ActiveRecord::Base
   has_many :commons
   validates :value, presence: true
 
@@ -6,7 +6,7 @@ class Serie < ActiveRecord::Base
   #
   # Examples
   #
-  #   Serie.new(name: "Sample Series", value: "SS").to_s
+  #   Series.new(name: "Sample Series", value: "SS").to_s
   #   # => "Sample Series (SS)"
   #
   # Returns a string representation of this object

@@ -12,12 +12,12 @@ class CommonsController < ApplicationController
       model,
       params[:filterrific],
       select_options: {
-        with_serie_id: Serie.options_for_select
+        with_series_id: Series.options_for_select
       },
     ) or return
 
     set_listing @filterrific.find
-      .includes(:serie)
+      .includes(:series)
       .paginate(page: params[:page], per_page: 20)
       .order(id: :desc)
 
@@ -184,7 +184,7 @@ class CommonsController < ApplicationController
   # Private: sets taxes and series for some actions
   def set_extra_stuff
     @taxes = Tax.where active: true
-    @series = Serie.where enabled: true
+    @series = Series.where enabled: true
     @tags = commons_tags
   end
 

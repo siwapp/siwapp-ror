@@ -3,13 +3,13 @@ require 'rails_helper'
 feature 'Creating Invoices' do
 
   before do
-    FactoryGirl.create(:serie)
+    FactoryGirl.create(:series)
     visit '/invoices'
     first(:link, 'New Invoice').click
   end
 
   scenario 'can create an invoice' do
-    select 'Example Series', from: 'invoice_serie_id'
+    select 'Example Series', from: 'invoice_series_id'
 
     fill_in 'Customer name', with: 'Test Customer'
     fill_in 'Customer email', with: 'pepe@abc.com'

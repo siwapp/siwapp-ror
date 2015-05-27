@@ -33,7 +33,7 @@ namespace :siwapp do
 
       client.query("ALTER TABLE common CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE common CHANGE recurring_invoice_id recurring_invoice_id INT")
-      client.query("ALTER TABLE common CHANGE series_id serie_id INT")
+      client.query("ALTER TABLE common CHANGE series_id series_id INT")
       client.query("ALTER TABLE common CHANGE customer_id customer_id INT")
       client.query("ALTER TABLE common CHANGE invoicing_address invoicing_address TEXT")
       client.query("ALTER TABLE common CHANGE shipping_address shipping_address TEXT")
@@ -71,11 +71,11 @@ namespace :siwapp do
 
       # Get max invoice number for each series and set the series next_number
       # field accordingly.
-      series_info = client.query("SELECT `serie_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' GROUP BY `serie_id`")
+      series_info = client.query("SELECT `series_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' GROUP BY `series_id`")
       series_info.each do |info|
-        serie_id = info['serie_id']
+        series_id = info['series_id']
         next_number = info['current_number'] + 1
-        client.query("UPDATE `series` SET `next_number` = #{next_number} WHERE `id` = #{serie_id};")
+        client.query("UPDATE `series` SET `next_number` = #{next_number} WHERE `id` = #{series_id};")
       end
 
       # Tags

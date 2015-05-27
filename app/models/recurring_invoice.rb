@@ -10,12 +10,12 @@ class RecurringInvoice < Common
       message: "Only valid emails"
     }
   validate :valid_date_range
-  validates :serie, presence: true
+  validates :series, presence: true
 
   # Search
   filterrific(
     # default_filter_params: {sorted_by: 'created_at_desc'},
-    available_filters: [:with_serie_id, :terms]
+    available_filters: [:with_series_id, :terms]
   )
 
   # Status
@@ -28,7 +28,7 @@ class RecurringInvoice < Common
   STATUS = ['Inactive', 'Active']
 
   def to_s
-    "#{serie.value} - #{customer_name}"
+    "#{series.value} - #{customer_name}"
   end
 
   def get_status

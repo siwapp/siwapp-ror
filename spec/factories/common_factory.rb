@@ -8,7 +8,7 @@ FactoryGirl.define do
       customer_name  "Example Customer Name"
       customer_email "example@example.com"
 
-      serie
+      series
 
       after(:create) do |common|
         # Add some items
@@ -63,7 +63,7 @@ FactoryGirl.define do
         sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
 
         # Find an existing series or generate a random one
-        serie  { Serie.all.sample || generate(:serie_random) }
+        series  { Series.all.sample || generate(:series_random) }
 
         after(:create) do |invoice|
           # Items
@@ -93,7 +93,7 @@ FactoryGirl.define do
         sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
 
         # Find an existing series or generate a random one
-        serie { Serie.all.sample || generate(:serie_random) }
+        series { Series.all.sample || generate(:series_random) }
 
         # Set random start (past/present) and finish (present/future) dates
         starting_date { Date.today >> rand(-8..1) }

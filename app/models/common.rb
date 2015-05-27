@@ -1,7 +1,7 @@
 class Common < ActiveRecord::Base
   # Relations
   belongs_to :customer
-  belongs_to :serie
+  belongs_to :series
   has_many :items, dependent: :delete_all
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
@@ -31,9 +31,9 @@ class Common < ActiveRecord::Base
     )
   }
 
-  # Filter by serie
-  scope :with_serie_id, lambda { |serie_ids|
-    where(serie_id: [*serie_ids])
+  # Filter by series
+  scope :with_series_id, lambda { |series_ids|
+    where(series_id: [*series_ids])
   }
 
   def set_amounts
