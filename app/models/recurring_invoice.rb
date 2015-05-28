@@ -12,12 +12,6 @@ class RecurringInvoice < Common
   validate :valid_date_range
   validates :series, presence: true
 
-  # Search
-  filterrific(
-    # default_filter_params: {sorted_by: 'created_at_desc'},
-    available_filters: [:with_series_id, :terms]
-  )
-
   # Status
   PERIOD_TYPES = [
     ["Dayly", "days"],
@@ -26,6 +20,7 @@ class RecurringInvoice < Common
   ].freeze
 
   STATUS = ['Inactive', 'Active']
+
 
   def to_s
     "#{series.value} - #{customer_name}"

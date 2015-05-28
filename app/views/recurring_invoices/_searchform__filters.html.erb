@@ -1,0 +1,40 @@
+<p>
+  <%= f.label :starting_date_gteq, "Starting Date from: " %>
+  <%= f.date_field :starting_date_gteq %>
+  <%= f.label :starting_date_lteq, "to: " %>
+  <%= f.date_field :starting_date_lteq %>
+</p>
+<p>
+  <%= f.label :finishing_date_gteq, "Finishing Date from: " %>
+  <%= f.date_field :finishing_date_gteq %>
+  <%= f.label :finishing_date_lteq, "to: " %>
+  <%= f.date_field :finishing_date_lteq %>
+</p>
+<p>
+  <%= f.label :last_execution_date_gteq, "Last Execution Date from: " %>
+  <%= f.date_field :last_execution_date_gteq %>
+  <%= f.label :last_execution_date_lteq, "to: " %>
+  <%= f.date_field :last_execution_date_lteq %>
+</p>
+<%= render 'shared/searchform__tagsfield' %>
+
+<p>Normal Search for Recurring Invoices</p>
+<ul>
+  <li>Text Search by: Customer Name / Email / VAT ID</li>
+  <li>TODO: Items</li>
+</ul>
+<p>Advanced Search for Recurring Invoices</p>
+<ul>
+  <li>Enabled</li>
+  <li>Draft</li>
+  <li>series</li>
+</ul>
+<p>Sorting for Recurring Invoices</p>
+<ul>
+  <li>Series</li>
+  <li>Starting Date</li>
+  <li>Finishing Date</li>
+  <li>Creation Date</li>
+  <li>Update Date</li>
+  <li>Customer Name</li>
+</ul>

@@ -8,18 +8,14 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /commons.json
   def index
-    @filterrific = initialize_filterrific(
-      model,
-      params[:filterrific],
-      select_options: {
-        with_series_id: Series.options_for_select
-      },
-    ) or return
+    @search = model.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
 
-    set_listing @filterrific.find
+    # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
+    results = @search.result(distinct: true)
       .includes(:series)
-      .paginate(page: params[:page], per_page: 20)
-      .order(id: :desc)
+    results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    set_listing results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
       format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }

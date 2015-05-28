@@ -17,6 +17,7 @@
     <% else %>
       <%= @invoice %><br>
     <% end %>
+    <%= f.label :customer_identification, "VAT ID" %> <%= f.text_field :customer_identification %><br/>
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
     <%= f.label :issue_date %> <%= f.date_field :issue_date %><br/>

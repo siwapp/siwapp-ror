@@ -1,0 +1,34 @@
+<p>
+  <%= f.label :issue_date_gteq, "Issue Date from: " %>
+  <%= f.date_field :issue_date_gteq %>
+  <%= f.label :issue_date_lteq, "to: " %>
+  <%= f.date_field :issue_date_lteq %>
+</p>
+<p>
+  <%= f.label :due_date_gteq, "Due Date from: " %>
+  <%= f.date_field :due_date_gteq %>
+  <%= f.label :due_date_lteq, "to: " %>
+  <%= f.date_field :due_date_lteq %>
+</p>
+<%= render 'shared/searchform__tagsfield' %>
+
+<p>Normal Search for Invoices</p>
+<ul>
+  <li>Text Search by: Customer Name / Email / VAT ID</li>
+  <li>TODO: Items</li>
+</ul>
+<p>Advanced Search for Invoices</p>
+<ul>
+  <li>Multiple statuses (checkboxes, draft, pending, paid, overdue)</li>
+  <li>series</li>
+</ul>
+<p>Sorting for Invoices</p>
+<ul>
+  <li>Invoice number (series + number)</li>
+  <li>Issue Date</li>
+  <li>Due Date</li>
+  <li>Creation Date</li>
+  <li>Update Date</li>
+  <li>Status</li>
+  <li>Customer Name</li>
+</ul>

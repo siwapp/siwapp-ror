@@ -12,29 +12,22 @@ class Common < ActiveRecord::Base
   before_save :set_amounts
 
   # Search
-  scope :terms, lambda {|query|
-    return nil  if query.blank?
-
-    # Split terms to search for
-    terms = query.downcase.split(/\s+/)
-    terms = terms.map { |e|
-      (e.gsub('*', '%') + '%').gsub(/%+/, '%')
-    }
-
-    num_or_conds = 2
-
-    where(
-      terms.map {|term|
-        "(LOWER(commons.customer_name) LIKE ? OR LOWER(commons.customer_email) LIKE ?)"
-      }.join(' AND '),
-      *terms.map {|e| [e] * num_or_conds }.flatten
-    )
+  scope :with_terms, ->(terms) {
+    return nil if terms.empty?
+    where('customer_name LIKE :terms OR
+           customer_email LIKE :terms OR
+           customer_identification LIKE :terms',
+           terms: terms + '%')
   }
 
-  # Filter by series
-  scope :with_series_id, lambda { |series_ids|
-    where(series_id: [*series_ids])
-  }
+private
+
+  # Declare scopes for search
+  def self.ransackable_scopes(auth_object = nil)
+    [:with_terms]
+  end
+
+public
 
   def set_amounts
     self.base_amount = 0

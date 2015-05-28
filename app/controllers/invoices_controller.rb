@@ -2,7 +2,7 @@ class InvoicesController < CommonsController
 
   def show
     # Redirect to edit if invoice not closed
-    if @invoice.status != Invoice::CLOSED
+    if @invoice.status != Invoice::PAID
       redirect_to action: 'edit'
     end
   end
@@ -27,6 +27,7 @@ class InvoicesController < CommonsController
       :issue_date,
       :due_date,
 
+      :customer_identification,
       :customer_name,
       :customer_email,
 

@@ -47,4 +47,14 @@ module StiHelper
   def sti_template(type, action)
     "#{type.underscore.pluralize}/#{action}"
   end
+
+  # Transform the current controller name into a type name
+  def current_type
+    controller_name.classify
+  end
+
+  # Returns a "humanized" version of the current type name
+  def current_type_name
+    current_type.constantize.model_name.human
+  end
 end

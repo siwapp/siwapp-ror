@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428083035) do
+ActiveRecord::Schema.define(version: 20150528103244) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",               limit: 4
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150428083035) do
     t.integer  "status",                  limit: 1
     t.string   "type",                    limit: 255
     t.boolean  "draft",                   limit: 1,                               default: true
-    t.boolean  "closed",                  limit: 1,                               default: false
+    t.boolean  "paid",                    limit: 1,                               default: false
     t.boolean  "sent_by_email",           limit: 1,                               default: false
     t.integer  "number",                  limit: 4
     t.integer  "recurring_invoice_id",    limit: 4
@@ -75,16 +75,16 @@ ActiveRecord::Schema.define(version: 20150428083035) do
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4,                                           null: false
-    t.string  "description",  limit: 255
-    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
+    t.decimal "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer "common_id",    limit: 4
+    t.string  "description",  limit: 20000
+    t.decimal "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
   end
 
   add_index "items", ["common_id"], name: "common_id_idx", using: :btree
-  add_index "items", ["description"], name: "desc_idx", using: :btree
+  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, using: :btree
   add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
 
   create_table "items_taxes", id: false, force: :cascade do |t|
@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20150428083035) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "invoice_id", limit: 4,                               null: false
+    t.integer  "invoice_id", limit: 8,                               null: false
     t.date     "date"
     t.decimal  "amount",                   precision: 53, scale: 15
     t.text     "notes",      limit: 65535

@@ -1,9 +1,20 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 
-<% content_for :searchform__summary do %>
-TOTAL: 10€
-<% end %>
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-md-push-8">
+    <p>TOTAL: 10€</p>
+  </div>
+
+  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
+    <div class="col-xs-12 col-md-8 col-md-pull-4">
+      <%= render 'shared/searchform', f: f, with_filters: true %>
+    </div>
+    <div id="searchform__filters" class="col-xs-12 collapse">
+      <%= render 'searchform__filters', f: f %>
+    </div>
+  <% end %>
+</div>
 
 <table class="table table-hover">
   <thead>
@@ -22,5 +33,3 @@ TOTAL: 10€
     <%= render @invoices %>
   </tbody>
 </table>
-
-

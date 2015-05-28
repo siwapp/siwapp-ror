@@ -45,6 +45,7 @@ namespace :siwapp do
       client.query("ALTER TABLE common CHANGE gross_amount gross_amount DECIMAL(53, 15) DEFAULT 0")
       client.query("ALTER TABLE common CHANGE paid_amount paid_amount DECIMAL(53, 15) DEFAULT 0")
       client.query("ALTER TABLE common CHANGE tax_amount tax_amount DECIMAL(53, 15) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE closed paid TINYINT(1) DEFAULT 0")
 
       client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")
@@ -54,12 +55,24 @@ namespace :siwapp do
       client.query("ALTER TABLE item CHANGE common_id common_id INT")
       client.query("ALTER TABLE item CHANGE product_id product_id INT")
 
+      client.query("ALTER TABLE item DROP INDEX desc_idx")
+      client.query("ALTER TABLE item CHANGE description description VARCHAR(20000) COLLATE utf8_unicode_ci DEFAULT NULL")
+      client.query("ALTER TABLE item ADD INDEX desc_idx (description(255)) USING BTREE")
+
       client.query("ALTER TABLE item_tax CHANGE item_id item_id INT")
       client.query("ALTER TABLE item_tax CHANGE tax_id tax_id INT")
 
-      client.query("ALTER TABLE payment CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
-      client.query("ALTER TABLE payment CHANGE invoice_id invoice_id INT")
+      client.query("ALTER TABLE payment CHANGE `id` `id` BIGINT(20) NOT NULL AUTO_INCREMENT")
+      client.query("DELETE FROM payment WHERE invoice_id IS NULL")
+      client.query("ALTER TABLE payment CHANGE invoice_id invoice_id BIGINT(20) NOT NULL")
       client.query("ALTER TABLE payment CHANGE notes notes TEXT")
+
+      client.query("ALTER TABLE payment ADD created_at datetime")
+      client.query("ALTER TABLE payment ADD updated_at datetime")
+      current_date = DateTime.now.strftime('%Y/%m/%d %H:%M:%S')
+      client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
+      client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
+      client.query("ALTER TABLE payment CHANGE updated_at updated_at datetime NOT NULL")
 
       client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE product CHANGE description description TEXT")
@@ -67,7 +80,7 @@ namespace :siwapp do
       client.query("ALTER TABLE property CHANGE value value TEXT")
 
       client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
-      client.query("ALTER TABLE series CHANGE first_number next_number INT")
+      client.query("ALTER TABLE series CHANGE first_number next_number INT(11) DEFAULT '1'")
 
       # Get max invoice number for each series and set the series next_number
       # field accordingly.

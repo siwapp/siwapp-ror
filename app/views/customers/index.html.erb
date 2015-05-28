@@ -1,8 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<% content_for :new_link do %>
-<a class="btn btn-primary" href="<%= new_customer_path %>" role="button">New Customer</a>
-<% end %>
+<div class="row">
+  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
+    <div class="col-xs-12 col-md-8">
+      <%= render 'shared/searchform', f: f %>
+    </div>
+  <% end %>
+</div>
 
 <table class="table table-hover">
   <thead>
@@ -25,6 +29,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-

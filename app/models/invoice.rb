@@ -17,17 +17,21 @@ class Invoice < Common
   around_save :ensure_invoice_number, if: :needs_invoice_number
 
   # Status
-  CLOSED = 1
-  OPENED = 2
+  PAID = 1
+  PENDING = 2
   OVERDUE = 3
 
-  STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
+  STATUS = {paid: PAID, pending: PENDING, overdue: OVERDUE}
 
-  # Search
-  filterrific(
-    # default_filter_params: { sorted_by: 'created_at_desc' },
-    available_filters: [:with_series_id, :terms]
-  )
+private
+
+  # Declare attributes for search
+  def self.ransackable_attributes(auth_object = nil)
+    super & %w( issue_date due_date )
+  end
+
+public
+
 
   # Public: Get a string representation of this object
   #
@@ -43,7 +47,7 @@ class Invoice < Common
   # Returns a string.
   def to_s
     label = draft ? '[draft]' : number? ? number: "(#{series.next_number})"
-    "#{series.value}-#{label}"
+    "#{series.value}#{label}"
   end
 
   # Public: Returns the status of the invoice based on certain conditions.
@@ -52,10 +56,10 @@ class Invoice < Common
   def get_status
     if draft
       :draft
-    elsif closed || gross_amount <= paid_amount
-      :closed
+    elsif paid || gross_amount <= paid_amount
+      :paid
     elsif due_date and due_date > Date.today
-      :opened
+      :pending
     else
       :overdue
     end
@@ -65,7 +69,7 @@ class Invoice < Common
   #
   # Returns a double.
   def unpaid_amount
-    draft ? nil : gross_amount - paid_amount
+    draft ? 0.0 : gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -101,10 +105,7 @@ class Invoice < Common
 
     # Protected: Update instance's status digit to reflect its status
     def set_status
-      if !draft
-        self.status = STATUS[get_status]
-      end
+      self.status = draft ? nil : STATUS[get_status]
     end
-
 
 end
