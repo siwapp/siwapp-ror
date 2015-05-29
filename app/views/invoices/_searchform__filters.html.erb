@@ -11,7 +11,9 @@
   <%= f.date_field :due_date_lteq %>
 </p>
 <%= render 'shared/searchform__tagsfield' %>
-
+<p>
+  <%= f.collection_select :series_id_eq, Series.all, "id", "name", include_blank: true %>
+</p>
 <p>Normal Search for Invoices</p>
 <ul>
   <li>Text Search by: Customer Name / Email / VAT ID</li>
