@@ -23,8 +23,26 @@ class Invoice < Common
 
   STATUS = {paid: PAID, pending: PENDING, overdue: OVERDUE}
 
+  scope :with_status, ->(status) {
+    return nil if status.empty?
+    status = status.to_sym
+    return where('draft = 1') if status == :draft
+    return where('status = ?', STATUS[status]) if STATUS.has_key?(status)
+    nil
+  }
+
+protected
+
+  # Declare scopes for search
+  def self.ransackable_scopes(auth_object = nil)
+    super + [:with_status]
+  end
+
 public
 
+  def self.status_collection
+    [["Draft", :draft], ["Paid", :paid], ["Pending", :pending], ["Overdue", :overdue]]
+  end
 
   # Public: Get a string representation of this object
   #

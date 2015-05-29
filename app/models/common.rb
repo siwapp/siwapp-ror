@@ -20,7 +20,7 @@ class Common < ActiveRecord::Base
            terms: terms + '%')
   }
 
-private
+protected
 
   # Declare scopes for search
   def self.ransackable_scopes(auth_object = nil)
