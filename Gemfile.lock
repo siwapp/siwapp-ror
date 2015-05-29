@@ -40,12 +40,14 @@ GEM
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
     arel (6.0.0)
-    autoprefixer-rails (4.0.2.2)
+    autoprefixer-rails (5.2.0)
       execjs
+      json
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.1.0)
-      sass (~> 3.2)
+    bootstrap-sass (3.3.4.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     byebug (3.5.1)
       columnize (~> 0.8)
@@ -225,8 +227,8 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (= 3.5.0)
-  autoprefixer-rails (= 4.0.2.2)
-  bootstrap-sass (= 3.3.1.0)
+  autoprefixer-rails (>= 5.0.0.1)
+  bootstrap-sass (= 3.3.4.1)
   byebug
   capybara
   cocoon (= 1.2.6)
