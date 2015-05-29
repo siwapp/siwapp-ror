@@ -58,6 +58,8 @@ FactoryGirl.define do
     factory :common_random do
       factory :invoice_random, class: Invoice do
         draft {rand > 0.5}
+        issue_date Date.today - 1
+        due_date Date.today + 30
 
         sequence(:customer_name, "A")  { |n| "John #{n}. Smith" }
         sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
