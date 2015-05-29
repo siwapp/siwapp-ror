@@ -23,7 +23,9 @@ class RecurringInvoice < Common
 
 
   def to_s
-    "#{series.value} - #{customer_name}"
+    series_name = ""
+    series_name = " (#{series.name})" if not series.name.empty?
+    "#{customer_name}#{series_name}"
   end
 
   def get_status

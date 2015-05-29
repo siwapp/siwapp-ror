@@ -1,6 +1,7 @@
 <tr data-href="<%= invoice_path(invoice) %>">
   <td><%= link_to invoice, invoice %></td>
   <td><%= invoice.customer_name %></td>
+  <td><%= invoice.series %></td>
   <td><%= invoice.issue_date %></td>
   <td><%= invoice.due_date %></td>
   <td><%= invoice.get_status %></td>

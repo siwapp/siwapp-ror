@@ -2,7 +2,6 @@
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 <p><%= @recurring_invoice %></p>
-<p><%= @recurring_invoice.customer_name %></p>
 <p>Frequency: Every <%= @recurring_invoice.period %> <%= @recurring_invoice.period_type %><p>
 <p>Status: <%= @recurring_invoice.get_status %></p>
 <ul id="items">

@@ -23,7 +23,7 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "is represented with its series and customer name" do
-    expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("ES- - Example Customer Name")
+    expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("Example Customer Name (Example Series)")
   end
 
   it "performs totals calculations properly" do

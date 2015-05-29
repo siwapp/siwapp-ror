@@ -11,10 +11,7 @@ class Series < ActiveRecord::Base
   #
   # Returns a string representation of this object
   def to_s
-    "#{name} (#{value})"
-  end
-
-  def self.options_for_select
-    order('LOWER(name)').map{ |e| [e.name, e.id] }
+    return value if name.empty?
+    name
   end
 end
