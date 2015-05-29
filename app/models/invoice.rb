@@ -23,13 +23,6 @@ class Invoice < Common
 
   STATUS = {paid: PAID, pending: PENDING, overdue: OVERDUE}
 
-private
-
-  # Declare attributes for search
-  def self.ransackable_attributes(auth_object = nil)
-    super & %w( issue_date due_date )
-  end
-
 public
 
 
