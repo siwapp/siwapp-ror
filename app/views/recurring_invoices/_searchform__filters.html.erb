@@ -18,25 +18,15 @@
 </p>
 <%= render 'shared/searchform__tagsfield' %>
 <p>
+  <%= f.label :series_id_eq, "Series:" %>
   <%= f.collection_select :series_id_eq, Series.all, "id", "name", include_blank: true %>
 </p>
 
-<p>Normal Search for Recurring Invoices</p>
+<p><b>TODO:</b></p>
 <ul>
-  <li>Text Search by: Customer Name / Email / VAT ID</li>
-  <li>TODO: Items</li>
-</ul>
-<p>Advanced Search for Recurring Invoices</p>
-<ul>
-  <li>Enabled</li>
-  <li>Draft</li>
-</ul>
-<p>Sorting for Recurring Invoices</p>
-<ul>
-  <li>Series</li>
-  <li>Starting Date</li>
-  <li>Finishing Date</li>
-  <li>Creation Date</li>
-  <li>Update Date</li>
-  <li>Customer Name</li>
+  <li>Search by status (draft + enabled + disabled + pending)</li>
+  <li>Search by item description in the with_terms scope</li>
+  <li>Use a pretty selector for date range search. Create a partial to reuse it.</li>
+  <li>Try to use <a href="https://github.com/rails/arel">Arel</a> instead of SQL conditions (evaluate benefits)</li>
+  <li>Column sorting</li>
 </ul>
