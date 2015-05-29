@@ -17,6 +17,9 @@
   <%= f.date_field :last_execution_date_lteq %>
 </p>
 <%= render 'shared/searchform__tagsfield' %>
+<p>
+  <%= f.collection_select :series_id_eq, Series.all, "id", "name", include_blank: true %>
+</p>
 
 <p>Normal Search for Recurring Invoices</p>
 <ul>
@@ -27,7 +30,6 @@
 <ul>
   <li>Enabled</li>
   <li>Draft</li>
-  <li>series</li>
 </ul>
 <p>Sorting for Recurring Invoices</p>
 <ul>
