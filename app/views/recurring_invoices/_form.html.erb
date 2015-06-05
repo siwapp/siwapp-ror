@@ -29,4 +29,8 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+<div id="amounts">
+  <%= render partial: 'amounts', locals: {invoice: @recurring_invoice} %>
+</div>
 <% end %>
