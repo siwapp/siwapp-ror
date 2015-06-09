@@ -28,6 +28,8 @@ class RecurringInvoice < Common
     "#{customer_name}#{series_name}"
   end
 
+  scope :status, -> (status) {where status: status}
+
   def get_status
     if status
       STATUS[status]

@@ -1,5 +1,19 @@
 class RecurringInvoicesController < CommonsController
 
+  def generate
+    # Generates pending invoices according to date
+    @recurring = self.delayed
+    @recurring.each do |actual|
+      # generate an Invoice for the actual recurring_invoice
+    end
+    redirect_to(:action => 'index')
+  end
+
+  def delayed
+    # Gets recurring invoices that should be executed
+    @c = RecurringInvoice.status(1)
+  end
+
   protected
 
   def set_listing(instances)

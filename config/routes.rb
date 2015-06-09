@@ -5,8 +5,9 @@ Rails.application.routes.draw do
 
   resources :invoices
 
-  resources :recurring_invoices
-
+  resources :recurring_invoices do
+    post 'generate', on: :collection
+  end
   resources :taxes
 
   resources :series
