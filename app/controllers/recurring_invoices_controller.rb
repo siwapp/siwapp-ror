@@ -11,7 +11,7 @@ class RecurringInvoicesController < CommonsController
 
   def delayed
     # Gets recurring invoices that should be executed
-    @c = RecurringInvoice.status(1)
+    @c = RecurringInvoice.with_status(1)
   end
 
   protected

@@ -27,8 +27,8 @@ class RecurringInvoice < Common
     series_name = " (#{series.name})" if not series.name.empty?
     "#{customer_name}#{series_name}"
   end
-
-  scope :status, -> (status) {where status: status}
+  # returns all recurring_invoices with specified status
+  scope :with_status, -> (status) {where status: status}
 
   def get_status
     if status

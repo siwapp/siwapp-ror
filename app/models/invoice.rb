@@ -30,6 +30,11 @@ class Invoice < Common
     return where('status = ?', STATUS[status]) if STATUS.has_key?(status)
     nil
   }
+  # Invoices belonging to certain recurring_invoice
+  scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
+  # Invoices on a date range
+  scope :within, -> (start_date, end_date) {}
+
 
 protected
 
