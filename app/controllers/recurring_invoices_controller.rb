@@ -2,17 +2,34 @@ class RecurringInvoicesController < CommonsController
 
   def generate
     # Generates pending invoices according to date
-    @recurring = self.delayed
-    @recurring.each do |actual|
-      # generate an Invoice for the actual recurring_invoice
+    pending = []
+    actives = RecurringInvoice.with_status(1)
+    pendings = get_pendings(actives)
+    while pendings do
+      # Generate invoices
+      processed = []
+      pendings = get_pendings(processed)
     end
     redirect_to(:action => 'index')
   end
 
   def delayed
     # Gets recurring invoices that should be executed
-    @c = RecurringInvoice.with_status(1)
+    c = RecurringInvoice.with_status(1)
   end
+
+  def get_pendings(instances)
+    # Returns only those recurring_invoices that are pending to generate invoices
+    pendings = []
+    instances.each do |actual|
+      # pick just those pending
+      if actual.last_execution_date < Date.today - actual.period.send(actual.period_type)
+        pendings.append(actual)
+      end
+    end
+    pendings
+  end
+    
 
   protected
 
@@ -45,6 +62,7 @@ class RecurringInvoicesController < CommonsController
       :period,
       :period_type,
       :max_occurrences,
+      :last_execution_date,
 
       :tag_list,
 

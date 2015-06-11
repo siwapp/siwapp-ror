@@ -33,7 +33,9 @@ class Invoice < Common
   # Invoices belonging to certain recurring_invoice
   scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
   # Invoices on a date range
-  scope :within, -> (start_date, end_date) {}
+  #scope :within, where("
+#transfer_date BETWEEN ? AND ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day)
+  #scope :within, -> (start_date, end_date) {}
 
 
 protected
