@@ -5,12 +5,28 @@ class RecurringInvoicesController < CommonsController
     pending = []
     actives = RecurringInvoice.with_status(1)
     pendings = get_pendings(actives)
-    while pendings do
+    while not pendings.empty? do
       # Generate invoices
       processed = []
+      print pendings
+      #print 'voy a comenzar el ciclo'
+      pendings.each do |p|
+        print 'en el primer PENDING'
+        inv = p.becomes(Invoice).deep_clone include: [:payments, :items]
+        print inv
+        inv.status = 'Open'
+        # saving new generated invoice
+        inv.save()
+        print p
+        # updating last_execution_date on p
+        p.last_execution_date += p.period.send(p.period_type)
+        p.save()
+        # adding processed recurring_invoice to list to check if up-to-date
+        processed.append(p)
+      end
       pendings = get_pendings(processed)
     end
-    redirect_to(:action => 'index')
+    redirect_to(:controller => 'invoices', :action => 'index')
   end
 
   def delayed
