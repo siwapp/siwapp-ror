@@ -15,6 +15,8 @@ class RecurringInvoicesController < CommonsController
         inv = p.becomes(Invoice).deep_clone include: [:payments, :items]
         print inv
         inv.status = 'Open'
+        inv.issue_date = Date.today
+        inv.due_date = Date.today + p.days_to_due.days if p.days_to_due
         # saving new generated invoice
         inv.save()
         print p
@@ -26,7 +28,7 @@ class RecurringInvoicesController < CommonsController
       end
       pendings = get_pendings(processed)
     end
-    redirect_to(:controller => 'invoices', :action => 'index')
+    redirect_to invoices_url
   end
 
   def delayed

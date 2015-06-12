@@ -26,6 +26,7 @@ class InvoicesController < CommonsController
       :series_id,
       :issue_date,
       :due_date,
+      :days_to_due,
 
       :customer_identification,
       :customer_name,
