@@ -19,6 +19,7 @@
     <%= f.label :days_to_due %> <%= f.number_field :days_to_due %>
     <%= f.label :starting_date %> <%= f.date_field :starting_date %>
     <%= f.label :finishing_date %> <%= f.date_field :finishing_date %><br/>
+    <%= f.label :max_occurrences %> <%= f.number_field :max_occurrences %><br/>
     <%= f.label :period %> <%= f.number_field :period %>
     <%= f.label :period_type %> <%= f.select(:period_type, RecurringInvoice::PERIOD_TYPES) %>
   </p>

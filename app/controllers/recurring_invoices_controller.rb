@@ -8,18 +8,18 @@ class RecurringInvoicesController < CommonsController
     while not pendings.empty? do
       # Generate invoices
       processed = []
-      print pendings
-      #print 'voy a comenzar el ciclo'
       pendings.each do |p|
-        print 'en el primer PENDING'
+        if p.max_occurrences
+          # Stop if Max number of invoices has been reached
+          break if Invoice.belonging_to(p.id).count >= p.max_occurrences
+        end
         inv = p.becomes(Invoice).deep_clone include: [:payments, :items]
-        print inv
+        inv.recurring_invoice_id = p.id
         inv.status = 'Open'
         inv.issue_date = Date.today
         inv.due_date = Date.today + p.days_to_due.days if p.days_to_due
         # saving new generated invoice
         inv.save()
-        print p
         # updating last_execution_date on p
         p.last_execution_date += p.period.send(p.period_type)
         p.save()
