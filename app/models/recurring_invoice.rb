@@ -29,8 +29,7 @@ class RecurringInvoice < Common
   end
   # returns all recurring_invoices with specified status
   scope :with_status, -> (status) {where status: status}
-  # retreives all recurring invoices not yet executed
-  #scope :pending,-> {where("last_execution_date < ?", Date.today-(:period).send(:period_type))}
+
   def get_status
     if status
       STATUS[status]

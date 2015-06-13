@@ -53,7 +53,7 @@ class RecurringInvoicesController < CommonsController
     end
     pendings
   end
-    
+
 
   protected
 
