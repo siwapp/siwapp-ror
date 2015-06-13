@@ -7,11 +7,15 @@ feature 'Execute Pending Invoices' do
     recurring_invoice.period = 1
     recurring_invoice.period_type = 'months'
     recurring_invoice.save
-    visit 'recurring_invoices/'
+    visit 'invoices/'
   end
 
   scenario 'can generate pending invoices' do
+    # There is no Invoice for today
+    expect(page).not.to have_content(Date.today.to_s)
+    visit 'recurring_invoices/'
     click_link 'Build Pending Invoices'
+    # Now there should be 1 Invoice for today
     expect(page).to have_content(Date.today.to_s)
     expect(page).to have_content('New Invoice')
 
