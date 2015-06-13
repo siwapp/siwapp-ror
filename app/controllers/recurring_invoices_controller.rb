@@ -40,8 +40,14 @@ class RecurringInvoicesController < CommonsController
     # Returns only those recurring_invoices that are pending to generate invoices
     pendings = []
     instances.each do |actual|
+      if not actual.last_execution_date
+        # if not date, prepare  next iteration to be on starting_date
+        actual.last_execution_date = actual.starting_date - actual.period.send(actual.period_type)
+      end
       # pick just those pending
-      if actual.last_execution_date < Date.today - actual.period.send(actual.period_type)
+      next_date = actual.last_execution_date + actual.period.send(actual.period_type)
+      valid_range = (actual.starting_date...actual.finishing_date)
+      if next_date < Date.today and next_date.in? valid_range
         pendings.append(actual)
       end
     end
