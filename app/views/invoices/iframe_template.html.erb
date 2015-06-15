@@ -1,7 +1,7 @@
 <% title("Siwapp", "Invoices", @invoice.customer_name)  %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-<iframe src="http://www.apple.com" width="100%" height="900"></iframe>
+<iframe src="<%= @iframe_src %>" width="100%" height="900"></iframe>
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
 <%= link_to 'Back', invoices_path %>

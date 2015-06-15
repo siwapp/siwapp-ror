@@ -6,20 +6,24 @@ class InvoicesController < CommonsController
       redirect_to action: 'edit'
     else
       # Show the template in an iframe
+      template = Template.first
+      @iframe_src = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
       render 'iframe_template'
     end
   end
 
   # Renders an invoice template
   def template
-    @invoice = Invoice.find(params[:id])
-    html = render_to_string inline: "hey there <%= @invoice %>"
+    @invoice = Invoice.find(params[:invoice_id])
+    @template = Template.find(params[:id])
+    html = render_to_string :inline => @template.template,
+      :locals => {:invoice => @invoice}
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
         pdf = WickedPdf.new.pdf_from_string(html)
         send_data(pdf,
-          :filename    => "my_pdf_name.pdf",
+          :filename    => "#{@invoice}.pdf",
           :disposition => 'attachment')
       end
     end
