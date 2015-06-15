@@ -12,13 +12,14 @@
   <% end %>
 
   <p>
-    <%= f.label :serie %> <%= f.collection_select :serie_id, @series, :id, :name, {include_blank: true} %><br/>
+    <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s, {include_blank: true} %><br/>
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
     <%= f.label :customer_status %> <%= f.check_box :status %><br/>
     <%= f.label :days_to_due %> <%= f.number_field :days_to_due %>
     <%= f.label :starting_date %> <%= f.date_field :starting_date %>
     <%= f.label :finishing_date %> <%= f.date_field :finishing_date %><br/>
+    <%= f.label :max_occurrences %> <%= f.number_field :max_occurrences %><br/>
     <%= f.label :period %> <%= f.number_field :period %>
     <%= f.label :period_type %> <%= f.select(:period_type, RecurringInvoice::PERIOD_TYPES) %>
   </p>
@@ -29,4 +30,8 @@
   <div class="actions">
     <%= f.submit %>
   </div>
+
+<div id="amounts">
+  <%= render partial: 'amounts', locals: {invoice: @recurring_invoice} %>
+</div>
 <% end %>

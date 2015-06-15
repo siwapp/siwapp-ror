@@ -55,11 +55,12 @@ end
 # installed 4.0.2.2 version because an issue:
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
-gem 'autoprefixer-rails', '4.0.2.2'
-gem 'bootstrap-sass', '3.3.1.0'
+gem 'autoprefixer-rails', '>= 5.0.0.1'
+gem 'bootstrap-sass', '3.3.4.1'
 gem 'cocoon', '1.2.6'  # to add items dinamically
+gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
-gem 'filterrific'
+gem 'ransack', '1.6.6'
 gem 'jquery-turbolinks', '2.1.0'
 gem 'js-routes', '1.0.0'
 gem 'mysql2', '0.3.17'

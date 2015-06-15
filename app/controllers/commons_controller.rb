@@ -8,23 +8,14 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /commons.json
   def index
-    @filterrific = initialize_filterrific(
-                                          model,
-                                          params[:filterrific],
-                                          select_options:{
-                                            with_serie_id:Serie.options_for_select
-                                          },
-                                          ) or return
+    @search = model.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
 
-    if not set_listing @filterrific.find.page(params[:page])
-        .includes(:serie)
-        .paginate(page: params[:page], per_page: 20)
-        .order(id: :desc)
-      set_listing model
-        .includes(:serie)
-        .paginate(page: params[:page], per_page: 20)
-        .order(id: :desc)
-    end
+    # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
+    results = @search.result(distinct: true)
+      .includes(:series)
+    results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    set_listing results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
       format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }
@@ -136,11 +127,16 @@ class CommonsController < ApplicationController
 
   # Protected: whitelist params for the current model and controller
   #
-  # Must be overriden in children controllers.
+  # Needs a <type>_params() method inside the child controller:
+  #
+  # - InvoicesController => "invoice_params"
+  # - RecurringInvoicesController => "recurring_invoice_params"
   #
   # Returns params
   def type_params
-    params.require(model.name.underscore.to_sym)
+    params
+      .require(model.name.underscore.to_sym)
+      .permit(send("#{model.name.underscore}_params"))
   end
 
   private
@@ -184,7 +180,7 @@ class CommonsController < ApplicationController
   # Private: sets taxes and series for some actions
   def set_extra_stuff
     @taxes = Tax.where active: true
-    @series = Serie.where enabled: true
+    @series = Series.where enabled: true
     @tags = commons_tags
   end
 

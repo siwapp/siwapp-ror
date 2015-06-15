@@ -1,22 +1,30 @@
-<%= render(
-  partial: 'shared/advanced_search',
-  locals: { filterrific: @filterrific }
-) %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
 
-<% content_for :new_link do %>
-<a class="btn btn-primary" href="<%= new_recurring_invoice_path %>" role="button">New Recurring Invoice</a>
-<% end %>
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-md-push-8">
+    <p>TOTAL RECURRING: 10€</p>
+  </div>
+<div><%= link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post %></div>
+
+  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
+    <div class="col-xs-12 col-md-8 col-md-pull-4">
+      <%= render 'shared/searchform', f: f, with_filters: true %>
+    </div>
+    <div id="searchform__filters" class="col-xs-12 collapse">
+      <%= render 'searchform__filters', f: f %>
+    </div>
+  <% end %>
+</div>
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th>Customer</th>
       <th>Series</th>
-      <th>Period Type</th>
       <th>Frecuency</th>
       <th>Status</th>
+      <th>Total</th>
     </tr>
   </thead>
 

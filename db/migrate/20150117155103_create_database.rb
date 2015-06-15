@@ -1,7 +1,7 @@
 class CreateDatabase < ActiveRecord::Migration
   def self.up
     create_table "commons", force: :cascade do |t|
-      t.integer  "serie_id",                limit: 4
+      t.integer  "series_id",                limit: 4
       t.integer  "customer_id",             limit: 4
       t.string   "customer_name",           limit: 100
       t.string   "customer_identification", limit: 50
@@ -45,7 +45,7 @@ class CreateDatabase < ActiveRecord::Migration
     add_index "commons", ["customer_identification"], name: "cstid_idx", using: :btree
     add_index "commons", ["customer_name"], name: "cstnm_idx", using: :btree
     add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
-    add_index "commons", ["serie_id"], name: "series_id_idx", using: :btree
+    add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
     add_index "commons", ["type"], name: "common_type_idx", using: :btree
 
     create_table "customers", force: :cascade do |t|

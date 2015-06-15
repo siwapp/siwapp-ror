@@ -4,7 +4,10 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all.order(id: :desc).paginate(page: params[:page], per_page: 20)
+    @search = Customer.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @customers = @search.result(distinct: true)
+      .paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }

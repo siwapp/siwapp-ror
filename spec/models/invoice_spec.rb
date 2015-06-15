@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Invoice, :type => :model do
   it "is invalid without a series" do
-    expect(FactoryGirl.build(:invoice, serie: nil)).not_to be_valid
+    expect(FactoryGirl.build(:invoice, series: nil)).not_to be_valid
   end
 
   it "has no invoice number if it is a draft" do
@@ -14,10 +14,10 @@ RSpec.describe Invoice, :type => :model do
     invoice1 = FactoryGirl.create(:invoice)
     expect(invoice1.number).to eq(1)
 
-    invoice2 = FactoryGirl.create(:invoice, serie: invoice1.serie)
+    invoice2 = FactoryGirl.create(:invoice, series: invoice1.series)
     expect(invoice2.number).to eq(2)
 
-    expect(invoice2.serie.next_number).to eq(3)
+    expect(invoice2.series.next_number).to eq(3)
   end
 
   it "is invalid with bad e-mails" do

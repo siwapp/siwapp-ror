@@ -1,36 +1,58 @@
 class Invoice < Common
+  # Relations
   belongs_to :recurring_invoice
   has_many :payments, dependent: :delete_all
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 
+  # Validation
   validates :customer_email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
-  validates :serie, presence: true
+  validates :series, presence: true
+  validates :issue_date, presence: true
   validates :number, numericality: { only_integer: true, allow_nil: true }
 
+  # Events
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
 
-  CLOSED = 1
-  OPENED = 2
+  # Status
+  PAID = 1
+  PENDING = 2
   OVERDUE = 3
 
-  STATUS = {closed: CLOSED, opened: OPENED, overdue: OVERDUE}
+  STATUS = {paid: PAID, pending: PENDING, overdue: OVERDUE}
 
-  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
-              available_filters: [
-                                  :with_serie_id,
-                                  :search_query,
-                                 ]
-              )
+  scope :with_status, ->(status) {
+    return nil if status.empty?
+    status = status.to_sym
+    return where('draft = 1') if status == :draft
+    return where('status = ?', STATUS[status]) if STATUS.has_key?(status)
+    nil
+  }
+  # Invoices belonging to certain recurring_invoice
+  scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
+
+
+protected
+
+  # Declare scopes for search
+  def self.ransackable_scopes(auth_object = nil)
+    super + [:with_status]
+  end
+
+public
+
+  def self.status_collection
+    [["Draft", :draft], ["Paid", :paid], ["Pending", :pending], ["Overdue", :overdue]]
+  end
 
   # Public: Get a string representation of this object
   #
   # Examples
   #
-  #   serie = Serie.new(name: "Sample Series", value: "SS").to_s
-  #   Invoice.new(serie: serie).to_s
+  #   series = Series.new(name: "Sample Series", value: "SS").to_s
+  #   Invoice.new(series: series).to_s
   #   # => "SS-(1)"
   #   invoice.number = 10
   #   invoice.to_s
@@ -38,8 +60,8 @@ class Invoice < Common
   #
   # Returns a string.
   def to_s
-    label = draft ? '[draft]' : number? ? number: "(#{serie.next_number})"
-    "#{serie.value}-#{label}"
+    label = draft ? '[draft]' : number? ? number: "(#{series.next_number})"
+    "#{series.value}#{label}"
   end
 
   # Public: Returns the status of the invoice based on certain conditions.
@@ -48,10 +70,10 @@ class Invoice < Common
   def get_status
     if draft
       :draft
-    elsif closed || gross_amount <= paid_amount
-      :closed
+    elsif paid || gross_amount <= paid_amount
+      :paid
     elsif due_date and due_date > Date.today
-      :opened
+      :pending
     else
       :overdue
     end
@@ -61,7 +83,7 @@ class Invoice < Common
   #
   # Returns a double.
   def unpaid_amount
-    draft ? nil : gross_amount - paid_amount
+    draft ? 0.0 : gross_amount - paid_amount
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -90,17 +112,14 @@ class Invoice < Common
     #
     # Returns nothing.
     def ensure_invoice_number
-      self.number = serie.next_number
+      self.number = series.next_number
       yield
-      serie.update_attribute :next_number, number + 1
+      series.update_attribute :next_number, number + 1
     end
 
     # Protected: Update instance's status digit to reflect its status
     def set_status
-      if !draft
-        self.status = STATUS[get_status]
-      end
+      self.status = draft ? nil : STATUS[get_status]
     end
-
 
 end

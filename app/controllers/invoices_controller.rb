@@ -2,7 +2,7 @@ class InvoicesController < CommonsController
 
   def show
     # Redirect to edit if invoice not closed
-    if @invoice.status != Invoice::CLOSED
+    if @invoice.status != Invoice::PAID
       redirect_to action: 'edit'
     else
       # Show the template in an iframe
@@ -30,11 +30,14 @@ class InvoicesController < CommonsController
     @invoice
   end
 
-  def type_params
-    params.require(:invoice).permit(
-      :serie_id,
+  def invoice_params
+    [
+      :series_id,
+      :issue_date,
       :due_date,
+      :days_to_due,
 
+      :customer_identification,
       :customer_name,
       :customer_email,
 
@@ -60,6 +63,6 @@ class InvoicesController < CommonsController
         :notes,
         :_destroy
       ]
-    )
+    ]
   end
 end

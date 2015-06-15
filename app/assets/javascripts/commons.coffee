@@ -11,15 +11,6 @@ set_amounts = (controller_name, form) ->
 # - https://github.com/rails/turbolinks#jqueryturbolinks
 jQuery(document).ready ($) ->
 
-  $('#searchOptionsToggle').on 'change', (e) ->
-    if $(this).is ':checked'
-      $('#searchOptions').slideDown('fast')
-      $('#basicSearch').hide()
-    else
-      $('#searchOptions').slideUp('fast')
-      $('#basicSearch').show()
-
-
   # Infinite Scroll for table based listings.
   # Add .js-iscroll to the <tbody> node that will contain the items.
   $('.js-iscroll').infinitescroll({
@@ -27,7 +18,7 @@ jQuery(document).ready ($) ->
     nextSelector: '.pagination .next_page'
     itemSelector: '.js-iscroll > tr'
     prefill: true
-  }, clickable_rows)
+  })
 
   # Find forms that behave like an invoice
   # Those forms have a data-controller attribute that contains the current

@@ -1,5 +1,8 @@
 class RecurringInvoice < Common
+  # Relations
   has_many :invoices
+
+  # Validation
   validates :customer_name, :starting_date, presence: true
   validates :customer_email, \
     format: {
@@ -7,26 +10,25 @@ class RecurringInvoice < Common
       message: "Only valid emails"
     }
   validate :valid_date_range
-  validates :serie, presence: true
+  validates :series, presence: true
 
-  filterrific(#default_filter_params: { sorted_by: 'created_at_desc' },
-              available_filters: [
-                                  :with_serie_id,
-                                  :search_query,
-                                 ]
-              )
-
+  # Status
   PERIOD_TYPES = [
-                  [ "Dayly","days" ],
-                  [ "Monthly","months"],
-                  [ "Yearly", "years"]
-                 ].freeze
+    ["Dayly", "days"],
+    ["Monthly", "months"],
+    ["Yearly", "years"]
+  ].freeze
 
   STATUS = ['Inactive', 'Active']
 
+
   def to_s
-    "#{serie.value} - #{customer_name}"
+    series_name = ""
+    series_name = " (#{series.name})" if not series.name.empty?
+    "#{customer_name}#{series_name}"
   end
+  # returns all recurring_invoices with specified status
+  scope :with_status, -> (status) {where status: status}
 
   def get_status
     if status

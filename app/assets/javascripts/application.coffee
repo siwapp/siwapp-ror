@@ -22,10 +22,8 @@
 #= require bootstrap-tagsinput
 #= require turbolinks
 
-# All table rows with the clickable-row class act as links:
-window.clickable_rows = ->
-  $(".clickable-row").click ->
-    window.document.location = $(this).data("href")
-
 jQuery(document).ready ($) ->
-  clickable_rows()
+  # All existing and future table rows with the data-href attribute act as links
+  $(document).on 'click', 'tr[data-href]', (e) ->
+    e.preventDefault()
+    window.document.location = $(this).data("href")

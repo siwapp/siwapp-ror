@@ -4,7 +4,7 @@ feature 'Creating Taxes' do
 
   before do
     visit '/taxes'
-    click_link 'New Tax'
+    first(:link, 'New Tax').click
   end
 
   scenario 'can create a tax' do
@@ -17,7 +17,7 @@ feature 'Creating Taxes' do
     expect(page).to have_content('Tax was successfully created.')
     tax = Tax.where(name: 'IVA').first
     expect(page.current_url).to eql(tax_url(tax))
-  
+
     title = "Siwapp - Taxes - IVA"
     expect(page).to have_title(title)
   end
@@ -27,7 +27,5 @@ feature 'Creating Taxes' do
     expect(page).to have_content("Tax has not been created.")
     expect(page).to have_content("Name can't be blank")
   end
-
-
 
 end

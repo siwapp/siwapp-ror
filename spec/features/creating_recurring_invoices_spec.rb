@@ -3,13 +3,13 @@ require 'rails_helper'
 feature 'Creating Recurring Invoices' do
 
   before do
-    FactoryGirl.create(:serie)
+    FactoryGirl.create(:series)
     visit '/recurring_invoices'
     click_link 'New Recurring Invoice'
   end
 
   scenario 'can create a recurring invoice' do
-    select 'Example Series', from: 'recurring_invoice_serie_id'
+    select 'Example Series', from: 'recurring_invoice_series_id'
 
     fill_in 'Starting date', with: '2015-02-28'
     fill_in 'Finishing date', with: '2015-03-01'
