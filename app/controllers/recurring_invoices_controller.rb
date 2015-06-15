@@ -31,11 +31,6 @@ class RecurringInvoicesController < CommonsController
     redirect_to invoices_url
   end
 
-  def delayed
-    # Gets recurring invoices that should be executed
-    c = RecurringInvoice.with_status(1)
-  end
-
   def get_pendings(instances)
     # Returns only those recurring_invoices that are pending to generate invoices
     pendings = []
