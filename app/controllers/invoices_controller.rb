@@ -13,7 +13,16 @@ class InvoicesController < CommonsController
   # Renders an invoice template
   def template
     @invoice = Invoice.find(params[:id])
-    render inline: "hey there <%= @invoice %>"
+    html = render_to_string inline: "hey there <%= @invoice %>"
+    respond_to do |format|
+      format.html { render inline: html }
+      format.pdf do
+        pdf = WickedPdf.new.pdf_from_string(html)
+        send_data(pdf,
+          :filename    => "my_pdf_name.pdf",
+          :disposition => 'attachment')
+      end
+    end
   end
 
   protected

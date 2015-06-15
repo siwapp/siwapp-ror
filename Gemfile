@@ -67,7 +67,9 @@ gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
+gem 'wicked_pdf'
 gem 'will_paginate', '3.0.7'
+gem 'wkhtmltopdf-binary'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-infinite-scroll'
