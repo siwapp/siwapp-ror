@@ -1,12 +1,13 @@
 class InvoicesController < CommonsController
 
   def show
+    template = Template.first
     # Redirect to edit if invoice not closed
-    if @invoice.status != Invoice::PAID
+    if @invoice.status != Invoice::PAID or not template
       redirect_to action: 'edit'
     else
       # Show the template in an iframe
-      template = Template.first
+      
       @iframe_src = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
       render 'iframe_template'
     end

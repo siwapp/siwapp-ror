@@ -5,7 +5,6 @@ feature 'Editing Invoices' do
     FactoryGirl.create(:invoice)
     visit "/invoices"
     click_link "ES-1"
-    click_link "Edit"
   end
 
   scenario 'Updating an Invoice' do

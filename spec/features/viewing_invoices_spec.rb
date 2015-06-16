@@ -4,7 +4,6 @@ feature 'Viewing invoices' do
   scenario 'Listing all invoices' do
     invoice = FactoryGirl.create(:invoice)
     visit "/invoices"
-    click_link "ES-1"
-    expect(page.current_url).to eql(invoice_url(invoice))
+    expect(page).to have_content("ES-1")
   end
 end
