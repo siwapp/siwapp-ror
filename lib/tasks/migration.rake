@@ -84,7 +84,7 @@ namespace :siwapp do
 
       # Get max invoice number for each series and set the series next_number
       # field accordingly.
-      series_info = client.query("SELECT `series_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' GROUP BY `series_id`")
+      series_info = client.query("SELECT `series_id`, MAX(`number`) AS `current_number` FROM `common` WHERE `type` = 'Invoice' AND `series_id` IS NOT NULL GROUP BY `series_id`")
       series_info.each do |info|
         series_id = info['series_id']
         next_number = info['current_number'] + 1
