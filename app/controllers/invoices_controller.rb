@@ -1,19 +1,30 @@
 class InvoicesController < CommonsController
-
+  
+  # Gets the template to display invoices
+  def get_template
+    if template = Template.first  # TODO: this should change
+      @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
+    else
+      @template_url = ""
+    end
+  end
+  
   def show
-    template = Template.first
     # Redirect to edit if invoice not closed
-    if @invoice.status != Invoice::PAID or not template
+    if @invoice.status != Invoice::PAID or not get_template
       redirect_to action: 'edit'
     else
       # Show the template in an iframe
-      
-      @iframe_src = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
-      render 'iframe_template'
+      render
     end
   end
+  
+  def edit
+    get_template
+    render
+  end
 
-  # Renders an invoice template
+  # Renders an invoice template in html and pdf formats
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
