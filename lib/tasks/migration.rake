@@ -139,6 +139,7 @@ namespace :siwapp do
 
       client.query("ALTER TABLE template CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE template CHANGE template template TEXT")
+      client.query("ALTER TABLE template DROP `slug`")
 
       # Table renaming according to rails convention
       client.query("RENAME TABLE common TO commons")

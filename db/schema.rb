@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150528103244) do
+ActiveRecord::Schema.define(version: 20150617153542) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",               limit: 4
@@ -154,10 +154,7 @@ ActiveRecord::Schema.define(version: 20150528103244) do
     t.text     "template",   limit: 65535
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.string   "slug",       limit: 255
     t.string   "models",     limit: 200
   end
-
-  add_index "templates", ["slug"], name: "template_sluggable_idx", unique: true, using: :btree
 
 end
