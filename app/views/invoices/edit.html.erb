@@ -3,4 +3,5 @@
 <%= render 'form' %>
 
 <%= link_to 'Back', invoices_path %> |
-<%= link_to 'Destroy', @invoice, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Destroy', @invoice, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<% if @template_url %><%= link_to 'PDF', @template_url + '.pdf' %><% end %>

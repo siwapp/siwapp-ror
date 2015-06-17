@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "recurring_invoices/amounts"
 
   resources :invoices
+  get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template'
 
   resources :recurring_invoices do
     post 'generate', on: :collection
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   resources :payments
 
   resources :customers
+
+  resources :templates
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

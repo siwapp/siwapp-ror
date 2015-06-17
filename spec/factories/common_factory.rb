@@ -61,8 +61,12 @@ FactoryGirl.define do
         issue_date Date.today - 1
         due_date Date.today + 30
 
-        sequence(:customer_name, "A")  { |n| "John #{n}. Smith" }
-        sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
+        customer_name { ["Acme, inc.",
+                         "Widget Corp",
+                         "Warehousing",
+                         "Demo Company",
+                         "Smith and Co."
+        ].sample }
 
         # Find an existing series or generate a random one
         series  { Series.all.sample || generate(:series_random) }

@@ -1,26 +1,9 @@
 <% title("Siwapp", "Invoices", @invoice.customer_name)  %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
-<p><%= @invoice %></p>
-<p><%= @invoice.customer_name %></p>
-
-<% if @invoice.items.any? %>
-  <h2>Items</h2>
-  <ul>
-    <% @invoice.items.each do |item| %>
-      <li><%= item %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<% if @invoice.payments.any? %>
-  <h2>Payments</h2>
-  <ul>
-    <% @invoice.payments.each do |payment| %>
-      <li><%= payment.date %> - <%= payment.amount %></li>
-    <% end %>
-  </ul>
-<% end %>
+<iframe src="<%= @template_url %>" width="100%" height="900"></iframe>
 
 <%= link_to 'Edit', edit_invoice_path(@invoice) %> |
-<%= link_to 'Back', invoices_path %>
+<%= link_to 'Back', invoices_path %> |
+<%= link_to 'PDF', @template_url + '.pdf' %>
+<br/><br/>
