@@ -4,6 +4,9 @@ class Common < ActiveRecord::Base
   belongs_to :series
   has_many :items, dependent: :delete_all
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+  validates :customer_email,
+    format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
+             message: "Only valid emails"}, allow_blank: true
 
   # Behaviors
   acts_as_taggable

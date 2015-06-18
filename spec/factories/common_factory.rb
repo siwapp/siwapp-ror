@@ -67,9 +67,7 @@ FactoryGirl.define do
                          "Demo Company",
                          "Smith and Co."
         ].sample }
-
-        # Find an existing series or generate a random one
-        series  { Series.all.sample || generate(:series_random) }
+        series  { Series.all.sample }
 
         after(:create) do |invoice|
           # Items
@@ -95,11 +93,13 @@ FactoryGirl.define do
       end
 
       factory :recurring_invoice_random, class: RecurringInvoice do
-        sequence(:customer_name, "A")  { |n| "John #{n}. Smith" }
-        sequence(:customer_email, "a") { |n| "john.#{n}.smith@example.com" }
-
-        # Find an existing series or generate a random one
-        series { Series.all.sample || generate(:series_random) }
+        customer_name { ["Acme, inc.",
+                         "Widget Corp",
+                         "Warehousing",
+                         "Demo Company",
+                         "Smith and Co."
+        ].sample }
+        series { Series.all.sample }
 
         # Set random start (past/present) and finish (present/future) dates
         starting_date { Date.today >> rand(-8..1) }

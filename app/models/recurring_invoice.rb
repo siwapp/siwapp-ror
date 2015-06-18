@@ -4,11 +4,6 @@ class RecurringInvoice < Common
 
   # Validation
   validates :customer_name, :starting_date, presence: true
-  validates :customer_email, \
-    format: {
-      with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
-      message: "Only valid emails"
-    }
   validate :valid_date_range
   validates :series, presence: true
 
@@ -23,9 +18,7 @@ class RecurringInvoice < Common
 
 
   def to_s
-    series_name = ""
-    series_name = " (#{series.name})" if not series.name.empty?
-    "#{customer_name}#{series_name}"
+    "#{customer_name}"
   end
   # returns all recurring_invoices with specified status
   scope :with_status, -> (status) {where status: status}

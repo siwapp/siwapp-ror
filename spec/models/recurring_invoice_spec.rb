@@ -9,10 +9,6 @@ RSpec.describe RecurringInvoice, :type => :model do
     expect(FactoryGirl.build(:recurring_invoice, customer_name: nil)).not_to be_valid
   end
 
-  it "is invalid without a customer email" do
-    expect(FactoryGirl.build(:recurring_invoice, customer_email: nil)).not_to be_valid
-  end
-
   it "is invalid with bad e-mails" do
     expect(FactoryGirl.build(:recurring_invoice, customer_email: "paquito")).not_to be_valid
     expect(FactoryGirl.build(:recurring_invoice, customer_email: "paquito@example")).not_to be_valid
@@ -22,8 +18,8 @@ RSpec.describe RecurringInvoice, :type => :model do
     expect(FactoryGirl.build(:recurring_invoice, starting_date: nil)).not_to be_valid
   end
 
-  it "is represented with its series and customer name" do
-    expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("Example Customer Name (Example Series)")
+  it "is represented with its customer name" do
+    expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("Example Customer Name")
   end
 
   it "performs totals calculations properly" do
