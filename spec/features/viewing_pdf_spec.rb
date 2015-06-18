@@ -11,12 +11,10 @@ feature 'PDF of Invoices' do
   scenario 'Show of a paid invoice show the iframe' do
     expect(page).to have_xpath("//iframe")
     expect(page).to have_link("PDF")
-    click_link "PDF"
-    expect(page.response_headers['Content-Type']).to eql "application/pdf"
   end
   
   scenario 'Template url shows template' do
-    visit "/invoices/template/2/invoice/1"
+    visit "/invoices/template/1/invoice/1"
     expect(page).to have_content("fake template")
   end
     
