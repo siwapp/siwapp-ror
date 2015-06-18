@@ -26,7 +26,7 @@ FactoryGirl.define do
 
   factory :item_random, class: Item do
     quantity { rand(1..10) }
-    unitary_cost { rand(1..100.0).round(2) }
+    unitary_cost { BigDecimal(rand(1..100.0).round(2).to_s) }
     discount { [0, 0, 0, 0, 10, 20].sample }
     description {[
                   'Weird shoe lazes',
