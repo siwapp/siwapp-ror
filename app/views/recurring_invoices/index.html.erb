@@ -5,8 +5,9 @@
   <div class="col-xs-12 col-md-4 col-md-push-8">
     <p>TOTAL RECURRING: 10€</p>
   </div>
-<div><%= link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post %></div>
-
+  <% if @has_pendings %>
+  <div><%= link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post %><%= @get_pendings %></div>
+  <% end %>
   <%= search_form_for @search, html: {id: "searchform"} do |f| %>
     <div class="col-xs-12 col-md-8 col-md-pull-4">
       <%= render 'shared/searchform', f: f, with_filters: true %>

@@ -9,10 +9,6 @@ class RecurringInvoicesController < CommonsController
       # Generate invoices
       processed = []
       pendings.each do |p|
-        if p.max_occurrences
-          # Stop if Max number of invoices has been reached
-          break if Invoice.belonging_to(p.id).count >= p.max_occurrences
-        end
         inv = p.becomes(Invoice).deep_clone include: [:payments, :items]
         inv.recurring_invoice_id = p.id
         inv.status = 'Open'
@@ -42,13 +38,27 @@ class RecurringInvoicesController < CommonsController
       # pick just those pending
       next_date = actual.last_execution_date + actual.period.send(actual.period_type)
       valid_range = (actual.starting_date...actual.finishing_date)
-      if next_date < Date.today and next_date.in? valid_range
-        pendings.append(actual)
+      unless next_date < Date.today and next_date.in? valid_range
+        next
       end
+      # Skip if max number of occurrences has been reached
+      if Invoice.belonging_to(actual.id).count >= actual.max_occurrences
+        next
+      end
+      pendings.append(actual)
     end
     pendings
   end
 
+  def has_pendings()
+    pendings = get_pendings(RecurringInvoice.with_status(1))
+    not pendings.empty?
+  end
+
+  def index
+    @has_pendings = has_pendings()
+    super
+  end
 
   protected
 
