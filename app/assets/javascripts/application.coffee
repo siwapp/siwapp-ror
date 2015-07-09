@@ -27,3 +27,7 @@ jQuery(document).ready ($) ->
   $(document).on 'click', 'tr[data-href]', (e) ->
     e.preventDefault()
     window.document.location = $(this).data("href")
+
+  # Avoid redirecting when clicking on checkbox cell
+  $(document).on 'click', 'td.checks', (e) ->
+    event.cancelBubble = true

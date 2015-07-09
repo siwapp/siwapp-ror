@@ -1,4 +1,5 @@
 <tr data-href="<%= edit_recurring_invoice_path(recurring_invoice) %>">
+  <td class="checks"><%= check_box_tag "recurring_ids[]", recurring_invoice.id -%></td>
   <td><%= recurring_invoice.series.value if recurring_invoice.series %></td>
   <td><%= recurring_invoice %></td>
   <td><%= recurring_invoice.period %> <%= recurring_invoice.period_type %></td>
