@@ -18,6 +18,8 @@
   <% end %>
 </div>
 
+<%= form_tag remove_recurring_invoices_path, :method => :delete do -%>
+<%= submit_tag 'Remove Selected' %>
 <table class="table table-hover table-striped">
   <thead>
     <tr>
@@ -34,3 +36,4 @@
     <%= render @recurring_invoices %>
   </tbody>
 </table>
+<% end %>

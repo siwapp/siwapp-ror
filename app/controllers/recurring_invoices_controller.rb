@@ -50,7 +50,7 @@ class RecurringInvoicesController < CommonsController
     pendings
   end
 
-  def has_pendings()
+  def has_pendings
     pendings = get_pendings(RecurringInvoice.with_status(1))
     not pendings.empty?
   end
@@ -58,6 +58,16 @@ class RecurringInvoicesController < CommonsController
   def index
     @has_pendings = has_pendings()
     super
+  end
+
+  def remove
+    print params[:recurring_ids].is_a?(Array)
+    print params[:recurring_ids].length
+    if params[:recurring_ids].is_a?(Array) && params[:recurring_ids].length > 0
+      RecurringInvoice.where(id: params[:recurring_ids]).destroy_all
+      print params[:recurring_ids]
+    end
+    redirect_to recurring_invoices_url
   end
 
   protected

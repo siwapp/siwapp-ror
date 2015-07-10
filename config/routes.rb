@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :recurring_invoices do
     post 'generate', on: :collection
+    delete 'remove', on: :collection
   end
   resources :taxes
 
