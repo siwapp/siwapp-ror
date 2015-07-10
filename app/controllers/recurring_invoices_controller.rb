@@ -60,16 +60,6 @@ class RecurringInvoicesController < CommonsController
     super
   end
 
-  def remove
-    print params[:recurring_ids].is_a?(Array)
-    print params[:recurring_ids].length
-    if params[:recurring_ids].is_a?(Array) && params[:recurring_ids].length > 0
-      RecurringInvoice.where(id: params[:recurring_ids]).destroy_all
-      print params[:recurring_ids]
-    end
-    redirect_to recurring_invoices_url
-  end
-
   protected
 
   def set_listing(instances)
