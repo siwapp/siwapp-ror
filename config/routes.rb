@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   get "invoices/amounts"
   get "recurring_invoices/amounts"
 
-  resources :invoices
+  resources :invoices do
+    delete 'remove', on: :collection
+  end
   get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template'
 
   resources :recurring_invoices do

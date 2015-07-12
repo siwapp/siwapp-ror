@@ -30,4 +30,9 @@ jQuery(document).ready ($) ->
 
   # Avoid redirecting when clicking on checkbox cell
   $(document).on 'click', 'td.checks', (e) ->
-    event.cancelBubble = true
+    $(':checkbox[name=check_all]').prop('checked', false)
+    e.stopPropagation()
+
+  $(document).on 'click', ':checkbox[name=check_all]', (e) ->
+    checked = $(this).is(':checked')
+    $('td.checks input:checkbox').prop('checked', checked)

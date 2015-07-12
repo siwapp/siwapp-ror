@@ -87,8 +87,10 @@ class CommonsController < ApplicationController
   # DELETE /commons
   # bulk deletes selected elements on list
   def remove
-    if params["#{model.name.underscore}_ids"].is_a?(Array) && params["#{model.name.underscore}_ids"].length > 0
+    ids = params["#{model.name.underscore}_ids"]
+    if ids.is_a?(Array) && ids.length > 0
       model.where(id: params["#{model.name.underscore}_ids"]).destroy_all
+      flash[:notice] = "Successfully deteled #{ids.length} #{type_label}"
     end
     redirect_to sti_path(@type)
   end
