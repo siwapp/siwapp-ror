@@ -9,7 +9,7 @@ class RecurringInvoice < Common
 
   # Status
   PERIOD_TYPES = [
-    ["Dayly", "days"],
+    ["Daily", "days"],
     ["Monthly", "months"],
     ["Yearly", "years"]
   ].freeze
