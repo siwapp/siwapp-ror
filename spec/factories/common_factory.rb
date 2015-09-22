@@ -61,12 +61,10 @@ FactoryGirl.define do
         issue_date Date.today - 1
         due_date Date.today + 30
 
-        customer_name { ["Acme, inc.",
-                         "Widget Corp",
-                         "Warehousing",
-                         "Demo Company",
-                         "Smith and Co."
-        ].sample }
+        customer { Customer.all.sample }
+        customer_name { customer.name }
+        customer_identification { customer.identification }
+        customer_email { customer.email }
         series  { Series.all.sample }
 
         after(:create) do |invoice|

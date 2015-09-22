@@ -6,6 +6,9 @@ namespace :siwapp do
     desc "Create random invoices for testing and development."
     task :invoices, [:number] => :environment do |t, args|
       args.with_defaults(:number => "10")
+      if Customer.count == 0
+        FactoryGirl.create_list(:customer, 5)
+      end
       if Series.count == 0
         FactoryGirl.create_list(:series_random, 3)
       end
