@@ -2,14 +2,3 @@
   <%# value is forced because text_field doesn't call the to_s method and you get spaces instead of commas  %>
   <%= f.label :tag_list, "Tags (separated by commas)" %> <%= f.text_field :tag_list, value: instance.tag_list.to_s, id: 'tagList', autocomplete: 'off' %>
 </p>
-<script type="text/javascript">
-  $('#tagList').tagsinput({
-    typeaheadjs: {
-      source: (new Bloodhound({
-        local: <% if @tags.size > 0 %>['<%= raw @tags.join("', '") %>']<% else %>[]<% end %>,
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        datumTokenizer: Bloodhound.tokenizers.whitespace
-      })).ttAdapter()
-    }
-  });
-</script>

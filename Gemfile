@@ -62,6 +62,7 @@ gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
 gem 'ransack', '1.6.6'
 gem 'jquery-turbolinks', '2.1.0'
+gem 'jquery-ui-rails', '5.0.5'
 gem 'js-routes', '1.0.0'
 gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development

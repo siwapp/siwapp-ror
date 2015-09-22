@@ -13,13 +13,12 @@
 #= require jquery
 #= require jquery.turbolinks
 #= require jquery_ujs
+#= require jquery-ui
 #= require bootstrap-sprockets
 #= require_tree
 #= require cocoon
 #= require js-routes
 #= require infinite-scroll
-#= require typeahead
-#= require bootstrap-tagsinput
 #= require turbolinks
 
 jQuery(document).ready ($) ->
