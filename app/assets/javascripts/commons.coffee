@@ -41,3 +41,7 @@ jQuery(document).ready ($) ->
       # When an item is removed, update form amounts
       .on 'cocoon:after-remove', (e, item) ->
         set_amounts(controller_name, form)
+
+    $("#invoice_customer_name").autocomplete {
+      source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+    }
