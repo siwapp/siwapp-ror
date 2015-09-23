@@ -43,5 +43,5 @@ jQuery(document).ready ($) ->
         set_amounts(controller_name, form)
 
     $("#invoice_customer_name").autocomplete {
-      source: [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ]
+      source: "/customers/autocomplete.json"
     }

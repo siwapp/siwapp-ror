@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   resources :payments
 
-  resources :customers
+  resources :customers do
+    get 'autocomplete', on: :collection
+  end
 
   resources :templates
 

@@ -1,5 +1,5 @@
 class InvoicesController < CommonsController
-  
+
   # Gets the template to display invoices
   def get_template
     if template = Template.first  # TODO: this should change
@@ -8,7 +8,7 @@ class InvoicesController < CommonsController
       @template_url = ""
     end
   end
-  
+
   def show
     # Redirect to edit if invoice not closed
     if @invoice.status != Invoice::PAID or not get_template
@@ -18,7 +18,7 @@ class InvoicesController < CommonsController
       render
     end
   end
-  
+
   def edit
     get_template
     render

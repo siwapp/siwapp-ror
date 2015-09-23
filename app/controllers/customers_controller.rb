@@ -68,6 +68,16 @@ class CustomersController < ApplicationController
     end
   end
 
+  def autocomplete
+    @customers = Customer.order(:name).where("name LIKE ?", "%#{params[:term]}%")
+    respond_to do |format|
+      format.html
+      format.json {
+        render json: @customers.map(&:name)
+      }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_customer
