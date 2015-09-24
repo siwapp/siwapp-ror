@@ -1,4 +1,4 @@
-<%= form_for @recurring_invoice, data: {controller: controller_name}, html: {class: 'js-invoice-like'} do |f| %>
+<%= form_for @recurring_invoice, data: {controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'js-invoice-like'} do |f| %>
   <% if @recurring_invoice.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@recurring_invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
@@ -12,11 +12,20 @@
   <% end %>
 
   <p>
-    <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s, {include_blank: true} %><br/>
+
     <%= f.label :customer_name %> <%= f.text_field :customer_name %><br/>
+    <%= f.label :customer_identification, "VAT ID" %> <%= f.text_field :customer_identification %>
+    <%= f.label :customer_id, "Customer id (this will be hidden)" %> <%= f.text_field :customer_id %>
+    <%= f.label :contact_person, "Contact Person" %> <%= f.text_field :contact_person %>
+    <br/>
+
     <%= f.label :customer_email %> <%= f.email_field :customer_email %><br/>
-    <%= f.label :customer_status %> <%= f.check_box :status %><br/>
+    <%= f.label :invoicing_address, "Invoicing Address" %> <%= f.text_field :invoicing_address %><br/>
+    <%= f.label :shipping_address, "Shipping Address" %> <%= f.text_field :shipping_address %><br/>
+
+    <%= f.label :status %> <%= f.check_box :status %><br/>
     <%= f.label :days_to_due %> <%= f.number_field :days_to_due %>
+    <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s, {include_blank: true} %><br/>
     <%= f.label :starting_date %> <%= f.date_field :starting_date %>
     <%= f.label :finishing_date %> <%= f.date_field :finishing_date %><br/>
     <%= f.label :max_occurrences %> <%= f.number_field :max_occurrences %><br/>

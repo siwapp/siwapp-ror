@@ -78,13 +78,16 @@ class RecurringInvoicesController < CommonsController
     [
       :series_id,
 
+      :customer_id,
       :customer_identification,
       :customer_name,
       :customer_email,
+      :contact_person,
+      :invoicing_address,
+      :shipping_address,
 
       :status,
       :days_to_due,
-      :invoicing_address,
       :draft,
       :starting_date,
       :finishing_date,

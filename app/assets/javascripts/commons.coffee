@@ -43,13 +43,15 @@ jQuery(document).ready ($) ->
         set_amounts(controller_name, form)
 
     # Set the autocomplete for customer selection
-    $('#invoice_customer_name').autocomplete {
+    model = form.data('model')
+    $("##{model}_customer_name").autocomplete {
       source: '/customers/autocomplete.json',
       select: (event, ui) ->
-        $('#invoice_customer_id').val ui.item.id
-        $('#invoice_customer_identification').val ui.item.identification
-        $('#invoice_customer_email').val ui.item.email
-        $('#invoice_contact_person').val ui.item.contact_person
-        $('#invoice_invoicing_address').val ui.item.invoicing_address
-        $('#invoice_shipping_address').val ui.item.shipping_address
+        # Once the customer is selected autofill fields:
+        $("##{model}_customer_id").val ui.item.id
+        $("##{model}_customer_identification").val ui.item.identification
+        $("##{model}_customer_email").val ui.item.email
+        $("##{model}_contact_person").val ui.item.contact_person
+        $("##{model}_invoicing_address").val ui.item.invoicing_address
+        $("##{model}_shipping_address").val ui.item.shipping_address
     }
