@@ -42,6 +42,14 @@ jQuery(document).ready ($) ->
       .on 'cocoon:after-remove', (e, item) ->
         set_amounts(controller_name, form)
 
-    $("#invoice_customer_name").autocomplete {
-      source: "/customers/autocomplete.json"
+    # Set the autocomplete for customer selection
+    $('#invoice_customer_name').autocomplete {
+      source: '/customers/autocomplete.json',
+      select: (event, ui) ->
+        $('#invoice_customer_id').val ui.item.id
+        $('#invoice_customer_identification').val ui.item.identification
+        $('#invoice_customer_email').val ui.item.email
+        $('#invoice_contact_person').val ui.item.contact_person
+        $('#invoice_invoicing_address').val ui.item.invoicing_address
+        $('#invoice_shipping_address').val ui.item.shipping_address
     }
