@@ -12,7 +12,7 @@
   <% end %>
 
   <p>
-    <%= render partial: 'shared/customer_fields', locals: {f: f} %>
+    <%= render partial: 'customers/form_fields', locals: {f: f} %>
 
     <% if @invoice.new_record? or @invoice.draft %>
       <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s %><br/>

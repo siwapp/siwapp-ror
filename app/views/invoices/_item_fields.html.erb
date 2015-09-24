@@ -1,9 +1,0 @@
-<div class="js-item">
-  <%= f.label :description %> <%= f.text_area :description %>
-  <%= f.label :quantity %> <%= f.text_field :quantity %>
-  <%= f.label :unitary_cost %> <%= f.text_field :unitary_cost %>
-  <%= f.label :taxes %><%= f.collection_select 'tax_ids', @taxes, :id, :name, {}, {multiple: true} %>
-  <%= f.label :discount %> <%= f.text_field :discount %>
-
-  <%= link_to_remove_association 'remove item', f, { wrapper_class: 'js-item' } %>
-</div>
