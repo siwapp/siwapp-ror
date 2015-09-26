@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.2.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -56,14 +56,14 @@ end
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
-gem 'bootstrap-sass', '3.3.4.1'
+gem 'bootstrap-sass', '3.3.5.1'
 gem 'cocoon', '1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
-gem 'ransack', '1.6.6'
+gem 'ransack', '1.7.0'
 gem 'jquery-turbolinks', '2.1.0'
 gem 'jquery-ui-rails', '5.0.5'
-gem 'js-routes', '1.0.0'
+gem 'js-routes', '1.1.2'
 gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development
 gem 'puma'
