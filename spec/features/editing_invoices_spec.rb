@@ -9,16 +9,16 @@ feature 'Editing Invoices' do
   end
 
   scenario 'Updating an Invoice' do
-    fill_in 'Customer name', with: 'Different Name'
-    fill_in 'Customer email', with: 'different.name@test.com'
+    fill_in 'Name', with: 'Different Name'
+    fill_in 'Email', with: 'different.name@test.com'
     fill_in 'Due date', with: Date.today + 30
     click_button 'Update Invoice'
     expect(page).to have_content("Invoice was successfully updated")
   end
 
   scenario 'Can not update badly' do
-    fill_in 'Customer name', with: ''
-    fill_in 'Customer email', with: 'pepe.com'
+    fill_in 'Name', with: ''
+    fill_in 'Email', with: 'pepe.com'
     click_button 'Update Invoice'
     expect(page).to have_content('Invoice has not been saved')
     expect(page).to have_content("Only valid emails")

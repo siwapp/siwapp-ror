@@ -46,6 +46,9 @@ namespace :siwapp do
       client.query("ALTER TABLE common CHANGE paid_amount paid_amount DECIMAL(53, 15) DEFAULT 0")
       client.query("ALTER TABLE common CHANGE tax_amount tax_amount DECIMAL(53, 15) DEFAULT 0")
       client.query("ALTER TABLE common CHANGE closed paid TINYINT(1) DEFAULT 0")
+      client.query("ALTER TABLE common CHANGE customer_name name VARCHAR(100)")
+      client.query("ALTER TABLE common CHANGE customer_identification identification VARCHAR(50)")
+      client.query("ALTER TABLE common CHANGE customer_email email VARCHAR(100)")
 
       client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")

@@ -21,8 +21,8 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "is invalid with bad e-mails" do
-    expect(FactoryGirl.build(:invoice, customer_email: "paquito")).not_to be_valid
-    expect(FactoryGirl.build(:invoice, customer_email: "paquito@example")).not_to be_valid
+    expect(FactoryGirl.build(:invoice, email: "paquito")).not_to be_valid
+    expect(FactoryGirl.build(:invoice, email: "paquito@example")).not_to be_valid
   end
 
   it "is represented with series + number as string" do

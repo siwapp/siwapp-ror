@@ -83,8 +83,8 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
       <tr>
         <td>
           <ul class="customer-data">
-            <li><%= invoice.customer_name %></li>
-            <li>VAT ID: <%= invoice.customer_identification %></li>
+            <li><%= invoice.name %></li>
+            <li>VAT ID: <%= invoice.identification %></li>
             <li><%= invoice.contact_person %></li>
             <li><%= invoice.invoicing_address %></li>
           </ul>

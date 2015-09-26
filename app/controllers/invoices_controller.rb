@@ -63,9 +63,9 @@ class InvoicesController < CommonsController
       :days_to_due,
 
       :customer_id,
-      :customer_identification,
-      :customer_name,
-      :customer_email,
+      :identification,
+      :name,
+      :email,
       :contact_person,
       :invoicing_address,
       :shipping_address,

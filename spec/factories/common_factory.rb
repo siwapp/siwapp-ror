@@ -5,8 +5,8 @@ FactoryGirl.define do
 
     # FOR TESTS
     factory :common_fixed do
-      customer_name  "Example Customer Name"
-      customer_email "example@example.com"
+      name  "Example Customer Name"
+      email "example@example.com"
 
       series
 
@@ -62,9 +62,9 @@ FactoryGirl.define do
         due_date Date.today + 30
 
         customer { Customer.all.sample }
-        customer_name { customer.name }
-        customer_identification { customer.identification }
-        customer_email { customer.email }
+        name { customer.name }
+        identification { customer.identification }
+        email { customer.email }
         series  { Series.all.sample }
 
         after(:create) do |invoice|
@@ -91,11 +91,11 @@ FactoryGirl.define do
       end
 
       factory :recurring_invoice_random, class: RecurringInvoice do
-        customer_name { ["Acme, inc.",
-                         "Widget Corp",
-                         "Warehousing",
-                         "Demo Company",
-                         "Smith and Co."
+        name { ["Acme, inc.",
+                "Widget Corp",
+                "Warehousing",
+                "Demo Company",
+                "Smith and Co."
         ].sample }
         series { Series.all.sample }
 

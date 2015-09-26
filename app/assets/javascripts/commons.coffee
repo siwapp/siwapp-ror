@@ -44,13 +44,13 @@ jQuery(document).ready ($) ->
 
     # Set the autocomplete for customer selection
     model = form.data('model')
-    $("##{model}_customer_name").autocomplete {
+    $("##{model}_name").autocomplete {
       source: '/customers/autocomplete.json',
       select: (event, ui) ->
         # Once the customer is selected autofill fields:
         $("##{model}_customer_id").val ui.item.id
-        $("##{model}_customer_identification").val ui.item.identification
-        $("##{model}_customer_email").val ui.item.email
+        $("##{model}_identification").val ui.item.identification
+        $("##{model}_email").val ui.item.email
         $("##{model}_contact_person").val ui.item.contact_person
         $("##{model}_invoicing_address").val ui.item.invoicing_address
         $("##{model}_shipping_address").val ui.item.shipping_address

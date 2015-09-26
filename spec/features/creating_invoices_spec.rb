@@ -11,13 +11,13 @@ feature 'Creating Invoices' do
   scenario 'can create an invoice' do
     select 'Example Series', from: 'invoice_series_id'
 
-    fill_in 'Customer name', with: 'Test Customer'
-    fill_in 'Customer email', with: 'pepe@abc.com'
+    fill_in 'Name', with: 'Test Customer'
+    fill_in 'Email', with: 'pepe@abc.com'
     fill_in 'Issue date', with: Date.today
 
     click_button 'Create Invoice'
     expect(page).to have_content('Invoice was successfully created.')
-    invoice = Invoice.where(customer_name: 'Test Customer').first
+    invoice = Invoice.where(name: 'Test Customer').first
     expect(page.current_url).to eql invoices_url
 
   end

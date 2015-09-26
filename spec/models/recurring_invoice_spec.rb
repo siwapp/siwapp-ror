@@ -6,12 +6,12 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "is invalid without a customer name" do
-    expect(FactoryGirl.build(:recurring_invoice, customer_name: nil)).not_to be_valid
+    expect(FactoryGirl.build(:recurring_invoice, name: nil)).not_to be_valid
   end
 
   it "is invalid with bad e-mails" do
-    expect(FactoryGirl.build(:recurring_invoice, customer_email: "paquito")).not_to be_valid
-    expect(FactoryGirl.build(:recurring_invoice, customer_email: "paquito@example")).not_to be_valid
+    expect(FactoryGirl.build(:recurring_invoice, email: "paquito")).not_to be_valid
+    expect(FactoryGirl.build(:recurring_invoice, email: "paquito@example")).not_to be_valid
   end
 
   it "is invalid without a starting date" do

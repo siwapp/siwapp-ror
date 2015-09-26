@@ -19,7 +19,7 @@ feature 'Execute Pending Invoices' do
     expect(page).to have_content(Date.today.to_s)
     expect(page).to have_content('New Invoice')
 
-    #invoice = RecurringInvoice.where(customer_name: 'Test Customer').first
+    #invoice = RecurringInvoice.where(name: 'Test Customer').first
     #expect(page.current_url).to eql recurring_invoices_url
   end
 

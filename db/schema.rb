@@ -11,52 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617153542) do
+ActiveRecord::Schema.define(version: 20150926084246) do
 
   create_table "commons", force: :cascade do |t|
-    t.integer  "series_id",               limit: 4
-    t.integer  "customer_id",             limit: 4
-    t.string   "customer_name",           limit: 100
-    t.string   "customer_identification", limit: 50
-    t.string   "customer_email",          limit: 100
-    t.text     "invoicing_address",       limit: 65535
-    t.text     "shipping_address",        limit: 65535
-    t.string   "contact_person",          limit: 100
-    t.text     "terms",                   limit: 65535
-    t.text     "notes",                   limit: 65535
-    t.decimal  "base_amount",                           precision: 53, scale: 15, default: 0.0
-    t.decimal  "discount_amount",                       precision: 53, scale: 15, default: 0.0
-    t.decimal  "net_amount",                            precision: 53, scale: 15, default: 0.0
-    t.decimal  "gross_amount",                          precision: 53, scale: 15, default: 0.0
-    t.decimal  "paid_amount",                           precision: 53, scale: 15, default: 0.0
-    t.decimal  "tax_amount",                            precision: 53, scale: 15, default: 0.0
-    t.integer  "status",                  limit: 1
-    t.string   "type",                    limit: 255
-    t.boolean  "draft",                   limit: 1,                               default: true
-    t.boolean  "paid",                    limit: 1,                               default: false
-    t.boolean  "sent_by_email",           limit: 1,                               default: false
-    t.integer  "number",                  limit: 4
-    t.integer  "recurring_invoice_id",    limit: 4
+    t.integer  "series_id",            limit: 4
+    t.integer  "customer_id",          limit: 4
+    t.string   "name",                 limit: 100
+    t.string   "identification",       limit: 50
+    t.string   "email",                limit: 100
+    t.text     "invoicing_address",    limit: 65535
+    t.text     "shipping_address",     limit: 65535
+    t.string   "contact_person",       limit: 100
+    t.text     "terms",                limit: 65535
+    t.text     "notes",                limit: 65535
+    t.decimal  "base_amount",                        precision: 53, scale: 15, default: 0.0
+    t.decimal  "discount_amount",                    precision: 53, scale: 15, default: 0.0
+    t.decimal  "net_amount",                         precision: 53, scale: 15, default: 0.0
+    t.decimal  "gross_amount",                       precision: 53, scale: 15, default: 0.0
+    t.decimal  "paid_amount",                        precision: 53, scale: 15, default: 0.0
+    t.decimal  "tax_amount",                         precision: 53, scale: 15, default: 0.0
+    t.integer  "status",               limit: 1
+    t.string   "type",                 limit: 255
+    t.boolean  "draft",                limit: 1,                               default: true
+    t.boolean  "paid",                 limit: 1,                               default: false
+    t.boolean  "sent_by_email",        limit: 1,                               default: false
+    t.integer  "number",               limit: 4
+    t.integer  "recurring_invoice_id", limit: 4
     t.date     "issue_date"
     t.date     "due_date"
-    t.integer  "days_to_due",             limit: 3
-    t.boolean  "enabled",                 limit: 1,                               default: false
-    t.integer  "max_occurrences",         limit: 4
-    t.integer  "must_occurrences",        limit: 4
-    t.integer  "period",                  limit: 4
-    t.string   "period_type",             limit: 8
+    t.integer  "days_to_due",          limit: 3
+    t.boolean  "enabled",              limit: 1,                               default: false
+    t.integer  "max_occurrences",      limit: 4
+    t.integer  "must_occurrences",     limit: 4
+    t.integer  "period",               limit: 4
+    t.string   "period_type",          limit: 8
     t.date     "starting_date"
     t.date     "finishing_date"
     t.date     "last_execution_date"
-    t.datetime "created_at",                                                                      null: false
-    t.datetime "updated_at",                                                                      null: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
-  add_index "commons", ["customer_email"], name: "cstml_idx", using: :btree
   add_index "commons", ["customer_id"], name: "customer_id_idx", using: :btree
-  add_index "commons", ["customer_identification"], name: "cstid_idx", using: :btree
-  add_index "commons", ["customer_name"], name: "cstnm_idx", using: :btree
+  add_index "commons", ["email"], name: "cstml_idx", using: :btree
+  add_index "commons", ["identification"], name: "cstid_idx", using: :btree
+  add_index "commons", ["name"], name: "cstnm_idx", using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
   add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree

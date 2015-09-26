@@ -79,9 +79,9 @@ class RecurringInvoicesController < CommonsController
       :series_id,
 
       :customer_id,
-      :customer_identification,
-      :customer_name,
-      :customer_email,
+      :identification,
+      :name,
+      :email,
       :contact_person,
       :invoicing_address,
       :shipping_address,

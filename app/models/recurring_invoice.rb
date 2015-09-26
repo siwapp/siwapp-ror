@@ -3,7 +3,7 @@ class RecurringInvoice < Common
   has_many :invoices
 
   # Validation
-  validates :customer_name, :starting_date, presence: true
+  validates :name, :starting_date, presence: true
   validate :valid_date_range
   validates :series, presence: true
 
@@ -18,7 +18,7 @@ class RecurringInvoice < Common
 
 
   def to_s
-    "#{customer_name}"
+    "#{name}"
   end
   # returns all recurring_invoices with specified status
   scope :with_status, -> (status) {where status: status}
