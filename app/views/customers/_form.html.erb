@@ -12,12 +12,7 @@
   <% end %>
 
   <p>
-    <%= f.label :name %> <%= f.text_field :name %><br/>
-    <%= f.label :identification %> <%= f.text_field :identification %>
-    <%= f.label :email %> <%= f.text_field :email %><br/>
-    <%= f.label :contact_person %> <%= f.text_field :contact_person %><br/>
-    <%= f.label :invoicing_address %> <%= f.text_area :invoicing_address %><br/>
-    <%= f.label :shipping_address %> <%= f.text_area :shipping_address %><br/>
+    <%= render partial: 'customers/form_fields', locals: {f: f} %>
   </p>
 
   <div class="actions">

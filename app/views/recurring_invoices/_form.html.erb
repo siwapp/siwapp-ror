@@ -13,6 +13,7 @@
 
   <p>
     <%= render partial: 'customers/form_fields', locals: {f: f} %>
+    <%= f.label :id, "Customer id (this will be hidden)" %> <%= f.text_field :customer_id %>
 
     <%= f.label :status %> <%= f.check_box :status %><br/>
     <%= f.label :days_to_due %> <%= f.number_field :days_to_due %>

@@ -13,6 +13,7 @@
 
   <p>
     <%= render partial: 'customers/form_fields', locals: {f: f} %>
+    <%= f.label :id, "Customer id (this will be hidden)" %> <%= f.text_field :customer_id %>
 
     <% if @invoice.new_record? or @invoice.draft %>
       <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s %><br/>
