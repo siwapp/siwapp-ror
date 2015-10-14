@@ -24,11 +24,11 @@
   <thead>
     <tr>
       <th><%= check_box_tag "check_all" %>
-      <th>Series</th>
-      <th>Customer</th>
-      <th>Frecuency</th>
-      <th>Status</th>
-      <th style="text-align:right;">Total</th>
+      <th><%= sort_link(@search, :series_id, "Series") %></th>
+      <th><%= sort_link(@search, :name, "Customer") %></th>
+      <th><%= sort_link(@search, :period_type, "Frecuency") %></th>
+      <th><%= sort_link(@search, :status, "Status") %></th>
+      <th style="text-align:right;"><%= sort_link(@search, :gross_amount, "Total")%></th>
     </tr>
   </thead>
 

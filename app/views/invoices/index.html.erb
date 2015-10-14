@@ -22,13 +22,13 @@
   <thead>
     <tr>
       <th><%= check_box_tag "check_all" %>
-      <th>Number</th>
-      <th>Customer Name</th>
-      <th>Date</th>
-      <th>Due Date</th>
-      <th>Status</th>
+      <th><%= sort_link(@search, :series_id, "Number") %></th>
+      <th><%= sort_link(@search, :name, "Customer Name") %></th>
+      <th><%= sort_link(@search, :issue_date, "Date") %></th>
+      <th><%= sort_link(@search, :due_date, "Due Date") %></th>
+      <th><%= sort_link(@search, :status, "Status") %></th>
       <th style="text-align:right;">Pending</th>
-      <th style="text-align:right;">Total</th>
+      <th style="text-align:right;"><%= sort_link(@search, :gross_amount, "Total") %></th>
     </tr>
   </thead>
 
