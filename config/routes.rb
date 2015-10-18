@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'signup' => 'users#new'
   get 'users/new'
 
   get "invoices/amounts"

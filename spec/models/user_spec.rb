@@ -1,5 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+  describe 'valid user' do
+    it "user can be created" do
+      user = User.new(name:"john Doe", email: "john@doe.com")
+      expect(user).to be_valid
+    end
+  end
 end
