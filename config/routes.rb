@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'users/new'
+
   get "invoices/amounts"
   get "recurring_invoices/amounts"
 
