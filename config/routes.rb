@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'signup' => 'users#new'
   get 'users/new'
 
+  resources :users
+
   get "invoices/amounts"
   get "recurring_invoices/amounts"
 
