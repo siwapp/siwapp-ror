@@ -55,3 +55,13 @@ jQuery(document).ready ($) ->
         $("##{model}_invoicing_address").val ui.item.invoicing_address
         $("##{model}_shipping_address").val ui.item.shipping_address
     }
+
+    # Set the autocomplete for items
+    $(".item-description").each () ->
+      jqThis = $(this)
+      id_prefix = jqThis.attr('id').substring(0, jqThis.attr('id').lastIndexOf('_'))
+      jqThis.autocomplete {
+        source: '/invoices/autocomplete.json',
+        select: (event, ui) ->
+          $("##{id_prefix}_unitary_cost").val ui.item.unitary_cost
+      }

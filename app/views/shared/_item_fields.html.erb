@@ -1,5 +1,5 @@
 <div class="js-item">
-  <%= f.label :description %> <%= f.text_area :description %>
+  <%= f.label :description %> <%= f.text_area :description, {class: "item-description"} %>
   <%= f.label :quantity %> <%= f.text_field :quantity %>
   <%= f.label :unitary_cost %> <%= f.text_field :unitary_cost %>
   <%= f.label :taxes %><%= f.collection_select 'tax_ids', @taxes, :id, :name, {}, {multiple: true} %>
