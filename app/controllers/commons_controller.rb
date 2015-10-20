@@ -4,6 +4,7 @@ class CommonsController < ApplicationController
   before_action :set_type
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
+  before_action :login_required
 
   # GET /commons
   # GET /commons.json
@@ -151,6 +152,14 @@ class CommonsController < ApplicationController
   end
 
   private
+
+
+  def login_required
+    unless current_user
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to login_url # halts request cycle
+    end
+  end
 
   # Private: sets the type of the object based on the current controller
   #

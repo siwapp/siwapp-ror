@@ -1,6 +1,5 @@
 class InvoicesController < CommonsController
 
-
   # Gets the template to display invoices
   def get_template
     if template = Template.first  # TODO: this should change
