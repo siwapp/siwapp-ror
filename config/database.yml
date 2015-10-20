@@ -13,6 +13,8 @@ development:
   adapter: mysql2
   encoding: utf8
   database: siwapp
+  host: 127.0.0.1
+  port: 3306
   username: siwapp
   password: wappis
 

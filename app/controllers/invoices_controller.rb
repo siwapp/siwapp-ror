@@ -49,7 +49,7 @@ class InvoicesController < CommonsController
       format.json {
         render json: @items.map {|item|
           {
-            'label': item.description, 
+            'label': "#{item.description} #{item.unitary_cost}", 
             'value': item.description,
             'id': item.id,
             'unitary_cost': item.unitary_cost
