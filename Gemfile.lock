@@ -43,6 +43,7 @@ GEM
     autoprefixer-rails (6.0.3)
       execjs
       json
+    bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.5.1)
@@ -226,6 +227,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (= 3.5.0)
   autoprefixer-rails (>= 5.0.0.1)
+  bcrypt (~> 3.1.7)
   bootstrap-sass (= 3.3.5.1)
   byebug
   capybara

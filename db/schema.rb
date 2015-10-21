@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150926084246) do
+ActiveRecord::Schema.define(version: 20151018215131) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -32,15 +32,15 @@ ActiveRecord::Schema.define(version: 20150926084246) do
     t.decimal  "tax_amount",                         precision: 53, scale: 15, default: 0.0
     t.integer  "status",               limit: 1
     t.string   "type",                 limit: 255
-    t.boolean  "draft",                limit: 1,                               default: true
-    t.boolean  "paid",                 limit: 1,                               default: false
-    t.boolean  "sent_by_email",        limit: 1,                               default: false
+    t.boolean  "draft",                                                        default: true
+    t.boolean  "paid",                                                         default: false
+    t.boolean  "sent_by_email",                                                default: false
     t.integer  "number",               limit: 4
     t.integer  "recurring_invoice_id", limit: 4
     t.date     "issue_date"
     t.date     "due_date"
     t.integer  "days_to_due",          limit: 3
-    t.boolean  "enabled",              limit: 1,                               default: false
+    t.boolean  "enabled",                                                      default: false
     t.integer  "max_occurrences",      limit: 4
     t.integer  "must_occurrences",     limit: 4
     t.integer  "period",               limit: 4
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150926084246) do
     t.string  "name",        limit: 255
     t.string  "value",       limit: 255
     t.integer "next_number", limit: 4,   default: 1
-    t.boolean "enabled",     limit: 1,   default: true
+    t.boolean "enabled",                 default: true
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -145,8 +145,8 @@ ActiveRecord::Schema.define(version: 20150926084246) do
   create_table "taxes", force: :cascade do |t|
     t.string  "name",       limit: 50
     t.decimal "value",                 precision: 53, scale: 2
-    t.boolean "active",     limit: 1,                           default: true
-    t.boolean "is_default", limit: 1,                           default: false
+    t.boolean "active",                                         default: true
+    t.boolean "is_default",                                     default: false
   end
 
   create_table "templates", force: :cascade do |t|
@@ -156,5 +156,15 @@ ActiveRecord::Schema.define(version: 20150926084246) do
     t.datetime "updated_at",               null: false
     t.string   "models",     limit: 200
   end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name",            limit: 255
+    t.string   "email",           limit: 255
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "password_digest", limit: 255
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
 end
