@@ -6,7 +6,7 @@
     <p>TOTAL: 10€</p>
   </div>
 
-  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
+  <%= search_form_for @search, html: {id: "searchform", class: "form-inline"} do |f| %>
     <div class="col-xs-12 col-md-8 col-md-pull-4">
       <%= render 'shared/searchform', f: f, with_filters: true %>
     </div>

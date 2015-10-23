@@ -1,17 +1,17 @@
-<p>
+<fieldset class="form-group">
   <%= f.label :issue_date_gteq, "Issue Date from: " %>
-  <%= f.date_field :issue_date_gteq %>
+  <%= f.date_field :issue_date_gteq, class: "form-control" %>
   <%= f.label :issue_date_lteq, "to: " %>
-  <%= f.date_field :issue_date_lteq %>
-</p>
+  <%= f.date_field :issue_date_lteq, class: "form-control" %>
+</fieldset>
 <%= render 'shared/searchform__tagsfield' %>
-<p>
+<fieldset class="form-group">
   <%= f.label :series_id_eq, "Series:" %>
-  <%= f.collection_select :series_id_eq, Series.all, :id, :to_s, include_blank: true %>
-</p>
+  <%= f.collection_select :series_id_eq, Series.all, :id, :to_s, include_blank: true, class: 'form-control' %>
+</fieldset>
 <p>
   <%= f.label :with_status, "Status:" %>
-  <%= f.select :with_status, Invoice::status_collection, include_blank: true %>
+  <%= f.select :with_status, Invoice::status_collection, include_blank: true, class: 'form-control' %>
 </p>
 
 <p><b>TODO:</b></p>
