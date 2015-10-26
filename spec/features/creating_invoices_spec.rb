@@ -4,11 +4,18 @@ feature 'Creating Invoices' do
 
   before do
     FactoryGirl.create(:series)
-    visit '/invoices'
-    first(:link, 'New Invoice').click
+
   end
 
   scenario 'can create an invoice' do
+    visit '/signup'
+    fill_in 'Name', with: 'Test Customer'
+    fill_in 'Email', with: 'test@llll.com'
+    fill_in 'Password', with: '12345678'
+    fill_in 'Confirmation', with: '12345678'
+    click_button('Create my account')
+    visit '/invoices'
+    first(:link, 'New Invoice').click
     select 'Example Series', from: 'invoice_series_id'
 
     fill_in 'Name', with: 'Test Customer'
