@@ -50,6 +50,9 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 # installed 4.0.2.2 version because an issue:
