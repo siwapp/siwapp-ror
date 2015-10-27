@@ -35,9 +35,20 @@ class CommonsController < ApplicationController
   # POST /commons.json
   def create
     set_instance model.new(type_params)
-
     respond_to do |format|
       if get_instance.save
+        # if there is no customer associated then create a new one
+        if type_params[:customer_id] == ''
+          customer = Customer.create(
+            :name => type_params[:name],
+            :identification => type_params[:identification],
+            :email => type_params[:email],
+            :contact_person => type_params[:contact_person],
+            :invoicing_address => type_params[:invoicing_address],
+            :shipping_address => type_params[:shipping_address]
+          )
+          get_instance.update(:customer_id => customer.id)
+        end
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
         format.json { render sti_template(@type, :show), status: :created, location: get_instance }  # TODO: test
