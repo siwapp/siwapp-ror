@@ -111,7 +111,8 @@ ActiveRecord::Schema.define(version: 20151018215131) do
     t.datetime "updated_at",                                                        null: false
   end
 
-  create_table "properties", primary_key: "keey", force: :cascade do |t|
+  create_table "properties", force: :cascade do |t|
+    t.string "key", limit: 255, null: false
     t.text "value", limit: 65535
   end
 

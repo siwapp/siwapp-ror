@@ -80,6 +80,9 @@ namespace :siwapp do
       client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE product CHANGE description description TEXT")
 
+      client.query("ALTER TABLE property DROP PRIMARY KEY")
+      client.query("ALTER TABLE property CHANGE `keey` `key` VARCHAR(255) NOT NULL")
+      client.query("ALTER TABLE property ADD id INT NOT NULL PRIMARY KEY AUTO_INCREMENT")
       client.query("ALTER TABLE property CHANGE value value TEXT")
 
       client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
