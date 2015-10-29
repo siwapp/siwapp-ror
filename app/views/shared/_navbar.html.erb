@@ -28,7 +28,7 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Global Configuration</a></li>
+            <li><a href="<%= settings_global_configuration_path %>">Global Configuration</a></li>
             <li><a href="#">My Configuration</a></li>
             <li class="divider"></li>
             <li><a href="<%= series_index_path %>">Series</a></li>
@@ -41,10 +41,10 @@
       </ul>
 
       <div class="btn-group navbar-btn navbar-right hidden-xs">
-        <!-- TODO: This is going to break in a different controller like configuration 
-         (@ecoslado: In fact, I had to put this uggly "if" to make it to work in login -->
-        <% if current_type() != "Session" %>
+        <% if ["Invoice", "RecurringInvoice", "Customer"].include?(current_type()) %>
           <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
+        <% else %>
+          <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
         <% end %>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
