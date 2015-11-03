@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151018215131) do
+ActiveRecord::Schema.define(version: 20151103164321) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -112,8 +112,8 @@ ActiveRecord::Schema.define(version: 20151018215131) do
   end
 
   create_table "properties", force: :cascade do |t|
-    t.string "key", limit: 255, null: false
-    t.text "value", limit: 65535
+    t.string "key",   limit: 255,   null: false
+    t.text   "value", limit: 65535
   end
 
   create_table "series", force: :cascade do |t|
