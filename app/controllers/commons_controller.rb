@@ -219,7 +219,7 @@ class CommonsController < ApplicationController
 
   # Private: whitelist of parameters that can be used to calculate amounts
   def amounts_params
-    params.require(:invoice).permit(
+    params.require(model.name.underscore.to_sym).permit(
       items_attributes: [
         :quantity,
         :unitary_cost,
