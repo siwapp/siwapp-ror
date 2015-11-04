@@ -2,13 +2,12 @@ Rails.application.routes.draw do
 
   get 'signup' => 'users#new'
 
-  get    'login'   => 'sessions#new'
-  get 'sessions/new'
+  get    'login'   => 'sessions#new',      as: :login
   post   'login'   => 'sessions#create'
-  get 'logout'  => 'sessions#destroy'
+  get    'logout'  => 'sessions#destroy',  as: :logout
 
-  resources :users
-  resources :sessions
+  resources :users, :sessions, :taxes, :series, :payments, :templates
+
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"
@@ -17,23 +16,17 @@ Rails.application.routes.draw do
     delete 'remove', on: :collection
     get 'autocomplete', on: :collection
   end
+
   get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template'
 
   resources :recurring_invoices do
     post 'generate', on: :collection
     delete 'remove', on: :collection
   end
-  resources :taxes
-
-  resources :series
-
-  resources :payments
 
   resources :customers do
     get 'autocomplete', on: :collection
   end
-
-  resources :templates
 
   get 'settings/global_configuration'
 
