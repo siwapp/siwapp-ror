@@ -229,6 +229,7 @@ class CommonsController < ApplicationController
       ],
       payments_attributes: [
         :amount,
+        :_destroy
       ]
     )
   end

@@ -56,7 +56,9 @@ jQuery(document).ready ($) ->
         # default amount is what's unpaid
         amount_item = item.find 'input[name*=amount]'
         get_amounts controller_name, form, (data) ->
-          amount_item.val(data.gross_amount - data.paid_amount)
+          amount = data.gross_amount - data.paid_amount
+          amount = if amount > 0 then amount else 0
+          amount_item.val amount
           return
         # default date is today
         date_item = item.find 'input[name*=date]'
