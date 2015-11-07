@@ -1,8 +1,4 @@
 require 'rails_helper'
-require 'capybara/rspec'
-
-
-
 
 feature 'Editing Invoices' do
 
