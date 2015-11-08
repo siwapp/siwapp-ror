@@ -31,8 +31,7 @@ feature 'Editing Invoices' do
     visit "/invoices/3/edit"
 
     # click over "add payment", 
-    add_payment_el = find('a.add_fields[data-association=payment]')
-    add_payment_el.click
+    find('a.add_fields[data-association=payment]').click
 
     # a new payment div appears ...
     new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
@@ -46,10 +45,10 @@ feature 'Editing Invoices' do
     end
 
     # click over "remove payment"
-    find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]")
-    # ... the div is gone
-    expect(page).to have_no_selector(:xpath, new_payment_path)
+    find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]").click
 
+    # ... the div is gone
+    expect(page).to have_no_selector(:xpath, new_payment_xpath)
   end
 
 end
