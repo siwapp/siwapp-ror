@@ -25,7 +25,10 @@ feature 'Editing Invoices' do
     expect(page).to have_content("Only valid emails")
   end
 
-  scenario 'Adding payments to an Invoice', js: true, driver: :webkit do
+  scenario 'Adding a payments to an Invoice', js: true, driver: :webkit do
+
+    FactoryGirl.create(:invoice_unpaid, id: 3)
+    visit "/invoices/3/edit"
 
     # click over "add payment", 
     add_payment_el = find('a.add_fields[data-association=payment]')
@@ -35,32 +38,19 @@ feature 'Editing Invoices' do
     new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
     expect(page).to have_selector(:xpath, new_payment_xpath)
 
-    # .. with right default values
     within :xpath, new_payment_xpath do
-      # amount: what's left to pay (0 in this case)
-      expect(find('input[name*="amount"]').value).to eq "0"
-      # date: today
+      # default amount: what's left to pay 
+      expect(find('input[name*="amount"]').value.to_i).to eq 25
+      # default date: today
       expect(find('input[name*="date"]').value).to eq Date.today.iso8601
-      # remove this element 
-      find('a.remove_fields').click
     end
-    # After removing the payment, the div is gone
+
+    # click over "remove payment"
+    find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]")
+    # ... the div is gone
     expect(page).to have_no_selector(:xpath, new_payment_path)
 
-    # first real payment
-    first_payment_remove_link_xpath = '//div[input[@name="invoice[payments_attributes][0][date]"]]'
-    first_payment_remove_link_xpath << '//a[contains(@class, "remove")]'
-    find(:xpath, first_payment_remove_link_xpath).click
-    # wait for it to be removed
-    expect(page).to have_no_selector(:xpath, first_payment_remove_link_xpath)
-
-    # re-add payment
-    add_payment_el.click
-    within :xpath, new_payment_xpath do
-      # the unpaid amount is 100
-      expect(find('input[name*="amount"]').value).to eq "100"
-    end
-
   end
+
 end
 
