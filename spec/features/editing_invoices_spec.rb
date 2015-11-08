@@ -25,40 +25,39 @@ feature 'Editing Invoices' do
     expect(page).to have_content("Only valid emails")
   end
 
-  scenario 'default payment fields values', js: true, driver: :webkit do
+  scenario 'Adding payments to an Invoice', js: true, driver: :webkit do
 
-    # click over "add payment", create new payment
+    # click over "add payment", 
     add_payment_el = find('a.add_fields[data-association=payment]')
     add_payment_el.click
-    # find the newly added div.js-payment
-    new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
 
-    # check default values
+    # a new payment div appears ...
+    new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
+    expect(page).to have_selector(:xpath, new_payment_xpath)
+
+    # .. with right default values
     within :xpath, new_payment_xpath do
-      # the invoice is fully paid. 0 default amount value
+      # amount: what's left to pay (0 in this case)
       expect(find('input[name*="amount"]').value).to eq "0"
-      # the date should be today
-      expect(find('input[name*="date"]').value).to eq "2015-11-07" #Date.today.iso8601
-      # remove this element so it's easier to find it when re-adding
+      # date: today
+      expect(find('input[name*="date"]').value).to eq Date.today.iso8601
+      # remove this element 
       find('a.remove_fields').click
     end
+    # After removing the payment, the div is gone
+    expect(page).to have_no_selector(:xpath, new_payment_path)
 
-    # remove real payment, so the invoice goes to 'pending'
-    first_payment_xpath = '//div[@class="js-payment" and .//a[contains(@class, "existing")]][1]'
-    first_payment_div = find :xpath, first_payment_xpath
+    # first real payment
+    first_payment_remove_link_xpath = '//div[input[@name="invoice[payments_attributes][0][date]"]]'
+    first_payment_remove_link_xpath << '//a[contains(@class, "remove")]'
+    find(:xpath, first_payment_remove_link_xpath).click
+    # wait for it to be removed
+    expect(page).to have_no_selector(:xpath, first_payment_remove_link_xpath)
 
-    within :xpath, first_payment_xpath do
-      # look for any element inside the first div
-      first_id = all('*[id]').first[:id]
-      # remove the first payment
-      find('a.remove_fields.existing').click
-      # wait for the element to be removed
-      expect(page).to have_no_selector("##{first_id}")
-    end
-
-    # readd payment, this one has to have amount
+    # re-add payment
     add_payment_el.click
     within :xpath, new_payment_xpath do
+      # the unpaid amount is 100
       expect(find('input[name*="amount"]').value).to eq "100"
     end
 
