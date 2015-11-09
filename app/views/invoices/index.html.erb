@@ -3,7 +3,9 @@
 
 <div class="row">
   <div class="col-xs-12 col-md-4 col-md-push-8">
-    <p>TOTAL: 10€</p>
+    <p>TOTAL GROSS: <%= @gross.round 2 %> €</p>
+    <p>TOTAL NET: <%= @net.round 2 %> €</p>
+    <p>TOTAL TAX: <%= @tax.round 2 %> €</p>
   </div>
 
   <%= search_form_for @search, html: {id: "searchform"} do |f| %>

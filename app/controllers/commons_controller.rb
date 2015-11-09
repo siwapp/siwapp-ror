@@ -15,8 +15,14 @@ class CommonsController < ApplicationController
 
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
-      .includes(:series)
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+
+    @gross = results.sum :gross_amount
+    @net = results.sum :net_amount
+    @tax = results.sum :tax_amount
+    # series has ti be included after totals calculations
+    results = results.includes :series
+
     set_listing results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
