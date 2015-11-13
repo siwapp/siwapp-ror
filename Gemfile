@@ -74,9 +74,3 @@ gem 'rails_12factor', group: :production
 gem 'wicked_pdf'
 gem 'will_paginate', '3.0.7'
 gem 'wkhtmltopdf-binary'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-infinite-scroll'
-  gem 'rails-assets-typeahead.js'
-  gem 'rails-assets-bootstrap-tagsinput'
-end
