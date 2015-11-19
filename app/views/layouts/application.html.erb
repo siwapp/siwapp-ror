@@ -16,6 +16,9 @@
   <%= render partial: 'shared/navbar' %>
 
   <div class="container-fluid" role="main">
+    <% flash.each do |message_type, message| %>
+      <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+    <% end %>
     <%= content_for?(:content) ? yield(:content) : yield %>
   </div>
 </body>
