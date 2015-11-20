@@ -21,6 +21,7 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="visible-xs-inline">Configuration</span>
@@ -28,16 +29,20 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="<%= settings_global_configuration_path %>">Global Configuration</a></li>
-            <li><a href="#">My Configuration</a></li>
+            <li><%= link_to "Global Configuration", settings_global_configuration_path%></li>
+            <li><%= link_to "My Configuration", '#' %></li>
             <li class="divider"></li>
-            <li><a href="<%= series_index_path %>">Series</a></li>
-            <li><a href="<%= taxes_path %>">Taxes</a></li>
-            <li><a href="<%= templates_path %>">Templates</a></li>
+            <li><%= link_to "Series", series_index_path %></li>
+            <li><%= link_to "Taxes", taxes_path %></li>
+            <li><%= link_to "Templates", templates_path%></li>
+            <li><%= link_to "Modules", '#' %></li>
             <li class="divider"></li>
-            <li><a href="#">Modules</a></li>
+            <li><%= link_to "Sign Out", logout_path %></li>
           </ul>
         </li>
+        <% else %>
+        <li><%= link_to "Log In", login_path %></li>
+        <% end %>
       </ul>
 
       <div class="btn-group navbar-btn navbar-right hidden-xs">
