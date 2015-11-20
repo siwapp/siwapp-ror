@@ -37,7 +37,7 @@
             <li><%= link_to "Templates", templates_path%></li>
             <li><%= link_to "Modules", '#' %></li>
             <li class="divider"></li>
-            <li><%= link_to "Sign Out", logout_path %></li>
+            <li><%= link_to "Sign Out", logout_path, method: "delete" %></li>
           </ul>
         </li>
         <% else %>
