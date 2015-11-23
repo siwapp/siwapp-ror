@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :remember_token
   validates :name, presence: true
   validates :email, presence: true, format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
     message: "Only valid emails"}, uniqueness: {case_sensitive: false}
@@ -25,5 +26,10 @@ class User < ActiveRecord::Base
   # Returns true if the given token matches the digest.
   def authenticated?(remember_token)
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+ # Forgets a user.
+  def forget
+    update_attribute(:remember_digest, nil)
   end
 end

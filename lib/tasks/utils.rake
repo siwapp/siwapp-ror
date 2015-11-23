@@ -33,4 +33,21 @@ namespace :siwapp do
       Rake::Task['siwapp:random:recurring_invoices'].invoke
     end
   end
+
+  namespace :user do
+    desc 'Creates user account with given credentials: rake user:create'
+    # environment is required to have access to Rails models
+    task :create, [:name, :email, :pass] => :environment do |t, args|
+      puts "creating user account..."
+      u = Hash.new
+      u[:name] = args[:name]
+      u[:email] = args[:email]
+      u[:password] = args[:pass]
+      # with some DB layer like ActiveRecord:
+      user = User.new(u); user.save!
+      puts "user: " + u.to_s
+      puts "account created."
+      exit 0
+    end
+  end
 end
