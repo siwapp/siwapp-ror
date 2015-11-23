@@ -35,7 +35,7 @@ namespace :siwapp do
   end
 
   namespace :user do
-    desc 'Creates user account with given credentials: rake user:create'
+    desc 'Creates user account with given credentials: rake siwapp:user:create[name,email,pass]'
     # environment is required to have access to Rails models
     task :create, [:name, :email, :pass] => :environment do |t, args|
       puts "creating user account..."
