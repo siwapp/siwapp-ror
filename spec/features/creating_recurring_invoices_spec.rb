@@ -4,6 +4,12 @@ feature 'Creating Recurring Invoices' do
 
   before do
     FactoryGirl.create(:series)
+    #visit '/signup'
+    #fill_in 'Name', with: 'Test Customer'
+    #fill_in 'Email', with: 'test@imail.com'
+    #fill_in 'Password', with: '12345678'
+    #fill_in 'Confirmation', with: '12346578'
+    #click_button 'Create my account'
     visit '/recurring_invoices'
     click_link 'New Recurring Invoice'
   end

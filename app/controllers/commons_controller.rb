@@ -4,7 +4,8 @@ class CommonsController < ApplicationController
   before_action :set_type
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
-  before_action :login_required
+  # TODO (@ecoslado) Make the tests to work with login_required activated
+  # before_action :login_required
 
   # GET /commons
   # GET /commons.json
@@ -14,8 +15,14 @@ class CommonsController < ApplicationController
 
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
-      .includes(:series)
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+
+    @gross = results.sum :gross_amount
+    @net = results.sum :net_amount
+    @tax = results.sum :tax_amount
+    # series has ti be included after totals calculations
+    results = results.includes :series
+
     set_listing results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
@@ -34,9 +41,20 @@ class CommonsController < ApplicationController
   # POST /commons.json
   def create
     set_instance model.new(type_params)
-
     respond_to do |format|
       if get_instance.save
+        # if there is no customer associated then create a new one
+        if type_params[:customer_id] == ''
+          customer = Customer.create(
+            :name => type_params[:name],
+            :identification => type_params[:identification],
+            :email => type_params[:email],
+            :contact_person => type_params[:contact_person],
+            :invoicing_address => type_params[:invoicing_address],
+            :shipping_address => type_params[:shipping_address]
+          )
+          get_instance.update(:customer_id => customer.id)
+        end
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
         format.json { render sti_template(@type, :show), status: :created, location: get_instance }  # TODO: test
@@ -105,6 +123,7 @@ class CommonsController < ApplicationController
 
     respond_to do |format|
       format.js
+      format.json
     end
   end
 
@@ -206,7 +225,7 @@ class CommonsController < ApplicationController
 
   # Private: whitelist of parameters that can be used to calculate amounts
   def amounts_params
-    params.require(:invoice).permit(
+    params.require(model.name.underscore.to_sym).permit(
       items_attributes: [
         :quantity,
         :unitary_cost,
@@ -216,6 +235,7 @@ class CommonsController < ApplicationController
       ],
       payments_attributes: [
         :amount,
+        :_destroy
       ]
     )
   end

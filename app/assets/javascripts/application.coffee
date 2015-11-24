@@ -10,7 +10,7 @@
 # Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
-#= require jquery
+#= require jquery2
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery-ui/autocomplete
@@ -18,7 +18,7 @@
 #= require_tree
 #= require cocoon
 #= require js-routes
-#= require infinite-scroll
+#= require jquery.infinitescroll
 #= require turbolinks
 
 jQuery(document).ready ($) ->

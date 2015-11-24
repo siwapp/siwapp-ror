@@ -18,13 +18,19 @@ FactoryGirl.define do
        "email":"info@smithandco.com"}
     ]
     sequence :name do |n|
-      customers[n-1][:name]
+      if n <= customers.count
+        customers[n-1][:name]
+      end
     end
     sequence :identification do |n|
-      customers[n-1][:id]
+      if n <= customers.count
+        customers[n-1][:id]
+      end
     end
     sequence :email do |n|
-      customers[n-1][:email]
+      if n <= customers.count
+        customers[n-1][:email]
+      end
     end
 
   end

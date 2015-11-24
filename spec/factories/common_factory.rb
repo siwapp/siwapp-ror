@@ -8,6 +8,7 @@ FactoryGirl.define do
       name  "Example Customer Name"
       email "example@example.com"
 
+
       series
 
       after(:create) do |common|
@@ -48,6 +49,19 @@ FactoryGirl.define do
         end
       end
 
+      factory :invoice_unpaid, class: Invoice do
+        issue_date Date.today - 1
+        due_date Date.today + 30
+        after(:create) do |i|
+          create(:payment, invoice: i, date: Date.today, amount: 100)
+          i.reload
+          i.set_amounts
+        end
+      end
+
+
+
+        
       factory :recurring_invoice, class: RecurringInvoice do
         starting_date Date.today
         finishing_date Date.today >> 1  # 1 month later

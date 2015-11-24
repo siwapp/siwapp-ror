@@ -49,7 +49,10 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'capybara-puma'
+  gem 'capybara-webkit'
+  gem 'selenium-webdriver'
+  gem 'database_cleaner'
 end
 
 # installed 4.0.2.2 version because an issue:
@@ -79,3 +82,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap-tagsinput'
   gem 'rails-assets-tether', '>= 1.1.0'
 end
+

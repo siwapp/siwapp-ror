@@ -4,47 +4,47 @@
         &#9776;
       </button>
 
-      <div class="collapse navbar-toggleable-xs" id="sw-main-menu">
-        <a class="navbar-brand" href="#">siwapp</a>
-        <ul class="nav navbar-nav" id="main-menu">
-          <li class="nav-item "><a href="#" class="nav-link <%= active_link('dashboard') %>">Dashboard</a></li>
-          <li class="nav-item"><%= link_to 'Invoices', invoices_path, {class: "nav-link  #{active_link('invoices')}"} %></li>
-          <li class="nav-item"><%= link_to 'Recurring Invoices', recurring_invoices_path, {class: "nav-link #{active_link('recurring_invoices')}"} %></li>
-          <li class="nav-item"><%= link_to 'Customers', customers_path, {class: "nav-link #{active_link('customers')}"} %></li>
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-              <span class="visible-xs-inline">Configuration</span>
-              <span class="hidden-xs glyphicon glyphicon-cog"></span>
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a class="nav-link" href="#">Global Configuration</a></li>
-              <li><a class="nav-link" href="#">My Configuration</a></li>
-              <li class="divider"></li>
-              <li><a class="nav-link" href="<%= series_index_path %>">Series</a></li>
-              <li><a class="nav-link" href="<%= taxes_path %>">Taxes</a></li>
-              <li><a class="nav-link" href="<%= templates_path %>">Templates</a></li>
-              <li class="divider"></li>
-              <li><a class="nav-link" href="#">Modules</a></li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown pull-right">
-          <!-- TODO: This is going to break in a different controller like configuration 
-           (@ecoslado: In fact, I had to put this uggly "if" to make it to work in login -->
-          <% if current_type() != "Session" %>
-            <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
-          <% end %>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <ul class="nav navbar-nav navbar-right">
+        <% if logged_in? %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+            <span class="visible-xs-inline">Configuration</span>
+            <span class="hidden-xs glyphicon glyphicon-cog"></span>
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a class="nav-link" href="<%= new_invoice_path %>">New Invoice</a></li>
-            <li><a class="nav-link" href="<%= new_recurring_invoice_path %>">New Recurring Invoice</a></li>
+            <li><%= link_to "Global Configuration", settings_global_configuration_path%></li>
+            <li><%= link_to "My Configuration", '#' %></li>
             <li class="divider"></li>
-            <li><a class="nav-link" href="<%= new_customer_path %>">New Customer</a></li>
+            <li><%= link_to "Series", series_index_path %></li>
+            <li><%= link_to "Taxes", taxes_path %></li>
+            <li><%= link_to "Templates", templates_path%></li>
+            <li><%= link_to "Modules", '#' %></li>
+            <li class="divider"></li>
+            <li><%= link_to "Sign Out", logout_path, method: "delete" %></li>
           </ul>
-          </li>
+        </li>
+        <% else %>
+        <li><%= link_to "Log In", login_path %></li>
+        <% end %>
+      </ul>
+
+      <div class="btn-group navbar-btn navbar-right hidden-xs">
+        <% if ["Invoice", "RecurringInvoice", "Customer"].include?(current_type()) %>
+          <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
+        <% else %>
+          <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
+        <% end %>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="<%= new_invoice_path %>">New Invoice</a></li>
+          <li><a href="<%= new_recurring_invoice_path %>">New Recurring Invoice</a></li>
+          <li class="divider"></li>
+          <li><a href="<%= new_customer_path %>">New Customer</a></li>
         </ul>
       </div>
     </nav>
