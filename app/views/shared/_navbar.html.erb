@@ -1,40 +1,46 @@
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <nav class="navbar navbar-light bg-faded navbar-fixed-top">
-      <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#sw-main-menu">
-        &#9776;
-      </button>
-
-      <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+<nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#swp-collapsed-navbar">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="swp-collapsed-navbar">
+      <a class="navbar-brand" href="#">siwapp</a>
+      <ul class="nav navbar-nav">
+        <li class="nav-item <%= active_link('dashboard') %>">
+          <a class="nav-link" href="#">Dashboard</a>
+        </li>
+        <li class="nav-item <%= active_link('invoices') %>">
+          <%= link_to 'Invoices', invoices_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item <%= active_link('recurring_invoices') %>">
+          <%= link_to 'Recurring Invoices', recurring_invoices_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item <%= active_link('customers') %>">
+          <%= link_to 'Customers', customers_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <span class="visible-xs-inline">Configuration</span>
             <span class="hidden-xs glyphicon glyphicon-cog"></span>
             <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><%= link_to "Global Configuration", settings_global_configuration_path%></li>
-            <li><%= link_to "My Configuration", '#' %></li>
+          </a>
+          <ul class="navbar-nav dropdown-menu" role="menu">
+            <li><a href="#">Global Configuration</a></li>
+            <li><a href="#">My Configuration</a></li>
             <li class="divider"></li>
-            <li><%= link_to "Series", series_index_path %></li>
-            <li><%= link_to "Taxes", taxes_path %></li>
-            <li><%= link_to "Templates", templates_path%></li>
-            <li><%= link_to "Modules", '#' %></li>
+            <li><a href="<%= series_index_path %>">Series</a></li>
+            <li><a href="<%= taxes_path %>">Taxes</a></li>
+            <li><a href="<%= templates_path %>">Templates</a></li>
             <li class="divider"></li>
-            <li><%= link_to "Sign Out", logout_path, method: "delete" %></li>
+            <li><a href="#">Modules</a></li>
           </ul>
-        </li>
-        <% else %>
-        <li><%= link_to "Log In", login_path %></li>
-        <% end %>
-      </ul>
-
-      <div class="btn-group navbar-btn navbar-right hidden-xs">
-        <% if ["Invoice", "RecurringInvoice", "Customer"].include?(current_type()) %>
+        </li> 
+    </ul>
+    </div>
+    <div class="btn-group navbar-btn navbar-right hidden-xs pull-right">
+        <!-- TODO: This is going to break in a different controller like configuration 
+         (@ecoslado: In fact, I had to put this uggly "if" to make it to work in login -->
+        <% if current_type() != "Session" %>
           <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
-        <% else %>
-          <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
         <% end %>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
           <span class="caret"></span>
@@ -47,13 +53,4 @@
           <li><a href="<%= new_customer_path %>">New Customer</a></li>
         </ul>
       </div>
-    </nav>
-      
-        
-      
-     
-      
-        
-    
-
-  
+</nav><!-- /.navbar -->
