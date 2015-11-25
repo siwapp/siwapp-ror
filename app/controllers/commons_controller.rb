@@ -109,7 +109,7 @@ class CommonsController < ApplicationController
     ids = params["#{model.name.underscore}_ids"]
     if ids.is_a?(Array) && ids.length > 0
       model.where(id: params["#{model.name.underscore}_ids"]).destroy_all
-      flash[:notice] = "Successfully deteled #{ids.length} #{type_label}"
+      flash[:notice] = "Successfully deleted #{ids.length} #{type_label}"
     end
     redirect_to sti_path(@type)
   end

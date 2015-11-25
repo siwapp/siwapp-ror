@@ -2,37 +2,23 @@
 <p id="alert"><%= alert %></p>
 
 <div class="row">
-   
-    <div class="col-xs-12 col-md-8">
-      <%= search_form_for @search, html: {id: "searchform", class: "form-inline"} do |f| %>
+<div class="col-xs-12 col-md-4 col-md-push-8">
+  <ul class="list-group list-unstyled">
+    <li>Total Gross <span class="label label-default label-pill pull-right"><%= @gross.round 2 %> €</span></li>
+    <li>Total Net<span class="label label-default label-pill pull-right"><%= @net.round 2 %> €</span></li>
+    <li>Total Tax <span class="label label-default label-pill pull-right"><%= @tax.round 2 %> €</span></li>
+  </ul>
+</div>
+
+  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
+    <div class="col-xs-12 col-md-8 col-md-pull-4">
       <%= render 'shared/searchform', f: f, with_filters: true %>
-      <div id="searchform__filters" class="col-xs-12 col-md-8 collapse">
-        <%= render 'searchform__filters', f: f %>
-      </div>
-       <% end %>
-      
-      
     </div>
+    <div id="searchform__filters" class="col-xs-12 collapse">
+      <%= render 'searchform__filters', f: f %>
+    </div>
+  <% end %>
 </div>
-<div class="row">
-    <div class="col-xs-12 col-md-6">
-        <table class="table">
-          <thead>
-            <tr>
-            <th>Total Gross</th><th>Total Net</th><th>Total Tax</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><%= @gross.round 2 %> €</td>
-            <td><%= @net.round 2 %> €</td>
-            <td><%= @tax.round 2 %> €</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-</div>
-  
 
 <%= form_tag remove_invoices_path, :method => :delete do -%>
 <%= submit_tag 'Remove Selected' %>
