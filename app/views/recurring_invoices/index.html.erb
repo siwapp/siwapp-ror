@@ -3,7 +3,9 @@
 
 <div class="row">
   <div class="col-xs-12 col-md-4 col-md-push-8">
-    <p>TOTAL RECURRING: 10€</p>
+    <ul class="list-group list-unstyled">
+      <li>Total Recurring <span class="label label-default label-pill pull-right">10 €</span></li>
+    </ul>
   </div>
   <% if @has_pendings %>
   <div><%= link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post %><%= @get_pendings %></div>
