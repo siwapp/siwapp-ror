@@ -2,11 +2,13 @@
 <p id="alert"><%= alert %></p>
 
 <div class="row">
-  <div class="col-xs-12 col-md-4 col-md-push-8">
-    <p>TOTAL GROSS: <%= @gross.round 2 %> €</p>
-    <p>TOTAL NET: <%= @net.round 2 %> €</p>
-    <p>TOTAL TAX: <%= @tax.round 2 %> €</p>
-  </div>
+<div class="col-xs-12 col-md-4 col-md-push-8">
+  <ul class="list-group list-unstyled">
+    <li>Total Gross <span class="label label-default label-pill pull-right"><%= @gross.round 2 %> €</span></li>
+    <li>Total Net<span class="label label-default label-pill pull-right"><%= @net.round 2 %> €</span></li>
+    <li>Total Tax <span class="label label-default label-pill pull-right"><%= @tax.round 2 %> €</span></li>
+  </ul>
+</div>
 
   <%= search_form_for @search, html: {id: "searchform"} do |f| %>
     <div class="col-xs-12 col-md-8 col-md-pull-4">

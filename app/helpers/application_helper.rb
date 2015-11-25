@@ -11,4 +11,5 @@ module ApplicationHelper
   def active_link(link)
     (link == params[:controller]) ? "active" : ""
   end
+
 end

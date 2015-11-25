@@ -11,11 +11,11 @@
   <%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search by customer name, email or VAT ID…' %>
 
   <div class="input-group-btn">
-    <a href="<%= sti_path(current_type()) %>" class="btn btn-default">
-      <span class="glyphicon glyphicon-refresh"></span>
-    </a>
+    <button href="<%= sti_path(current_type()) %>" class="btn btn-secondary">
+      <i class="material-icons md-16">cached</i>
+    </button>
     <button type="submit" class="btn btn-primary">
-      <span class="glyphicon glyphicon-search"></span>
+      <i class="material-icons md-16">search</i>
       &nbsp;Search
     </button>
   </div>
