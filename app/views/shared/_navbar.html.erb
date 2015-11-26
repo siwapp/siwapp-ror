@@ -17,6 +17,7 @@
         <li class="nav-item <%= active_link('customers') %>">
           <%= link_to 'Customers', customers_path, class: "nav-link" %>
         </li>
+       
         <li class="nav-item dropdown">
 
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -35,7 +36,12 @@
             <li class="divider"></li>
             <li><a href="#">Modules</a></li>
           </ul>
-        </li> 
+
+        </li>
+         <li class="nav-item <%= active_link('login')%>"> 
+         <%= link_to 'Login', login_path, class: "nav-link" %>
+        </li>
+
     </ul>
     </div>
     <div class="btn-group navbar-btn navbar-right hidden-xs pull-right">

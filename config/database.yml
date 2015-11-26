@@ -10,7 +10,6 @@ default: &default
   timeout: 5000
 
 development:
-  host: 127.0.0.1
   adapter: mysql2
   encoding: utf8
   database: siwapp
