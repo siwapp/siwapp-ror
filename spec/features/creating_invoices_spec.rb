@@ -25,8 +25,7 @@ feature 'Creating Invoices' do
     expect(customer.email).to eq('pepe@abc.com')
   end
 
-  scenario 'autocomplete of customer fields', :js => true do
-    Capybara.current_driver = :webkit
+  scenario 'autocomplete of customer fields', :js => true, driver: :webkit do
     FactoryGirl.create_list(:customer, 5)
     visit '/invoices/new'
     fill_in 'Name', with: 'dem'
