@@ -59,8 +59,7 @@ end
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
-# gem 'bootstrap-sass', '3.3.5.1'
-gem 'bootstrap', git: 'https://github.com/twbs/bootstrap-rubygem'
+gem 'bootstrap', '~> 4.0.0.alpha1'
 gem 'cocoon', '1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
@@ -72,14 +71,7 @@ gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
+gem 'sass'
 gem 'wicked_pdf'
 gem 'will_paginate', '3.0.7'
 gem 'wkhtmltopdf-binary'
-
-source 'https://rails-assets.org' do
-  gem 'rails-assets-infinite-scroll'
-  gem 'rails-assets-typeahead.js'
-  gem 'rails-assets-bootstrap-tagsinput'
-  gem 'rails-assets-tether', '>= 1.1.0'
-end
-
