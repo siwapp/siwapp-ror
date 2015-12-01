@@ -6,6 +6,15 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+Property.create(key: 'company_name')
+Property.create(key: 'company_address')
+Property.create(key: 'company_phone')
+Property.create(key: 'company_email')
+Property.create(key: 'company_url')
+Property.create(key: 'company_logo')
+Property.create(key: 'currency')
+Property.create(key: 'legal_terms')
+
 Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
