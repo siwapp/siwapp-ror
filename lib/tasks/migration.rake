@@ -31,6 +31,18 @@ namespace :siwapp do
       client.query("DROP TABLE sf_guard_user_profile")
       client.query("DROP TABLE migration_version")
 
+      client.query("CREATE TABLE `users` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `name` varchar(255) DEFAULT NULL,
+        `email` varchar(255) DEFAULT NULL,
+        `created_at` datetime NOT NULL,
+        `updated_at` datetime NOT NULL,
+        `password_digest` varchar(255) DEFAULT NULL,
+        `remember_digest` varchar(255) DEFAULT NULL,
+        PRIMARY KEY (`id`),
+        UNIQUE KEY `index_users_on_email` (`email`) USING BTREE
+      )")
+
       client.query("ALTER TABLE common CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE common CHANGE recurring_invoice_id recurring_invoice_id INT")
       client.query("ALTER TABLE common CHANGE series_id series_id INT")

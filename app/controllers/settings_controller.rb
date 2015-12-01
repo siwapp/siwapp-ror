@@ -14,6 +14,8 @@ class SettingsController < ApplicationController
     @company_address = (Property.find_by key: 'company_address').value
     @company_phone = (Property.find_by key: 'company_phone').value
     @company_email = (Property.find_by key: 'company_email').value
+    # This must be an url because there is no way of uploading files to 
+    # heroku. One option would be to use S3, but it's not worth of it.
     @company_url = (Property.find_by key: 'company_url').value
     @company_logo = (Property.find_by key: 'company_logo').value
     @currency = (Property.find_by key: 'currency').value
