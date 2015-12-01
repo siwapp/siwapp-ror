@@ -1,6 +1,22 @@
 class SettingsController < ApplicationController
   # Global configuration settings
-  def global_configuration
-    
+  def global
+    if request.post?
+      [:company_name, :company_address, :company_phone,
+          :company_email, :company_url, :company_logo,
+          :currency, :legal_terms]
+      .each do |key|
+        (Property.find_by key: key)
+            .update(value: params[key])
+      end
+    end
+    @company_name = (Property.find_by key: 'company_name').value
+    @company_address = (Property.find_by key: 'company_address').value
+    @company_phone = (Property.find_by key: 'company_phone').value
+    @company_email = (Property.find_by key: 'company_email').value
+    @company_url = (Property.find_by key: 'company_url').value
+    @company_logo = (Property.find_by key: 'company_logo').value
+    @currency = (Property.find_by key: 'currency').value
+    @legal_terms = (Property.find_by key: 'legal_terms').value
   end
 end

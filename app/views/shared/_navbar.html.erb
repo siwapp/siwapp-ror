@@ -27,7 +27,7 @@
             <span class="caret"></span>
           </a>
           <ul class="navbar-nav dropdown-menu" role="menu">
-            <li><a href="#">Global Configuration</a></li>
+            <li><a href="<%= settings_global_path %>">Global Configuration</a></li>
             <li><a href="#">My Configuration</a></li>
             <li class="divider"></li>
             <li><a href="<%= series_index_path %>">Series</a></li>
@@ -45,9 +45,7 @@
     </ul>
     </div>
     <div class="btn-group navbar-btn navbar-right hidden-xs pull-right">
-        <!-- TODO: This is going to break in a different controller like configuration 
-         (@ecoslado: In fact, I had to put this uggly "if" to make it to work in login -->
-        <% if current_type() != "Session" %>
+        <% if current_type() == "Invoice" or current_type == "RecurringInvoice" or current_type == "Customer" %>
           <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
         <% end %>
         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
