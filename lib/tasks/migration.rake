@@ -84,6 +84,7 @@ namespace :siwapp do
       client.query("ALTER TABLE property CHANGE `keey` `key` VARCHAR(255) NOT NULL")
       client.query("ALTER TABLE property ADD id INT NOT NULL PRIMARY KEY AUTO_INCREMENT")
       client.query("ALTER TABLE property CHANGE value value TEXT")
+      client.query("DELETE FROM property WHERE `key`='company_fax'")
 
       client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
       client.query("ALTER TABLE series CHANGE first_number next_number INT(11) DEFAULT '1'")
