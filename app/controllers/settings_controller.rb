@@ -1,7 +1,7 @@
 class SettingsController < ApplicationController
   # Global configuration settings
   def global
-    if request.post?
+    if request.post?  # save values posted
       [:company_name, :company_address, :company_phone,
           :company_email, :company_url, :company_logo,
           :currency, :legal_terms]
@@ -23,11 +23,15 @@ class SettingsController < ApplicationController
   end
 
   def my_configuration
+    # This is still pretty lame. Validation errors should be shown into
+    # the form.
     @user = current_user
     if request.post?
       @user.update_attribute(:name, params[:user][:name])
       @user.update_attribute(:email, params[:user][:email])
-      if params[:new_password] and params[:new_password] == params[:new_password2]
+      if params[:new_password] \
+          and params[:new_password] == params[:new_password2] \
+          and @user.authenticate(params[:old_password])
         @user.password = params[:new_password]
         @user.validate!
         @user.save!
