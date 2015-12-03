@@ -17,18 +17,18 @@
         <li class="nav-item <%= active_link('customers') %>">
           <%= link_to 'Customers', customers_path, class: "nav-link" %>
         </li>
-       
+
         <li class="nav-item dropdown">
 
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             <i class="nav-item material-icons md-16 margin-4">settings</i>
             <span class="visible-xs-inline">Configuration</span>
-           
+
             <span class="caret"></span>
           </a>
           <ul class="navbar-nav dropdown-menu" role="menu">
             <li><a href="<%= settings_global_path %>">Global Configuration</a></li>
-            <li><a href="#">My Configuration</a></li>
+            <li><a href="<%= settings_my_configuration_path %>">My Configuration</a></li>
             <li class="divider"></li>
             <li><a href="<%= series_index_path %>">Series</a></li>
             <li><a href="<%= taxes_path %>">Taxes</a></li>
@@ -38,7 +38,7 @@
           </ul>
 
         </li>
-         <li class="nav-item <%= active_link('login')%>"> 
+         <li class="nav-item <%= active_link('login')%>">
          <%= link_to 'Login', login_path, class: "nav-link" %>
         </li>
 

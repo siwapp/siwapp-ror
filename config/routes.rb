@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
-  resources :users, :sessions, :taxes, :series, :payments, :templates
+  resources :taxes, :series, :payments, :templates
 
 
   get "invoices/amounts"
@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get 'settings/global'
   post 'settings/global'
+  get 'settings/my_configuration'
+  post 'settings/my_configuration'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
