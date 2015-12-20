@@ -75,3 +75,5 @@ gem 'sass'
 gem 'wicked_pdf'
 gem 'will_paginate', '3.0.7'
 gem 'wkhtmltopdf-binary'
+# scheduler
+gem 'rufus-scheduler', '3.1.10'

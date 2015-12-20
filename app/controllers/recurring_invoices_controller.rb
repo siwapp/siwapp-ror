@@ -1,62 +1,15 @@
 class RecurringInvoicesController < CommonsController
 
   def generate
-    # Generates pending invoices according to date
-    pending = []
-    actives = RecurringInvoice.with_status(1)
-    pendings = get_pendings(actives)
-    while not pendings.empty? do
-      # Generate invoices
-      processed = []
-      pendings.each do |p|
-        inv = p.becomes(Invoice).deep_clone include: [:payments, :items]
-        inv.recurring_invoice_id = p.id
-        inv.status = 'Open'
-        inv.issue_date = Date.today
-        inv.due_date = Date.today + p.days_to_due.days if p.days_to_due
-        # saving new generated invoice
-        inv.save()
-        # updating last_execution_date on p
-        p.last_execution_date += p.period.send(p.period_type)
-        p.save()
-        # adding processed recurring_invoice to list to check if up-to-date
-        processed.append(p)
-      end
-      pendings = get_pendings(processed)
+    # Generates pending invoices up to today
+    for r in RecurringInvoice.with_pending_invoices
+      r.generate_pending_invoices
     end
     redirect_to invoices_url
   end
 
-  def get_pendings(instances)
-    # Returns only those recurring_invoices that are pending to generate invoices
-    pendings = []
-    instances.each do |actual|
-      if not actual.last_execution_date
-        # if not date, prepare  next iteration to be on starting_date
-        actual.last_execution_date = actual.starting_date - actual.period.send(actual.period_type)
-      end
-      # pick just those pending
-      next_date = actual.last_execution_date + actual.period.send(actual.period_type)
-      valid_range = (actual.starting_date...actual.finishing_date)
-      unless next_date < Date.today and next_date.in? valid_range
-        next
-      end
-      # Skip if max number of occurrences has been reached
-      if Invoice.belonging_to(actual.id).count >= actual.max_occurrences
-        next
-      end
-      pendings.append(actual)
-    end
-    pendings
-  end
-
-  def has_pendings
-    pendings = get_pendings(RecurringInvoice.with_status(1))
-    not pendings.empty?
-  end
-
   def index
-    @has_pendings = has_pendings()
+    @has_pendings = (not RecurringInvoice.with_pending_invoices.empty?)
     super
   end
 
