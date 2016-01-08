@@ -115,7 +115,7 @@ GEM
     minitest (5.8.3)
     multi_json (1.11.2)
     mysql2 (0.3.17)
-    nokogiri (1.6.7)
+    nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
