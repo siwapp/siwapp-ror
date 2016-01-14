@@ -8,6 +8,7 @@
 
 Property.create(key: 'company_name')
 Property.create(key: 'company_address')
+Property.create(key: 'company_vat_id')
 Property.create(key: 'company_phone')
 Property.create(key: 'company_email')
 Property.create(key: 'company_url')
