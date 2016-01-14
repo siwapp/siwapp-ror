@@ -103,7 +103,7 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
           <ul class="invoicer-data">
             <li class="strong"><%= settings.company_name %></li>
             <li><%= simple_format settings.company_address %></li>
-            <li>VAT ID: ESB-85996932</li>
+            <li><%= settings.company_vat_id %></li>
             <li><%= settings.company_url %></li>
           </ul>
         </td>
