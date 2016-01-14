@@ -28,7 +28,7 @@ class InvoicesController < CommonsController
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
-    @settings = Property.all_settings
+    @settings = Settings.new
     html = render_to_string :inline => @template.template,
       :locals => {:invoice => @invoice, :settings => @settings}
     respond_to do |format|

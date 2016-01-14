@@ -86,7 +86,7 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
     <table>
       <tr>
         <td id="logo" colspan="2" align="right">
-          <img src="{{ settings.company_logo }}" alt="{{ settings.company_name }}" />
+          <img src="<%= settings.company_logo %>" alt="<%= settings.company_name %>" />
         </td>
       </tr>
       <tr>
@@ -100,10 +100,10 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
         </td>
         <td align="right">
           <ul class="invoicer-data">
-            <li class="strong">{{ settings.company_name }}</li>
-            <li>{{ settings.company_address|format }}</li>
+            <li class="strong"><%= settings.company_name %></li>
+            <li><%= simple_format settings.company_address %></li>
             <li>VAT ID: ESB-85996932</li>
-            <li>{{ settings.company_url }}</li>
+            <li><%= settings.company_url %></li>
           </ul>
         </td>
       </tr>
