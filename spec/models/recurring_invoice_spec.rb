@@ -53,6 +53,6 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "generates invoices according to finishing_date" do
-    expect(FactoryGirl.build(:recurring_invoice, status: 1, starting_date: Date.today << 1, max_occurrences: nil).generate_pending_invoices.count).to eq(31)
+    expect(FactoryGirl.build(:recurring_invoice, status: 1, starting_date: Date.today - 30, max_occurrences: nil).generate_pending_invoices.count).to eq(31)
   end
 end
