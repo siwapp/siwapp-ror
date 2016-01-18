@@ -2,7 +2,7 @@ class InvoicesController < CommonsController
 
   # Gets the template to display invoices
   def get_template
-    if template = Template.first  # TODO: this should change
+    if template = Template.first  # TODO: this should change to get the default
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
       @template_url = ""
@@ -28,8 +28,9 @@ class InvoicesController < CommonsController
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
+    @settings = Settings.new
     html = render_to_string :inline => @template.template,
-      :locals => {:invoice => @invoice}
+      :locals => {:invoice => @invoice, :settings => @settings}
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
@@ -49,7 +50,7 @@ class InvoicesController < CommonsController
       format.json {
         render json: @items.map {|item|
           {
-            'label': "#{item.description} #{item.unitary_cost}", 
+            'label': "#{item.description} #{item.unitary_cost}",
             'value': item.description,
             'id': item.id,
             'unitary_cost': item.unitary_cost

@@ -2,7 +2,7 @@ class SettingsController < ApplicationController
   # Global configuration settings
   def global
     if request.post?  # save values posted
-      [:company_name, :company_address, :company_phone,
+      [:company_name, :company_vat_id, :company_address, :company_phone,
           :company_email, :company_url, :company_logo,
           :currency, :legal_terms]
       .each do |key|
@@ -11,6 +11,7 @@ class SettingsController < ApplicationController
       end
     end
     @company_name = (Property.find_by key: 'company_name').value
+    @company_vat_id = (Property.find_by key: 'company_vat_id').value
     @company_address = (Property.find_by key: 'company_address').value
     @company_phone = (Property.find_by key: 'company_phone').value
     @company_email = (Property.find_by key: 'company_email').value
@@ -23,8 +24,8 @@ class SettingsController < ApplicationController
   end
 
   def my_configuration
-    # This is still pretty lame. Validation errors should be shown into
-    # the form.
+    # TODO: This is still pretty lame. Validation errors should be shown into
+    #       the form.
     @user = current_user
     if request.post?
       @user.update_attribute(:name, params[:user][:name])

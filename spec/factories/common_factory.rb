@@ -59,12 +59,9 @@ FactoryGirl.define do
         end
       end
 
-
-
-        
       factory :recurring_invoice, class: RecurringInvoice do
         starting_date Date.today
-        finishing_date Date.today + 30  # 30 days later
+        finishing_date Date.today + 7  # 1 week later
         period 1
         period_type "days"
         max_occurrences 5

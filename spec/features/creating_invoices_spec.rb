@@ -25,14 +25,14 @@ feature 'Creating Invoices' do
     expect(customer.email).to eq('pepe@abc.com')
   end
 
-  # scenario 'autocomplete of customer fields', :js => true, driver: :webkit do
-  #   FactoryGirl.create_list(:customer, 5)
-  #   visit '/invoices/new'
-  #   fill_in 'Name', with: 'dem'
-  #   # click over the ajax result
-  #   find('li.ui-menu-item').click
-  #   # and we should have data filled
-  #   expect(find('#invoice_email').value).to eq 'info@democompany.com'
-  #   expect(find('#invoice_identification').value).to eq 'D-1234'
-  # end
+  scenario 'autocomplete of customer fields', :js => true, driver: :webkit do
+    FactoryGirl.create_list(:customer, 5)
+    visit '/invoices/new'
+    fill_in 'Name', with: 'dem'
+    # click over the ajax result
+    find('li.ui-menu-item').click
+    # and we should have data filled
+    expect(find('#invoice_email').value).to eq 'info@democompany.com'
+    expect(find('#invoice_identification').value).to eq 'D-1234'
+  end
 end

@@ -44,19 +44,21 @@
 
     </ul>
     </div>
-    <div class="btn-group navbar-btn navbar-right hidden-xs pull-right">
-        <% if current_type() == "Invoice" or current_type == "RecurringInvoice" or current_type == "Customer" %>
-          <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
-        <% end %>
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-          <span class="caret"></span>
-          <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu" role="menu">
-          <li><a href="<%= new_invoice_path %>">New Invoice</a></li>
-          <li><a href="<%= new_recurring_invoice_path %>">New Recurring Invoice</a></li>
-          <li class="divider"></li>
-          <li><a href="<%= new_customer_path %>">New Customer</a></li>
-        </ul>
-      </div>
+    <div class="btn-group navbar-btn pull-xs-right hidden-xs">
+      <% if current_type != 'Session' and current_type != 'Setting' %>
+      <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
+      <% else %>
+      <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
+      <% end %>
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="<%= new_invoice_path %>">New Invoice</a></li>
+        <li><a href="<%= new_recurring_invoice_path %>">New Recurring Invoice</a></li>
+        <li class="divider"></li>
+        <li><a href="<%= new_customer_path %>">New Customer</a></li>
+      </ul>
+    </div>
 </nav><!-- /.navbar -->

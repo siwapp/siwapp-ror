@@ -25,30 +25,30 @@ feature 'Editing Invoices' do
     expect(page).to have_content("Only valid emails")
   end
 
-  # scenario 'Adding a payments to an Invoice', js: true, driver: :webkit do
-  #
-  #   FactoryGirl.create(:invoice_unpaid, id: 3)
-  #   visit "/invoices/3/edit"
-  #
-  #   # click over "add payment",
-  #   find('a.add_fields[data-association=payment]').click
-  #
-  #   # a new payment div appears ...
-  #   new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
-  #   expect(page).to have_selector(:xpath, new_payment_xpath)
-  #
-  #   within :xpath, new_payment_xpath do
-  #     # default amount: what's left to pay
-  #     expect(find('input[name*="amount"]').value.to_i).to eq 25
-  #     # default date: today
-  #     expect(find('input[name*="date"]').value).to eq Date.today.iso8601
-  #   end
-  #
-  #   # click over "remove payment"
-  #   find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]").click
-  #
-  #   # ... the div is gone
-  #   expect(page).to have_no_selector(:xpath, new_payment_xpath)
-  # end
+  scenario 'Adding a payments to an Invoice', js: true, driver: :webkit do
+
+    FactoryGirl.create(:invoice_unpaid, id: 3)
+    visit "/invoices/3/edit"
+
+    # click over "add payment",
+    find('a.add_fields[data-association=payment]').click
+
+    # a new payment div appears ...
+    new_payment_xpath = "//div[not(@style) and @class='js-payment'][a[contains(@class, 'dynamic')]]"
+    expect(page).to have_selector(:xpath, new_payment_xpath)
+
+    within :xpath, new_payment_xpath do
+      # default amount: what's left to pay
+      expect(find('input[name*="amount"]').value.to_i).to eq 25
+      # default date: today
+      expect(find('input[name*="date"]').value).to eq Date.today.iso8601
+    end
+
+    # click over "remove payment"
+    find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]").click
+
+    # ... the div is gone
+    expect(page).to have_no_selector(:xpath, new_payment_xpath)
+  end
 
 end

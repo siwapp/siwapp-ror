@@ -59,7 +59,7 @@ end
 # https://github.com/ai/autoprefixer-rails/issues/47
 gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
-gem 'bootstrap', '~> 4.0.0.alpha1'
+gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'cocoon', '1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
