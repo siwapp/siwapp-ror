@@ -20,7 +20,7 @@ class Common < ActiveRecord::Base
     where('name LIKE :terms OR
            email LIKE :terms OR
            identification LIKE :terms',
-           terms: terms + '%')
+           terms: '%' + terms + '%')
   }
 
 protected
