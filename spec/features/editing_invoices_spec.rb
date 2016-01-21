@@ -25,6 +25,25 @@ feature 'Editing Invoices' do
     expect(page).to have_content("Only valid emails")
   end
 
+  scenario "Adding an item to an Invoice", js: true, driver: :webkit do
+    default_tax = FactoryGirl.create :tax, is_default: true, active: true
+
+    FactoryGirl.create :invoice, id: 3
+    visit "/invoices/3/edit"
+
+    # click over "add item"
+    find('a.add_fields[data-association=item]').click
+
+    # a new item div appears
+    new_item_xpath = "//div[not(@style) and @class='js-item'][a[contains(@class, 'dynamic')]]"
+    expect(page).to have_selector(:xpath, new_item_xpath)
+
+    within :xpath, new_item_xpath do
+      # default taxes
+      expect(find('select option[selected="selected"]').value.to_i).to eq default_tax.id
+    end
+  end
+
   scenario 'Adding a payments to an Invoice', js: true, driver: :webkit do
 
     FactoryGirl.create(:invoice_unpaid, id: 3)

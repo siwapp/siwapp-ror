@@ -3,13 +3,14 @@
     <legend>Items</legend>
 
     <%= f.fields_for :items  do |item_form| %>
-      <%= render partial: 'shared/item_fields', locals: {f: item_form} %>
+      <%= render partial: 'shared/item_fields', locals: {f: item_form, is_new: false} %>
     <% end %>
 
     <%= link_to_add_association 'add item', f, :items,
           'data-association-insertion-node' => 'this',
           'data-association-insertion-method' => 'before',
-	  :partial => 'shared/item_fields'
+	  :partial => 'shared/item_fields',
+          :render_options => {locals:{is_new: true}}
 	  %>
   </fieldset>
 
