@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @series %> |
+<div class="bottom-buttons">
 <%= link_to 'Back', series_index_path %>
+<%= link_to 'Destroy', @series, method: :delete, data: { confirm: 'Are you sure?' } %> |
+</div>

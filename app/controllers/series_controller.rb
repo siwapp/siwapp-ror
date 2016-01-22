@@ -28,7 +28,7 @@ class SeriesController < ApplicationController
 
     respond_to do |format|
       if @series.save
-        format.html { redirect_to @series, notice: 'Series was successfully created.' }
+        format.html { redirect_to series_index_url, notice: 'Series was successfully created.' }
         format.json { render :show, status: :created, location: @series }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class SeriesController < ApplicationController
   def update
     respond_to do |format|
       if @series.update(series_params)
-        format.html { redirect_to @series, notice: 'Series was successfully updated.' }
+        format.html { redirect_to series_index_url, notice: 'Series was successfully updated.' }
         format.json { render :show, status: :ok, location: @series }
       else
         format.html { render :edit }

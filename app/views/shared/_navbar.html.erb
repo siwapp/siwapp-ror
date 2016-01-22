@@ -34,7 +34,6 @@
             <li><a href="<%= taxes_path %>">Taxes</a></li>
             <li><a href="<%= templates_path %>">Templates</a></li>
             <li class="divider"></li>
-            <li><a href="#">Modules</a></li>
           </ul>
 
         </li>
@@ -44,9 +43,9 @@
 
     </ul>
     </div>
-    <div class="btn-group navbar-btn pull-xs-right hidden-xs">
+    <div class="btn-group navbar-btn pull-xs-right">
       <% if current_type != 'Session' and current_type != 'Setting' %>
-      <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary">New <%= current_type_name() %></a>
+      <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary text-capitalize">New <%= current_type_name() %></a>
       <% else %>
       <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
       <% end %>

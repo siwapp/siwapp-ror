@@ -15,11 +15,7 @@ feature 'Creating Taxes' do
 
     click_button 'Create Tax'
     expect(page).to have_content('Tax was successfully created.')
-    tax = Tax.where(name: 'IVA').first
-    expect(page.current_url).to eql(tax_url(tax))
-
-    title = "Siwapp - Taxes - IVA"
-    expect(page).to have_title(title)
+    expect(page.current_url).to eql(taxes_url)
   end
 
   scenario 'can not create invoice without name' do

@@ -5,7 +5,6 @@ feature 'Editing Taxes' do
     FactoryGirl.create(:tax, name:"Test Tax")
     visit "/taxes"
     click_link "Test Tax"
-    click_link "Edit"
   end
 
   scenario 'Updating a Tax' do
