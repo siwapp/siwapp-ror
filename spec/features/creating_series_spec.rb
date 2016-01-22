@@ -4,7 +4,7 @@ feature 'Creating Series' do
 
   before do
     visit '/series'
-    first(:link, 'New Serie').click
+    first(:link, 'New Series').click
   end
 
   scenario 'can create a series' do
@@ -15,11 +15,7 @@ feature 'Creating Series' do
 
     click_button 'Create Series'
     expect(page).to have_content('Series was successfully created.')
-    series = Series.where(name: 'Agro supplies').first
-    expect(page.current_url).to eql(series_url(series))
-
-    title = "Siwapp - Series - Agro supplies"
-    expect(page).to have_title(title)
+    expect(page.current_url).to eql(series_index_url)
   end
 
   scenario 'can not create invoice without value' do

@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @tax %> |
+<div class="bottom-buttons">
+<%= link_to 'Destroy', @tax, method: :delete, data: { confirm: 'Are you sure?' } %> |
 <%= link_to 'Back', taxes_path %>
+</div>

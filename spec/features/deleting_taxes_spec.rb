@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Deleting taxes' do
   scenario 'Delete a tax from the listing page' do
     tax = FactoryGirl.create(:tax)
-    visit '/taxes'
+    visit '/taxes/1/edit'
     click_link 'Destroy'
     expect(page).to have_content('Tax was successfully destroyed')
     visit '/taxes'

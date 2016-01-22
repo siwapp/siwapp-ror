@@ -5,7 +5,6 @@ feature 'Editing Series' do
     FactoryGirl.create(:series, name: "Test Series")
     visit "/series"
     click_link "Test Series"
-    click_link "Edit"
   end
 
   scenario 'Updating a Series' do
