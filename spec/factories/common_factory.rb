@@ -29,6 +29,7 @@ FactoryGirl.define do
         # net:       123.30
         # tax:        2.466
         # gross:    125.766
+        common.save
       end
 
       factory :invoice, class: Invoice do
@@ -46,6 +47,7 @@ FactoryGirl.define do
 
           invoice.set_amounts
           # paid:     125.766
+          invoice.save
         end
       end
 
