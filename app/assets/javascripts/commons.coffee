@@ -6,7 +6,7 @@ set_amounts = (controller_name, form) ->
   $.get url, ->
     return
 
-# Function to get amounts json and do anything with them via callbac
+# Function to get amounts json and do anything with them via callback
 # Receives a controller name as string, and a form object to serialize
 # retrieves amounts in a json
 get_amounts = (controller_name, form, callback) ->
