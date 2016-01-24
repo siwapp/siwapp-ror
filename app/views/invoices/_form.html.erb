@@ -11,23 +11,21 @@
     </div>
   <% end %>
 
-  <p>
-    <%= render partial: 'customers/form_fields', locals: {f: f} %>
-    <%= f.label :id, "Customer id (this will be hidden)" %> <%= f.text_field :customer_id %>
+  <h2>Customer Information</h2>
+  <%= render partial: 'customers/form_fields', locals: {f: f} %>
+  <%= f.label :customer_id, "Customer id (this will be hidden)" %> <%= f.text_field :customer_id %>
 
-    <% if @invoice.new_record? or @invoice.draft %>
-      <%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s %><br/>
-    <% else %>
-      <%= @invoice %><br>
-    <% end %>
-    <%= f.label :issue_date %> <%= f.date_field :issue_date %><br/>
-    <%= f.label :due_date %> <%= f.date_field :due_date %><br/>
-    <% if @invoice.new_record? or @invoice.draft %>
-      <%= f.check_box :draft %> <%= f.label :draft %>
-    <% end %>
-  </p>
+  <h2>Invoice detail</h2>
+  <div class="row">
+    <div class="col-sm-4"><%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s %></div>
+    <div class="col-sm-4"><%= f.label :issue_date %> <%= f.date_field :issue_date %></div>
+    <div class="col-sm-4"><%= f.label :due_date %> <%= f.date_field :due_date %></div>
+  </div>
 
-  <%= render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice} %>
+  <% if @invoice.new_record? or @invoice.draft %>
+    <%= f.check_box :draft %> <%= f.label :draft %>
+  <% end %>
+
   <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <% unless @invoice.new_record? %>
@@ -43,6 +41,8 @@
             'data-association-insertion-method' => 'before' %>
     </fieldset>
   <% end %>
+
+  <%= render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice} %>
 
   <div class="actions">
     <%= f.submit %>
