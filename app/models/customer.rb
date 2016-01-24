@@ -8,6 +8,19 @@ class Customer < ActiveRecord::Base
     where('name LIKE :terms OR email LIKE :terms OR identification LIKE :terms', terms: '%' + terms + '%')
   }
 
+  def total
+    invoices.where('draft = :draft', draft: false).sum :gross_amount || 0
+  end
+
+  def paid
+    invoices.where('draft = :draft', draft: false).sum :paid_amount || 0
+  end
+
+  def due
+    total - paid
+  end
+
+
 private
 
   def self.ransackable_scopes(auth_object = nil)

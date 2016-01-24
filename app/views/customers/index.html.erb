@@ -21,8 +21,8 @@
       <tr data-href="<%= edit_customer_path(customer) %>">
         <td><%= customer.name %></td>
         <td><%= customer.identification %></td>
-        <td></td>
-        <td></td>
+        <td><%= customer.due.round 2 %></td>
+        <td><%= customer.total.round 2 %></td>
       </tr>
     <% end %>
   </tbody>

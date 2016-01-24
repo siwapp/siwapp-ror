@@ -58,6 +58,7 @@ FactoryGirl.define do
           create(:payment, invoice: i, date: Date.today, amount: 100)
           i.reload
           i.set_amounts
+          i.save
         end
       end
 
