@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160128161211) do
+ActiveRecord::Schema.define(version: 20160128180627) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -179,6 +179,7 @@ ActiveRecord::Schema.define(version: 20160128161211) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "models",     limit: 200
+    t.boolean  "default"
   end
 
   create_table "users", force: :cascade do |t|
