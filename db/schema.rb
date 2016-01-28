@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215234718) do
+ActiveRecord::Schema.define(version: 20160128161211) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20151215234718) do
     t.date     "last_execution_date"
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
+    t.integer  "template_id",          limit: 4
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -75,11 +76,11 @@ ActiveRecord::Schema.define(version: 20151215234718) do
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4
+    t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer "common_id",    limit: 4,                                           null: false
     t.string  "description",  limit: 20000
-    t.decimal "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
+    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
   end
 
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(version: 20151215234718) do
 
   create_table "properties", force: :cascade do |t|
     t.string "key",   limit: 255,   null: false
-    t.text   "value", limit: 65535
+    t.text "value", limit: 65535
   end
 
   create_table "series", force: :cascade do |t|

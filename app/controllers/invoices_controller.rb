@@ -2,8 +2,15 @@ class InvoicesController < CommonsController
 
   # Gets the template to display invoices
   def get_template
-    if template = Template.first  # TODO: this should change to get the default
-      @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
+    if @invoice.template_id
+      template = Template.find(@invoice.template_id)
+    else
+      # use first template if none set
+      template = Template.first
+    end
+    #template = Template.find()  # TODO: this should change to get the default
+    if template
+        @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
       @template_url = ""
     end
