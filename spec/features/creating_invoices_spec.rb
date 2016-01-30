@@ -6,7 +6,7 @@ feature 'Creating Invoices' do
     FactoryGirl.create(:series)
   end
 
-  scenario 'can create an invoice' do
+  scenario 'can create an invoice', :js => true, driver: :webkit do
     visit '/invoices'
     first(:link, 'New Invoice').click
     select 'Example Series', from: 'invoice_series_id'
@@ -15,10 +15,10 @@ feature 'Creating Invoices' do
     fill_in 'Email', with: 'pepe@abc.com'
     fill_in 'Issue date', with: Date.today
 
-    click_button 'Create Invoice'
+    click_on 'Save'
     expect(page).to have_content('Invoice was successfully created.')
     invoice = Invoice.where(name: 'Test Customer').first
-    expect(page.current_url).to eql invoices_url
+    expect(page.current_path).to eql invoices_path
 
     # Chech that customer is created
     customer = Customer.where(name: 'Test Customer').first

@@ -38,3 +38,9 @@ jQuery(document).ready ($) ->
   $(document).on 'click', ':checkbox[name=check_all]', (e) ->
     checked = $(this).is(':checked')
     $('td.checks input:checkbox').prop('checked', checked)
+
+  # Bottom buttons to save forms:
+  $(document).on 'click', '.form-save', (e) ->
+    e.preventDefault()
+    $('form').submit()
+
