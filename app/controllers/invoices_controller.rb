@@ -20,6 +20,7 @@ class InvoicesController < CommonsController
       redirect_to action: 'edit'
     else
       # Show the template in an iframe
+      @selected = ::Template.find_by(default: true)
       render
     end
   end

@@ -1,6 +1,12 @@
 <% title("Siwapp", "Invoices", @invoice.name)  %>
 <p id="notice"><%= notice %></p>
 <p id="alert"><%= alert %></p>
+
+<label for="template_selector">
+  Change Template
+  <%= select_tag("template_selector", options_from_collection_for_select(::Template.all, :id, :name, @selected.id)) %>
+</label>
+
 <iframe src="<%= @template_url %>" width="100%" height="900"></iframe>
 
 <div class="bottom-buttons">
