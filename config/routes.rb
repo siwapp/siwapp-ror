@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     get 'autocomplete', on: :collection
   end
 
+  post 'templates/set_default', to: 'templates#set_default'
+
   get 'settings/global'
   post 'settings/global'
   get 'settings/my_configuration'

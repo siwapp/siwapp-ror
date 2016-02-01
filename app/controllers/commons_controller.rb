@@ -20,7 +20,7 @@ class CommonsController < ApplicationController
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
-    # series has ti be included after totals calculations
+    # series has to be included after totals calculations
     results = results.includes :series
 
     set_listing results.paginate(page: params[:page], per_page: 20)
