@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215234718) do
+ActiveRecord::Schema.define(version: 0) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
