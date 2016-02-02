@@ -1,4 +1,5 @@
 class TaxesController < ApplicationController
+  before_action :set_type
   before_action :set_tax, only: [:show, :edit, :update, :destroy]
 
   # GET /taxes

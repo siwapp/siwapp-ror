@@ -44,8 +44,8 @@
     </ul>
     </div>
     <div class="btn-group navbar-btn pull-xs-right">
-      <% if current_type != 'Session' and current_type != 'Setting' %>
-      <a href="<%= sti_path(current_type(), 'new') %>" class="btn btn-primary text-capitalize">New <%= current_type_name() %></a>
+      <% if @type %>
+      <a href="<%= sti_path(@type, 'new') %>" class="btn btn-primary text-capitalize">New <%= current_type_name() %></a>
       <% else %>
       <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
       <% end %>

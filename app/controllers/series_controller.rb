@@ -1,4 +1,5 @@
 class SeriesController < ApplicationController
+  before_action :set_type
   before_action :set_series, only: [:show, :edit, :update, :destroy]
 
   # GET /series
