@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
   <title>
     <% if content_for?(:title) %>
       <%= yield(:title) %>
@@ -8,22 +12,23 @@
       Siwapp
     <% end %>
   </title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons'%>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
   <%= csrf_meta_tags %>
 </head>
-<body style="padding-top: 70px;">
+<body>
   <%= render partial: 'shared/navbar' %>
-
   <div class="container-fluid" role="main">
+
     <% flash.each do |message_type, message| %>
       <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
     <% end %>
+
     <%= content_for?(:content) ? yield(:content) : yield %>
+
   </div>
 </body>
 </html>
