@@ -13,16 +13,17 @@
  *= require jquery-ui
  */
 
+@import "variables"
 @import "bootstrap"
 @import "jquery-ui/autocomplete"
 
-.form-group 
+.form-group
   padding: 20px 0
 
 .dropdown-menu
   padding: 10px 5px
 
-.material-icons.md-16 
+.material-icons.md-16
   font-size: 16px
 
 .material-icons.margin-4
@@ -31,5 +32,5 @@
 // To place buttons at the bottom right of the page
 .bottom-buttons
   position: fixed
-  bottom: 1em
-  right: 1em
+  bottom: $spacer
+  right: $spacer
