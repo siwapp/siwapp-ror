@@ -21,10 +21,13 @@
 #= require cocoon
 #= require js-routes
 #= require jquery.infinitescroll
+#= require fastclick
 #= require turbolinks
 
 
-jQuery(document).ready ($) ->
+$ ->
+  new FastClick(document.body)
+
   # All existing and future table rows with the data-href attribute act as links
   $(document).on 'click', 'tr[data-href]', (e) ->
     e.preventDefault()
