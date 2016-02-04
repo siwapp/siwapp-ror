@@ -13,14 +13,17 @@
     <% end %>
   </title>
 
+  <%= stylesheet_link_tag    '//fonts.googleapis.com/icon?family=Material+Icons'%>
+  <%= stylesheet_link_tag    '//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic'%>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= stylesheet_link_tag    'https://fonts.googleapis.com/icon?family=Material+Icons'%>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
   <%= csrf_meta_tags %>
 </head>
 <body>
   <%= render partial: 'shared/navbar' %>
+
   <div class="container-fluid" role="main">
 
     <% flash.each do |message_type, message| %>
@@ -28,6 +31,12 @@
     <% end %>
 
     <%= content_for?(:content) ? yield(:content) : yield %>
+
+    <% if @type %>
+    <a href="<%= sti_path(@type, 'new') %>" class="btn btn-primary text-capitalize">New <%= current_type_name() %></a>
+    <% else %>
+    <a href="<%= new_invoice_path %>" class="btn btn-primary">New Invoice</a>
+    <% end %>
 
   </div>
 </body>

@@ -18,21 +18,23 @@
 </div>
 
 <%= form_tag remove_recurring_invoices_path, :method => :delete do -%>
-<%= submit_tag 'Remove Selected' %>
-<table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th><%= check_box_tag "check_all" %>
-      <th><%= sort_link(@search, :series_value, "Series") %></th>
-      <th><%= sort_link(@search, :name, "Customer") %></th>
-      <th><%= sort_link(@search, :period_type, "Frecuency") %></th>
-      <th><%= sort_link(@search, :status, "Status") %></th>
-      <th style="text-align:right;"><%= sort_link(@search, :gross_amount, "Total")%></th>
-    </tr>
-  </thead>
+  <%= submit_tag 'Remove Selected' %>
+  <div class="table-responsive">
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th><%= check_box_tag "check_all" %>
+          <th><%= sort_link(@search, :series_value, "Series") %></th>
+          <th><%= sort_link(@search, :name, "Customer") %></th>
+          <th><%= sort_link(@search, :period_type, "Frecuency") %></th>
+          <th><%= sort_link(@search, :status, "Status") %></th>
+          <th style="text-align:right;"><%= sort_link(@search, :gross_amount, "Total")%></th>
+        </tr>
+      </thead>
 
-  <tbody class="js-iscroll">
-    <%= render @recurring_invoices %>
-  </tbody>
-</table>
+      <tbody class="js-iscroll">
+        <%= render @recurring_invoices %>
+      </tbody>
+    </table>
+  </div>
 <% end %>

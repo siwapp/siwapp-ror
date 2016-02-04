@@ -1,3 +1,9 @@
+<% if true %>
+
+<%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search by customer name, email or VAT ID…' %>
+
+<% else %>
+
 <div class="input-group">
   <% if defined?(with_filters) %>
     <div class="input-group-btn">
@@ -20,3 +26,5 @@
     </button>
   </div>
 </div><!-- .input-group:terms -->
+
+<% end %>
