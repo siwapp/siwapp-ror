@@ -45,9 +45,7 @@
     </div>
   </div>
 
-  <% if @search and true %>
-    <%= search_form_for @search, html: {id: "js-search-form", class:"collapse navbar-toggleable-md pull-lg-right"} do |f| %>
-      <%= render 'shared/searchform', f: f %>
-    <% end %>
+  <% if @search %>
+    <%= render 'shared/searchform' %>
   <% end %>
 </nav>

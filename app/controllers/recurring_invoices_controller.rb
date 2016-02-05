@@ -15,6 +15,11 @@ class RecurringInvoicesController < CommonsController
 
   protected
 
+  def configure_search
+    super
+    @search_filters = true
+  end
+
   def set_listing(instances)
     @recurring_invoices = instances
   end

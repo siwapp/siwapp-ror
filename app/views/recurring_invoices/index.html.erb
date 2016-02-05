@@ -7,14 +7,6 @@
   <% if @has_pendings %>
   <div><%= link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post %><%= @get_pendings %></div>
   <% end %>
-  <%= search_form_for @search, html: {id: "searchform"} do |f| %>
-    <div class="col-xs-12 col-md-8 col-md-pull-4">
-      <%= render 'shared/searchform', f: f, with_filters: true %>
-    </div>
-    <div id="searchform__filters" class="col-xs-12 collapse">
-      <%= render 'searchform__filters', f: f %>
-    </div>
-  <% end %>
 </div>
 
 <%= form_tag remove_recurring_invoices_path, :method => :delete do -%>

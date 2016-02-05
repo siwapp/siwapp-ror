@@ -1,30 +1,21 @@
-<% if true %>
+<%= search_form_for @search, html: {class: "collapse nav navbar-nav navbar-toggleable-md siwapp-search-form", id: "js-search-form"} do |f| %>
 
-<%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search by customer name, email or VAT ID…' %>
-
-<% else %>
-
-<div class="input-group">
-  <% if defined?(with_filters) %>
+  <div class="input-group pull-lg-right siwapp-input-search">
+    <% if @search_filters %>
+      <div class="input-group-btn">
+        <button type="button" class="btn btn-secondary material-icons" data-toggle="collapse" data-target="#js-search-filters">expand_more</button>
+      </div>
+    <% end %>
+    <%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search…', title: 'Search by customer, email or VAT ID' %>
     <div class="input-group-btn">
-      <button type="button" class="btn btn-default --dropup-- --active--" data-toggle="collapse" data-target="#searchform__filters" aria-pressed="false" autocomplete="off">
-        <span class="hidden-xs">Advanced</span>
-        <span class="caret"></span>
-      </button>
+      <button type="submit" class="btn btn-primary material-icons">search</button>
+    </div>
+  </div>
+
+  <% if @search_filters %>
+    <div class="collapse siwapp-search-filters" id="js-search-filters">
+      <%= render 'searchform__filters', f: f %>
     </div>
   <% end %>
-
-  <%= f.text_field :with_terms, class: 'form-control', placeholder: 'Search by customer name, email or VAT ID…' %>
-
-  <div class="input-group-btn">
-    <button href="<%= sti_path(current_type()) %>" class="btn btn-secondary">
-      <i class="material-icons md-16">cached</i>
-    </button>
-    <button type="submit" class="btn btn-primary">
-      <i class="material-icons md-16">search</i>
-      &nbsp;Search
-    </button>
-  </div>
-</div><!-- .input-group:terms -->
 
 <% end %>
