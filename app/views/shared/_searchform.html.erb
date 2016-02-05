@@ -13,8 +13,10 @@
   </div>
 
   <% if @search_filters %>
-    <div class="collapse siwapp-search-filters" id="js-search-filters">
-      <%= render 'searchform__filters', f: f %>
+    <div class="siwapp-search-filters">
+      <div class="collapse siwapp-search-filters__content" id="js-search-filters">
+        <%= render 'searchform__filters', f: f %>
+      </div>
     </div>
   <% end %>
 
