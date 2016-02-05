@@ -10,22 +10,28 @@
 # Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 # about supported directives.
 #
+# jQuery & Utils
+#
 #= require jquery2
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery-ui/autocomplete
-# This tether.min is required by bootstrap4 and should be before it
-#= require tether.min
-#= require bootstrap
-#= require_tree
-#= require cocoon
-#= require js-routes
 #= require jquery.infinitescroll
 #= require fastclick
+#
+# Bootstrap 4
+#
+#= require tether
+#= require bootstrap
+#
+#= require_tree .
+#= require cocoon
+#= require js-routes
+#
 #= require turbolinks
 
 
-$ ->
+jQuery(document).ready ($) ->
   new FastClick(document.body)
 
   # All existing and future table rows with the data-href attribute act as links

@@ -14,6 +14,27 @@ get_amounts = (controller_name, form, callback) ->
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
+# Retrieves the common part of the id of all fields in a cocoon formset row
+get_id_prefix = (input_field) ->
+  id_prefix = input_field.attr('id')
+  id_prefix = id_prefix.substring(0, id_prefix.lastIndexOf('_'))
+  id_prefix
+
+# Function to initialize autocomplete behavior on invoice-like items
+# on load and when a new item is inserted.
+init_invoice_item_autocomplete = (input_field) ->
+  id_prefix = get_id_prefix input_field
+  input_field.autocomplete source: '/invoices/autocomplete.json', select: (event, ui) ->
+    $("##{id_prefix}_unitary_cost").val ui.item.unitary_cost
+    $("##{id_prefix}_unitary_cost").trigger "change" # to trigger recalculations
+
+# Function to deactivate autocomplete behavior on invoice-like items
+# when they are removed.
+destroy_invoice_item_autocomplete = (input_field) ->
+  if input_field.data 'autocomplete'
+    input_field.autocomplete 'destroy'
+    input_field.removeData 'autocomplete'
+
 # Works with Turbolinks thanks to:
 # - http://github.com/kossnocorp/jquery.turbolinks
 # - https://github.com/rails/turbolinks#jqueryturbolinks
@@ -50,7 +71,11 @@ jQuery(document).ready ($) ->
       .on 'cocoon:after-remove', (e, item) ->
         set_amounts(controller_name, form)
 
-    # Set defaults when adding payment
+    # Find invoice items and init autocomplete
+    form.find(".item-description").each () ->
+      init_invoice_item_autocomplete $(this)
+
+    # Set defaults when adding something dynamic to the form with cocoon
     form.on 'cocoon:after-insert', (e, item) ->
       if item.hasClass 'js-payment'
         # default amount is what's unpaid
@@ -63,6 +88,14 @@ jQuery(document).ready ($) ->
         # default date is today
         date_item = item.find 'input[name*=date]'
         date_item.val (new Date).toISOString().substr 0, 10
+      else if item.hasClass 'js-item'
+        init_invoice_item_autocomplete item.find('.item-description')
+
+    # Execute actions when something dynamic is removed from the form
+    # with cocoon
+    form.on 'cocoon:before-remove', (e, item) ->
+      if item.hasClass 'js-item'
+        destroy_invoice_item_autocomplete item
 
     # Set the autocomplete for customer selection
     model = form.data('model')
