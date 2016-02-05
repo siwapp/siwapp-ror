@@ -4,17 +4,12 @@ feature 'Creating Recurring Invoices' do
 
   before do
     FactoryGirl.create(:series)
-    #visit '/signup'
-    #fill_in 'Name', with: 'Test Customer'
-    #fill_in 'Email', with: 'test@imail.com'
-    #fill_in 'Password', with: '12345678'
-    #fill_in 'Confirmation', with: '12346578'
-    #click_button 'Create my account'
-    visit '/recurring_invoices'
-    click_link 'New Recurring Invoice'
   end
 
   scenario 'can create a recurring invoice' do
+    visit '/recurring_invoices'
+    first(:link, 'New Recurring Invoice').click
+
     select 'Example Series', from: 'recurring_invoice_series_id'
 
     fill_in 'Starting date', with: '2015-02-28'
@@ -31,6 +26,9 @@ feature 'Creating Recurring Invoices' do
   end
 
   scenario 'can not create recurring invoice without customer name' do
+    visit '/recurring_invoices'
+    first(:link, 'New Recurring Invoice').click
+
     click_button 'Create Recurring invoice'
     expect(page).to have_content("Recurring Invoice has not been created.")
     expect(page).to have_content("Name can't be blank")
