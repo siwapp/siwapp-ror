@@ -40,15 +40,6 @@ destroy_invoice_item_autocomplete = (input_field) ->
 # - https://github.com/rails/turbolinks#jqueryturbolinks
 jQuery(document).ready ($) ->
 
-  # Infinite Scroll for table based listings.
-  # Add .js-iscroll to the <tbody> node that will contain the items.
-  $('.js-iscroll').infinitescroll({
-    navSelector: '.pagination'
-    nextSelector: '.pagination .next_page'
-    itemSelector: '.js-iscroll > tr'
-    prefill: true
-  })
-
   # Find forms that behave like an invoice
   # Those forms have a data-controller attribute that contains the current
   # controller name and are matched also by a .js-invoice-like class.

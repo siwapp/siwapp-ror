@@ -16,7 +16,7 @@
       <table class="table table-hover table-striped">
         <thead>
           <tr>
-            <th><%= check_box_tag "check_all" %>
+            <th data-role="select-all"><%= check_box_tag "select_all", 1 %>
             <th><%= sort_link(@search, :series_value, "Number") %></th>
             <th><%= sort_link(@search, :name, "Customer Name") %></th>
             <th><%= sort_link(@search, :issue_date, "Date") %></th>
