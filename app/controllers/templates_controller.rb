@@ -1,4 +1,5 @@
 class TemplatesController < ApplicationController
+  before_action :set_type
   before_action :set_template, only: [:show, :edit, :update, :destroy]
 
   # GET /templates
@@ -45,7 +46,7 @@ class TemplatesController < ApplicationController
     if selected
       new_default = Template.find(id=selected)
     end
-    if new_default
+    if new_default and new_default != current_default
       new_default.default = true
       new_default.save()
       current_default.default = false

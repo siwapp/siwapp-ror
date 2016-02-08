@@ -1,5 +1,5 @@
 <tr data-href="<%= invoice_path(invoice) %>">
-  <td class="checks"><%= check_box_tag "invoice_ids[]", invoice.id -%></td>
+  <td data-role="select"><%= check_box_tag "invoice_ids[]", invoice.id -%></td>
   <td><%= link_to invoice, invoice %></td>
   <td><%= invoice.name %></td>
   <td><%= invoice.issue_date %></td>

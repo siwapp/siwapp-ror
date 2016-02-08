@@ -3,7 +3,8 @@
 <%= render 'form' %>
 
 <div class="bottom-buttons">
-<%= link_to 'Back', invoices_path %> |
-<%= link_to 'Destroy', @invoice, method: :delete, data: { confirm: 'Are you sure?' } %> |
-<% if @template_url %><%= link_to 'PDF', @template_url + '.pdf' %><% end %>
+<%= link_to 'Back', invoices_path, class: 'btn btn-primary' %>
+<%= link_to 'Delete', @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<% if @template_url %><%= link_to 'PDF', @template_url + '.pdf', class: 'btn btn-primary' %><% end %>
+<%= link_to 'Save', '#', class: 'btn btn-success form-save' %>
 </div>

@@ -1,29 +1,29 @@
   <fieldset data-changes="amount">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Description</th>
-          <th>Quantity</th>
-          <th>Unitary Cost</th>
-          <th>Taxes</th>
-          <th>Discount</th>
-          <th>Price</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= f.fields_for :items  do |item_form| %>
-          <%= render partial: 'shared/item_fields', locals: {f: item_form, is_new: false} %>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Unitary Cost</th>
+            <th>Taxes</th>
+            <th>Discount</th>
+            <th>Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :items  do |item_form| %>
+            <%= render partial: 'shared/item_fields', locals: {f: item_form, is_new: false} %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
     <%= link_to_add_association 'add item', f, :items,
           'data-association-insertion-node' => '.table tbody',
           'data-association-insertion-method' => 'append',
           :partial => 'shared/item_fields',
-          :render_options => {locals:{is_new: true}}
+          :render_options => {locals: {is_new: true}}
 	  %>
   </fieldset>
-
-<%= javascript_include_tag 'items' %>

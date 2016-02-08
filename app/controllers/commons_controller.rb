@@ -2,6 +2,7 @@ class CommonsController < ApplicationController
   include StiHelper
 
   before_action :set_type
+  before_action :configure_search
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
   # TODO (@ecoslado) Make the tests to work with login_required activated
@@ -10,9 +11,6 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /commons.json
   def index
-    @search = model.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
-
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
@@ -129,6 +127,19 @@ class CommonsController < ApplicationController
 
   protected
 
+  # Protected: configures search
+  #
+  # Sets @search to be used with search_form_for.
+  # Set @search_filters to true in children controllers to load the
+  # advanced search filters partial located at views/<controller>/.
+  #
+  # Returns the same value received
+  def configure_search
+    @search = model.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search_filters = false
+  end
+
   # Protected: set an instance variable for a list of items of the current model
   #
   # Must be overriden in children controllers.
@@ -178,32 +189,6 @@ class CommonsController < ApplicationController
       flash[:error] = "You must be logged in to access this section"
       redirect_to login_url # halts request cycle
     end
-  end
-
-  # Private: sets the type of the object based on the current controller
-  #
-  # Examples:
-  #   class CommonController => "Common"
-  #   class InvoiceController < CommonController => "Invoice"
-  #   class RecurringInvoiceController < CommonController => "RecurringInvoice"
-  #
-  # Returns a string with the name of the model
-  def set_type
-    @type = controller_name.classify
-  end
-
-  # Private: gets the constant for the current model type.
-  #
-  # Returns the constant that refers to the class.
-  def model
-    @type.constantize
-  end
-
-  # Private: obtain a "human" name for the current model type.
-  #
-  # Returns a string
-  def type_label
-    @type.underscore.humanize.titleize
   end
 
   # Private: callback to set the instance object that most of the actions use.

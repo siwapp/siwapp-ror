@@ -55,6 +55,6 @@ module StiHelper
 
   # Returns a "humanized" version of the current type name
   def current_type_name
-    current_type.constantize.model_name.human
+    current_type.constantize.model_name.human.titleize
   end
 end

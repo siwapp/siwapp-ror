@@ -1,20 +1,19 @@
 <h1>Listing Series</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @series.each do |series| %>
+<div class="table-responsive">
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to series.name, edit_series_path(series) %></td>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
 
-<br>
-
+    <tbody>
+      <% @series.each do |series| %>
+        <tr>
+          <td><%= link_to series.name, edit_series_path(series) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

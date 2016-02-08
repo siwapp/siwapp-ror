@@ -13,23 +13,32 @@
  *= require jquery-ui
  */
 
+@import "variables"
 @import "bootstrap"
 @import "jquery-ui/autocomplete"
 
-.form-group 
-  padding: 20px 0
+body
+  padding-top: 4rem
 
-.dropdown-menu
-  padding: 10px 5px
+.siwapp-logo
+  max-width: 100%
+  height: auto
 
-.material-icons.md-16 
-  font-size: 16px
+tr[data-href]
+  cursor: pointer
 
-.material-icons.margin-4
-  margin: 4px
+.ui-autocomplete
+  max-height: 12.5rem
+  overflow-y: scroll
+  overflow-x: hidden
+
+@import "objects/navbar"
+@import "objects/searchform"
+@import "objects/material-icons"
+
 
 // To place buttons at the bottom right of the page
 .bottom-buttons
   position: fixed
-  bottom: 1em
-  right: 1em
+  bottom: 1rem
+  right: 1rem

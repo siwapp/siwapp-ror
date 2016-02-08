@@ -9,18 +9,18 @@ feature 'Editing Invoices' do
     click_link "Edit"
   end
 
-  scenario 'Updating an Invoice' do
+  scenario 'Updating an Invoice', :js => true, driver: :webkit do
     fill_in 'Name', with: 'Different Name'
     fill_in 'Email', with: 'different.name@test.com'
     fill_in 'Due date', with: Date.today + 30
-    click_button 'Update Invoice'
+    click_on 'Save'
     expect(page).to have_content("Invoice was successfully updated")
   end
 
-  scenario 'Can not update badly' do
+  scenario 'Can not update badly', :js => true, driver: :webkit do
     fill_in 'Name', with: ''
     fill_in 'Email', with: 'pepe.com'
-    click_button 'Update Invoice'
+    click_on 'Save'
     expect(page).to have_content('Invoice has not been saved')
     expect(page).to have_content("Only valid emails")
   end

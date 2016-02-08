@@ -1,0 +1,40 @@
+.siwapp-navbar
+  width: 100%
+
+  .navbar-brand
+    width: 7rem
+    height: 2rem
+
+    .siwapp-logo
+      position: relative
+      top: 2px
+
+  .navbar-toggler
+    padding: .25rem
+
+  .nav-link
+    text-transform: uppercase
+
+@include media-breakpoint-down(sm)
+  .siwapp-navbar-brand,
+  .siwapp-navbar-scroll
+    @include clearfix()
+    clear: both
+
+  .siwapp-navbar-scroll
+    overflow-x: scroll
+    overflow-y: hidden
+
+    margin-left: -1rem
+    margin-right: -1rem
+    padding-left: 1rem
+    padding-right: 1rem
+
+    -webkit-overflow-scrolling: touch
+    white-space: nowrap
+
+    .nav-item
+      display: inline-block
+      float: none
+      &:last-child
+        margin-right: 1rem

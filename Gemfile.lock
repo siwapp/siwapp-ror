@@ -85,6 +85,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
+    fastclick-rails (1.0.1)
     ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
@@ -247,6 +248,7 @@ DEPENDENCIES
   database_cleaner
   deep_cloneable (~> 2.1.1)
   factory_girl_rails (= 4.5.0)
+  fastclick-rails
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks (= 2.1.0)
@@ -272,3 +274,6 @@ DEPENDENCIES
   wicked_pdf
   will_paginate (= 3.0.7)
   wkhtmltopdf-binary
+
+BUNDLED WITH
+   1.11.2
