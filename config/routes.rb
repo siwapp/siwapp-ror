@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   end
 
   post 'templates/set_default', to: 'templates#set_default'
+  post 'series/set_default', to: 'series#set_default'
+  post 'taxes/set_default', to: 'taxes#set_default'
 
   get 'settings/global'
   post 'settings/global'

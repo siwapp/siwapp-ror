@@ -1,6 +1,6 @@
 <h1>New Invoice</h1>
 <p id="alert"><%= alert %></p>
-<%= render 'form' %>
+<%= render partial: 'form', locals: { is_new: true } %>
 
 <div class="bottom-buttons">
 <%= link_to 'Cancel', invoices_path, class: 'btn btn-danger' %>

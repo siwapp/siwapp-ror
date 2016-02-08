@@ -99,6 +99,8 @@ namespace :siwapp do
 
     client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE series CHANGE first_number next_number INT(11) DEFAULT '1'")
+    client.query("ALTER TABLE series ADD COLUMN `default` TINYINT(1) DEFAULT FALSE ")
+
 
     # Get max invoice number for each series and set the series next_number
     # field accordingly.
@@ -159,6 +161,7 @@ namespace :siwapp do
     client.query("ALTER TABLE template CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE template CHANGE template template TEXT")
     client.query("ALTER TABLE template DROP `slug`")
+    client.query("ALTER TABLE template ADD COLUMN `default` TINYINT(1) DEFAULT false")
 
     # Table renaming according to rails convention
     client.query("RENAME TABLE common TO commons")

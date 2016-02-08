@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "value",       limit: 255
     t.integer "next_number", limit: 4,   default: 1
     t.boolean "enabled",                 default: true
+    t.boolean "default"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -132,6 +133,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.boolean  "default"
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
@@ -148,7 +150,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "name",       limit: 50
     t.decimal "value",                 precision: 53, scale: 2
     t.boolean "active",                                         default: true
-    t.boolean "is_default",                                     default: false
+    t.boolean "default",                                     default: false
   end
 
   create_table "templates", force: :cascade do |t|

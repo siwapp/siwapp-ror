@@ -47,10 +47,9 @@ class TemplatesController < ApplicationController
       new_default = Template.find(id=selected)
     end
     if new_default and new_default != current_default
+      Template.update_all("`default` = false")
       new_default.default = true
       new_default.save()
-      current_default.default = false
-      current_default.save()
     end
 
     redirect_to(:action => 'index')

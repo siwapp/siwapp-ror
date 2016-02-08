@@ -204,8 +204,9 @@ class CommonsController < ApplicationController
   # Private: sets taxes and series for some actions
   def set_extra_stuff
     @taxes = Tax.where active: true
-    @default_taxes_ids = @taxes.find_all { |t| t.is_default }.collect{|t| t.id }
+    @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
+    @default_series_id = @series.find_all { |t| t.default }.collect{|t| t.id}
     @tags = commons_tags
   end
 
