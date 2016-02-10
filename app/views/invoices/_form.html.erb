@@ -26,6 +26,7 @@
     <%= f.check_box :draft %> <%= f.label :draft %>
   <% end %>
 
+
   <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
   <% unless @invoice.new_record? %>

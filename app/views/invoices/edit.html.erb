@@ -1,7 +1,7 @@
 <h1>Editing Invoice</h1>
 <p id="alert"><%= alert %></p>
 <%= render partial: 'form', locals: { is_new: false } %>
-
+<%= render partial: 'template_selection_form' %>
 <div class="bottom-buttons">
 <%= link_to 'Back', invoices_path, class: 'btn btn-primary' %>
 <%= link_to 'Delete', @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

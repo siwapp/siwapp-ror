@@ -206,7 +206,7 @@ class CommonsController < ApplicationController
     @taxes = Tax.where active: true
     @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
-    @default_series_id = @series.find_all { |t| t.default }.collect{|t| t.id}
+    @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @tags = commons_tags
   end
 
