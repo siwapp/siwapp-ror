@@ -5,6 +5,7 @@
 <div class="bottom-buttons">
 <%= link_to 'Back', invoices_path, class: 'btn btn-primary' %>
 <%= link_to 'Delete', @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary' %>
 <% if @template_url %><%= link_to 'PDF', @template_url + '.pdf', class: 'btn btn-primary' %><% end %>
 <%= link_to 'Save', '#', class: 'btn btn-success form-save' %>
 </div>
