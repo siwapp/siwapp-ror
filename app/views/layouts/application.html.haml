@@ -1,0 +1,29 @@
+!!! 5
+%html
+  %head
+    %meta{"charset" => "utf-8"}/
+    %meta{"name" => "viewport", :content => "width=device-width, initial-scale=1, shrink-to-fit=no"}/
+    %meta{"http-equiv" => "x-ua-compatible", :content => "ie=edge"}/
+
+    %title= content_for?(:title) ? yield(:title) : "Siwapp"
+
+    = stylesheet_link_tag    '//fonts.googleapis.com/icon?family=Material+Icons'
+    = stylesheet_link_tag    '//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic'
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+    = csrf_meta_tags
+
+  %body
+    = render partial: 'shared/navbar'
+
+    - if @type
+      = link_to "New #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary text-capitalize"
+    - else
+      = link_to "New Invoice", new_invoice_path, class: "btn btn-primary"
+
+    .container-fluid{"role" => "main"}
+      - flash.each do |message_type, message|
+        = content_tag(:div, message, class: "alert alert-#{message_type}")
+
+      = content_for?(:content) ? yield(:content) : yield
