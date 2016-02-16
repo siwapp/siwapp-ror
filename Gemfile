@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.2.0"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.5.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -57,25 +57,25 @@ end
 
 # installed 4.0.2.2 version because an issue:
 # https://github.com/ai/autoprefixer-rails/issues/47
-gem 'acts-as-taggable-on', '3.5.0'  # https://github.com/mbleigh/acts-as-taggable-on
+gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'fastclick-rails'
-gem 'cocoon', '1.2.6'  # to add items dinamically
+gem 'cocoon', '~>1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
-gem 'factory_girl_rails', '4.5.0'
+gem 'factory_girl_rails'
 gem 'haml'
-gem 'jquery-turbolinks', '2.1.0'
-gem 'jquery-ui-rails', '5.0.5'
-gem 'js-routes', '1.1.2'
-gem 'mysql2', '0.3.17'
+gem 'jquery-turbolinks'
+gem 'jquery-ui-rails'
+gem 'js-routes'
+gem 'mysql2'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
-gem 'ransack', '1.7.0'
+gem 'ransack'
 gem 'sass'
 gem 'wicked_pdf'
-gem 'will_paginate', '3.0.7'
+gem 'will_paginate'
 gem 'wkhtmltopdf-binary'
 # scheduler
-gem 'rufus-scheduler', '3.1.10'
+gem 'rufus-scheduler'
