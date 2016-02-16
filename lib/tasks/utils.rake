@@ -13,7 +13,7 @@ namespace :siwapp do
         FactoryGirl.create_list(:series_random, 3)
       end
       if Tax.count == 0
-        FactoryGirl.create(:tax, value: 21, is_default: true)
+        FactoryGirl.create(:tax, value: 21, default: true)
         FactoryGirl.create(:tax, value: 10)
         FactoryGirl.create(:tax, value: 4)
         FactoryGirl.create(:tax_retention)
