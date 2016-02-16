@@ -18,7 +18,7 @@ class CommonsController < ApplicationController
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
-    # series has ti be included after totals calculations
+    # series has to be included after totals calculations
     results = results.includes :series
 
     set_listing results.paginate(page: params[:page], per_page: 20)
@@ -204,8 +204,9 @@ class CommonsController < ApplicationController
   # Private: sets taxes and series for some actions
   def set_extra_stuff
     @taxes = Tax.where active: true
-    @default_taxes_ids = @taxes.find_all { |t| t.is_default }.collect{|t| t.id }
+    @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
+    @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @tags = commons_tags
   end
 

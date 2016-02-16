@@ -3,7 +3,7 @@ FactoryGirl.define do
     value 21
     name { "VAT #{value}%" }
 
-    is_default false
+    default false
     active true
 
     factory :tax_retention do

@@ -1,5 +1,6 @@
 <h1>Editing Invoice</h1>
-<%= render 'form' %>
+
+<%= render partial: 'form', locals: { is_new: false } %>
 
 <div class="bottom-buttons">
 <%= link_to 'Back', :back, class: 'btn btn-primary' %>

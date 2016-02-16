@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.date     "last_execution_date"
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
+    t.integer  "template_id",          limit: 4
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -75,11 +76,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4
+    t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer "common_id",    limit: 4,                                           null: false
     t.string  "description",  limit: 20000
-    t.decimal "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
+    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
   end
 
@@ -113,7 +114,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "properties", force: :cascade do |t|
     t.string "key",   limit: 255,   null: false
-    t.text   "value", limit: 65535
+    t.text "value", limit: 65535
   end
 
   create_table "series", force: :cascade do |t|
@@ -121,6 +122,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "value",       limit: 255
     t.integer "next_number", limit: 4,   default: 1
     t.boolean "enabled",                 default: true
+    t.boolean "default"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -131,6 +133,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
+    t.boolean  "default"
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
@@ -147,7 +150,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.string  "name",       limit: 50
     t.decimal "value",                 precision: 53, scale: 2
     t.boolean "active",                                         default: true
-    t.boolean "is_default",                                     default: false
+    t.boolean "default",                                     default: false
   end
 
   create_table "templates", force: :cascade do |t|
@@ -156,6 +159,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.string   "models",     limit: 200
+    t.boolean  "default"
   end
 
   create_table "users", force: :cascade do |t|

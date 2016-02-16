@@ -38,6 +38,24 @@ class TemplatesController < ApplicationController
     end
   end
 
+  # POST /templates
+  # updates default template
+  def set_default
+    selected = params["default_template"]
+    current_default = Template.find_by(default: true)
+    if selected
+      new_default = Template.find(id=selected)
+    end
+    if new_default and new_default != current_default
+      Template.update_all("`default` = false")
+      new_default.default = true
+      new_default.save()
+    end
+
+    redirect_to(:action => 'index')
+
+  end
+
   # PATCH/PUT /templates/1
   # PATCH/PUT /templates/1.json
   def update

@@ -26,7 +26,7 @@ feature 'Editing Invoices' do
   end
 
   scenario "Adding an item to an Invoice", js: true, driver: :webkit do
-    default_tax = FactoryGirl.create :tax, is_default: true, active: true
+    default_tax = FactoryGirl.create :tax, default: true, active: true
 
     FactoryGirl.create :invoice, id: 3
     visit "/invoices/3/edit"

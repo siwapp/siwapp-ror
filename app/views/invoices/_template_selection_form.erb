@@ -1,0 +1,7 @@
+<h3>Select the template to print the PDF</h3>
+
+<div class="col-sm-4">
+<%= select_tag "template", options_from_collection_for_select(::Template.all(), "id", "name", 1), data: {changes: "template"} %>
+
+</div>
+

@@ -17,7 +17,7 @@
 
   <h2>Invoice detail</h2>
   <div class="row">
-    <div class="col-sm-4"><%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s %></div>
+    <div class="col-sm-4"><%= f.label :series %> <%= f.collection_select :series_id, @series, :id, :to_s, is_new ? { selected: @default_series_id} : {}, {multiple: false} %></div>
     <div class="col-sm-4"><%= f.label :issue_date %> <%= f.date_field :issue_date %></div>
     <div class="col-sm-4"><%= f.label :due_date %> <%= f.date_field :due_date %></div>
   </div>
@@ -25,6 +25,7 @@
   <% if @invoice.new_record? or @invoice.draft %>
     <%= f.check_box :draft %> <%= f.label :draft %>
   <% end %>
+
 
   <%= render partial: 'shared/item_form', locals: {f: f, items: :items} %>
 
@@ -46,4 +47,6 @@
 
 <% end %>
 
+
 <%= render partial: 'amounts', locals: {invoice: @invoice} %>
+

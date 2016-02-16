@@ -11,7 +11,7 @@ feature 'Creating Taxes' do
     fill_in 'Name', with: 'IVA'
     fill_in 'Value', with: '15'
     check 'Active'
-    check 'Is default'
+    check 'Default'
 
     click_button 'Create Tax'
     expect(page).to have_content('Tax was successfully created.')

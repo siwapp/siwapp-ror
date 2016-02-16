@@ -52,6 +52,24 @@ class SeriesController < ApplicationController
     end
   end
 
+  # POST /series
+  # updates default series
+  def set_default
+    selected = params["default_series"]
+    current_default = Series.find_by(default: true)
+    if selected
+      new_default = Series.find(id=selected)
+    end
+    if new_default and new_default != current_default
+      Series.update_all("`default` = false")
+      new_default.default = true
+      new_default.save()
+    end
+
+    redirect_to(:action => 'index')
+
+  end
+
   # DELETE /series/1
   # DELETE /series/1.json
   def destroy

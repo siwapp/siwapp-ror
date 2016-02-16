@@ -1,7 +1,9 @@
 <h1>Listing Templates</h1>
 
+<%= form_tag url_for(:controller => "templates", :action => "set_default"), :method => :post do -%>
+<%= submit_tag 'Change Default', class: "btn btn-sm btn-primary" %>
 <div class="table-responsive">
-  <table>
+  <table class="table table-hover table-striped">
     <thead>
       <tr>
         <th colspan="3"></th>
@@ -11,6 +13,7 @@
     <tbody>
       <% @templates.each do |template| %>
         <tr>
+          <td><label for="default_template_<%= template.id %>"><%= radio_button_tag('default_template', template.id, checked=template.default) %></label></td>
           <td><%= link_to template.name, template %></td>
           <td><%= link_to 'Edit', edit_template_path(template) %></td>
           <td><%= link_to 'Destroy', template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -19,3 +22,5 @@
     </tbody>
   </table>
 </div>
+<% end %>
+<br>
