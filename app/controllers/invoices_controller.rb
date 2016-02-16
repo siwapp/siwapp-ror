@@ -61,6 +61,12 @@ class InvoicesController < CommonsController
     end
   end
 
+  def send_email
+    @invoice = Invoice.find(params[:id])
+    @invoice.send_email
+    redirect_to :back, notice: "Email successfully sent."
+  end
+
   protected
 
   def configure_search

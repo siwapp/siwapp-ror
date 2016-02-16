@@ -1,9 +1,0 @@
-<tr data-href="<%= invoice_path(invoice) %>">
-  <td data-role="select"><%= check_box_tag "invoice_ids[]", invoice.id -%></td>
-  <td><%= link_to invoice, invoice %></td>
-  <td><%= invoice.name %></td>
-  <td><%= invoice.issue_date %></td>
-  <td><%= invoice.get_status %></td>
-  <td align="right"><%= invoice.unpaid_amount > 0.0 ? number_to_currency(invoice.unpaid_amount, unit: "") : "" %></td>
-  <td align="right"><%= number_to_currency(invoice.gross_amount, unit: "") %></td>
-</tr>

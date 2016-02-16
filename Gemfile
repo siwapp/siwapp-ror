@@ -38,15 +38,15 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
   # To start toying with BDD
   gem 'rspec-rails'
 end
+
+# Access an IRB console on exception pages or by using <%= console %> in views
+gem 'web-console', '~> 2.0', group: :development
 
 group :test do
   gem 'capybara-puma'
@@ -64,7 +64,7 @@ gem 'fastclick-rails'
 gem 'cocoon', '1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails', '4.5.0'
-gem 'ransack', '1.7.0'
+gem 'haml'
 gem 'jquery-turbolinks', '2.1.0'
 gem 'jquery-ui-rails', '5.0.5'
 gem 'js-routes', '1.1.2'
@@ -72,6 +72,7 @@ gem 'mysql2', '0.3.17'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
+gem 'ransack', '1.7.0'
 gem 'sass'
 gem 'wicked_pdf'
 gem 'will_paginate', '3.0.7'

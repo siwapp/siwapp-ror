@@ -1,8 +1,7 @@
-<p id="notice"><%= notice %></p>
 <p><%= @template.name %> </p>
 <p><%= @template.template %> </p>
 
 <div class="bottom-buttons">
 <%= link_to 'Edit', edit_template_path(@template) %> |
-<%= link_to 'Back', templates_path %>
+<%= link_to 'Back', :back %>
 </div>

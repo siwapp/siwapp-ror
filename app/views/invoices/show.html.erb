@@ -1,12 +1,9 @@
 <% title("Siwapp", "Invoices", @invoice.name)  %>
-<p id="notice"><%= notice %></p>
-<p id="alert"><%= alert %></p>
-
 
 <iframe src="<%= @template_url %>" width="100%" height="900"></iframe>
 
 <div class="bottom-buttons">
-<%= link_to 'Edit', edit_invoice_path(@invoice) %> |
-<%= link_to 'Back', invoices_path %> |
-<%= link_to 'PDF', @template_url + '.pdf' %>
+<%= link_to 'Back', :back, class: 'btn btn-primary' %>
+<%= link_to 'PDF', "#{@template_url}.pdf", class: 'btn btn-primary' %>
+<%= link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-primary' %>
 </div>

@@ -94,6 +94,11 @@ public
     end
   end
 
+  def send_email
+    # There is a deliver_later method which we could use
+    InvoiceMailer.email_invoice(self).deliver_now
+  end
+
   protected
 
     # Protected: Decide whether this invoice needs an invoice number. It's true

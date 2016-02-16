@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :invoices do
     delete 'remove', on: :collection
     get 'autocomplete', on: :collection
+    get 'send_email', on: :member
   end
 
   get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template'
