@@ -63,7 +63,7 @@ class InvoicesController < CommonsController
   def send_email
     @invoice = Invoice.find(params[:id])
     @invoice.send_email
-    redirect_to action: 'edit'
+    redirect_to :back, notice: "Email successfully sent."
   end
 
   protected
