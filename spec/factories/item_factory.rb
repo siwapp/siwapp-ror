@@ -15,7 +15,7 @@ FactoryGirl.define do
 
     factory :item_complete do
       after(:create) do |item, evaluator|
-        vat = Tax.find_by(is_default: true) || create(:tax)
+        vat = Tax.find_by(default: true) || create(:tax)
         item.taxes << vat
         if evaluator.with_retention
           item.taxes << (Tax.find_by(name: 'RETENTION') || create(:tax_retention))
@@ -36,7 +36,7 @@ FactoryGirl.define do
                   'Fishing kit'].sample}
 
     after(:create) do |item|
-      vat = Tax.find_by(is_default: true) || create(:tax)
+      vat = Tax.find_by(default: true) || create(:tax)
       item.taxes << vat
       if [true, false].sample
         irpf = Tax.find_by(name: 'RETENTION') || create(:tax_retention)

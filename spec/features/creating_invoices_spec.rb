@@ -16,6 +16,7 @@ feature 'Creating Invoices' do
     fill_in 'Issue date', with: Date.today
 
     click_on 'Save'
+    puts page
     expect(page).to have_content('Invoice was successfully created.')
     invoice = Invoice.where(name: 'Test Customer').first
     expect(page.current_path).to eql invoices_path
