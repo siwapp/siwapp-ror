@@ -1,8 +1,0 @@
-<tr data-href="<%= edit_recurring_invoice_path(recurring_invoice) %>">
-  <td data-role="select"><%= check_box_tag "recurring_invoice_ids[]", recurring_invoice.id -%></td>
-  <td><%= recurring_invoice.series.value if recurring_invoice.series %></td>
-  <td><%= recurring_invoice %></td>
-  <td><%= recurring_invoice.period %> <%= recurring_invoice.period_type %></td>
-  <td><%= recurring_invoice.get_status %></td>
-  <td align="right"><%= number_to_currency(recurring_invoice.gross_amount, unit: "") %></td>
-</tr>
