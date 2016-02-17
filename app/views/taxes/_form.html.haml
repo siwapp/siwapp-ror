@@ -1,0 +1,24 @@
+= form_for(@tax) do |f|
+  - if @tax.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@tax.errors.count, "error")
+        prohibited this tax from being saved:
+      %ul
+        - @tax.errors.full_messages.each do |message|
+          %li= message
+  %div
+    = f.label :name
+    = f.text_field :name
+    %br/
+    = f.label :value
+    = f.number_field :value
+    %br/
+    = f.label :active
+    = f.check_box :active
+    %br/
+    = f.label :default
+    = f.check_box :default
+    %br/
+  .actions
+    = f.submit

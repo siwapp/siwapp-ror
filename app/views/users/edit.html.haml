@@ -1,0 +1,15 @@
+- provide(:title, "Edit user")
+%h1 Update your profile
+= form_for(@user) do |f|
+  - if @user.errors.any?
+    #user_explanation
+      %h2
+        = pluralize(@user.errors.count, "error")
+        prohibited this user from being saved:
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+  %p
+    = render partial: 'users/form_fields', locals: {f: f}
+  .actions
+    = f.submit "Update my account", class: "btn btn-primary"

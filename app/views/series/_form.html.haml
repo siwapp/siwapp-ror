@@ -1,0 +1,24 @@
+= form_for(@series) do |f|
+  - if @series.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@series.errors.count, "error")
+        prohibited this series from being saved:
+      %ul
+        - @series.errors.full_messages.each do |message|
+          %li= message
+  %div
+    = f.label :name
+    = f.text_field :name
+    %br/
+    = f.label :value
+    = f.text_field :value
+    %br/
+    = f.label :next_number
+    = f.number_field :next_number
+    %br/
+    = f.label :enabled
+    = f.check_box :enabled
+    %br/
+  .actions
+    = f.submit

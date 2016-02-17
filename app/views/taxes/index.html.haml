@@ -1,0 +1,11 @@
+%h1 Listing Taxes
+.table-responsive
+  %table
+    %thead
+      %tr
+        %th
+    %tbody
+      - @taxes.each do |tax|
+        %tr
+          %td= link_to tax.name, edit_tax_path(tax)
+%br/

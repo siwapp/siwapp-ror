@@ -1,0 +1,18 @@
+= form_for(@template) do |f|
+  - if @template.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@template.errors.count, "error")
+        prohibited this template from being saved:
+      %ul
+        - @template.errors.full_messages.each do |message|
+          %li= message
+  %div
+    = f.label :name
+    = f.text_field :name
+    %br/
+    = f.label :template
+    = f.text_area :template
+    %br/
+  .actions
+    = f.submit

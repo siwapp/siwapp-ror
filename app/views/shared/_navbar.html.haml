@@ -1,0 +1,33 @@
+%nav.navbar.navbar-fixed-top.navbar-light.bg-faded.siwapp-navbar
+  .nav.siwapp-navbar-brand
+    %a.navbar-brand{:href => "/"}
+      = image_tag("logo.svg", alt: "siwapp", class: "siwapp-logo")
+    %button.navbar-toggler.hidden-md-up.pull-xs-right{"data-target" => "#js-main-menu", "data-toggle" => "collapse", :type => "button"}
+      %i.material-icons menu
+    - if @search
+      %button.navbar-toggler.hidden-lg-up.pull-xs-right{"data-target" => "#js-search-form", "data-toggle" => "collapse", :type => "button"}
+        %i.material-icons search
+  #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm
+    .siwapp-navbar-scroll
+      %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => "/"} Home
+      %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path} Invoices
+      %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path} Recurring Invoices
+      %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path} Customers
+      .nav-item.dropdown.hidden-sm-down
+        %a{:class => "nav-link dropdown-toggle #{active_link('settings')}", "data-toggle" => "dropdown", :href => "#"} Settings
+        .dropdown-menu.dropdown-menu-right
+          %a.dropdown-item{:href => settings_my_configuration_path} My Account
+          .dropdown-divider
+          %a.dropdown-item{:href => settings_global_path} Global Settings
+          %a.dropdown-item{:href => series_index_path} Series
+          %a.dropdown-item{:href => taxes_path} Taxes
+          %a.dropdown-item{:href => templates_path} Templates
+      %a{:class => "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", "data-toggle" => "collapse", :href => "#js-settings-menu"} Settings
+    #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll
+      %a.nav-item.nav-link{:href => settings_my_configuration_path} My Account
+      %a.nav-item.nav-link{:href => settings_global_path} Global Settings
+      %a.nav-item.nav-link{:href => series_index_path} Series
+      %a.nav-item.nav-link{:href => taxes_path} Taxes
+      %a.nav-item.nav-link{:href => templates_path} Templates
+  - if @search
+    = render 'shared/searchform'

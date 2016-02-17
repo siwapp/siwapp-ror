@@ -1,0 +1,12 @@
+= search_form_for @search, html: {class: "collapse nav navbar-nav navbar-toggleable-md siwapp-search-form", id: "js-search-form"} do |f|
+  .input-group.pull-lg-right.siwapp-input-search
+    - if @search_filters
+      .input-group-btn
+        %button.btn.btn-secondary.material-icons{"data-target" => "#js-search-filters", "data-toggle" => "collapse", :type => "button"} expand_more
+    = f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by customer, email or VAT ID'
+    .input-group-btn
+      %button.btn.btn-primary.material-icons{:type => "submit"} search
+  - if @search_filters
+    .siwapp-search-filters
+      #js-search-filters.collapse.siwapp-search-filters__content
+        = render 'searchform__filters', f: f

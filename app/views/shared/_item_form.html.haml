@@ -1,0 +1,20 @@
+%fieldset{"data-changes" => "amount"}
+  .table-responsive
+    %table.table
+      %thead
+        %tr
+          %th Description
+          %th Quantity
+          %th Unitary Cost
+          %th Taxes
+          %th Discount
+          %th Price
+          %th
+      %tbody
+        = f.fields_for :items  do |item_form|
+          = render partial: 'shared/item_fields', locals: {f: item_form, is_new: false}
+  = link_to_add_association 'add item', f, :items,       |
+    'data-association-insertion-node' => '.table tbody', |
+    'data-association-insertion-method' => 'append',     |
+    :partial => 'shared/item_fields',                    |
+    :render_options => {locals: {is_new: true}}          |

@@ -1,0 +1,15 @@
+%h1 Listing Series
+= form_tag url_for(:controller => "series", :action => "set_default"), :method => :post do
+  = submit_tag 'Change Default', class: "btn btn-sm btn-primary"
+  .table-responsive
+    %table
+      %thead
+        %tr
+          %th
+      %tbody
+        - @series.each do |series|
+          %tr
+            %td
+              %label{:for => "default_series_#{series.id}"}= radio_button_tag('default_series', series.id, checked=series.default)
+            %td= link_to series.name, edit_series_path(series)
+%br/

@@ -1,0 +1,17 @@
+= form_tag("#", method: "post") do
+  = label_tag("Username:")
+  = text_field(:user, :name)
+  %br/
+  = label_tag("Email:")
+  = text_field(:user, :email)
+  %br/
+  = label_tag(:old_password, "Old Password:")
+  = text_field_tag(:old_password)
+  %br/
+  = label_tag(:new_password, "New Password:")
+  = text_field_tag(:new_password)
+  %br/
+  = label_tag(:new_password2, "New Password Again:")
+  = text_field_tag(:new_password2)
+  %br/
+  = submit_tag("Save")

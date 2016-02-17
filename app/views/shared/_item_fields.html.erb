@@ -1,9 +1,0 @@
-<tr class="js-item">
-  <td><%= f.text_area :description, {class: "item-description"} %></td>
-  <td><%= f.text_field :quantity %></td>
-  <td><%= f.text_field :unitary_cost %></td>
-  <td><%= f.collection_select 'tax_ids', @taxes, :id, :name, is_new ? { selected: @default_taxes_ids} : {}, {multiple: true} %></td>
-  <td><%= f.text_field :discount %></td>
-  <td></td>
-  <td><%= link_to_remove_association 'remove item', f, { wrapper_class: 'js-item' } %></td>
-</div>
