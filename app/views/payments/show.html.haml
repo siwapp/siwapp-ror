@@ -1,0 +1,15 @@
+%h1
+  Payments for #{@payment.invoice}
+%ul
+  %li
+    %b Date:
+    = @payment.date
+  %li
+    %b Invoice:
+    = @payment.invoice
+  %li
+    %b Amount:
+    = @payment.amount
+= link_to 'Edit', edit_payment_path(@payment)
+|
+\#{link_to 'Back', :back}

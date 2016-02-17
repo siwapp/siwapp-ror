@@ -1,0 +1,25 @@
+.row
+  .col-sm-9
+    = f.label :name
+    = f.text_field :name
+    %br/
+  .col-sm-3
+    = f.label :identification, "VAT ID"
+    = f.text_field :identification
+.row
+  .col-sm-6
+    = f.label :contact_person, "Contact Person"
+    = f.text_field :contact_person
+  .col-sm-6
+    = f.label :email
+    = f.email_field :email
+    %br/
+.row
+  .col-sm-6
+    = f.label :invoicing_address, "Invoicing Address"
+    = f.text_area :invoicing_address
+    %br/
+  .col-sm-6
+    = f.label :shipping_address, "Shipping Address"
+    = f.text_area :shipping_address
+    %br/

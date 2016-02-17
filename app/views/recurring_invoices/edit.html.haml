@@ -1,0 +1,6 @@
+%h2 Edit Recurring Invoice
+= render 'form'
+.bottom-buttons
+  = link_to 'Back', :back
+  |
+  \#{link_to 'Destroy', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }}

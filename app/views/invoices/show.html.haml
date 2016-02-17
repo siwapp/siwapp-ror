@@ -1,0 +1,9 @@
+- title("Siwapp", "Invoices", @invoice.name)
+/ the 770px width fits well with A4 paper size. TODO: see other options
+.row
+  .col-lg-6.col-lg-offset-3
+    %iframe{:height => "1089px", :src => @template_url, :width => "770px"}
+.bottom-buttons
+  = link_to 'Back', :back, class: 'btn btn-primary'
+  = link_to 'PDF', "#{@template_url}.pdf", class: 'btn btn-primary'
+  = link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-primary'

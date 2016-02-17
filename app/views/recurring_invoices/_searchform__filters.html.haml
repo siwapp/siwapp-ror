@@ -1,0 +1,31 @@
+%p
+  = f.label :starting_date_gteq, "Starting Date from: "
+  = f.date_field :starting_date_gteq
+  = f.label :starting_date_lteq, "to: "
+  = f.date_field :starting_date_lteq
+%p
+  = f.label :finishing_date_gteq, "Finishing Date from: "
+  = f.date_field :finishing_date_gteq
+  = f.label :finishing_date_lteq, "to: "
+  = f.date_field :finishing_date_lteq
+%p
+  = f.label :last_execution_date_gteq, "Last Execution Date from: "
+  = f.date_field :last_execution_date_gteq
+  = f.label :last_execution_date_lteq, "to: "
+  = f.date_field :last_execution_date_lteq
+= render 'shared/searchform__tagsfield'
+%p
+  = f.label :series_id_eq, "Series:"
+  = f.collection_select :series_id_eq, Series.all, "id", "name", include_blank: true
+%p
+  %b TODO:
+%ul
+  %li Search by status (draft + enabled + disabled + pending)
+  %li Search by item description in the with_terms scope
+  %li Use a pretty selector for date range search. Create a partial to reuse it.
+  %li
+    Try to use
+    %a{:href => "https://github.com/rails/arel"} Arel
+    instead of SQL conditions (evaluate benefits)
+  %li Column sorting
+  %li If there are advanced filters in the URL, display the advanced filters section when page is loaded.
