@@ -1,8 +1,13 @@
-%p
-  gross: #{invoice.gross_amount}
-%p
-  discount: #{invoice.discount_amount}
-%p
-  net: #{invoice.net_amount}
-%p
-  tax: #{invoice.tax_amount}
+%table.table
+  %tr
+    %td Discount:
+    %td= invoice.discount_amount
+  %tr
+    %td Subtotal:
+    %td= invoice.net_amount
+  %tr
+    %td Tax:
+    %td= invoice.tax_amount
+  %tr
+    %td Total:
+    %td= invoice.gross_amount

@@ -35,7 +35,7 @@ feature 'Editing Invoices' do
     find('a.add_fields[data-association=item]').click
 
     # a new item div appears
-    new_item_xpath = "//table/tbody/tr[4]"
+    new_item_xpath = "//table[@id='items-table']/tbody/tr[4]"
     expect(page).to have_selector(:xpath, new_item_xpath)
 
     within :xpath, new_item_xpath do

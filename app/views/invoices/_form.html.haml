@@ -25,7 +25,7 @@
   - if @invoice.new_record? or @invoice.draft
     = f.check_box :draft
     = f.label :draft
-  = render partial: 'shared/item_form', locals: {f: f, items: :items}
+  = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice}
   - unless @invoice.new_record?
     %fieldset{"data-changes" => "amount"}
       %legend Payments
@@ -35,4 +35,3 @@
         'data-association-insertion-node' => 'this',         |
         'data-association-insertion-method' => 'before'      |
   = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
-= render partial: 'amounts', locals: {invoice: @invoice}

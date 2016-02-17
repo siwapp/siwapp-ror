@@ -1,6 +1,6 @@
 %fieldset{"data-changes" => "amount"}
   .table-responsive
-    %table.table
+    %table.table#items-table
       %thead
         %tr
           %th Description
@@ -13,8 +13,10 @@
       %tbody
         = f.fields_for :items  do |item_form|
           = render partial: 'shared/item_fields', locals: {f: item_form, is_new: false}
-  = link_to_add_association 'add item', f, :items,       |
-    'data-association-insertion-node' => '.table tbody', |
-    'data-association-insertion-method' => 'append',     |
-    :partial => 'shared/item_fields',                    |
-    :render_options => {locals: {is_new: true}}          |
+    = link_to_add_association 'add item', f, :items,       |
+      'data-association-insertion-node' => '#items-table tbody', |
+      'data-association-insertion-method' => 'append',     |
+      :partial => 'shared/item_fields',                    |
+      :render_options => {locals: {is_new: true}}          |
+  .table-responsive#amounts
+    = render partial: 'amounts', locals: {invoice: invoice}
