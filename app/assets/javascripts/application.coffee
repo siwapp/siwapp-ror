@@ -18,6 +18,7 @@
 #= require jquery-ui/autocomplete
 #= require jquery.infinitescroll
 #= require fastclick
+#= require chartist
 #
 # Bootstrap 4
 #
@@ -38,4 +39,3 @@ jQuery(document).ready ($) ->
   $(document).on 'click', '.form-save', (e) ->
     e.preventDefault()
     $('form.js-invoice-like').submit()
-

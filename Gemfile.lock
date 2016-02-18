@@ -64,6 +64,7 @@ GEM
     capybara-webkit (1.8.0)
       capybara (>= 2.3.0, < 2.7.0)
       json
+    chartist-rails (0.9.5)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cocoon (1.2.7)
@@ -250,6 +251,7 @@ DEPENDENCIES
   byebug
   capybara-puma
   capybara-webkit
+  chartist-rails
   cocoon (~> 1.2.6)
   coffee-rails (~> 4.1.0)
   database_cleaner

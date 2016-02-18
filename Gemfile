@@ -60,10 +60,11 @@ end
 gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'
-gem 'fastclick-rails'
+gem 'chartist-rails'
 gem 'cocoon', '~>1.2.6'  # to add items dinamically
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails'
+gem 'fastclick-rails'
 gem 'haml'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
