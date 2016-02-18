@@ -28,10 +28,18 @@
   = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice}
   - unless @invoice.new_record?
     %fieldset{"data-changes" => "amount"}
-      %legend Payments
-      = f.fields_for :payments  do |payment_form|
-        = render partial: 'payment_fields', locals: {f: payment_form}
+      %h2 Payments
+      .table-responsive
+        %table.table#payments-table
+          %thead
+            %th
+            %th Date
+            %th Notes
+            %th Amount
+          %tbody
+            = f.fields_for :payments  do |payment_form|
+              = render partial: 'payment_fields', locals: {f: payment_form}
       = link_to_add_association 'add payment', f, :payments, |
-        'data-association-insertion-node' => 'this',         |
-        'data-association-insertion-method' => 'before'      |
+        'data-association-insertion-node' => '#payments-table tbody',         |
+        'data-association-insertion-method' => 'append'      |
   = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
