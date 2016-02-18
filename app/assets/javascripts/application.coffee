@@ -37,5 +37,5 @@ jQuery(document).ready ($) ->
   # Bottom buttons to save forms:
   $(document).on 'click', '.form-save', (e) ->
     e.preventDefault()
-    $('form').submit()
+    $('form.js-invoice-like').submit()
 

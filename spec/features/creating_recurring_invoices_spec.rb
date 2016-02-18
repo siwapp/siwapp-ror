@@ -4,10 +4,10 @@ feature 'Creating Recurring Invoices' do
 
   before do
     FactoryGirl.create(:series)
+    visit '/recurring_invoices'
   end
 
-  scenario 'can create a recurring invoice' do
-    visit '/recurring_invoices'
+  scenario 'can create a recurring invoice', :js => true, driver: :webkit do
     first(:link, 'New Recurring Invoice').click
 
     select 'Example Series', from: 'recurring_invoice_series_id'
@@ -18,18 +18,17 @@ feature 'Creating Recurring Invoices' do
     fill_in 'Name', with: 'Test Customer'
     fill_in 'Email', with: 'pepe@abc.com'
 
-    click_button 'Create Recurring invoice'
+    click_on 'Save'
     expect(page).to have_content('Recurring Invoice was successfully created.')
 
     invoice = RecurringInvoice.where(name: 'Test Customer').first
-    expect(page.current_url).to eql recurring_invoices_url
+    expect(page.current_path).to eql recurring_invoices_path
   end
 
-  scenario 'can not create recurring invoice without customer name' do
-    visit '/recurring_invoices'
+  scenario 'can not create recurring invoice without customer name', :js => true, driver: :webkit do
     first(:link, 'New Recurring Invoice').click
 
-    click_button 'Create Recurring invoice'
+    click_on 'Save'
     expect(page).to have_content("Recurring Invoice has not been created.")
     expect(page).to have_content("Name can't be blank")
   end
