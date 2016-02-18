@@ -97,6 +97,8 @@ public
   def send_email
     # There is a deliver_later method which we could use
     InvoiceMailer.email_invoice(self).deliver_now
+    self.sent_by_email = true
+    self.save
   end
 
   protected
