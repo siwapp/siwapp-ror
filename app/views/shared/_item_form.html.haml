@@ -3,13 +3,13 @@
     %table.table#items-table
       %thead
         %tr
+          %th
           %th Description
           %th Quantity
           %th Unitary Cost
           %th Taxes
           %th Discount
           %th Price
-          %th
       %tbody
         = f.fields_for :items  do |item_form|
           = render partial: 'shared/item_fields', locals: {f: item_form, is_new: false}
