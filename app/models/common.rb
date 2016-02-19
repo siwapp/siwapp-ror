@@ -7,6 +7,7 @@ class Common < ActiveRecord::Base
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
+  attr_accessor :taxes  # to store totals for each tax
 
   # Behaviors
   acts_as_taggable
@@ -36,9 +37,17 @@ public
     self.base_amount = 0
     self.discount_amount = 0
     self.tax_amount = 0
+    self.taxes = {}
     items.each do |item|
       self.base_amount += item.base_amount
       self.discount_amount += item.discount_amount
+      item.taxes.each do |tax|  # totals for each type of tax
+        begin
+          self.taxes[tax.name] += item.net_amount * tax.value / 100.0
+        rescue NoMethodError
+          self.taxes[tax.name] = item.net_amount * tax.value / 100.0
+        end
+      end
       self.tax_amount += item.tax_amount
     end
 

@@ -25,7 +25,7 @@ class Item < ActiveRecord::Base
   end
 
   def tax_amount
-    net_amount * effective_tax_rate / 100
+    net_amount * effective_tax_rate / 100.0
   end
 
   def to_s
