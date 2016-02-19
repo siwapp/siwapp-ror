@@ -117,7 +117,6 @@ class CommonsController < ApplicationController
   # Calculates the amounts totals
   def amounts
     @common = Invoice.new(amounts_params) # TODO: test
-    @common.set_amounts
 
     respond_to do |format|
       format.js

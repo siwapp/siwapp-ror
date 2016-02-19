@@ -23,7 +23,6 @@ FactoryGirl.define do
         # be bound to invoice so we need to reload it.
         common.reload
 
-        common.set_amounts
         # base:      133.30
         # discount:      10
         # net:       123.30
@@ -45,7 +44,6 @@ FactoryGirl.define do
           # be bound to invoice so we need to reload it.
           invoice.reload
 
-          invoice.set_amounts
           # paid:     125.766
           invoice.save
         end
@@ -57,7 +55,6 @@ FactoryGirl.define do
         after(:create) do |i|
           create(:payment, invoice: i, date: Date.today, amount: 100)
           i.reload
-          i.set_amounts
           i.save
         end
       end
@@ -89,7 +86,7 @@ FactoryGirl.define do
           create_list(:item_random, rand(1..10), common: invoice)
 
           # Payments
-          invoice.reload.set_amounts
+          invoice.reload
 
           max_payments = rand(1..4)
           paid_amount = invoice.gross_amount / max_payments
@@ -101,8 +98,6 @@ FactoryGirl.define do
             create_list(:payment_random, max_payments, invoice: invoice, amount: paid_amount)
           end
 
-          # Update totals in db, these fixtures are for dev purposes
-          invoice.reload.set_amounts
           invoice.save
         end
       end
@@ -122,7 +117,6 @@ FactoryGirl.define do
 
         after(:create) do |recurring_invoice|
           create_list(:item_random, rand(1..10), common: recurring_invoice)
-          recurring_invoice.reload.set_amounts
           recurring_invoice.save
         end
       end

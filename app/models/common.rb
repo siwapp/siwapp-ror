@@ -14,6 +14,7 @@ class Common < ActiveRecord::Base
 
   # Events
   before_save :set_amounts
+  after_initialize :set_amounts
 
   # Search
   scope :with_terms, ->(terms) {
