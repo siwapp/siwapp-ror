@@ -7,20 +7,12 @@ class Common < ActiveRecord::Base
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
-  attr_accessor :taxes  # to store totals for each tax
-  attr_accessor :original_amounts # to store the originals amounts as obtained from db
 
   # Behaviors
   acts_as_taggable
 
   # Events
   before_save :set_amounts
-
-  after_initialize do
-    assign_originals
-    set_amounts
-  end
-
 
   # Search
   scope :with_terms, ->(terms) {
@@ -31,8 +23,19 @@ class Common < ActiveRecord::Base
            terms: '%' + terms + '%')
   }
 
-  # amount attributes
-  AMOUNTS = [:base, :discount, :tax, :net, :gross]
+  def taxes
+    taxes = {}
+    items.each do |item|
+      item.taxes.each do |tax|
+        begin
+          taxes[tax.name] += item.net_amoount * tax.value / 100.0
+        rescue NoMethodError
+          taxes[tax.name] = item.net_amount * tax.value / 100.0
+        end
+      end
+    end
+    taxes
+  end
 
 protected
 
@@ -47,42 +50,15 @@ public
     self.base_amount = 0
     self.discount_amount = 0
     self.tax_amount = 0
-    self.taxes = {}
     items.each do |item|
       self.base_amount += item.base_amount
       self.discount_amount += item.discount_amount
-      item.taxes.each do |tax|  # totals for each type of tax
-        begin
-          self.taxes[tax.name] += item.net_amount * tax.value / 100.0
-        rescue NoMethodError
-          self.taxes[tax.name] = item.net_amount * tax.value / 100.0
-        end
-      end
       self.tax_amount += item.tax_amount
     end
 
     self.net_amount = base_amount - discount_amount
     self.gross_amount = net_amount + tax_amount
 
-    mark_dirty_amounts # manually mark amounts as changed if needed
-  end
-
-private
-
-  # to know if amount attrs have changed later on the instance's lifecycle
-  def assign_originals
-    self.original_amounts = {}
-    AMOUNTS.each do |aname|
-      self.original_amounts["#{aname}_amount"] = send "#{aname}_amount"
-    end
-  end
-
-  def mark_dirty_amounts
-    AMOUNTS.each do |aname|
-      if original_amounts["#{aname}_amount"] != send("#{aname}_amount")
-        send "#{aname}_amount_will_change!"
-      end
-    end
   end
 
 end
