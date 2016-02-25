@@ -284,6 +284,3 @@ DEPENDENCIES
   wicked_pdf
   will_paginate
   wkhtmltopdf-binary
-
-BUNDLED WITH
-   1.11.2
