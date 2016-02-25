@@ -21,6 +21,7 @@ class Common < ActiveRecord::Base
     set_amounts
   end
 
+
   # Search
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
@@ -59,17 +60,12 @@ public
 
     self.net_amount = base_amount - discount_amount
     self.gross_amount = net_amount + tax_amount
-
-    assign_and_mark :base_amount, base_amount
-    assign_and_mark :discount_amount, discount_amount
-    assign_and_mark :tax_amount, tax_amount
-    assign_and_mark :net_amount, base_amount - discount_amount
-    assign_and_mark :gross_amount, net_amount + tax_amount
-
+    check_if_changed # manually mark amount attrs as changed if needed
   end
 
 private
 
+  # to know if amount attrs have changed later on the instance's lifecycle
   def assign_originals
     self.original_amounts = {}
     [:base_amount, :discount_amount, :tax_amount, :net_amount, :gross_amount].each do |aname|
@@ -77,13 +73,12 @@ private
     end
   end
 
-  def assign_and_mark attr_name, attr_value
-    if original_amounts[attr_name] != attr_value
-      self.send "#{attr_name}=", attr_value
-      self.send "#{attr_name}_will_change!"
+  def check_if_changed
+    [:base_amount, :discount_amount, :tax_amount, :net_amount, :gross_amount].each do |aname|
+      if original_amounts[aname] != send(aname)
+        send "#{aname}_will_change!"
+      end
     end
-
-
   end
 
 end
