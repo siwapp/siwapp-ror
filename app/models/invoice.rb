@@ -92,6 +92,7 @@ public
     payments.each do |payment|
       self.paid_amount += payment.amount
     end
+    paid_amount_will_change!
   end
 
   def send_email

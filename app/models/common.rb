@@ -8,13 +8,18 @@ class Common < ActiveRecord::Base
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
   attr_accessor :taxes  # to store totals for each tax
+  attr_accessor :original_amounts # to store the originals amounts as obtained from db
 
   # Behaviors
   acts_as_taggable
 
   # Events
   before_save :set_amounts
-  after_initialize :set_amounts
+
+  after_initialize do
+    assign_originals
+    set_amounts
+  end
 
   # Search
   scope :with_terms, ->(terms) {
@@ -54,6 +59,31 @@ public
 
     self.net_amount = base_amount - discount_amount
     self.gross_amount = net_amount + tax_amount
+
+    assign_and_mark :base_amount, base_amount
+    assign_and_mark :discount_amount, discount_amount
+    assign_and_mark :tax_amount, tax_amount
+    assign_and_mark :net_amount, base_amount - discount_amount
+    assign_and_mark :gross_amount, net_amount + tax_amount
+
+  end
+
+private
+
+  def assign_originals
+    self.original_amounts = {}
+    [:base_amount, :discount_amount, :tax_amount, :net_amount, :gross_amount].each do |aname|
+      self.original_amounts[aname] = send aname
+    end
+  end
+
+  def assign_and_mark attr_name, attr_value
+    if original_amounts[attr_name] != attr_value
+      self.send "#{attr_name}=", attr_value
+      self.send "#{attr_name}_will_change!"
+    end
+
+
   end
 
 end
