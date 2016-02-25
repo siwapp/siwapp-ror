@@ -127,4 +127,16 @@ public
       self.status = draft ? nil : STATUS[get_status]
     end
 
+    def assign_originals
+      super
+      self.original_amounts[:paid_amount] = paid_amount
+    end
+
+    def mark_dirty_amounts
+      super
+      if original_amounts[:paid_amount] != paid_amount
+        paid_amount_will_change!
+      end
+    end
+
 end
