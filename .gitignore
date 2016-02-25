@@ -18,3 +18,4 @@
 
 # Ignore emacs *`~ files
 *~
+Gemfile.lock
