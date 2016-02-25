@@ -31,6 +31,9 @@ class Common < ActiveRecord::Base
            terms: '%' + terms + '%')
   }
 
+  # amount attributes
+  AMOUNTS = [:base, :discount, :tax, :net, :gross]
+
 protected
 
   # Declare scopes for search
@@ -60,7 +63,8 @@ public
 
     self.net_amount = base_amount - discount_amount
     self.gross_amount = net_amount + tax_amount
-    check_if_changed # manually mark amount attrs as changed if needed
+
+    mark_dirty_amounts # manually mark amounts as changed if needed
   end
 
 private
@@ -68,15 +72,15 @@ private
   # to know if amount attrs have changed later on the instance's lifecycle
   def assign_originals
     self.original_amounts = {}
-    [:base_amount, :discount_amount, :tax_amount, :net_amount, :gross_amount].each do |aname|
-      self.original_amounts[aname] = send aname
+    AMOUNTS.each do |aname|
+      self.original_amounts["#{aname}_amount"] = send "#{aname}_amount"
     end
   end
 
-  def check_if_changed
-    [:base_amount, :discount_amount, :tax_amount, :net_amount, :gross_amount].each do |aname|
-      if original_amounts[aname] != send(aname)
-        send "#{aname}_will_change!"
+  def mark_dirty_amounts
+    AMOUNTS.each do |aname|
+      if original_amounts["#{aname}_amount"] != send("#{aname}_amount")
+        send "#{aname}_amount_will_change!"
       end
     end
   end
