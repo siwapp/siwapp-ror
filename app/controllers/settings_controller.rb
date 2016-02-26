@@ -6,21 +6,22 @@ class SettingsController < ApplicationController
           :company_email, :company_url, :company_logo,
           :currency, :legal_terms]
       .each do |key|
-        (Property.find_by key: key)
+        (Property.find_or_create_by key: key)
             .update(value: params[key])
       end
     end
-    @company_name = (Property.find_by key: 'company_name').value
-    @company_vat_id = (Property.find_by key: 'company_vat_id').value
-    @company_address = (Property.find_by key: 'company_address').value
-    @company_phone = (Property.find_by key: 'company_phone').value
-    @company_email = (Property.find_by key: 'company_email').value
+    @company_name = (Property.find_or_initialize_by key: 'company_name').value
+
+    @company_vat_id = (Property.find_or_initialize_by key: 'company_vat_id').value
+    @company_address = (Property.find_or_initialize_by key: 'company_address').value
+    @company_phone = (Property.find_or_initialize_by key: 'company_phone').value
+    @company_email = (Property.find_or_initialize_by key: 'company_email').value
     # This must be an url because there is no way of uploading files to
-    # heroku. One option would be to use S3, but it's not worth of it.
-    @company_url = (Property.find_by key: 'company_url').value
-    @company_logo = (Property.find_by key: 'company_logo').value
-    @currency = (Property.find_by key: 'currency').value
-    @legal_terms = (Property.find_by key: 'legal_terms').value
+    # heroku. One option would be to use S3, but it's not worth it.
+    @company_url = (Property.find_or_initialize_by key: 'company_url').value
+    @company_logo = (Property.find_or_initialize_by key: 'company_logo').value
+    @currency = (Property.find_or_initialize_by key: 'currency').value
+    @legal_terms = (Property.find_or_initialize_by key: 'legal_terms').value
   end
 
   def my_configuration
