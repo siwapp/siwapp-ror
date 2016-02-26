@@ -11,7 +11,6 @@ class SettingsController < ApplicationController
       end
     end
     @company_name = (Property.find_or_initialize_by key: 'company_name').value
-
     @company_vat_id = (Property.find_or_initialize_by key: 'company_vat_id').value
     @company_address = (Property.find_or_initialize_by key: 'company_address').value
     @company_phone = (Property.find_or_initialize_by key: 'company_phone').value
