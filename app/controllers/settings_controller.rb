@@ -4,10 +4,13 @@ class SettingsController < ApplicationController
     if request.post?  # save values posted
       [:company_name, :company_vat_id, :company_address, :company_phone,
           :company_email, :company_url, :company_logo,
-          :currency, :legal_terms]
+          :legal_terms]
       .each do |key|
         (Property.find_or_create_by key: key)
             .update(value: params[key])
+
+      # save currency
+      (Property.find_or_create_by key: :currency).update value: params[:currency][:id]
       end
     end
     @company_name = (Property.find_or_initialize_by key: 'company_name').value
@@ -19,7 +22,11 @@ class SettingsController < ApplicationController
     # heroku. One option would be to use S3, but it's not worth it.
     @company_url = (Property.find_or_initialize_by key: 'company_url').value
     @company_logo = (Property.find_or_initialize_by key: 'company_logo').value
-    @currency = (Property.find_or_initialize_by key: 'currency').value
+    # currency select
+    currency_id = (Property.find_or_initialize_by key: 'currency').value || :eur
+    @currency = Money::Currency.find currency_id
+    @currencies = Money::Currency.all
+
     @legal_terms = (Property.find_or_initialize_by key: 'legal_terms').value
   end
 

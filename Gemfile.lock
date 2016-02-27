@@ -120,6 +120,11 @@ GEM
     mime-types (2.99)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
+    monetize (1.4.0)
+      money (~> 6.7)
+    money (6.7.0)
+      i18n (>= 0.6.4, <= 0.7.0)
+      sixarm_ruby_unaccent (>= 1.1.1, < 2)
     multi_json (1.11.2)
     mysql2 (0.4.2)
     nokogiri (1.6.7.2)
@@ -208,6 +213,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    sixarm_ruby_unaccent (1.1.1)
     slop (3.6.0)
     spring (1.6.3)
     sprockets (3.5.2)
@@ -264,6 +270,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   js-routes
+  monetize
   mysql2
   pry-rails
   puma

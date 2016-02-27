@@ -20,8 +20,8 @@
   = label_tag(:company_logo, "Company Logo:")
   = url_field_tag(:company_logo, @company_logo)
   %br/
-  = label_tag(:currency, "Currency:")
-  = text_field_tag(:currency, @currency)
+  = label_tag :currency, "Currency:"
+  = collection_select :currency, :id, @currencies, :id, :iso_code
   %br/
   = label_tag(:legal_terms, "Legal Terms:")
   = text_area_tag(:legal_terms, @legal_terms)

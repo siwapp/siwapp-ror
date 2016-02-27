@@ -80,3 +80,5 @@ gem 'will_paginate'
 gem 'wkhtmltopdf-binary'
 # scheduler
 gem 'rufus-scheduler'
+# money!
+gem 'monetize'
