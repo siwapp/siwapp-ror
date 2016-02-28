@@ -13,7 +13,10 @@ module ApplicationHelper
   end
 
   def display_money(amount)
-    currency_code = Property.find_or_initialize_by(key: :currency).value || :eur
+    currency_code = Rails.cache.fetch('currency', expires_in: 1.hour) do
+      Property.find_or_initialize_by(key: :currency).value || :eur
+    end
+
     currency = Money::Currency.find currency_code
     format = currency.symbol_first? ? "%u%n" : "%n%u"
     negative_format = "(#{format})"
