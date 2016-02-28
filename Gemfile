@@ -81,4 +81,4 @@ gem 'wkhtmltopdf-binary'
 # scheduler
 gem 'rufus-scheduler'
 # money!
-gem 'monetize'
+gem 'money'

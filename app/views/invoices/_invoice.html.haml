@@ -4,5 +4,5 @@
   %td= invoice.name
   %td= invoice.issue_date
   %td= invoice.get_status
-  %td{:align => "right"}= invoice.unpaid_amount > 0.0 ? number_to_currency(invoice.unpaid_amount, unit: "") : ""
-  %td{:align => "right"}= number_to_currency(invoice.gross_amount, unit: "")
+  %td{:align => "right"}= invoice.unpaid_amount > 0.0 ? display_money(invoice.unpaid_amount) : ""
+  %td{:align => "right"}= display_money invoice.gross_amount

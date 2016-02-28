@@ -6,4 +6,4 @@
     = recurring_invoice.period
     = recurring_invoice.period_type
   %td= recurring_invoice.get_status
-  %td{:align => "right"}= number_to_currency(recurring_invoice.gross_amount, unit: "")
+  %td{:align => "right"}= display_money recurring_invoice.gross_amount

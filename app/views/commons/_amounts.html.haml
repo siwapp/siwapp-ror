@@ -1,14 +1,14 @@
 %table.table
   %tr
     %td Discount:
-    %td= invoice.discount_amount
+    %td= display_money invoice.discount_amount
   %tr
     %td Subtotal:
-    %td= invoice.net_amount
+    %td= display_money invoice.net_amount
   - invoice.taxes.each do |tax, value|
     %tr
       %td= tax
-      %td= value
+      %td= display_money value
   %tr
     %td Total:
-    %td= invoice.gross_amount
+    %td= display_money invoice.gross_amount

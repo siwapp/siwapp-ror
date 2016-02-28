@@ -3,13 +3,13 @@
     %ul.list-group.list-unstyled
       %li
         Total Gross
-        %span.label.label-default.label-pill.pull-right= @gross.round 2
+        %span.label.label-default.label-pill.pull-right= display_money @gross
       %li
         Total Net
-        %span.label.label-default.label-pill.pull-right= @net.round 2
+        %span.label.label-default.label-pill.pull-right= display_money @net
       %li
         Total Tax
-        %span.label.label-default.label-pill.pull-right= @tax.round 2
+        %span.label.label-default.label-pill.pull-right= display_money @tax
 
 = form_tag remove_invoices_path, :method => :delete do
   = submit_tag 'Remove Selected'
