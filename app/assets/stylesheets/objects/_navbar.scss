@@ -16,16 +16,6 @@
       position: relative;
       top: 4px;
     }
-    @include media-breakpoint-down(sm) {
-      display: block;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      .siwapp-logo {
-        width: 100%;
-        height: auto;
-      }
-    }
   }
   .btn-navbar {
     color: $body-color;

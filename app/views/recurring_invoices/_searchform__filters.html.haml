@@ -1,24 +1,34 @@
-.form-group
-  = f.label :starting_date_gteq, "Starting Date from: "
-  = f.date_field :starting_date_gteq, class: "form-control"
-.form-group
-  = f.label :starting_date_lteq, "to: "
-  = f.date_field :starting_date_lteq, class: "form-control"
-.form-group
-  = f.label :finishing_date_gteq, "Finishing Date from: "
-  = f.date_field :finishing_date_gteq, class: "form-control"
-.form-group
-  = f.label :finishing_date_lteq, "to: "
-  = f.date_field :finishing_date_lteq, class: "form-control"
-.form-group
-  = f.label :last_execution_date_gteq, "Last Execution Date from: "
-  = f.date_field :last_execution_date_gteq, class: "form-control"
-.form-group
-  = f.label :last_execution_date_lteq, "to: "
-  = f.date_field :last_execution_date_lteq, class: "form-control"
-
+.row
+  .col-xs-12.col-lg-6
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :starting_date_gteq, "Starting Date from: "
+          = f.date_field :starting_date_gteq, class: "form-control"
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :starting_date_lteq, "to: "
+          = f.date_field :starting_date_lteq, class: "form-control"
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :finishing_date_gteq, "Finishing Date from: "
+          = f.date_field :finishing_date_gteq, class: "form-control"
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :finishing_date_lteq, "to: "
+          = f.date_field :finishing_date_lteq, class: "form-control"
+  .col-xs-12.col-lg-6
+    .row
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :last_execution_date_gteq, "Last Execution Date from: "
+          = f.date_field :last_execution_date_gteq, class: "form-control"
+      .col-xs-12.col-sm-6
+        .form-group
+          = f.label :last_execution_date_lteq, "to: "
+          = f.date_field :last_execution_date_lteq, class: "form-control"
+    .form-group
+      = f.label :series_id_eq, "Series:"
+      = f.collection_select :series_id_eq, Series.all, "id", "name", {include_blank: 'Choose…'}, {class: 'form-control c-select'}
 = render 'shared/searchform__tagsfield'
-
-.form-group
-  = f.label :series_id_eq, "Series:"
-  = f.collection_select :series_id_eq, Series.all, "id", "name", {include_blank: 'Choose…'}, {class: 'form-control c-select'}
