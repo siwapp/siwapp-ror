@@ -1,13 +1,26 @@
 %nav.navbar.navbar-fixed-top.navbar-light.bg-faded.siwapp-navbar
+
   #js-navbar.nav.siwapp-navbar-brand
-    %button.navbar-toggler.hidden-md-up.pull-xs-left{type: "button", data: {target: "#js-main-menu", toggle: "collapse"}}
+    %button.btn.btn-navbar.navbar-toggler.hidden-md-up.pull-xs-left{type: "button", data: {target: "#js-main-menu", toggle: "collapse"}}
       %i.material-icons menu
+
+    - if @type
+      = link_to "New #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary hidden-xs-down pull-sm-right m-l-1"
+      = link_to sti_path(@type, 'new'), class: "btn btn-navbar hidden-sm-up pull-xs-right" do
+        %i.material-icons add
+    - else
+      = link_to "New Invoice", new_invoice_path, class: "btn btn-primary hidden-xs-down pull-sm-right m-l-1"
+      = link_to new_invoice_path, class: "btn btn-navbar hidden-sm-up pull-xs-right" do
+        %i.material-icons add
+
     - if @search
-      %button.navbar-toggler.pull-xs-right{type: "button", data: {target: "#js-search-form", toggle: "collapse"}}
+      %button.btn.btn-navbar.navbar-toggler.pull-xs-right{type: "button", data: {target: "#js-search-form", toggle: "collapse"}}
         %i.material-icons search
+
     %a.navbar-brand{:href => "/"}
       = image_tag("logo.svg", alt: "siwapp", class: "siwapp-logo")
-  #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm
+
+  #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm.siwapp-navbar-menu
     .siwapp-navbar-scroll
       %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => "/"} Home
       %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path} Invoices
@@ -23,11 +36,13 @@
           %a.dropdown-item{:href => taxes_path} Taxes
           %a.dropdown-item{:href => templates_path} Templates
       %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}} Settings
+
     #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll
       %a.nav-item.nav-link{:href => settings_my_configuration_path} My Account
       %a.nav-item.nav-link{:href => settings_global_path} Global Settings
       %a.nav-item.nav-link{:href => series_index_path} Series
       %a.nav-item.nav-link{:href => taxes_path} Taxes
       %a.nav-item.nav-link{:href => templates_path} Templates
+
   - if @search
     = render 'shared/searchform'

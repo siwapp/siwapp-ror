@@ -8,7 +8,7 @@
 
     .siwapp-logo
       position: relative
-      top: 2px
+      top: 4px
 
     @include media-breakpoint-down(sm)
       display: block
@@ -20,14 +20,19 @@
         width: 100%
         height: auto
 
-  .navbar-toggler
-    padding: .25rem
+  .btn-navbar
+    color: $body-color
+    padding: .375rem .4rem
+
 
 @include media-breakpoint-down(sm)
   .siwapp-navbar-brand,
   .siwapp-navbar-scroll
     @include clearfix()
     clear: both
+
+  .siwapp-navbar-menu
+    padding-top: .5rem
 
   .siwapp-navbar-scroll
     overflow-x: scroll

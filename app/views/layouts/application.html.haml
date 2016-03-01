@@ -17,13 +17,8 @@
   %body
     = render partial: 'shared/navbar'
 
-    - if @type
-      = link_to "New #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary text-capitalize"
-    - else
-      = link_to "New Invoice", new_invoice_path, class: "btn btn-primary"
-
     .container-fluid{"role" => "main"}
       - flash.each do |message_type, message|
         %div{:class => "alert alert-#{message_type}"}= message
-        
+
       = content_for?(:content) ? yield(:content) : yield
