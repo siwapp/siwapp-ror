@@ -2,12 +2,23 @@
   width: 100%
 
   .navbar-brand
+    display: inline-block
     width: 7rem
     height: 2rem
 
     .siwapp-logo
       position: relative
       top: 2px
+
+    @include media-breakpoint-down(sm)
+      display: block
+      position: absolute
+      left: 50%
+      transform: translateX(-50%)
+
+      .siwapp-logo
+        width: 100%
+        height: auto
 
   .navbar-toggler
     padding: .25rem

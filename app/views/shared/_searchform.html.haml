@@ -1,5 +1,5 @@
-= search_form_for @search, html: {class: "collapse nav navbar-nav navbar-toggleable-md siwapp-search-form", id: "js-search-form"} do |f|
-  .input-group.pull-lg-right.siwapp-input-search
+= search_form_for @search, html: {class: "collapse nav navbar-nav siwapp-search-form", id: "js-search-form"} do |f|
+  .input-group.siwapp-input-search
     - if @search_filters
       .input-group-btn
         %button.btn.btn-secondary.material-icons{"data-target" => "#js-search-filters", "data-toggle" => "collapse", :type => "button"} expand_more

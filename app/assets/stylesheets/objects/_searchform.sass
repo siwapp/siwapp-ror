@@ -1,8 +1,7 @@
 .siwapp-search-form
-  @include media-breakpoint-down(md)
-    @include clearfix()
-    clear: both
-    padding-top: .5rem
+  @include clearfix()
+  clear: both
+  padding-top: .5rem
 
 .siwapp-search-filters
   @include clearfix()
@@ -15,15 +14,3 @@
   border: 1px solid $gray-lighter
   border-left-width: 0
   border-right-width: 0
-
-@include media-breakpoint-up(lg)
-  .siwapp-search-filters
-    position: relative
-
-  .siwapp-search-filters__content
-    margin: 0
-    position: absolute
-    top: .5rem
-    right: 0
-    border-left-width: 1px
-    border-right-width: 1px
