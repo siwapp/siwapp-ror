@@ -36,6 +36,6 @@ jQuery(document).ready ($) ->
   new FastClick(document.body)
 
   # Bottom buttons to save forms:
-  $(document).on 'click', '.form-save', (e) ->
+  $(document).on 'click', '[data-role="save-form"]', (e) ->
     e.preventDefault()
-    $('form.js-invoice-like').submit()
+    $($(this).data('target')).submit()

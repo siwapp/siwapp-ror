@@ -1,4 +1,4 @@
-= form_for @recurring_invoice, data: {controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'js-invoice-like'} do |f|
+= form_for @recurring_invoice, data: {role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
   - if @recurring_invoice.errors.any?
     #error_explanation
       %h2

@@ -6,4 +6,4 @@
   = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary'
   - if @template_url
     = link_to 'PDF', @template_url + '.pdf', class: 'btn btn-primary'
-  = link_to 'Save', '#', class: 'btn btn-success form-save'
+  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'save-form', target: 'form[data-role="invoice"]'}

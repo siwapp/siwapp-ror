@@ -6,6 +6,7 @@ set_amounts = (controller_name, form) ->
   $.get url, ->
     return
 
+
 # Function to get amounts json and do anything with them via callback
 # Receives a controller name as string, and a form object to serialize
 # retrieves amounts in a json
@@ -14,11 +15,13 @@ get_amounts = (controller_name, form, callback) ->
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
+
 # Retrieves the common part of the id of all fields in a cocoon formset row
 get_id_prefix = (input_field) ->
   id_prefix = input_field.attr('id')
   id_prefix = id_prefix.substring(0, id_prefix.lastIndexOf('_'))
   id_prefix
+
 
 # Function to initialize autocomplete behavior on invoice-like items
 # on load and when a new item is inserted.
@@ -28,6 +31,7 @@ init_invoice_item_autocomplete = (input_field) ->
     $("##{id_prefix}_unitary_cost").val ui.item.unitary_cost
     $("##{id_prefix}_unitary_cost").trigger "change" # to trigger recalculations
 
+
 # Function to deactivate autocomplete behavior on invoice-like items
 # when they are removed.
 destroy_invoice_item_autocomplete = (input_field) ->
@@ -35,20 +39,23 @@ destroy_invoice_item_autocomplete = (input_field) ->
     input_field.autocomplete 'destroy'
     input_field.removeData 'autocomplete'
 
+
 # Works with Turbolinks thanks to:
 # - http://github.com/kossnocorp/jquery.turbolinks
 # - https://github.com/rails/turbolinks#jqueryturbolinks
 jQuery(document).ready ($) ->
 
-  # Find forms that behave like an invoice
-  # Those forms have a data-controller attribute that contains the current
-  # controller name and are matched also by a .js-invoice-like class.
-  $('form.js-invoice-like[data-controller]').each ->
-    # TODO(@carlos): If the form doesn't have the class and the data- attribute
-    # it won't match. Maybe it will be better to be less restrictive and throw
-    # an error to warn the developer.
+
+  # Header: only one collapsible element visible at a time (search vs. menus)
+  $('#js-navbar').on 'click', '[data-toggle="collapse"]', (e) ->
+    $(this).closest('nav').find('[data-toggle="collapse"]').not(this).each () ->
+      $($(this).data('target')).collapse('hide')
+
+
+  # Find forms that behave like an invoice:
+  $('form[data-role="invoice"]').each ->
     form = $(this)
-    controller_name = form.data('controller')
+    controller_name = form.data('controller')  # REQUIRED!!!
 
     # Find sections that change the amounts of the invoice-like form
     form.find('[data-changes="amount"]')

@@ -2,4 +2,4 @@
 = render 'form'
 .bottom-buttons
   = link_to 'Cancel', :back, class: 'btn btn-danger'
-  = link_to 'Save', '#', class: 'btn btn-success form-save'
+  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'save-form', target: 'form[data-role="invoice"]'}
