@@ -1,12 +1,21 @@
-%fieldset.form-group
-  = f.label :issue_date_gteq, "Issue Date from: "
-  = f.date_field :issue_date_gteq, class: "form-control"
-  = f.label :issue_date_lteq, "to: "
-  = f.date_field :issue_date_lteq, class: "form-control"
-= render 'shared/searchform__tagsfield'
-%fieldset.form-group
-  = f.label :series_id_eq, "Series:"
-  = f.collection_select :series_id_eq, Series.all, :id, :to_s, include_blank: true, class: 'form-control'
-%p
-  = f.label :with_status, "Status:"
-  = f.select :with_status, Invoice::status_collection, include_blank: true, class: 'form-control'
+.row
+  .col-xs-12.col-md-6
+    .row
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :issue_date_gteq, "Issue Date from: "
+          = f.date_field :issue_date_gteq, class: "form-control"
+      .col-xs-12.col-md-6
+        .form-group
+          = f.label :issue_date_lteq, "to: "
+          = f.date_field :issue_date_lteq, class: "form-control"
+    .row
+      .col-xs-12
+        = render 'shared/searchform__tagsfield'
+  .col-xs-12.col-md-6
+    .form-group
+      = f.label :series_id_eq, "Series:"
+      = f.collection_select :series_id_eq, Series.all, :id, :to_s, {include_blank: 'Choose…'}, {class: 'form-control c-select'}
+    .form-group
+      = f.label :with_status, "Status:"
+      = f.select :with_status, Invoice::status_collection, {include_blank: 'Choose…'}, {class: 'form-control c-select'}

@@ -1,53 +1,62 @@
-.siwapp-navbar
-  width: 100%
+.navbar-fixed-top {
+  @include media-breakpoint-down(sm) {
+    position: static;
+    margin-bottom: 1rem;
+  }
+}
 
-  .navbar-brand
-    display: inline-block
-    width: 7rem
-    height: 2rem
+.siwapp-navbar {
+  width: 100%;
+  border-bottom: 1px solid #dddddd;
+  .navbar-brand {
+    display: inline-block;
+    width: 7rem;
+    height: 2rem;
+    .siwapp-logo {
+      position: relative;
+      top: 4px;
+    }
+    @include media-breakpoint-down(sm) {
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      .siwapp-logo {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+  .btn-navbar {
+    color: $body-color;
+    padding: 0.375rem 0.4rem;
+  }
+}
 
-    .siwapp-logo
-      position: relative
-      top: 4px
-
-    @include media-breakpoint-down(sm)
-      display: block
-      position: absolute
-      left: 50%
-      transform: translateX(-50%)
-
-      .siwapp-logo
-        width: 100%
-        height: auto
-
-  .btn-navbar
-    color: $body-color
-    padding: .375rem .4rem
-
-
-@include media-breakpoint-down(sm)
+@include media-breakpoint-down(sm) {
   .siwapp-navbar-brand,
-  .siwapp-navbar-scroll
-    @include clearfix()
-    clear: both
-
-  .siwapp-navbar-menu
-    padding-top: .5rem
-
-  .siwapp-navbar-scroll
-    overflow-x: scroll
-    overflow-y: hidden
-
-    margin-left: -1rem
-    margin-right: -1rem
-    padding-left: 1rem
-    padding-right: 1rem
-
-    -webkit-overflow-scrolling: touch
-    white-space: nowrap
-
-    .nav-item
-      display: inline-block
-      float: none
-      &:last-child
-        margin-right: 1rem
+  .siwapp-navbar-scroll {
+    @include clearfix;
+    clear: both;
+  }
+  .siwapp-navbar-menu {
+    padding-top: 0.5rem;
+  }
+  .siwapp-navbar-scroll {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    .nav-item {
+      display: inline-block;
+      float: none;
+      &:last-child {
+        margin-right: 1rem;
+      }
+    }
+  }
+}

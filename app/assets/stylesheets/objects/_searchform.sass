@@ -1,16 +1,23 @@
-.siwapp-search-form
-  @include clearfix()
-  clear: both
-  padding-top: .5rem
+.siwapp-search-form {
+  @include clearfix;
+  clear: both;
+  padding-top: 0.5rem;
+}
 
-.siwapp-search-filters
-  @include clearfix()
-  clear: both
+.siwapp-search-filters {
+  @include clearfix;
+  clear: both;
+}
 
-.siwapp-search-filters__content
-  margin: 1rem -1rem 0
-  padding: 1rem
-  background: white
-  border: 1px solid $gray-lighter
-  border-left-width: 0
-  border-right-width: 0
+.siwapp-search-filters__content {
+  margin: 1rem -1rem 0;
+  padding: 1rem;
+  background: white;
+  border: 1px solid $gray-lighter;
+  border-left-width: 0;
+  border-right-width: 0;
+}
+
+input[type="date"].form-control {
+  line-height: 1.5 !important;
+}
