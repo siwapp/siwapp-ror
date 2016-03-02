@@ -2,19 +2,19 @@
 
 %div{data: {role: 'infinite-scroll'}}
   .table-responsive
-    %table.table.table-hover.table-striped
+    %table.table.table-hover.table-striped.table-bordered
       %thead
         %tr
-          %th Customer Name
-          %th Identification
-          %th Due
-          %th Total
+          %th.no-wrap Customer Name
+          %th.no-wrap Identification
+          %th.text-right Due
+          %th.text-right Total
       %tbody{data: {role: 'infinite-content'}}
         - @customers.each do |customer|
           %tr{"data-href" => edit_customer_path(customer)}
-            %td= customer.name
-            %td= customer.identification
-            %td= customer.due.round 2
-            %td= customer.total.round 2
+            %td.no-wrap= customer.name
+            %td.no-wrap= customer.identification
+            %td.text-right= customer.due.round 2
+            %td.text-right= customer.total.round 2
   .content-loading.hide{data: {role: 'infinite-status'}}
     = image_tag("balls.svg", alt: "Loading...", class: "loader")

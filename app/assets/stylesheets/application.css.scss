@@ -69,6 +69,12 @@ tr[data-href] {
 .text-center {
   text-align: center !important;
 }
+.text-right {
+  text-align: right !important;
+}
+.no-wrap {
+  white-space: nowrap !important;
+}
 // scss-lint:enable ImportantRule
 
 .content-loading {
@@ -79,4 +85,15 @@ tr[data-href] {
     width: 3.125rem;
     height: auto;
   }
+}
+
+td, th {
+  &[data-role^="select"] {
+    width: 3rem;
+    text-align: center;
+  }
+}
+
+.sort_link {
+  color: inherit;
 }

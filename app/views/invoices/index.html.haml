@@ -17,16 +17,16 @@
   = submit_tag 'Remove Selected'
   %div{data: {role: 'infinite-scroll'}}
     .table-responsive
-      %table.table.table-hover.table-striped
+      %table.table.table-hover.table-striped.table-bordered
         %thead
           %tr
-            %th{:data => {:role => "select-all"}}= check_box_tag "select_all", 1
-            %th= sort_link(@search, :series_value, "Number")
-            %th= sort_link(@search, :name, "Customer Name")
-            %th= sort_link(@search, :issue_date, "Date")
-            %th= sort_link(@search, :status, "Status")
-            %th{:style => "text-align:right"} Pending
-            %th{:style => "text-align:right"}= sort_link(@search, :gross_amount, "Total")
+            %th{data: {role: "select-all"}}= check_box_tag "select_all", 1
+            %th.no-wrap= sort_link(@search, :series_value, "Number")
+            %th.no-wrap= sort_link(@search, :name, "Customer Name")
+            %th.no-wrap= sort_link(@search, :issue_date, "Date")
+            %th.text-center= sort_link(@search, :status, "Status")
+            %th.text-right Pending
+            %th.text-right= sort_link(@search, :gross_amount, "Total")
         %tbody{data: {role: 'infinite-content'}}= render @invoices
     .content-loading.hide{data: {role: 'infinite-status'}}
       = image_tag("balls.svg", alt: "Loading...", class: "loader")
