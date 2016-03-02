@@ -16,7 +16,8 @@
 #= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery-ui/autocomplete
-#= require jquery.infinitescroll
+#= require waypoints/jquery.waypoints
+#= require waypoints/shortcuts/infinite
 #= require fastclick
 #= require chartist
 #

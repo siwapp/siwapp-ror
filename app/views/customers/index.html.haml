@@ -1,15 +1,18 @@
-.table-responsive
-  %table.table.table-hover.table-striped
-    %thead
-      %tr
-        %th Customer Name
-        %th Identification
-        %th Due
-        %th Total
-    %tbody.js-iscroll
-      - @customers.each do |customer|
-        %tr{"data-href" => edit_customer_path(customer)}
-          %td= customer.name
-          %td= customer.identification
-          %td= customer.due.round 2
-          %td= customer.total.round 2
+%div{data: {role: 'infinite-scroll'}}
+  .table-responsive
+    %table.table.table-hover.table-striped
+      %thead
+        %tr
+          %th Customer Name
+          %th Identification
+          %th Due
+          %th Total
+      %tbody{data: {role: 'infinite-content'}}
+        - @customers.each do |customer|
+          %tr{"data-href" => edit_customer_path(customer)}
+            %td= customer.name
+            %td= customer.identification
+            %td= customer.due.round 2
+            %td= customer.total.round 2
+  .content-loading.hide{data: {role: 'infinite-status'}}
+    = image_tag("balls.svg", alt: "Loading...", class: "loader")

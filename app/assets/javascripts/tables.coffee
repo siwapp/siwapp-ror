@@ -1,13 +1,17 @@
 jQuery(document).ready ($) ->
 
-  # Infinite Scroll for table based listings.
-  # Add .js-iscroll to the <tbody> node that will contain the items.
-  $('.js-iscroll').infinitescroll({
-    navSelector: '.pagination'
-    nextSelector: '.pagination .next_page'
-    itemSelector: '.js-iscroll > tr'
-    prefill: true
-  })
+  # If there's an infinite scrolling pager, configure it:
+  if $('#js-infinite-scrolling').length == 1
+    infiniteScroll = new Waypoint.Infinite({
+      element: $('[data-role="infinite-scroll"]')[0]
+      container: $('[data-role="infinite-content"]')[0]
+      items: '[data-role="infinite-content"] > tr'
+      more: '.pagination a.next_page'
+      onBeforePageLoad: () ->
+        $('[data-role="infinite-status"]').removeClass 'hide'
+      onAfterPageLoad: (items) ->
+        $('[data-role="infinite-status"]').addClass 'hide'
+    })
 
   $(document)
     # Existing and future table rows with the data-href attribute act as links
