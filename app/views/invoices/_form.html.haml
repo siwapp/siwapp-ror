@@ -7,11 +7,11 @@
       %ul
         - @invoice.errors.full_messages.each do |message|
           %li= message
-  %h2 Customer Information
+  %h2 Customer
   = render partial: 'customers/form_fields', locals: {f: f}
   = f.label :customer_id, "Customer id (this will be hidden)"
   = f.text_field :customer_id
-  %h2 Invoice detail
+  %h2 Invoice details
   .row
     .col-sm-4
       = f.label :series

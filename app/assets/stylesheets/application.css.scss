@@ -58,8 +58,17 @@ tr[data-href] {
 // To place buttons at the bottom right of the page
 .action-buttons {
   position: fixed;
-  bottom: 2rem;
+  bottom: 1rem;
   right: 1rem;
+  left: 1rem;
+
+  text-align: right;
+
+  > {
+    .btn-group, .btn {
+      margin-left: .25rem;
+    }
+  }
 }
 
 // scss-lint:disable ImportantRule

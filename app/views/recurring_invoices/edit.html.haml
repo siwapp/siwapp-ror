@@ -1,6 +1,11 @@
-%h1 Edit Recurring Invoice
+%h1
+  Recurring Invoice
+  %span.no-wrap= @recurring_invoice
+
 = render 'form'
+
 .action-buttons
-  = link_to 'Back', :back, class: 'btn btn-primary'
-  = link_to 'Delete', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}
+  = link_to 'Delete', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
+
+  = link_to 'Back', :back, class: 'btn btn-secondary'
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save

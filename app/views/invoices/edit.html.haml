@@ -1,9 +1,24 @@
-%h1 Editing Invoice
+%h1
+  Invoice
+  %span.no-wrap= @invoice
+
 = render partial: 'form', locals: { is_new: false }
+
 .action-buttons
-  = link_to 'Back', :back, class: 'btn btn-primary'
-  = link_to 'Delete', @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-  = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary'
+  = link_to 'Delete', @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
+
+  = link_to 'Back', :back, class: 'btn btn-secondary'
+
+  .btn-group.dropup.hidden-md-up
+    %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
+    %button.btn.btn-success.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded:'false'}}
+      %span.sr-only Toggle Dropdown
+    .dropdown-menu.dropdown-menu-right
+      = link_to 'Send Email', send_email_invoice_path, class: 'dropdown-item'
+      - if @template_url
+        = link_to 'Download PDF', @template_url + '.pdf', class: 'dropdown-item'
+
+  = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
   - if @template_url
-    = link_to 'PDF', @template_url + '.pdf', class: 'btn btn-primary'
-  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}
+    = link_to 'Download PDF', @template_url + '.pdf', class: 'btn btn-primary hidden-sm-down'
+  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
