@@ -22,6 +22,8 @@
 
 body {
   padding: 0;
+  padding-bottom: 5.375rem;
+
   @include media-breakpoint-up(md) {
     padding-top: 1 + rem(54px) + rem;
     &.nav-p-2 {
@@ -54,9 +56,9 @@ tr[data-href] {
 }
 
 // To place buttons at the bottom right of the page
-.bottom-buttons {
+.action-buttons {
   position: fixed;
-  bottom: 1rem;
+  bottom: 2rem;
   right: 1rem;
 }
 
@@ -99,6 +101,12 @@ td, th {
   color: inherit;
 }
 
+.dropdown-toggle.toggled::after {
+  border-top-width: 0;
+  border-bottom: 0.3em solid;
+  margin-top: -0.3em;
+}
+
 .section-hd {
   h1 {
     margin-bottom: .5rem;
@@ -125,6 +133,11 @@ td, th {
     &:active {
       background: $gray-lighter;
     }
+
+    &::after {
+      margin-left: .75rem;
+      color: #ccc;
+    }
   }
 
   @include media-breakpoint-down(xs) {
@@ -150,4 +163,6 @@ td, th {
   }
 }
 
-
+.section-info {
+  border: 1px solid $gray-lighter;
+}

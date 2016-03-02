@@ -45,12 +45,18 @@ destroy_invoice_item_autocomplete = (input_field) ->
 # - https://github.com/rails/turbolinks#jqueryturbolinks
 jQuery(document).ready ($) ->
 
+  #
+  # Navigation
+  #
 
-  # Header: only one collapsible element visible at a time (search vs. menus)
+  # Allow only one collapsible element visible at a time (search vs. menus)
   $('#js-navbar').on 'click', '[data-toggle="collapse"]', (e) ->
     $(this).closest('nav').find('[data-toggle="collapse"]').not(this).each () ->
       $($(this).data('target')).collapse('hide')
 
+  #
+  # Invoice-like Forms
+  #
 
   # Find forms that behave like an invoice:
   $('form[data-role="invoice"]').each ->
@@ -116,3 +122,27 @@ jQuery(document).ready ($) ->
         $("##{model}_invoicing_address").val ui.item.invoicing_address
         $("##{model}_shipping_address").val ui.item.shipping_address
     }
+
+  #
+  # Action Buttons
+  #
+
+  # Submit Form
+  $(document).on 'click', '[data-role="submit-form"]', (e) ->
+    e.preventDefault()
+    $($(this).data('target')).submit()
+
+  #
+  # Listings
+  #
+
+  # Section Header/Info collapse
+  sectionInfo = $('#js-section-info')
+  sectionInfoButton = $('#js-section-info-button')
+
+  sectionInfo.on 'show.bs.collapse', (e) ->
+    sectionInfoButton.addClass('toggled')
+
+  sectionInfo.on 'hide.bs.collapse', (e) ->
+    sectionInfoButton.removeClass('toggled')
+

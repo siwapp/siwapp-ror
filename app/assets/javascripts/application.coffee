@@ -35,8 +35,3 @@
 
 jQuery(document).ready ($) ->
   new FastClick(document.body)
-
-  # Bottom buttons to save forms:
-  $(document).on 'click', '[data-role="save-form"]', (e) ->
-    e.preventDefault()
-    $($(this).data('target')).submit()

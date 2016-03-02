@@ -1,22 +1,20 @@
 .section-hd.m-b-2
   %h1 Invoices
-  .btn.section-hd__action= display_money @gross
+  %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
-.row.hide
-  .col-xs-12.col-md-4.col-md-push-8
-    %ul.list-group.list-unstyled
-      %li
-        Total Gross
-        %span.label.label-default.label-pill.pull-right @gross
-      %li
-        Total Net
-        %span.label.label-default.label-pill.pull-right= display_money @net
-      %li
-        Total Tax
-        %span.label.label-default.label-pill.pull-right= display_money @tax
+#js-section-info.section-info.m-b-2.collapse
+  %ul.list-group.list-unstyled
+    %li
+      Total Gross
+      %span.label.label-default.label-pill.pull-right= display_money @gross
+    %li
+      Total Net
+      %span.label.label-default.label-pill.pull-right= display_money @net
+    %li
+      Total Tax
+      %span.label.label-default.label-pill.pull-right= display_money @tax
 
-= form_tag remove_invoices_path, :method => :delete do
-  = submit_tag 'Remove Selected'
+= form_tag remove_invoices_path, method: :delete, id: 'js-list-form' do
   %div{data: {role: 'infinite-scroll'}}
     .table-responsive
       %table.table.table-hover.table-striped.table-bordered
@@ -32,3 +30,6 @@
         %tbody{data: {role: 'infinite-content'}}= render @invoices
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
+
+.action-buttons
+  = link_to 'Remove Selected', '#', class: 'btn btn-danger', data: {role: 'submit-form', target: '#js-list-form'}

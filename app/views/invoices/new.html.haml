@@ -1,6 +1,6 @@
 %h1 New Invoice
 %p#alert= alert
 = render partial: 'form', locals: { is_new: true }
-.bottom-buttons
+.action-buttons
   = link_to 'Cancel', :back, class: 'btn btn-danger'
-  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'save-form', target: 'form[data-role="invoice"]'}
+  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}

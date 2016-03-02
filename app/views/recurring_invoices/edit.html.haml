@@ -1,6 +1,6 @@
 %h1 Edit Recurring Invoice
 = render 'form'
-.bottom-buttons
+.action-buttons
   = link_to 'Back', :back, class: 'btn btn-primary'
   = link_to 'Delete', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
-  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'save-form', target: 'form[data-role="invoice"]'}
+  = link_to 'Save', '#', class: 'btn btn-success', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}
