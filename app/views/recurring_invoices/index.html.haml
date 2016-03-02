@@ -1,4 +1,6 @@
-%h1 Recurring Invoices
+.section-hd.m-b-2
+  %h1 Recurring Invoices
+  %button.btn.section-hd__action €10,000,000
 
 .row
   .col-xs-12.col-md-4.col-md-push-8
@@ -26,4 +28,4 @@
             %th.text-right= sort_link(@search, :gross_amount, "Total")
         %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices
     .content-loading.hide{data: {role: 'infinite-status'}}
-      = image_tag("balls.svg", alt: "Loading...", class: "loader")
+      .spinner

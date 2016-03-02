@@ -1,11 +1,13 @@
-%h1 Invoices
+.section-hd.m-b-2
+  %h1 Invoices
+  .btn.section-hd__action= display_money @gross
 
-.row
+.row.hide
   .col-xs-12.col-md-4.col-md-push-8
     %ul.list-group.list-unstyled
       %li
         Total Gross
-        %span.label.label-default.label-pill.pull-right= display_money @gross
+        %span.label.label-default.label-pill.pull-right @gross
       %li
         Total Net
         %span.label.label-default.label-pill.pull-right= display_money @net
@@ -29,4 +31,4 @@
             %th.text-right= sort_link(@search, :gross_amount, "Total")
         %tbody{data: {role: 'infinite-content'}}= render @invoices
     .content-loading.hide{data: {role: 'infinite-status'}}
-      = image_tag("balls.svg", alt: "Loading...", class: "loader")
+      .spinner
