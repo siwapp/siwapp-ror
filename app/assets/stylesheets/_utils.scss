@@ -1,0 +1,23 @@
+// scss-lint:disable ImportantRule
+.no-margin {
+  margin: 0 !important;
+}
+.hide {
+  display: none !important;
+}
+.text-center {
+  text-align: center !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.no-wrap {
+  white-space: nowrap !important;
+}
+// scss-lint:enable ImportantRule
+
+.dropdown-toggle.toggled::after {
+  border-top-width: 0;
+  border-bottom: 0.3em solid;
+  margin-top: -0.3em;
+}
