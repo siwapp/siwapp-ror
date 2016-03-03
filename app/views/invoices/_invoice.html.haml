@@ -1,6 +1,6 @@
 %tr{data: {href: invoice_path(invoice)}}
   %td.text-center{data: {role: "select"}}= check_box_tag "invoice_ids[]", invoice.id
-  %td.no-wrap= invoice
+  %td.no-wrap= link_to invoice, invoice
   %td.no-wrap= invoice.name
   %td.no-wrap= invoice.issue_date
   %td.text-center= invoice.get_status

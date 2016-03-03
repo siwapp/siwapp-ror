@@ -7,10 +7,8 @@ feature "Editing Recurring Invoices" do
   end
 
   scenario "Updating a recurring invoice", :js => true, driver: :webkit do
-    expect(page).to have_content("Edit Recurring Invoice")
     fill_in "Name", with: "TextMate 2 beta"
     click_on "Save"
-
     expect(page).to have_content("Recurring Invoice was successfully updated.")
   end
 
@@ -22,5 +20,4 @@ feature "Editing Recurring Invoices" do
     expect(page).to have_content("Name can't be blank")
     expect(page).to have_content("Finishing Date must be after Starting Date")
   end
-
 end
