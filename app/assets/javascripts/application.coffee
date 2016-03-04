@@ -20,6 +20,7 @@
 #= require waypoints/shortcuts/infinite
 #= require fastclick
 #= require chartist
+#= require autosize
 #
 # Bootstrap 4
 #

@@ -63,6 +63,8 @@ jQuery(document).ready ($) ->
     form = $(this)
     controller_name = form.data('controller')  # REQUIRED!!!
 
+    autosize form.find('textarea')
+
     # Find sections that change the amounts of the invoice-like form
     form.find('[data-changes="amount"]')
       # When an item changes, update form amounts
