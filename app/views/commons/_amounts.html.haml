@@ -1,14 +1,14 @@
 %table.table
   %tr
-    %td Discount:
+    %th{scope: "row"} Discount:
     %td= display_money invoice.discount_amount
   %tr
-    %td Subtotal:
+    %th{scope: "row"} Subtotal:
     %td= display_money invoice.net_amount
   - invoice.taxes.each do |tax, value|
     %tr
-      %td= tax
+      %th{scope: "row"}= tax
       %td= display_money value
-  %tr
-    %td Total:
+  %tr.amounts-total
+    %th{scope: "row"} Total:
     %td= display_money invoice.gross_amount

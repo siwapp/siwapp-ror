@@ -1,13 +1,15 @@
-#items-table.invoice-items
+#js-items-table.invoice-items
   = f.fields_for :items, include_id: false  do |item_form|
     = render partial: 'shared/item_fields', locals: {f: item_form, is_new: false}
-.invoice-items-actions
-  = link_to_add_association 'Add Line', f, :items,       |
-    'data-association-insertion-node' => '#items-table', |
-    'data-association-insertion-method' => 'append',     |
-    :partial => 'shared/item_fields',                    |
-    :render_options => {locals: {is_new: true}},         |
-    :class => 'btn btn-secondary' |
 
-#amounts
-  = render partial: 'amounts', locals: {invoice: invoice}
+.row
+  .invoice-items-actions.col-xs-12.col-sm-6.col-md-7.col-lg-8
+    = link_to_add_association 'Add Line', f, :items,          |
+      'data-association-insertion-node' => '#js-items-table', |
+      'data-association-insertion-method' => 'append',        |
+      :partial => 'shared/item_fields',                       |
+      :render_options => {locals: {is_new: true}},            |
+      :class => 'btn btn-secondary m-t-1'                     |
+  #amounts.col-xs-12.col-sm-6.col-md-5.col-lg-4
+    .invoice-amounts
+      = render partial: 'amounts', locals: {invoice: invoice}

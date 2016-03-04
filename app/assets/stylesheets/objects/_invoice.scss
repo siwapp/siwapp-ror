@@ -15,16 +15,12 @@
 }
 
 .invoice-items {
-  margin-bottom: 1em;
-  border: 1px solid $generic-border-color;
+  border-top: 1px solid $table-border-color;
 }
 
 .invoice-item {
   position: relative;
-  border-bottom: 1px solid $generic-border-color;
-  &:last-child {
-    border-width: 0px;
-  }
+  border-bottom: 1px solid $table-border-color;
 
   // Use a smaller grid gutter only inside invoice items
   @include media-breakpoint-down(md) {
@@ -85,5 +81,29 @@
     @include media-breakpoint-up(sm) {
       display: inline-block;
     }
+  }
+}
+
+.invoice-amounts {
+  border-bottom: 1px solid $table-border-color;
+
+  table {
+    margin: 0;
+  }
+
+  tr:first-child {
+    td, th {
+      border-top-width: 0;
+    }
+  }
+
+  td {
+    text-align: right;
+  }
+
+  .amounts-total {
+    background: $gray-dark;
+    color: white;
+    font-weight: bold;
   }
 }
