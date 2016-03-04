@@ -31,3 +31,9 @@
 @import "objects/listing";
 @import "objects/invoice";
 @import "utils";
+
+label {
+  font-size: 80%;
+  color: $gray-light;
+  text-transform: uppercase;
+}
