@@ -1,4 +1,5 @@
 = form_for @recurring_invoice, data: {role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
+
   - if @recurring_invoice.errors.any?
     #error_explanation
       %h2
@@ -7,28 +8,42 @@
       %ul
         - @recurring_invoice.errors.full_messages.each do |message|
           %li= message
-  %h2 Customer Information
-  = render partial: 'customers/form_fields', locals: {f: f}
-  = f.label :id, "Customer id (this will be hidden)"
-  = f.text_field :customer_id
-  %h2 Recurring Configuration
-  = f.label :days_to_due
-  = f.number_field :days_to_due
-  %br/
-  = f.label :starting_date
-  = f.date_field :starting_date
-  = f.label :finishing_date
-  = f.date_field :finishing_date
-  %br/
-  = f.label :max_occurrences
-  = f.number_field :max_occurrences
-  %br/
-  = f.label :period
-  = f.number_field :period
-  = f.label :period_type
-  = f.select(:period_type, RecurringInvoice::PERIOD_TYPES)
-  %h2 Invoice Detail
-  = f.label :series
-  = f.collection_select :series_id, @series, :id, :to_s
-  = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice}
-  = render partial: 'shared/tagging_field', locals: {f: f, instance: @recurring_invoice}
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Customer
+    = render partial: 'customers/form_fields', locals: {f: f}
+
+    %div
+      = f.label :id, "Customer id (this will be hidden)"
+      = f.text_field :customer_id
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Configuration
+
+    .form-group
+      = f.label :days_to_due
+      = f.number_field :days_to_due, class: 'form-control'
+    .form-group
+      = f.label :starting_date
+      = f.date_field :starting_date, class: 'form-control'
+    .form-group
+      = f.label :finishing_date
+      = f.date_field :finishing_date, class: 'form-control'
+    .form-group
+      = f.label :max_occurrences
+      = f.number_field :max_occurrences, class: 'form-control'
+    .form-group
+      = f.label :period
+      = f.number_field :period, class: 'form-control'
+    .form-group
+      = f.label :period_type
+      = f.select :period_type, RecurringInvoice::PERIOD_TYPES, {}, {class: 'form-control c-select'}
+
+  %fieldset.m-b-2{"data-changes" => "amount"}
+    %legend.m-b-1 Invoice details
+
+    .form-group
+      = f.label :series
+      = f.collection_select :series_id, @series, :id, :to_s, {}, {class: 'form-control c-select'}
+    = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice}
+    = render partial: 'shared/tagging_field', locals: {f: f, instance: @recurring_invoice}

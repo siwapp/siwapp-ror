@@ -1,4 +1,5 @@
 = form_for @invoice, data: {role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
+
   - if @invoice.errors.any?
     #error_explanation
       %h2
@@ -7,28 +8,44 @@
       %ul
         - @invoice.errors.full_messages.each do |message|
           %li= message
-  %h2 Customer
-  = render partial: 'customers/form_fields', locals: {f: f}
-  = f.label :customer_id, "Customer id (this will be hidden)"
-  = f.text_field :customer_id
-  %h2 Invoice details
-  .row
-    .col-sm-4
-      = f.label :series
-      = f.collection_select :series_id, @series, :id, :to_s, is_new ? { selected: @default_series_id} : {}, {multiple: false}
-    .col-sm-4
-      = f.label :issue_date
-      = f.date_field :issue_date
-    .col-sm-4
-      = f.label :due_date
-      = f.date_field :due_date
-  - if @invoice.new_record? or @invoice.draft
-    = f.check_box :draft
-    = f.label :draft
-  = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice}
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Customer
+    = render partial: 'customers/form_fields', locals: {f: f}
+
+    %div
+      = f.label :customer_id, "Customer id (this will be hidden)"
+      = f.text_field :customer_id
+
+  %fieldset.m-b-2{"data-changes" => "amount"}
+    %legend.m-b-1 Invoice details
+
+    .row
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :series
+          = f.collection_select :series_id, @series, :id, :to_s, is_new ? { selected: @default_series_id} : {}, {multiple: false, class: 'form-control c-select'}
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :issue_date
+          = f.date_field :issue_date, class: 'form-control'
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :due_date
+          = f.date_field :due_date, class: 'form-control'
+
+    - if @invoice.new_record? or @invoice.draft
+      .checkbox
+        %label
+          = f.check_box :draft
+          Draft
+
+    = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice}
+
   - unless @invoice.new_record?
-    %fieldset{"data-changes" => "amount"}
-      %h2 Payments
+    %fieldset.m-b-2{data: {changes: 'amount'}}
+      %legend.m-b-1 Payments
+
       .table-responsive
         %table.table#payments-table
           %thead
@@ -42,4 +59,7 @@
       = link_to_add_association 'add payment', f, :payments, |
         'data-association-insertion-node' => '#payments-table tbody',         |
         'data-association-insertion-method' => 'append'      |
-  = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Meta
+    = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}

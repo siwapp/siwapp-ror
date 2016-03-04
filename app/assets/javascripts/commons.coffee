@@ -74,9 +74,9 @@ jQuery(document).ready ($) ->
         # Attention: discounts and taxes are not calculated here!!
         # those are calculated only in the totals.
         item_row = item.parents('.js-item')
-        item_row.find('.base-amount').val(
-          item_row.find('.quantity').val() * item_row.find('.unitary-cost').val()
-        )
+        base_amount = item_row.find('.quantity').val() * item_row.find('.unitary-cost').val()
+        item_row.find('[data-role="base-amount"]').val(base_amount)
+        item_row.find('.js-base-amount').html(base_amount)
         # Set total amounts of invoice
         set_amounts(controller_name, form)
       # When an item is removed, update form amounts
