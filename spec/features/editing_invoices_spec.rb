@@ -35,7 +35,7 @@ feature 'Editing Invoices' do
     find('a.add_fields[data-association=item]').click
 
     # a new item appears
-    new_item_xpath = "//*[@id='items-table']/div[4]"
+    new_item_xpath = "//*[@id='js-items-table']/div[4]"
     expect(page).to have_selector(:xpath, new_item_xpath)
 
     within :xpath, new_item_xpath do
@@ -52,7 +52,7 @@ feature 'Editing Invoices' do
     # click over "add payment",
     find('a.add_fields[data-association=payment]').click
     # a new payment appears ...
-    new_payment_xpath = "//table[@id='payments-table']/tbody/tr[2]"
+    new_payment_xpath = "//*[@id='js-payments-table']/div[2]"
     expect(page).to have_selector(:xpath, new_payment_xpath)
 
     within :xpath, new_payment_xpath do

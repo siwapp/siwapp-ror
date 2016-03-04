@@ -46,13 +46,13 @@
     %fieldset.m-b-2{data: {changes: 'amount'}}
       %legend.m-b-1 Payments
 
-      #payments-table.invoice-table
+      #js-payments-table.invoice-table
         = f.fields_for :payments, include_id: false  do |payment_form|
           = render partial: 'payment_fields', locals: {f: payment_form}
 
       .invoice-table-actions
         = link_to_add_association 'Add Payment', f, :payments,    |
-          'data-association-insertion-node' => '#payments-table', |
+          'data-association-insertion-node' => '#js-payments-table', |
           'data-association-insertion-method' => 'append',        |
           :class => 'btn btn-secondary'                           |
 
