@@ -1,6 +1,7 @@
 // To place buttons at the bottom right of the page
 .action-buttons {
   position: fixed;
+  z-index: 10;
   bottom: 1rem;
   right: 1rem;
   left: 1rem;
@@ -14,11 +15,11 @@
   }
 }
 
-.invoice-items {
+.invoice-table {
   border-top: 1px solid $table-border-color;
 }
 
-.invoice-item {
+.invoice-row {
   position: relative;
   border-bottom: 1px solid $table-border-color;
 
@@ -48,8 +49,9 @@
     position: absolute;
     top: $small-grid-gutter-width;
     right: $small-grid-gutter-width;
+    z-index: 1;
 
-    @include media-breakpoint-up(sm) {
+    @include media-breakpoint-up(md) {
       top: $grid-gutter-width / 2;
       right: $grid-gutter-width / 2;
     }
@@ -73,8 +75,8 @@
   }
 }
 
-.invoice-items-actions {
-  margin-bottom: 1rem;
+.invoice-table-actions {
+  margin: 1rem 0;
 
   .btn {
     display: block;

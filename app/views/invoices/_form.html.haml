@@ -46,19 +46,15 @@
     %fieldset.m-b-2{data: {changes: 'amount'}}
       %legend.m-b-1 Payments
 
-      .table-responsive
-        %table.table#payments-table
-          %thead
-            %th
-            %th Date
-            %th Notes
-            %th Amount
-          %tbody
-            = f.fields_for :payments  do |payment_form|
-              = render partial: 'payment_fields', locals: {f: payment_form}
-      = link_to_add_association 'add payment', f, :payments, |
-        'data-association-insertion-node' => '#payments-table tbody',         |
-        'data-association-insertion-method' => 'append'      |
+      #payments-table.invoice-table
+        = f.fields_for :payments, include_id: false  do |payment_form|
+          = render partial: 'payment_fields', locals: {f: payment_form}
+
+      .invoice-table-actions
+        = link_to_add_association 'Add Payment', f, :payments,    |
+          'data-association-insertion-node' => '#payments-table', |
+          'data-association-insertion-method' => 'append',        |
+          :class => 'btn btn-secondary'                           |
 
   %fieldset.m-b-2
     %legend.m-b-1 Meta
