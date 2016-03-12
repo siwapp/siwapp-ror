@@ -4,6 +4,10 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :taxes
 
+  scope :unique_description, -> (term){
+    order(:description).where("description LIKE ?", term).group(:description)
+  }
+
   def base_amount
     unitary_cost * quantity
   end

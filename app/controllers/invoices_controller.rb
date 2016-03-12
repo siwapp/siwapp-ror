@@ -48,7 +48,7 @@ class InvoicesController < CommonsController
   # GET /invoices/autocomplete.json
   # View to get the item autocomplete feature.
   def autocomplete
-    @items = Item.order(:description).where("description LIKE ?", "%#{params[:term]}%")
+    @items = Item.unique_description("%#{params[:term]}%")
     respond_to do |format|
       format.json {
         render json: @items.map {|item|
