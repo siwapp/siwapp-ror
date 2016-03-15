@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
-  resources :taxes, :series, :payments, :templates, :tax_groups
+  resources :taxes, :series, :payments, :templates
 
 
   get "invoices/amounts"

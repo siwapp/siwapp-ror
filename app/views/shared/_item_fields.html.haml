@@ -28,7 +28,7 @@
         .col-xs-12.col-sm-6
           .form-group
             = f.label :tax_ids, 'Taxes'
-            = f.collection_select 'tax_ids', @taxes, :id, :name, is_new ? {selected: @default_taxes_ids} : {}, { multiple: true, class: 'form-control' }
+            = f.collection_check_boxes 'tax_ids', @taxes, :id, :name, is_new ? {checked: @default_taxes_ids} : {}, { multiple: true, class: 'form-control' }
         .col-xs-12.col-sm-6
           .form-group.no-margin
             = f.label :base_amount, 'Total'
