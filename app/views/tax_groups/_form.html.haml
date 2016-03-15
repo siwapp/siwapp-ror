@@ -1,0 +1,15 @@
+= form_for(@tax_group) do |f|
+  - if @tax_group.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@tax_group.errors.count, "error")
+        prohibited this tax group from being saved:
+      %ul
+        - @tax_group.errors.full_messages.each do |message|
+          %li= message
+  %div
+    = f.label :name
+    = f.text_field :name
+    %br/
+  .actions
+    = f.submit

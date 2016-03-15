@@ -93,6 +93,15 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer "tax_id",  limit: 4, default: 0, null: false
   end
 
+  create_table "tax_groups", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "taxes_tax_groups", id: false, force: :cascade do |t|
+    t.integer "tax_id", limit: 4, default: 0, null: false
+    t.integer "tax_group_id",  limit: 4, default: 0, null: false
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer  "invoice_id", limit: 8,                               null: false
     t.date     "date"
