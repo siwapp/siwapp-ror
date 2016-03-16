@@ -29,9 +29,8 @@ class InvoicesController < CommonsController
   def template
     @invoice = Invoice.find(params[:invoice_id])
     @template = Template.find(params[:id])
-    @settings = Settings.new
     html = render_to_string :inline => @template.template,
-      :locals => {:invoice => @invoice, :settings => @settings}
+      :locals => {:invoice => @invoice, :settings => Settings.get_all}
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do

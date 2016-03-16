@@ -10,8 +10,8 @@ class ApplicationMailer < ActionMailer::Base
     enable_starttls_auto: true
   }
   self.raise_delivery_errors = true
-  email_property = Property.find_by key: 'company_email'
+  email_property = Settings.company_email
   if email_property
-    default from: email_property.value
+    default from: email_property
   end
 end
