@@ -76,11 +76,11 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal "quantity",                 precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal "discount",                 precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4,                                           null: false
+    t.decimal "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer "common_id",    limit: 4,                                             null: false
     t.string  "description",  limit: 20000
-    t.decimal "unitary_cost",             precision: 53, scale: 15, default: 0.0, null: false
+    t.decimal "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
     t.integer "product_id",   limit: 4
   end
 
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 0) do
 
   create_table "properties", force: :cascade do |t|
     t.string "key",   limit: 255,   null: false
-    t.text "value", limit: 65535
+    t.text   "value", limit: 65535
   end
 
   create_table "series", force: :cascade do |t|
@@ -124,6 +124,16 @@ ActiveRecord::Schema.define(version: 0) do
     t.boolean "enabled",                 default: true
     t.boolean "default"
   end
+
+  create_table "settings" do |t|
+    t.string  :var,        null: false
+    t.text    :value,      null: true
+    t.integer :thing_id,   null: true
+    t.string  :thing_type, null: true, limit: 30
+    t.timestamps
+  end
+
+  add_index :settings, %i(thing_type thing_id var), unique: true
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id",        limit: 4
@@ -147,9 +157,9 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string  "name",       limit: 50
-    t.decimal "value",                 precision: 53, scale: 2
-    t.boolean "active",                                         default: true
+    t.string  "name",    limit: 50
+    t.decimal "value",              precision: 53, scale: 2
+    t.boolean "active",                                      default: true
     t.boolean "default",                                     default: false
   end
 

@@ -158,6 +158,8 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
+    rails-settings-cached (0.4.6)
+      rails (>= 4.2.0)
     rails_12factor (0.0.3)
       rails_serve_static_assets
       rails_stdout_logging
@@ -273,6 +275,7 @@ DEPENDENCIES
   pry-rails
   puma
   rails (= 4.2.5.1)
+  rails-settings-cached (~> 0.4.0)
   rails_12factor
   ransack
   rspec-rails
@@ -289,3 +292,6 @@ DEPENDENCIES
   wicked_pdf
   will_paginate
   wkhtmltopdf-binary
+
+BUNDLED WITH
+   1.10.5
