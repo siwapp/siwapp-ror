@@ -40,7 +40,7 @@ feature 'Editing Invoices' do
 
     within :xpath, new_item_xpath do
       # default taxes
-      expect(find('checkbox option[checked="checked"]').value.to_i).to eq default_tax.id
+      expect(find('input[checked="checked"]').value.to_i).to eq default_tax.id
     end
   end
 
