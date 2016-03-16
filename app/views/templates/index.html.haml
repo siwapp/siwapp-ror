@@ -1,7 +1,7 @@
 %h1 Templates
 
-= form_tag url_for(:controller => "templates", :action => "set_default"), :method => :post do
-  = submit_tag 'Change Default', class: "btn btn-sm btn-primary"
+= form_tag url_for({:controller => "templates", :action => "set_default"}), :method => :post, :class => "change_default"  do
+  
   .table-responsive
     %table.table.table-hover.table-striped
       %thead
