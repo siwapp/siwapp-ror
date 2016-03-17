@@ -1,11 +1,11 @@
 class ApplicationMailer < ActionMailer::Base
   self.delivery_method = :smtp
   self.smtp_settings = {
-    address:              'smtp.gmail.com',
-    port:                 587,
-    domain:               '',
-    user_name:            '',
-    password:             '',
+    address:              Settings.host,
+    port:                 Settings.port,
+    domain:               Settings.domain,
+    user_name:            Settings.user,
+    password:             Settings.password,
     authentication:       :plain,
     enable_starttls_auto: true
   }

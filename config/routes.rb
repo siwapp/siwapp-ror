@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   post 'settings/global'
   get 'settings/my_configuration'
   post 'settings/my_configuration'
+  get 'settings/smtp'
+  post 'settings/smtp'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

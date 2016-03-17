@@ -31,6 +31,23 @@ class SettingsController < ApplicationController
   
   end
 
+  def smtp
+    if request.post?
+      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
+        Settings[key] = params[key]
+      end  
+    end
+
+    @host = Settings.host
+    @port = Settings.port
+    @domain = Settings.domain
+    @user = Settings.user
+    @password = Settings.password
+    @authentication = Settings.authentication
+    @enable_starttls_auto = Settings.enable_starttls_auto
+
+  end
+
   def my_configuration
     # TODO: This is still pretty lame. Validation errors should be shown into
     #       the form.
