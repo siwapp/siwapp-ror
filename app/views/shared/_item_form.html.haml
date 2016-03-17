@@ -10,7 +10,7 @@
         'data-association-insertion-method' => 'append',        |
         :partial => 'shared/item_fields',                       |
         :render_options => {locals: {is_new: true}},            |
-        :class => 'btn btn-secondary'                     |
+        :class => 'btn btn-secondary'                           |
   .col-xs-12.col-sm-6.col-md-5.col-lg-4
     #amounts.invoice-amounts
       = render partial: 'amounts', locals: {invoice: invoice}

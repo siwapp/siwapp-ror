@@ -3,7 +3,7 @@ class SettingsController < ApplicationController
   def global
     if request.post?  # save values posted
       [:company_name, :company_vat_id, :company_address, :company_phone,
-          :company_email, :company_url, :company_logo,
+          :company_email, :email_to_send, :company_url, :company_logo,
           :legal_terms]
       .each do |key|
         Settings[key] = params[key]
@@ -18,6 +18,7 @@ class SettingsController < ApplicationController
     @company_address = Settings.company_address
     @company_phone = Settings.company_phone
     @company_email = Settings.company_email
+    @email_to_send = Settings.email_to_send
     # This must be an url because there is no way of uploading files to
     # heroku. One option would be to use S3, but it's not worth it.
     @company_url = Settings.company_url

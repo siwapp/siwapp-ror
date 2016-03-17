@@ -3,7 +3,8 @@ class InvoiceMailer < ApplicationMailer
     @invoice = invoice
     mail(
       to: @invoice.email,
-      subject: "Your invoice #{invoice}"
+      subject: "Your invoice #{invoice}",
+      body: Settings.email_to_send
     )
   end
 end

@@ -16,6 +16,9 @@
   = label_tag(:company_email, "Company Email:")
   = email_field_tag(:company_email, @company_email)
   %br/
+  = label_tag(:email_to_send, "Email to send with invoices:")
+  = text_area_tag(:email_to_send, @email_to_send)
+  %br/
   = label_tag(:company_url, "Company Website:")
   = url_field_tag(:company_url, @company_url)
   %br/
