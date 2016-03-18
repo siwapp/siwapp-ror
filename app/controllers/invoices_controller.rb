@@ -21,8 +21,6 @@ class InvoicesController < CommonsController
   end
 
   def edit
-    @issue_date = Time.now()
-    puts "ISSUE DATE:", @issue_date
     get_template
     render
   end
