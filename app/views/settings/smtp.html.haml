@@ -1,0 +1,26 @@
+%h1 SMTP Settings
+
+= form_tag("#", method: "post") do
+  = label_tag(:host, "Host:")
+  = text_field_tag(:host, @host)
+  %br/
+  = label_tag(:port, "Port:")
+  = text_field_tag(:port, @port)
+  %br/
+  = label_tag(:domain, "Domain:")
+  = text_field_tag(:domain, @domain)
+  %br/
+  = label_tag(:user, "User:")
+  = email_field_tag(:user, @user)
+  %br/
+  = label_tag(:password, "Password:")
+  = password_field_tag(:password, @password)
+  %br/
+  = label_tag(:authentication, "Authentication:")
+  = select_tag(:authentication, options_for_select([['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], :selected => @authentication))
+  %br/
+  = label_tag(:enable_starttls_auto, "Enable start tls auto:")
+  = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
+  %br/
+
+  = submit_tag("Save")
