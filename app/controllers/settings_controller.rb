@@ -4,11 +4,10 @@ class SettingsController < ApplicationController
     if request.post?  # save values posted
       [:company_name, :company_vat_id, :company_address, :company_phone,
           :company_email, :email_to_send, :company_url, :company_logo,
-          :legal_terms]
+          :legal_terms, :days_to_due]
       .each do |key|
         Settings[key] = params[key]
             
-
       # save currency
       Settings.currency = params[:currency][:id]
       end
@@ -28,6 +27,7 @@ class SettingsController < ApplicationController
     @currency = Money::Currency.find currency_id
     @currencies = Money::Currency.all
     @legal_terms = Settings.legal_terms
+    @days_to_due = Settings.days_to_due
   
   end
 

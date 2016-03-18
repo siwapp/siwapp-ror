@@ -31,4 +31,7 @@
   = label_tag(:legal_terms, "Legal Terms:")
   = text_area_tag(:legal_terms, @legal_terms)
   %br/
+  = label_tag(:days_to_due, "Days to due:")
+  = number_field_tag(:days_to_due, @days_to_due)
+
   = submit_tag("Save")
