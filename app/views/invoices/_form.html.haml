@@ -32,7 +32,7 @@
       .col-xs-12.col-sm-4
         .form-group
           = f.label :due_date
-          = f.date_field :due_date,  is_new ? { class: 'form-control', value: Date.today() + Integer(Settings.days_to_due).days } : { class: 'form-control' }
+          = f.date_field :due_date,  is_new ? { class: 'form-control', value: Date.today() + @days_to_due.days} : { class: 'form-control' }
 
     - if @invoice.new_record? or @invoice.draft
       .checkbox
