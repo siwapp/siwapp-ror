@@ -1,4 +1,6 @@
 %h1 New Series
 = render 'form'
+
 .action-buttons
-  = link_to 'Back', :back
+  = link_to 'Back', :back, class: 'btn btn-secondary'
+  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

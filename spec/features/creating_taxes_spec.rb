@@ -7,19 +7,19 @@ feature 'Creating Taxes' do
     first(:link, 'New Tax').click
   end
 
-  scenario 'can create a tax' do
+  scenario 'can create a tax', :js => true, driver: :webkit do
     fill_in 'Name', with: 'IVA'
     fill_in 'Value', with: '15'
     check 'Active'
     check 'Default'
 
-    click_button 'Create Tax'
+    click_button 'Save'
     expect(page).to have_content('Tax was successfully created.')
-    expect(page.current_url).to eql(taxes_url)
+    expect(page.current_path).to eql(taxes_path)
   end
 
-  scenario 'can not create invoice without name' do
-    click_button 'Create Tax'
+  scenario 'can not create invoice without name', :js => true, driver: :webkit do
+    click_button 'Save'
     expect(page).to have_content("Tax has not been created.")
     expect(page).to have_content("Name can't be blank")
   end
