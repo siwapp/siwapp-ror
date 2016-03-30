@@ -34,4 +34,5 @@
   = label_tag(:days_to_due, "Days to due:")
   = number_field_tag(:days_to_due, @days_to_due)
 
-  = submit_tag("Save")
+.action-buttons
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

@@ -1,6 +1,6 @@
 %h1 Editing Template
 = render 'form'
 .action-buttons
-  = link_to 'Show', @template
-  |
-  \#{link_to 'Back', :back}
+  = link_to 'Delete', @template, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
+  = link_to 'Back', :back, class: 'btn btn-secondary'
+  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

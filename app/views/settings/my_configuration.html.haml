@@ -16,4 +16,5 @@
   = label_tag(:new_password2, "New Password Again:")
   = text_field_tag(:new_password2)
   %br/
-  = submit_tag("Save")
+.action-buttons
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

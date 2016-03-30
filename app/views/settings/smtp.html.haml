@@ -23,4 +23,5 @@
   = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
   %br/
 
-  = submit_tag("Save")
+.action-buttons
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
