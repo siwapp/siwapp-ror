@@ -29,7 +29,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       if @template.save
-        format.html { redirect_to @template, notice: 'Template was successfully created.' }
+        format.html { redirect_to templates_url, notice: 'Template was successfully created.' }
         format.json { render :show, status: :created, location: @template }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class TemplatesController < ApplicationController
       new_default.save()
     end
 
-    redirect_to(:action => 'index')
+    redirect_to templates_url
 
   end
 
@@ -61,7 +61,7 @@ class TemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @template.update(template_params)
-        format.html { redirect_to @template, notice: 'Template was successfully updated.' }
+        format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
         format.json { render :show, status: :ok, location: @template }
       else
         format.html { render :edit }
