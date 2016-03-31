@@ -125,7 +125,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.text    :value,      null: true
     t.integer :thing_id,   null: true
     t.string  :thing_type, null: true, limit: 30
-    t.timestamps
+    t.timestamps null: true
   end
 
   add_index :settings, %i(thing_type thing_id var), unique: true
