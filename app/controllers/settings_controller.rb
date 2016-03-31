@@ -7,7 +7,7 @@ class SettingsController < ApplicationController
           :legal_terms, :days_to_due]
       .each do |key|
         Settings[key] = params[key]
-            
+
       # save currency
       Settings.currency = params[:currency][:id]
       end
