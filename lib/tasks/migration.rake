@@ -91,11 +91,18 @@ namespace :siwapp do
     client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE product CHANGE description description TEXT")
 
-    client.query("TRUNCATE TABLE property")
-    client.query("ALTER TABLE property DROP PRIMARY KEY")
-    client.query("ALTER TABLE property CHANGE `keey` `key` VARCHAR(255) NOT NULL")
-    client.query("ALTER TABLE property ADD id INT NOT NULL PRIMARY KEY AUTO_INCREMENT")
-    client.query("ALTER TABLE property CHANGE value value TEXT")
+    client.query("DROP TABLE property")
+    client.query("CREATE TABLE `settings` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `var` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+      `value` text COLLATE utf8_unicode_ci,
+      `thing_id` int(11) DEFAULT NULL,
+      `thing_type` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+      `created_at` datetime DEFAULT NULL,
+      `updated_at` datetime DEFAULT NULL,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `index_settings_on_thing_type_and_thing_id_and_var` (`thing_type`,`thing_id`,`var`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;")
 
     client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE series CHANGE first_number next_number INT(11) DEFAULT '1'")
@@ -154,6 +161,7 @@ namespace :siwapp do
     # Taxes
 
     client.query("ALTER TABLE tax CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
+    client.query("ALTER TABLE tax CHANGE `is_default` `default` TINYINT(1) DEFAULT false")
 
     # Templates
 
@@ -169,7 +177,6 @@ namespace :siwapp do
     client.query("RENAME TABLE item TO items")
     client.query("RENAME TABLE payment TO payments")
     client.query("RENAME TABLE product TO products")
-    client.query("RENAME TABLE property TO properties")
     client.query("RENAME TABLE template TO templates")
     client.query("RENAME TABLE tax TO taxes")
     client.query("RENAME TABLE item_tax TO items_taxes")
