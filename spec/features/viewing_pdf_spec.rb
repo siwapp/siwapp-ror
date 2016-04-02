@@ -2,6 +2,7 @@ require 'rails_helper'
 
 feature 'PDF of Invoices' do
   before do
+    Rails.application.load_seed # loading seeds to get the template
     FactoryGirl.create(:invoice)
     FactoryGirl.create(:template)
     visit "/invoices"
@@ -15,6 +16,6 @@ feature 'PDF of Invoices' do
 
   scenario 'Template url shows template' do
     visit "/invoices/template/1/invoice/1"
-    expect(page).to have_content("fake template")
+    expect(page).to have_content("BILLED ON")
   end
 end
