@@ -67,18 +67,18 @@ class InvoicesController < CommonsController
   # as values
   def sums
     # setting params: from, to
-    from = params[:from] ? Date.parse(params[:from]) : 30.days.ago.to_date
+    from = params[:from] ? Date.parse(params[:from]) : 15.days.ago.to_date
     to = params[:to] ? Date.parse(params[:to]) : Date.today
     # build all keys with 0 values for all
     @date_totals = {}
     (from..to).each do |day|
-      @date_totals[day] = 0
+      @date_totals[day.to_formatted_s(:short)] = 0
     end
     # now overwrite with data from invoices
     sql_date_totals = Invoice.select('issue_date, sum(gross_amount) as total')\
-        .where('issue_date' => from..to).group('issue_date')
+        .where(issue_date: from..to).where(draft: false).group('issue_date')
     sql_date_totals.each do |inv|
-      @date_totals[inv.issue_date] = inv.total
+      @date_totals[inv.issue_date.to_formatted_s(:short)] = inv.total
     end
 
     render

@@ -1,10 +1,19 @@
 jQuery(document).ready ($) ->
   if window.location.pathname == Routes.root_path()
-    new (Chartist.Line)('.ct-chart', {
-        labels: [1, 2, 3, 4, 5, 6 , 7, 8]
-        series: [
-          [5, 12, 7, 8, 5, 3, 5, 4]
-        ]
-      },
-      low: 0
-      showArea: true)
+
+    # get the data
+    $.getJSON Routes.sums_invoices_path({format: 'json'}), (data)->
+      labels = []
+      series = []
+      $.each data, (key, val)->
+        labels.push key
+        series.push val
+      # display the chart
+      new (Chartist.Line)('.ct-chart', {
+          labels: labels
+          series: [series,]
+        },
+        low: 0
+        fullWidth: true
+        chartPadding: { right: 50 }
+        showArea: true)
