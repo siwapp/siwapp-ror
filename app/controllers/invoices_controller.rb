@@ -62,6 +62,28 @@ class InvoicesController < CommonsController
     end
   end
 
+  # GET /invoices/sums.json
+  # Returns a json with dates as keys and sums of the invoices
+  # as values
+  def sums
+    # setting params: from, to
+    from = params[:from] ? Date.parse(params[:from]) : 30.days.ago.to_date
+    to = params[:to] ? Date.parse(params[:to]) : Date.today
+    # build all keys with 0 values for all
+    @date_totals = {}
+    (from..to).each do |day|
+      @date_totals[day] = 0
+    end
+    # now overwrite with data from invoices
+    sql_date_totals = Invoice.select('issue_date, sum(gross_amount) as total')\
+        .where('issue_date' => from..to).group('issue_date')
+    sql_date_totals.each do |inv|
+      @date_totals[inv.issue_date] = inv.total
+    end
+
+    render
+  end
+
   def send_email
     @invoice = Invoice.find(params[:id])
     @invoice.send_email
