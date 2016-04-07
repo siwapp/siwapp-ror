@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def display_money(amount)
-    currency = Money::Currency.find(Settings.currency) || Money::Currency.find(:eur)
+    currency = get_currency
     format = currency.symbol_first? ? "%u %n" : "%n %u"
     negative_format = "(#{format})"
     number_to_currency amount, precision: currency.exponent.to_int, unit: currency.symbol,

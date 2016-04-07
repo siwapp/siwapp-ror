@@ -55,6 +55,7 @@ FactoryGirl.define do
         after(:create) do |i|
           create(:payment, invoice: i, date: Date.today, amount: 100)
           i.reload
+          # unpaid: 25.766
           i.save
         end
       end

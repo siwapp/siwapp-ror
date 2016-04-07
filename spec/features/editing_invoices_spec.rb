@@ -56,8 +56,8 @@ feature 'Editing Invoices' do
     expect(page).to have_selector(:xpath, new_payment_xpath)
 
     within :xpath, new_payment_xpath do
-      # default amount: what's left to pay
-      expect(find('input[name*="amount"]').value.to_i).to eq 25
+      # default amount: what's left to pay. rounded with precision of 2
+      expect(find('input[name*="amount"]').value.to_f).to eq 25.77
       # default date: today
       expect(find('input[name*="date"]').value).to eq Date.today.iso8601
     end
