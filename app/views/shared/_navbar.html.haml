@@ -25,6 +25,7 @@
       %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => "/"} Dashboard
       %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path} Invoices
       %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path} Recurring Invoices
+      = link_to 'Log out', logout_path, method: "delete", class: "nav-item nav-link #{active_link('log_out')}"
       %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path} Customers
       .nav-item.dropdown.hidden-sm-down
         %a{:class => "nav-link dropdown-toggle #{active_link('settings')}", "data-toggle" => "dropdown", :href => "#"} Settings

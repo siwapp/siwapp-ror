@@ -60,6 +60,17 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
+  # log in before every feature example
+  config.before :each, type: :feature do |example|
+    factory_name = example.metadata[:not_logged]
+    return if factory_name
+    user = FactoryGirl.create :user
+    visit '/login'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_on 'Log in'
+  end
+
   config.after(:each) do
     DatabaseCleaner.clean
   end
