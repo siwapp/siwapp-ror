@@ -5,8 +5,6 @@ class CommonsController < ApplicationController
   before_action :configure_search
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
-  # TODO (@ecoslado) Make the tests to work with login_required activated
-  # before_action :login_required
 
   # GET /commons
   # GET /commons.json
@@ -182,14 +180,6 @@ class CommonsController < ApplicationController
   end
 
   private
-
-
-  def login_required
-    unless current_user
-      flash[:error] = "You must be logged in to access this section"
-      redirect_to login_url # halts request cycle
-    end
-  end
 
   # Private: callback to set the instance object that most of the actions use.
   #
