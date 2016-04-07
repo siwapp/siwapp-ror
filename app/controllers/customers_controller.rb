@@ -74,7 +74,7 @@ class CustomersController < ApplicationController
   def autocomplete
     @customers = Customer.order(:name).where("name LIKE ?", "%#{params[:term]}%")
     respond_to do |format|
-      format.json 
+      format.json
     end
   end
 

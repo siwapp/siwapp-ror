@@ -49,16 +49,7 @@ class InvoicesController < CommonsController
   def autocomplete
     @items = Item.unique_description("%#{params[:term]}%")
     respond_to do |format|
-      format.json {
-        render json: @items.map {|item|
-          {
-            'label': "#{item.description} #{item.unitary_cost}",
-            'value': item.description,
-            'id': item.id,
-            'unitary_cost': item.unitary_cost
-          }
-        }
-      }
+      format.json
     end
   end
 

@@ -7,4 +7,3 @@ json.array! @customers do |c|
     json.contact_person c.contact_person
     json.invoicing_address c.invoicing_address
 end
-              
