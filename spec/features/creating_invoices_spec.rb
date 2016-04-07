@@ -9,6 +9,7 @@ feature 'Creating Invoices' do
   scenario 'can create an invoice', :js => true, driver: :webkit do
     visit '/invoices'
     first(:link, 'New Invoice').click
+    expect(page).to have_css('div.row textarea') # empty item
     select 'Example Series', from: 'invoice_series_id'
 
     fill_in 'Name', with: 'Test Customer'

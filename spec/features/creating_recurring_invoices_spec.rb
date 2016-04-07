@@ -10,6 +10,8 @@ feature 'Creating Recurring Invoices' do
   scenario 'can create a recurring invoice', :js => true, driver: :webkit do
     first(:link, 'New Recurring Invoice').click
 
+    expect(page).to have_css('div.row textarea') # empty item available
+
     select 'Example Series', from: 'recurring_invoice_series_id'
 
     fill_in 'Starting date', with: '2015-02-28'
