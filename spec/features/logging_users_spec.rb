@@ -2,15 +2,6 @@ require 'rails_helper'
 
 feature 'Logged users' do
 
-  before do
-    FactoryGirl.create :user
-    visit '/login'
-    fill_in 'Email', with: 'testuser@example.org'
-    fill_in 'Password', with: 'testuser'
-    click_on 'Log in'
-    expect(page.current_path).to eql invoices_path
-  end
-
   scenario 'can access anywhere' do
     visit '/customers'
     expect(page.current_path).to eql customers_path
