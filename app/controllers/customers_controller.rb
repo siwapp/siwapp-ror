@@ -74,20 +74,7 @@ class CustomersController < ApplicationController
   def autocomplete
     @customers = Customer.order(:name).where("name LIKE ?", "%#{params[:term]}%")
     respond_to do |format|
-      format.json {
-        render json: @customers.map {|c|
-          {
-            'label': c.name,  # label and value for the jquery autocomplete
-            'value': c.name,
-            'id': c.id,
-            'identification': c.identification,
-            'email': c.email,
-            'contact_person': c.contact_person,
-            'invoicing_address': c.invoicing_address,
-            'shipping_address': c.shipping_address
-          }
-        }
-      }
+      format.json 
     end
   end
 
