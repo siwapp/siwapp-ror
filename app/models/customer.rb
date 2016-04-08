@@ -3,6 +3,8 @@ class Customer < ActiveRecord::Base
   has_many :estimates
   has_many :recurring_invoices
 
+  before_destroy :check_invoices
+
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
     where('name LIKE :terms OR email LIKE :terms OR identification LIKE :terms', terms: '%' + terms + '%')
@@ -22,6 +24,14 @@ class Customer < ActiveRecord::Base
 
 
 private
+
+  def check_invoices
+    if invoices.exists?
+      errors[:base] << "This customer can't be deleted because it has invoices"
+      return false
+    end
+    true
+  end
 
   def self.ransackable_scopes(auth_object = nil)
     [:with_terms]
