@@ -12,7 +12,7 @@ feature 'Logged users' do
   end
 
   scenario 'and of course can log out' do
-    click_on 'Log out'
+    first(:link, 'Log out').click
     expect(page.current_path).to eql login_path
     visit '/invoices'
     expect(page.current_path).to eql login_path # where are you going, sailor?
