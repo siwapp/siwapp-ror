@@ -43,7 +43,6 @@ class ApplicationController < ActionController::Base
 
   def login_required
     unless current_user || controller_name.eql?('sessions')
-      flash[:error] = "You must be logged in to access this section"
       redirect_to login_url # halts request cycle
     end
   end
