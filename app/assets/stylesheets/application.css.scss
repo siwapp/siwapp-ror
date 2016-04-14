@@ -31,8 +31,13 @@
 @import "objects/invoice";
 @import "utils";
 
-label {
+@mixin labelUpcased {
   font-size: 80%;
   color: $gray-light;
   text-transform: uppercase;
+}
+
+.label,
+.form-group label {
+  @include labelUpcased;
 }
