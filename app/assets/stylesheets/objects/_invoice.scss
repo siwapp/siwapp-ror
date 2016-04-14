@@ -1,7 +1,7 @@
 // To place buttons at the bottom right of the page
 .action-buttons {
   position: fixed;
-  z-index: 10;
+  z-index: 1010;
   bottom: 1rem;
   right: 1rem;
   left: 1rem;
@@ -107,5 +107,41 @@
     background: $gray-dark;
     color: white;
     font-weight: bold;
+  }
+}
+
+.tax-selector {
+  .btn-group {
+    width: 100%;
+  }
+
+  .btn {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: .75rem;
+    padding-right: 1.5rem;
+    text-align: left;
+
+    &.dropdown-toggle::after {
+      margin: 0;
+      position: absolute;
+      top: 1rem;
+      right: .5rem;
+    }
+
+    span {
+      font-size: 80%;
+    }
+  }
+
+  .checkbox {
+    margin-bottom: 0;
+    margin-left: -.5rem;
+
+    input[type="checkbox"] {
+      position: relative;
+      top: -1px;
+      margin-right: .5rem;
+    }
   }
 }

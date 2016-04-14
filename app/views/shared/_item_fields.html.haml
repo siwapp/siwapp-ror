@@ -26,8 +26,20 @@
     .col-xs-12.col-md-4.col-lg-3
       .row
         .col-xs-12.col-sm-6
-          .form-group
-            = f.collection_check_boxes 'tax_ids', @taxes, :id, :name, is_new ? {checked: @default_taxes_ids} : {}, { multiple: true, class: 'form-control tax-checkbox' }
+          .form-group.tax-selector
+            %label
+              Taxes
+              %span{data: {role: 'total'}}
+            .btn-group
+              %button.btn.btn-block.btn-secondary.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}}
+                %span{data: {role: 'label'}} ...
+              %ul.dropdown-menu
+                = f.collection_check_boxes 'tax_ids', @taxes, :id, :name, is_new ? {checked: @default_taxes_ids} : {} do |opt|
+                  %li.dropdown-item
+                    .checkbox
+                      = opt.label do
+                        = opt.check_box
+                        = opt.text
         .col-xs-12.col-sm-6
           .form-group.no-margin
             = f.label :base_amount, 'Total'

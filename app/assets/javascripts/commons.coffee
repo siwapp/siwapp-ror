@@ -68,7 +68,7 @@ jQuery(document).ready ($) ->
     # Find sections that change the amounts of the invoice-like form
     form.find('[data-changes="amount"]')
       # When an item changes, update form amounts
-      .on 'change', '.js-item', (e) ->
+      .on 'change input', '.js-item', (e) ->
         item = $(e.target)
         if item.prop 'tagName' == 'TEXTAREA'
           return
@@ -104,6 +104,8 @@ jQuery(document).ready ($) ->
         date_item.val (new Date).toISOString().substr 0, 10
       else if item.hasClass 'js-item'
         init_invoice_item_autocomplete item.find('.item-description')
+        item.find('.tax-selector').trigger('update')
+        autosize item.find('textarea')
 
     # Execute actions when something dynamic is removed from the form
     # with cocoon
@@ -124,6 +126,24 @@ jQuery(document).ready ($) ->
         $("##{model}_invoicing_address").val ui.item.invoicing_address
         $("##{model}_shipping_address").val ui.item.shipping_address
     }
+
+    # Configure Tax Selector behavior
+    form
+      .on 'update', '.tax-selector', () ->
+        checked_taxes = $(this).find(':checked')
+        label = []
+        checked_taxes.each () ->
+          label.push $(this).closest('.checkbox').text().trim()
+        total = if label.length > 1 then ('(' + label.length + ')') else ''
+        label = if label.length > 0 then label.join(', ') else 'None'
+        $(this).find('[data-role="label"]').html(label)
+        $(this).find('[data-role="total"]').html(total)
+      .on 'change', '.tax-selector :checkbox', (e) ->
+        $(this).closest('.tax-selector').trigger('update')
+      .find('.tax-selector').trigger('update')
+
+  # /each
+
 
   #
   # Action Buttons
