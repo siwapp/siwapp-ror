@@ -38,9 +38,14 @@ feature 'Editing Invoices' do
     new_item_xpath = "//*[@id='js-items-table']/div[4]"
     expect(page).to have_selector(:xpath, new_item_xpath)
 
+    # Done this way due to a weird error in the test. The checkbox was
+    # actually there but capybara does not find it if it's hidden.
     within :xpath, new_item_xpath do
-      # default taxes
-      expect(find('input[checked="checked"]').value.to_i).to eq default_tax.id
+      page.execute_script("$('.action-buttons').hide()");
+      find('.tax-selector').find('.btn-group').find('.btn').click
+      checkbox = find('.tax-selector').find('.btn-group').find('input[type="checkbox"][checked="checked"]')
+      expect(checkbox.value.to_i).to eq default_tax.id
+      page.execute_script("$('.action-buttons').show()");
     end
   end
 
