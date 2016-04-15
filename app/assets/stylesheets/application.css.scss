@@ -11,7 +11,6 @@
  * file per style scope.
  *
  *= require jquery-ui
- *= require chartist.min
  */
 
 // Settings
@@ -20,6 +19,8 @@
 // 3rd Party
 @import "bootstrap";
 @import "jquery-ui/autocomplete";
+@import "chartist";
+@import "chartist-plugin-tooltip";
 
 // Siwapp Stuff
 @import "mixins";
@@ -29,6 +30,7 @@
 @import "objects/spinner";
 @import "objects/listing";
 @import "objects/invoice";
+@import "objects/charts";
 @import "utils";
 
 @mixin labelUpcased {

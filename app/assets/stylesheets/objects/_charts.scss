@@ -1,0 +1,64 @@
+.chart-responsive {
+  display: block;
+  width: 100%;
+  min-height: .01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+
+  @include media-breakpoint-down(xs) {
+    overflow-x: auto;
+
+    .ct-chart {
+      min-width: 40rem;
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    .ct-label {
+      &.ct-horizontal {
+        white-space: nowrap;
+        transform: rotate(-45deg) translate(-100%, 100%);
+        transform-origin: top right;
+      }
+    }
+  }
+}
+
+.ct-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+
+  li {
+    position: relative;
+    padding-left: 23px;
+    margin-bottom: 3px;
+  }
+
+  li:before {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    content: '';
+    border: 3px solid transparent;
+    border-radius: 2px;
+  }
+
+  li.inactive:before {
+    background: transparent;
+  }
+
+  &.ct-legend-inside {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  @for $i from 0 to length($ct-series-colors) {
+    .ct-series-#{$i}:before {
+      background-color: nth($ct-series-colors, $i + 1);
+      border-color: nth($ct-series-colors, $i + 1);
+    }
+  }
+}

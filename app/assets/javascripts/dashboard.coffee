@@ -9,7 +9,7 @@ jQuery(document).ready ($) ->
         labels.push key
         series.push val
       # display the chart
-      new (Chartist.Line)('.ct-chart', {
+      new (Chartist.Line)('#db-chart', {
           labels: labels
           series: [series,]
         },
@@ -18,4 +18,8 @@ jQuery(document).ready ($) ->
         chartPadding: { right: 50 }
         showArea: true
         lineSmooth: Chartist.Interpolation.simple()
+        plugins: [
+          Chartist.plugins.tooltip({class: 'ct-tooltip'})
+          Chartist.plugins.legend({legendNames: ['Invoicing blah']})
+        ]
       )
