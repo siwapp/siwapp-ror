@@ -16,4 +16,6 @@ jQuery(document).ready ($) ->
         low: 0
         fullWidth: true
         chartPadding: { right: 50 }
-        showArea: true)
+        showArea: true
+        lineSmooth: Chartist.Interpolation.simple()
+      )
