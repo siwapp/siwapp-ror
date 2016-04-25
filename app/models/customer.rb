@@ -26,8 +26,8 @@ class Customer < ActiveRecord::Base
 private
 
   def check_invoices
-    if invoices.exists?
-      errors[:base] << "This customer can't be deleted because it has invoices"
+    if self.total > self.paid
+      errors[:base] << "This customer can't be deleted because it has unpaid invoices"
       return false
     end
     true

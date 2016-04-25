@@ -28,7 +28,7 @@ class Common < ActiveRecord::Base
     items.each do |item|
       item.taxes.each do |tax|
         begin
-          taxes[tax.name] += item.net_amoount * tax.value / 100.0
+          taxes[tax.name] += item.net_amount * tax.value / 100.0
         rescue NoMethodError
           taxes[tax.name] = item.net_amount * tax.value / 100.0
         end
