@@ -76,7 +76,7 @@ jQuery(document).ready ($) ->
         # Attention: discounts and taxes are not calculated here!!
         # those are calculated only in the totals.
         item_row = item.parents('.js-item')
-        base_amount = item_row.find('.quantity').val() * item_row.find('.unitary-cost').val()
+        base_amount = Math.round(item_row.find('.quantity').val()*item_row.find('.unitary-cost').val()*10**2)/10**2
         item_row.find('[data-role="base-amount"]').val(base_amount)
         item_row.find('.js-base-amount').html(base_amount)
         # Set total amounts of invoice
