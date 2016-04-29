@@ -12,7 +12,7 @@ RSpec.describe Customer, :type => :model do
 
   it " won't be deleted if it has invoices" do
     customer = FactoryGirl.create :customer
-    invoice = FactoryGirl.create :invoice, customer: customer
+    invoice = FactoryGirl.create :invoice_unpaid, customer: customer
     expect(customer.destroy).to be false
     expect(customer.errors[:base][0]).to include "can't be deleted"
   end
