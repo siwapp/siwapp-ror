@@ -1,11 +1,16 @@
 %h1 Taxes
-.table-responsive
-  %table
-    %thead
-      %tr
-        %th
-    %tbody
-      - @taxes.each do |tax|
+
+= form_tag url_for(:controller => "taxes", :action => "set_default"), :method => :post, :class => "change_default" do
+  .table-responsive
+    %table
+      %thead
         %tr
-          %td= link_to tax.name, edit_tax_path(tax)
+          %th
+      %tbody
+        - @taxes.each do |tax|
+          %tr
+            %td
+              %label{:for => "default_tax_#{tax.id}"}= check_box_tag('default_tax[]', tax.id, tax.default)
+            %td= link_to tax.name, edit_tax_path(tax)
+
 %br/
