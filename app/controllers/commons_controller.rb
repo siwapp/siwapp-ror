@@ -12,7 +12,6 @@ class CommonsController < ApplicationController
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
-
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount

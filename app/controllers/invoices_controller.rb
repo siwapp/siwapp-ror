@@ -20,7 +20,7 @@ class InvoicesController < CommonsController
     end
   end
 
-  def edit
+  def edit 
     get_template
     render
   end

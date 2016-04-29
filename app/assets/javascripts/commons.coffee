@@ -15,6 +15,11 @@ get_amounts = (controller_name, form, callback) ->
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
+get_item_amount = (quantity, unitary_cost, callback) ->
+  url = Routes['items_amount_path']() + "?quantity=#{quantity}&unitary_cost=#{unitary_cost}"
+  $.ajax url: url, dataType: 'json', success: (data) ->
+    return callback data
+
 
 # Retrieves the common part of the id of all fields in a cocoon formset row
 get_id_prefix = (input_field) ->
@@ -76,9 +81,11 @@ jQuery(document).ready ($) ->
         # Attention: discounts and taxes are not calculated here!!
         # those are calculated only in the totals.
         item_row = item.parents('.js-item')
-        base_amount = Math.round(item_row.find('.quantity').val()*item_row.find('.unitary-cost').val()*10**2)/10**2
-        item_row.find('[data-role="base-amount"]').val(base_amount)
-        item_row.find('.js-base-amount').html(base_amount)
+        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), (data) -> 
+          base_amount = data.amount
+          item_row.find('[data-role="base-amount"]').val(base_amount)
+          item_row.find('.js-base-amount').html(base_amount)
+        
         # Set total amounts of invoice
         set_amounts(controller_name, form)
       # When an item is removed, update form amounts
@@ -143,8 +150,6 @@ jQuery(document).ready ($) ->
       .find('.tax-selector').trigger('update')
 
   # /each
-
-
   #
   # Action Buttons
   #

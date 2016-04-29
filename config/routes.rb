@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"
+  get "items/amount"
 
   resources :invoices do
     delete 'remove', on: :collection
