@@ -3,10 +3,9 @@
 = form_tag url_for(:controller => "series", :action => "set_default"), :method => :post, :class => "change_default" do
   
   .table-responsive
-    %table
+    %table.table.table-hover.table-striped.table-bordered
       %thead
-        %tr
-          %th
+        %th
       %tbody
         - @series.each do |series|
           %tr
