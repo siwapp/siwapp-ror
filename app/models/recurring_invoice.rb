@@ -10,8 +10,6 @@ class RecurringInvoice < Common
   validate :has_occurrences, if: :status?
   validate :valid_date_range
 
-
-
   # Status
   PERIOD_TYPES = [
     ["Daily", "days"],
@@ -20,7 +18,6 @@ class RecurringInvoice < Common
   ].freeze
 
   STATUS = ['Inactive', 'Active']
-
 
   def to_s
     "#{name}"

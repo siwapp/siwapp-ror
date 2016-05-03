@@ -38,6 +38,9 @@
     .form-group
       = f.label :period_type
       = f.select :period_type, RecurringInvoice::PERIOD_TYPES, {}, {class: 'form-control c-select'}
+    .form-group
+      = f.label :sent_by_email, 'Send Email'
+      = f.check_box :sent_by_email
 
   %fieldset.m-b-2{"data-changes" => "amount"}
     %legend.m-b-1 Invoice details
