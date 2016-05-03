@@ -10,8 +10,4 @@ class ApplicationMailer < ActionMailer::Base
     enable_starttls_auto: Settings.enable_starttls_auto == '1' ? true : false
   }
   self.raise_delivery_errors = true
-  email_property = Settings.company_email
-  if email_property
-    default from: email_property
-  end
 end

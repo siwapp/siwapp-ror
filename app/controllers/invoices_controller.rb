@@ -20,7 +20,7 @@ class InvoicesController < CommonsController
     end
   end
 
-  def edit 
+  def edit
     get_template
     render
   end
@@ -34,8 +34,7 @@ class InvoicesController < CommonsController
     respond_to do |format|
       format.html { render inline: html }
       format.pdf do
-        pdf = WickedPdf.new.pdf_from_string(html,
-            margin: {:top => 0, :bottom => 0, :left => 0, :right => 0})
+        pdf = @invoice.pdf(html)
         send_data(pdf,
           :filename    => "#{@invoice}.pdf",
           :disposition => 'attachment'

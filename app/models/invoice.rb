@@ -95,11 +95,18 @@ public
     paid_amount_will_change!
   end
 
+  # Sends email to user with the invoice attached
   def send_email
     # There is a deliver_later method which we could use
     InvoiceMailer.email_invoice(self).deliver_now
     self.sent_by_email = true
     self.save
+  end
+
+  # Returns the pdf file
+  def pdf(html)
+    WickedPdf.new.pdf_from_string(html,
+      margin: {:top => 0, :bottom => 0, :left => 0, :right => 0})
   end
 
   protected
