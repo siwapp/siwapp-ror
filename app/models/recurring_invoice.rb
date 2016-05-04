@@ -66,8 +66,8 @@ class RecurringInvoice < Common
 
   def self.with_pending_invoices
     # candidates to have pending invoices
-    candidates = with_status(1).where("finishing_date is not null or max_occurrences is not null").
-      where("period is not null").where(period_type: ['days', 'months', 'years'])
+    candidates = with_status(1).where("period is not null").
+      where(period_type: ['days', 'months', 'years'])
     pendings = []
     candidates.each do |actual|
 
