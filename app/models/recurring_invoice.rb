@@ -44,9 +44,10 @@ class RecurringInvoice < Common
     max = max_occurrences.nil? ? 99999 : max_occurrences
     # finishing date
     ending_date = finishing_date.blank? ? Date.new(2999) : finishing_date
-    # nexte date to issue an invoice
+    # next date to issue an invoice
     next_date = last_execution_date.blank? ? starting_date : last_execution_date + period.send(period_type)
     invs = []
+
 
     while next_date <= [Date.today, ending_date].min and occurrences < max do
       inv = self.becomes(Invoice).deep_clone include: [:items]
@@ -54,6 +55,9 @@ class RecurringInvoice < Common
       inv.status = 'Open'
       inv.issue_date = Date.today
       inv.due_date = Date.today + days_to_due.days if days_to_due
+      if self.sent_by_email  # If recurring is set to send emails
+        inv.send_email
+      end
       inv.save
       self.last_execution_date = next_date
       next_date += period.send period_type
