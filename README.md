@@ -5,7 +5,7 @@
 Online Invoice Management
 
 ## Howto Install on Heroku
-First create a new App in your heroku account.
+First create a new App in your [heroku](http://www.heroku.com) account.
 Create a directory on your local computer and log in to your heroku account:
 
     $ heroku login
@@ -42,4 +42,4 @@ Create an user to log in:
 
     $ heroku run rake siwapp:user:create['myuser','myemail@mydomain.com','mypassword']
 
-That's it! You can enjoy siwapp now entering on your heroku app.
+That's it! You can enjoy siwapp now entering on your heroku app url.
