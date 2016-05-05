@@ -42,4 +42,11 @@ Create an user to log in:
 
     $ heroku run rake siwapp:user:create['myuser','myemail@mydomain.com','mypassword']
 
+Finally if you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
+
+    $ heroku addons:create scheduler:standard
+    $ heroku addons:open scheduler
+
+Add a new job, and put "rake siwapp:generate_invoices"
+
 That's it! You can enjoy siwapp now entering on your heroku app url.
