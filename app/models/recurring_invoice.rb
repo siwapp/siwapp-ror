@@ -45,9 +45,10 @@ class RecurringInvoice < Common
     # finishing date
     ending_date = finishing_date.blank? ? Date.new(2999) : finishing_date
     # next date to issue an invoice
-    next_date = last_execution_date.blank? ? starting_date : last_execution_date + period.send(period_type)
+    next_date = self.invoices.length > 0 ? \
+        self.invoices.last.created_at + period.send(period_type) \
+        : starting_date
     invs = []
-
 
     while next_date <= [Date.today, ending_date].min and occurrences < max do
       inv = self.becomes(Invoice).deep_clone include: [:items]
@@ -59,7 +60,6 @@ class RecurringInvoice < Common
         inv.send_email
       end
       inv.save
-      self.last_execution_date = next_date
       next_date += period.send period_type
       occurrences += 1
       invs.append inv
@@ -89,8 +89,9 @@ class RecurringInvoice < Common
       end
 
       # get the next invoice issuing date
-      next_date = actual.last_execution_date.blank? ? actual.starting_date :
-        actual.last_execution_date + actual.period.send(actual.period_type)
+      next_date = actual.invoices.length > 0 ? \
+          actual.invoices.last.created_at + actual.period.send(actual.period_type) \
+          : actual.starting_date
 
       # is it within range?
       if next_date > Date.today or !next_date.in? (actual.starting_date...ending_date)

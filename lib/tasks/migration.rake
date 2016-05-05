@@ -60,6 +60,7 @@ namespace :siwapp do
     client.query("ALTER TABLE common CHANGE customer_name name VARCHAR(100)")
     client.query("ALTER TABLE common CHANGE customer_identification identification VARCHAR(50)")
     client.query("ALTER TABLE common CHANGE customer_email email VARCHAR(100)")
+    client.query("ALTER TABLE common DROP last_execution_date")
 
     client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")

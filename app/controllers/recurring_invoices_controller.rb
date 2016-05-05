@@ -52,7 +52,6 @@ class RecurringInvoicesController < CommonsController
       :period,
       :period_type,
       :max_occurrences,
-      :last_execution_date,
       :sent_by_email,
 
       :tag_list,

@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 0) do
     t.string   "period_type",          limit: 8
     t.date     "starting_date"
     t.date     "finishing_date"
-    t.date     "last_execution_date"
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
     t.integer  "template_id",          limit: 4
