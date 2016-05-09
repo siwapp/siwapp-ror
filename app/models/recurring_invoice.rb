@@ -7,7 +7,6 @@ class RecurringInvoice < Common
   validates :name, presence: true
   validates :starting_date, presence: true, if: :status?
   validates :period, :period_type, presence: true, if: :status?
-  validate :has_occurrences, if: :status?
   validate :valid_date_range
 
   # Status
@@ -109,12 +108,6 @@ class RecurringInvoice < Common
 
     if starting_date > finishing_date
       errors.add(:finishing_time, "Finishing Date must be after Starting Date")
-    end
-  end
-
-  def has_occurrences
-    if max_occurrences.nil? and finishing_date.blank?
-      errors.add :base, "Either max_occurrences or finishing_date must be set for an active recurring invoice"
     end
   end
 
