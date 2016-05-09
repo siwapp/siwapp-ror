@@ -23,7 +23,7 @@ class SettingsController < ApplicationController
     @company_url = Settings.company_url
     @company_logo = Settings.company_logo
     # currency select
-    currency_id = Settings.currency || :eur
+    currency_id = Settings.currency
     @currency = Money::Currency.find currency_id
     @currencies = Money::Currency.all
     @legal_terms = Settings.legal_terms

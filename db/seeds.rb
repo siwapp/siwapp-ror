@@ -14,7 +14,6 @@ Settings.email_to_send = ""
 Settings.company_email = ""
 Settings.company_url = ""
 Settings.company_logo = ""
-Settings.currency = ""
 Settings.legal_terms = ""
 Settings.days_to_due = "0"
 
