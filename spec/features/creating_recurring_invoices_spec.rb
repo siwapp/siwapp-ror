@@ -20,6 +20,8 @@ feature 'Creating Recurring Invoices' do
     fill_in 'Name', with: 'Test Customer'
     fill_in 'Email', with: 'pepe@abc.com'
 
+    fill_in 'Period', with: 1 # new invoice is active per default
+
     click_on 'Save'
     expect(page).to have_content('Recurring Invoice was successfully created.')
 

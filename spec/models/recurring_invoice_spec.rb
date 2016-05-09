@@ -25,6 +25,10 @@ RSpec.describe RecurringInvoice, :type => :model do
     end
   end
 
+  it "is active per default" do
+    expect(FactoryGirl.build(:recurring_invoice).status).to eq 1
+  end
+
 
   it "is represented with its customer name" do
     expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("Example Customer Name")
