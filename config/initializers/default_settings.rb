@@ -1,0 +1,2 @@
+Settings.defaults[:currency] = :eur
+
