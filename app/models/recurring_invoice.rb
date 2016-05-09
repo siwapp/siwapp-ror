@@ -9,14 +9,17 @@ class RecurringInvoice < Common
   validates :period, :period_type, presence: true, if: :status?
   validate :valid_date_range
 
-  # Status
   PERIOD_TYPES = [
     ["Daily", "days"],
     ["Monthly", "months"],
     ["Yearly", "years"]
   ].freeze
 
-  STATUS = ['Inactive', 'Active']
+  # Status
+  INACTIVE = 0
+  ACTIVE = 1
+
+  STATUS = {inactive: INACTIVE, active: ACTIVE}
 
   def to_s
     "#{name}"
@@ -29,7 +32,7 @@ class RecurringInvoice < Common
       STATUS[status]
     else
       # For nil case
-      STATUS[0]
+      STATUS[:inactive]
     end
   end
 
