@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   helper_method :get_currency
 
   def get_currency
-    return Money::Currency.find(Settings.currency)
+    return Money::Currency.find Settings.currency
   end
 
   private

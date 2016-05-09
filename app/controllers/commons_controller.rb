@@ -31,7 +31,7 @@ class CommonsController < ApplicationController
     instance = model.new
     instance.items.new
     set_instance instance
-    @days_to_due = Integer(Settings.days_to_due.presence || 0)
+    @days_to_due = Integer Settings.days_to_due
     render sti_template(@type, action_name)
   end
 

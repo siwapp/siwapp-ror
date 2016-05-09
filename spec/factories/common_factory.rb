@@ -116,6 +116,9 @@ FactoryGirl.define do
         starting_date { Date.today >> rand(-8..1) }
         finishing_date { Date.today >> rand(1..12) }
 
+        period { rand(1..10) }
+        period_type {['days', 'months', 'years'].sample }
+
         after(:create) do |recurring_invoice|
           create_list(:item_random, rand(1..10), common: recurring_invoice)
           recurring_invoice.save

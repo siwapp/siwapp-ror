@@ -15,7 +15,6 @@ Settings.company_email = ""
 Settings.company_url = ""
 Settings.company_logo = ""
 Settings.legal_terms = ""
-Settings.days_to_due = "0"
 
 Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
