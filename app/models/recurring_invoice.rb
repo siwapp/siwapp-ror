@@ -57,7 +57,7 @@ class RecurringInvoice < Common
     invs = []
 
     while next_date <= [Date.today, ending_date].min and occurrences < max do
-      inv = self.becomes(Invoice).deep_clone include: [:items]
+      inv = self.becomes(Invoice).deep_clone include: { items: :taxes}
       inv.recurring_invoice_id = self.id
       inv.status = 'Open'
       inv.issue_date = Date.today

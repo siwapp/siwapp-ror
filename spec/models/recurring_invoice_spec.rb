@@ -47,10 +47,14 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "generates invoices according to max_occurrences" do
-    expect(FactoryGirl.build(:recurring_invoice, status: 1, starting_date: Date.today << 1).generate_pending_invoices.count).to eq(5)
+    expect(FactoryGirl.build(:recurring_invoice, starting_date: Date.today << 1).generate_pending_invoices.count).to eq 5
   end
 
   it "generates invoices according to finishing_date" do
-    expect(FactoryGirl.build(:recurring_invoice, status: 1, starting_date: Date.today - 7, max_occurrences: nil).generate_pending_invoices.count).to eq(8)
+    expect(FactoryGirl.build(:recurring_invoice, starting_date: Date.today - 7, max_occurrences: nil).generate_pending_invoices.count).to eq 8
+  end
+
+  it "generates invoices with items taxed as described in recurring invoice" do
+    expect(FactoryGirl.create(:recurring_invoice, starting_date: Date.today - 1).generate_pending_invoices[0].tax_amount).to eq 2.466
   end
 end
