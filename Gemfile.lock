@@ -128,6 +128,8 @@ GEM
     mysql2 (0.4.3)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    paranoia (2.1.5)
+      activerecord (~> 4.0)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
     pry (0.10.3)
@@ -270,6 +272,7 @@ DEPENDENCIES
   js-routes
   money
   mysql2
+  paranoia (~> 2.0)
   pry-rails
   puma
   rails (= 4.2.5.1)

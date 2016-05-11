@@ -1,4 +1,5 @@
 class Series < ActiveRecord::Base
+  acts_as_paranoid
   has_many :commons
   validates :value, presence: true
 

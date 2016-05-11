@@ -1,7 +1,7 @@
 class Invoice < Common
   # Relations
   belongs_to :recurring_invoice
-  has_many :payments, dependent: :delete_all
+  has_many :payments, dependent: :destroy
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 
   # Validation
@@ -12,6 +12,7 @@ class Invoice < Common
   # Events
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
+  after_update :purge_payments
 
   # Status
   PAID = 1
@@ -128,6 +129,12 @@ public
       yield
       series.update_attribute :next_number, number + 1
     end
+
+    # make sure every soft-deleted payment is really deleted
+    def purge_payments
+      payments.only_deleted.delete_all
+    end
+
 
     # Protected: Update instance's status digit to reflect its status
     def set_status

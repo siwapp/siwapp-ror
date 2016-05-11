@@ -49,43 +49,49 @@ ActiveRecord::Schema.define(version: 0) do
     t.date     "finishing_date"
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
+    t.datetime "deleted_at"
     t.integer  "template_id",          limit: 4
   end
 
-  add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
-  add_index "commons", ["customer_id"], name: "customer_id_idx", using: :btree
-  add_index "commons", ["email"], name: "cstml_idx", using: :btree
-  add_index "commons", ["identification"], name: "cstid_idx", using: :btree
-  add_index "commons", ["name"], name: "cstnm_idx", using: :btree
-  add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
-  add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
-  add_index "commons", ["type"], name: "common_type_idx", using: :btree
+  add_index "commons", ["contact_person"], where: "deleted_at IS NULL", name: "cntct_idx", using: :btree
+  add_index "commons", ["customer_id"], where: "deleted_at IS NULL", name: "customer_id_idx", using: :btree
+  add_index "commons", ["deleted_at"], name: "deleted_at_idx", using: :btree
+  add_index "commons", ["email"], name: "cstml_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["identification"], name: "cstid_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["name"], name: "cstnm_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["series_id"], name: "series_id_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["type"], name: "common_type_idx", where: "deleted_at IS NULL", using: :btree
 
   create_table "customers", force: :cascade do |t|
-    t.string "name",              limit: 100
-    t.string "name_slug",         limit: 100
-    t.string "identification",    limit: 50
-    t.string "email",             limit: 100
-    t.string "contact_person",    limit: 100
-    t.text   "invoicing_address", limit: 65535
-    t.text   "shipping_address",  limit: 65535
+    t.string   "name",              limit: 100
+    t.string   "name_slug",         limit: 100
+    t.string   "identification",    limit: 50
+    t.string   "email",             limit: 100
+    t.string   "contact_person",    limit: 100
+    t.text     "invoicing_address", limit: 65535
+    t.text     "shipping_address",  limit: 65535
+    t.datetime "deleted_at"
   end
 
-  add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
-  add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
+  add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
+  add_index "customers", ["name"], name: "cstm_idx", unique: true, where: "deleted_at IS NULL", using: :btree
+  add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, where: "deleted_at IS NULL", using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer "common_id",    limit: 4,                                             null: false
-    t.string  "description",  limit: 20000
-    t.decimal "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
-    t.integer "product_id",   limit: 4
+    t.decimal  "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal  "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer  "common_id",    limit: 4,                                             null: false
+    t.string   "description",  limit: 20000
+    t.decimal  "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
+    t.integer  "product_id",   limit: 4
+    t.datetime "deleted_at"
   end
 
-  add_index "items", ["common_id"], name: "common_id_idx", using: :btree
-  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, using: :btree
-  add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
+  add_index "items", ["common_id"], name: "common_id_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "items", ["deleted_at"], name: "item_deleted_at_idx", using: :btree
+  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, where: "deleted_at IS NULL", using: :btree
+  add_index "items", ["product_id"], name: "item_product_id_idx", where: "deleted_at IS NULL", using: :btree
 
   create_table "items_taxes", id: false, force: :cascade do |t|
     t.integer "item_id", limit: 4, default: 0, null: false
@@ -99,9 +105,11 @@ ActiveRecord::Schema.define(version: 0) do
     t.text     "notes",      limit: 65535
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
+    t.datetime "deleted_at"
   end
 
-  add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
+  add_index "payments", ["deleted_at"], name: "payment_deleted_at_idx", using: :btree
+  add_index "payments", ["invoice_id"], name: "invoice_id_idx", where: "deleted_at IS NULL", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "reference",   limit: 100,                                           null: false
@@ -109,25 +117,32 @@ ActiveRecord::Schema.define(version: 0) do
     t.decimal  "price",                     precision: 53, scale: 15, default: 0.0, null: false
     t.datetime "created_at",                                                        null: false
     t.datetime "updated_at",                                                        null: false
+    t.datetime "deleted_at"
   end
+
+  add_index "products", ["deleted_at"], name: "product_deleted_at_idx", using: :btree
 
   create_table "series", force: :cascade do |t|
-    t.string  "name",        limit: 255
-    t.string  "value",       limit: 255
-    t.integer "next_number", limit: 4,   default: 1
-    t.boolean "enabled",                 default: true
-    t.boolean "default"
+    t.string   "name",        limit: 255
+    t.string   "value",       limit: 255
+    t.integer  "next_number", limit: 4,   default: 1
+    t.boolean  "enabled",                 default: true
+    t.boolean  "default"
+    t.datetime "deleted_at"
   end
 
-  create_table "settings" do |t|
-    t.string  :var,        null: false
-    t.text    :value,      null: true
-    t.integer :thing_id,   null: true
-    t.string  :thing_type, null: true, limit: 30
-    t.timestamps null: true
+  add_index "series", ["deleted_at"], name: "series_deleted_at_idx", using: :btree
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "var",        limit: 255,   null: false
+    t.text     "value",      limit: 65535
+    t.integer  "thing_id",   limit: 4
+    t.string   "thing_type", limit: 30
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index :settings, %i(thing_type thing_id var), unique: true
+  add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id",        limit: 4
@@ -151,11 +166,15 @@ ActiveRecord::Schema.define(version: 0) do
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
 
   create_table "taxes", force: :cascade do |t|
-    t.string  "name",    limit: 50
-    t.decimal "value",              precision: 53, scale: 2
-    t.boolean "active",                                      default: true
-    t.boolean "default",                                     default: false
+    t.string   "name",       limit: 50
+    t.decimal  "value",                 precision: 53, scale: 2
+    t.boolean  "active",                                         default: true
+    t.boolean  "default",                                        default: false
+    t.datetime "deleted_at"
   end
+
+  add_index "taxes", ["deleted_at"], name: "tax_deleted_at_idx", using: :btree
+
 
   create_table "templates", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -164,7 +183,10 @@ ActiveRecord::Schema.define(version: 0) do
     t.datetime "updated_at",               null: false
     t.string   "models",     limit: 200
     t.boolean  "default"
+    t.datetime "deleted_at"
   end
+
+  add_index "templates", ["deleted_at"], name: "template_deleted_at_idx", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255

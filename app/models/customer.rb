@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+  acts_as_paranoid
   has_many :invoices
   has_many :estimates
   has_many :recurring_invoices

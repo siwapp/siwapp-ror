@@ -61,7 +61,8 @@ gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'chartist-rails'
-gem 'cocoon', '~>1.2.6'  # to add items dinamically
+# to add items dinamically
+gem 'cocoon', '~>1.2.6'
 gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails'
 gem 'fastclick-rails'
@@ -81,3 +82,5 @@ gem 'will_paginate'
 gem 'wkhtmltopdf-binary'
 # money!
 gem 'money'
+# to prevent records from being actually deleted
+gem "paranoia", "~> 2.0"

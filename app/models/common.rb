@@ -1,8 +1,10 @@
 class Common < ActiveRecord::Base
+  acts_as_paranoid
   # Relations
   belongs_to :customer
   belongs_to :series
-  has_many :items, dependent: :delete_all
+  has_many :items, dependent: :destroy
+
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
@@ -13,6 +15,9 @@ class Common < ActiveRecord::Base
 
   # Events
   before_save :set_amounts
+  after_update :purge_items
+
+
 
   # Search
   scope :with_terms, ->(terms) {
@@ -37,6 +42,11 @@ class Common < ActiveRecord::Base
     taxes
   end
 
+  # restore if soft deleted, along with its items
+  def back_from_death
+    restore! recursive: true
+  end
+
 protected
 
   # Declare scopes for search
@@ -59,6 +69,11 @@ public
     self.net_amount = base_amount - discount_amount
     self.gross_amount = net_amount + tax_amount
 
+  end
+
+  # make sure every soft-deleted item is really destroyed
+  def purge_items
+    items.only_deleted.delete_all
   end
 
 end

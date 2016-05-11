@@ -1,4 +1,5 @@
 class Item < ActiveRecord::Base
+  acts_as_paranoid
   belongs_to :common
   has_and_belongs_to_many :taxes
 
