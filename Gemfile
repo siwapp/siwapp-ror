@@ -49,7 +49,6 @@ end
 gem 'web-console', '~> 2.0', group: :development
 
 group :test do
-  gem 'capybara-puma'
   gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'database_cleaner'

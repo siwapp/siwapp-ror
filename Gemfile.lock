@@ -57,9 +57,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-puma (1.0.1)
-      capybara
-      puma
     capybara-webkit (1.10.1)
       capybara (>= 2.3.0, < 2.8.0)
       json
@@ -255,7 +252,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap (~> 4.0.0.alpha3)
   byebug
-  capybara-puma
   capybara-webkit
   chartist-rails
   cocoon (~> 1.2.6)
@@ -292,3 +288,9 @@ DEPENDENCIES
   wicked_pdf
   will_paginate
   wkhtmltopdf-binary
+
+RUBY VERSION
+   ruby 2.2.0p0
+
+BUNDLED WITH
+   1.12.3
