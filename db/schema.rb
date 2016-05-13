@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 0) do
     t.decimal  "tax_amount",                         precision: 53, scale: 15, default: 0.0
     t.integer  "status",               limit: 1
     t.string   "type",                 limit: 255
-    t.boolean  "draft",                                                        default: true
+    t.boolean  "draft",                                                        default: false
     t.boolean  "paid",                                                         default: false
     t.boolean  "sent_by_email",                                                default: false
     t.integer  "number",               limit: 4

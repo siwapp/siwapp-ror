@@ -5,6 +5,10 @@ RSpec.describe Invoice, :type => :model do
     expect(FactoryGirl.build(:invoice, series: nil)).not_to be_valid
   end
 
+  it "default draft value is false" do
+    expect(Invoice.new.draft).to be false
+  end
+
   it "has no invoice number if it is a draft" do
     invoice = FactoryGirl.create(:invoice, draft: true)
     expect(invoice.number).to be_nil
