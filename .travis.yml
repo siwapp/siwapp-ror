@@ -1,9 +1,12 @@
 language: ruby
 rvm: 2.2.0
 script: "bin/rake spec"
+sudo: required
+dist: trusty
+
 before_install:
-  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
-  - sudo apt-get update -qq
+#  - sudo add-apt-repository --yes ppa:ubuntu-sdk-team/ppa
+#  - sudo apt-get update -qq
   - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   - export DISPLAY=:99.0
