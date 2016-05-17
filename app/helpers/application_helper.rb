@@ -9,7 +9,12 @@ module ApplicationHelper
 
   # To put class=active into the menu links
   def active_link(link)
-    (link == params[:controller]) ? "active" : ""
+    link.split(',').each do |value|
+      if value.strip == params[:controller]
+        return "active"
+      end
+    end
+    return ""
   end
 
   def display_money(amount)

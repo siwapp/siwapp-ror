@@ -70,7 +70,7 @@
       &.active {
         position: relative;
 
-        &::after {
+        &::before {
           content: "";
           display: block;
           position: absolute;
@@ -84,6 +84,11 @@
 
       &.dropdown-toggle::after {
         margin-right: 0;
+        margin-left: .5rem;
+      }
+
+      &.dropdown-toggle::before {
+        right: 1.5rem;
       }
     }
   }
