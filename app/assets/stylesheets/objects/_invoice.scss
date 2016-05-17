@@ -25,7 +25,7 @@
 
   // Use a smaller grid gutter only inside invoice items
   @include media-breakpoint-down(md) {
-    padding: $small-grid-gutter-width;
+    padding: ($small-grid-gutter-width * 2) $small-grid-gutter-width;
 
     .row {
       @include make-row($small-grid-gutter-width);
@@ -47,7 +47,7 @@
   .destroy-icon {
     color: $brand-danger;
     position: absolute;
-    top: $small-grid-gutter-width;
+    top: $small-grid-gutter-width * 1.5;
     right: $small-grid-gutter-width;
     z-index: 1;
 
