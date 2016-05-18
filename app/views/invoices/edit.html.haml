@@ -1,6 +1,5 @@
-%h1.m-b-2
-  Invoice
-  %span.no-wrap= @invoice
+%h1
+  = @invoice
 
 = render partial: 'form', locals: { is_new: false }
 
