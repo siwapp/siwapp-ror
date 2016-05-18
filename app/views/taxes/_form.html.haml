@@ -7,16 +7,18 @@
       %ul
         - @tax.errors.full_messages.each do |message|
           %li= message
-  %div
+  .form-group
     = f.label :name
-    = f.text_field :name
-    %br/
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :value
-    = f.number_field :value
-    %br/
-    = f.label :active
-    = f.check_box :active
-    %br/
-    = f.label :default
-    = f.check_box :default
-    %br/
+    = f.number_field :value, class: 'form-control'
+  .checkbox
+    %label
+      = f.check_box :active
+      Enabled
+  .checkbox
+    %label
+      = f.check_box :default
+      Apply to new items by default
+

@@ -3,11 +3,12 @@
 = form_tag url_for(:controller => "taxes", :action => "set_default"), :method => :post, :class => "change_default" do
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
+      %thead
+        %th{data: {role: "select-all"}} Default
+        %th Tax Name
       %tbody
         - @taxes.each do |tax|
           %tr
-            %td
-              %label{:for => "default_tax_#{tax.id}"}= check_box_tag('default_tax[]', tax.id, tax.default)
+            %td.text-center{data: {role: "select"}}
+              = check_box_tag('default_tax[]', tax.id, tax.default)
             %td= link_to tax.name, edit_tax_path(tax)
-
-%br/
