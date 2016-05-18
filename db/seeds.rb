@@ -24,14 +24,16 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
 
   <style type="text/css">
     body {
-      margin:4em;
-      font-family:helvetica,sans-serif;
-      font-size:9pt;
-      line-height:1.6em;
-      color:black;
+      margin: 4em;
+      font-family: helvetica,sans-serif;
+      font-size: 9pt;
+      line-height: 1.6em;
+      color: black;
     }
 
-    #logo { height:75px; }
+    #logo {
+      height: 75px;
+    }
 
     ul {
       list-style-type: none;
@@ -39,50 +41,76 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
     }
 
     h2 {
-      font-size:18pt;
-      margin-top:0;
-      margin-bottom:0;
+      font-size: 18pt;
+      margin-top: 0;
+      margin-bottom: 0;
     }
 
     h3 {
-      font-size:14pt;
-      margin-top:1em;
+      font-size: 14pt;
+      margin-top: 1em;
     }
 
     table {
       width:98%;
-      table-layout:auto;
+      table-layout: auto;
     }
+
     table.items {
-      line-height:1em;
+      line-height: 1em;
     }
 
-    td, th { vertical-align:top; }
+    td,
+    th {
+      vertical-align: top;
+    }
 
-    .strong      { font-weight:bold;  }
-    .em          { font-style:italic; }
-    .text-right  { text-align:right;  }
+    .strong {
+      font-weight: bold;
+    }
 
-    .customer-data p { margin:0; }
+    .em {
+      font-style: italic;
+    }
+
+    .text-right {
+      text-align: right;
+    }
+
+    .customer-data p {
+      margin: 0;
+    }
+
     .payment-data table td,
-    .payment-data table th          { padding:0.65em 0px 0px; }
-    .payment-data table th          { font-weight:bold; }
-    .payment-data table .item       { padding-right:1em; }
-    .payment-data table .text-right { white-space:nowrap; padding-left:1em; }
+    .payment-data table th {
+      padding: 0.65em 0px 0px;
+    }
 
-  </style>
+    .payment-data table th {
+      font-weight: bold;
+    }
 
-  <style type="text/css">
+    .payment-data table .item {
+      padding-right: 1em;
+    }
+    .payment-data table .text-right {
+      white-space: nowrap;
+      padding-left: 1em;
+    }
+
     @media print {
-      body, { margin:auto; width:auto; }
-      .section       { page-break-inside:avoid; }
-      div#sfWebDebug { display:none; }
+      body {
+        margin:auto;
+        width:auto;
+      }
+
+      .section {
+        page-break-inside:avoid;
+      }
     }
   </style>
 </head>
 <body>
-
-
   <div class="section">
     <table>
       <tr>
@@ -158,6 +186,5 @@ Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD X
   <div class="section">
     <p><small></small></p>
   </div>
-
 </body>
 </html>')
