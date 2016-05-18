@@ -37,8 +37,8 @@ Rails.application.routes.draw do
 
   get 'settings/global'
   post 'settings/global'
-  get 'settings/my_configuration'
-  post 'settings/my_configuration'
+  get 'settings/profile'
+  post 'settings/profile'
   get 'settings/smtp'
   post 'settings/smtp'
 

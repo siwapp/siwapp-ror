@@ -32,7 +32,7 @@
         .nav-item.dropdown.hidden-sm-down
           %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"} Account
           .dropdown-menu.dropdown-menu-right
-            %a.dropdown-item{:href => settings_my_configuration_path} Profile
+            %a.dropdown-item{:href => settings_profile_path} Profile
             .dropdown-divider
             %a.dropdown-item{:href => settings_global_path} Global Settings
             %a.dropdown-item{:href => settings_smtp_path} SMTP Settings
@@ -45,7 +45,7 @@
         %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}} Account
 
       #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll.hidden-md-up
-        %a.nav-item.nav-link{:href => settings_my_configuration_path} Profile
+        %a.nav-item.nav-link{:href => settings_profile_path} Profile
         %a.nav-item.nav-link{:href => settings_global_path} Global Settings
         %a.nav-item.nav-link{:href => settings_smtp_path} SMTP Settings
         %a.nav-item.nav-link{:href => series_index_path} Series

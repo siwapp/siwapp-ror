@@ -28,14 +28,14 @@ class SettingsController < ApplicationController
     @currencies = Money::Currency.all
     @legal_terms = Settings.legal_terms
     @days_to_due = Settings.days_to_due
-  
+
   end
 
   def smtp
     if request.post?
       [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
         Settings[key] = params[key]
-      end  
+      end
     end
 
     @host = Settings.host
@@ -48,7 +48,7 @@ class SettingsController < ApplicationController
 
   end
 
-  def my_configuration
+  def profile
     # TODO: This is still pretty lame. Validation errors should be shown into
     #       the form.
     @user = current_user
