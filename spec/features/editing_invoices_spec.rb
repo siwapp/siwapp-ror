@@ -32,7 +32,11 @@ feature 'Editing Invoices' do
     visit "/invoices/3/edit"
 
     # click over "add item"
-    find('a.add_fields[data-association=item]').click
+    # Done this way due to a weird error in the test. The button was
+    # actually there but capybara can't click it because it says something is
+    # overlapping it.
+    page.execute_script("$('a.add_fields[data-association=item]').click();")
+    # find('a.add_fields[data-association=item]').click
 
     # a new item appears
     new_item_xpath = "//*[@id='js-items-table']/div[4]"
