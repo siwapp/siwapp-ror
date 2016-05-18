@@ -23,6 +23,18 @@ class Customer < ActiveRecord::Base
     total - paid
   end
 
+  def to_s
+    if name?
+      name
+    elsif identification?
+      identification
+    elsif email?
+      email
+    else
+      'Customer'
+    end
+  end
+
 
 private
 

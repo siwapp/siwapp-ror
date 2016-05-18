@@ -1,5 +1,8 @@
-%h1 Editing Customer
+%h1
+  = @customer
+
 = render 'form'
+
 .action-buttons
   = link_to 'Delete', @customer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
   = link_to 'Back', :back, class: 'btn btn-secondary'
