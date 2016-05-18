@@ -23,6 +23,7 @@
 #= require chartist-plugin-tooltip
 #= require chartist-plugin-legend
 #= require autosize
+#= require behave
 #
 # Bootstrap 4
 #
@@ -38,3 +39,6 @@
 
 jQuery(document).ready ($) ->
   new FastClick(document.body)
+
+  $('.code-editor').each () ->
+    editor = new Behave({textarea: this})
