@@ -16,175 +16,314 @@ Settings.company_url = ""
 Settings.company_logo = ""
 Settings.legal_terms = ""
 
-Template.create(name: 'Default', template: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+invoice_template = <<HEREDOC
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title></title>
+  <meta charset="UTF-8">
+  <title>Invoice</title>
 
   <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
     body {
-      margin: 4em;
-      font-family: helvetica,sans-serif;
-      font-size: 9pt;
-      line-height: 1.6em;
-      color: black;
+      margin: 2cm 2cm 0;
     }
 
-    #logo {
-      height: 75px;
+    h1 {
+      text-align: center;
+      color: #6f7371;
+      text-transform: uppercase;
+      font-weight: normal;
+      font-size: 1.2rem;
+      background: white;
     }
 
-    ul {
-      list-style-type: none;
-      padding-left: 0em;
+    .row + h1 {
+      margin: -1rem 0 1rem;
     }
 
-    h2 {
-      font-size: 18pt;
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-
-    h3 {
-      font-size: 14pt;
-      margin-top: 1em;
-    }
-
-    table {
-      width:98%;
-      table-layout: auto;
-    }
-
-    table.items {
-      line-height: 1em;
-    }
-
-    td,
-    th {
-      vertical-align: top;
-    }
-
-    .strong {
-      font-weight: bold;
-    }
-
-    .em {
-      font-style: italic;
+    p {
+      margin-bottom: .5rem;
     }
 
     .text-right {
       text-align: right;
     }
 
-    .customer-data p {
-      margin: 0;
+    .text-muted {
+      color: #6f7371;
     }
 
-    .payment-data table td,
-    .payment-data table th {
-      padding: 0.65em 0px 0px;
+    .invoice {
+      font-size: 100%;
+      font-family: Helvetica, Arial, sans-serif;
+      color: #3d3f3e;
     }
 
-    .payment-data table th {
+    .logo {
+      margin: 2rem 0 0;
+      max-height: 50px;
+      width: auto;
+    }
+
+    .row {
+      clear: both;
+      margin-bottom: 2rem;
+    }
+    .row::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .section, .section-sm, .section-lg {
+      min-height: 1px;
+      width: 50%;
+      float: left;
+      list-style: none;
+    }
+
+    .section-sm {
+      width: 40%;
+    }
+
+    .section-lg {
+      width: 60%;
+    }
+
+    .company {
+      list-style: none;
+      font-size: 90%;
+      padding-right: 1rem;
+      line-height: 1.2;
+    }
+    .company .company__name {
+      margin-bottom: .5rem;
+    }
+    .company .company__name + .company__id {
+      margin-top: -.5rem;
+      margin-bottom: .5rem;
+    }
+    .company .company__address {
+      margin-bottom: .5rem;
+    }
+
+    .customer .company__name {
+      font-size: 1.2rem;
+    }
+
+    .amount {
+      clear: both;
+      font-size: 2rem;
+      font-weight: bold;
+      line-height: 1;
+      text-align: center;
+      border: 1px solid #cbcbc0;
+      background: white;
+      padding: 1rem;
+      margin-left: 2rem;
+    }
+
+    .amount__currency {
+      font-size: 1.125rem;
+      color: #cbcbc0;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+    table thead th {
+      border-bottom: 1px solid #cbcbc0;
+      background-color: #e7e7e2;
+    }
+    table td, table th {
+      text-align: left;
+      padding: .625rem;
+    }
+    table .total {
+      text-align: right;
+      white-space: nowrap;
+      width: 10rem;
+    }
+    table.info {
+      float: right;
+      font-size: 90%;
+      margin-bottom: 1rem;
+    }
+    table.info td, table.info th {
+      padding: .5rem;
+    }
+    table.info tr:nth-child(even) {
+      background-color: #f2f2ef;
+    }
+    table.items {
+      width: 100%;
+      margin-bottom: 2rem;
+      border: 1px solid #cbcbc0;
+    }
+    table.items tr:nth-child(even) {
+      background-color: #f2f2ef;
+    }
+    table.totals {
+      float: right;
+    }
+    table.totals td, table.totals th {
+      text-align: right;
+    }
+    table.totals .grand-total {
+      font-size: 1.5rem;
       font-weight: bold;
     }
 
-    .payment-data table .item {
-      padding-right: 1em;
+    .notes {
+      font-size: 90%;
     }
-    .payment-data table .text-right {
-      white-space: nowrap;
-      padding-left: 1em;
+    .notes .notes__title {
+      font-size: 1rem;
+      font-weight: bold;
     }
 
     @media print {
       body {
-        margin:auto;
-        width:auto;
+        margin: 0;
+        width: 100%;
       }
 
-      .section {
-        page-break-inside:avoid;
+      .section, .section-sm, .section-lg {
+        page-break-inside: avoid;
       }
     }
   </style>
 </head>
-<body>
-  <div class="section">
-    <table>
-      <tr>
-        <td id="logo" colspan="2" align="right">
-          <img src="<%= settings.company_logo %>" alt="<%= settings.company_name %>" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <ul class="customer-data">
-            <li><%= invoice.name %></li>
-            <li>VAT ID: <%= invoice.identification %></li>
-            <li><%= invoice.contact_person %></li>
-            <li><%= invoice.invoicing_address %></li>
-          </ul>
-        </td>
-        <td align="right">
-          <ul class="invoicer-data">
-            <li class="strong"><%= settings.company_name %></li>
-            <li><%= simple_format settings.company_address %></li>
-            <li><%= settings.company_vat_id %></li>
-            <li><%= settings.company_url %></li>
-          </ul>
-        </td>
-      </tr>
-    </table>
-  </div>
+<body class="invoice">
 
-  <div class="payment-data section">
-    <h2>INVOICE</h2>
-
-    <ul>
-      <li>BILLED ON:  <%= invoice.issue_date %></li>
-      <li>NUMBER: <%= invoice %></li>
-    </ul>
-
-    <table class="items">
-      <% @invoice.items.each do |item| %>
-      <tr>
-        <td class="item" colspan="2"><%= item.description %></td>
-        <td width="5%" class="text-right"><%= item.net_amount %></td>
-      </tr>
-      <% end %>
-      <% if invoice.discount_amount != 0 %>
-      <tr>
-        <td></td>
-        <th class="text-right">DISCOUNT</th>
-        <td class="text-right"><%= invoice.discount_amount %></td>
-      </tr>
-      <% end %>
-      <tr>
-        <td rowspan="3"></td>
-        <th class="text-right">SUBTOTAL</th>
-        <td class="text-right"><%= invoice.net_amount %></td>
-      </tr>
-      <tr>
-        <th class="text-right">VAT %</th>
-        <td class="text-right"><%= invoice.tax_amount %></td>
-      </tr>
-      <tr>
-        <th class="text-right">TOTAL</th>
-        <td class="text-right"><%= invoice.gross_amount %></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="section">
-    <div class="terms">
-      <%= invoice.terms %>
+  <div class="row">
+    <div class="section-lg">
+      <img class="logo" src="<%= settings.company_logo %>" alt="<%= settings.company_name %>" />
+    </div>
+    <div class="section-sm pull-right">
+      <ul class="company text-right">
+        <li class="company__name"><%= settings.company_name %></li>
+        <li class="company__id"><%= settings.company_vat_id %></li>
+        <li class="company__address"><%= simple_format settings.company_address %></li>
+        <li><%= settings.company_email %></li>
+        <li><%= settings.company_url %></li>
+      </ul>
     </div>
   </div>
 
-  <div class="section">
-    <p><small></small></p>
+  <h1>Invoice</h1>
+
+  <div class="row">
+    <div class="section-sm">
+      <p class="text-muted">Billed to:</p>
+      <ul class="company customer">
+        <% if invoice.name? %>
+          <li class="company__name"><%= invoice.name %></li>
+        <% end %>
+        <% if invoice.identification? %>
+          <li class="company__id"><%= invoice.identification %></li>
+        <% end %>
+        <% if invoice.invoicing_address? || invoice.contact_person? %>
+          <li class="company__address">
+            <% if invoice.contact_person? %>
+              <%= invoice.contact_person %><br>
+            <% end %>
+            <% if invoice.invoicing_address? %>
+              <%= simple_format invoice.invoicing_address %>
+            <% end %>
+          </li>
+        <% end %>
+        <% if invoice.email? %>
+          <li><%= invoice.email %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="section-lg">
+      <table cellspacing="0" class="info">
+        <tbody>
+          <tr>
+            <th>Billed:</th>
+            <td><%= invoice.issue_date %></td>
+          </tr>
+          <tr>
+            <th>Invoice#</th>
+            <td><%= invoice %></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="amount">
+        1858,24 €
+        <span class="amount__currency">EUR</span>
+      </div>
+    </div>
   </div>
+
+  <table class="items" cellspacing="0">
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th class="total">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.items.each do |item| %>
+        <tr>
+          <td><%= item.description %></td>
+          <td class="total"><%= item.net_amount %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="section">
+      <% if invoice.terms? %>
+        <div class="notes">
+          <p class="notes__title">Terms &amp; Conditions</p>
+          <div class="notes__content">
+            <%= invoice.terms %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="section">
+      <table class="totals" cellspacing="0">
+        <tbody>
+          <% if invoice.discount_amount != 0 %>
+            <tr>
+              <th>Discount</th>
+              <td class="total"><%= invoice.discount_amount %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th>Subtotal</th>
+            <td class="total"><%= invoice.net_amount %></td>
+          </tr>
+          <tr>
+            <th>VAT</th>
+            <td class="total"><%= invoice.tax_amount %></td>
+          </tr>
+          <tr class="grand-total">
+            <th>Total</th>
+            <td class="total"><%= invoice.gross_amount %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </body>
-</html>')
+</html>
+HEREDOC
+
+Template.create(name: "Default", template: invoice_template.strip())

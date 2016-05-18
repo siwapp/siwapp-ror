@@ -19,6 +19,6 @@ feature 'PDF of Invoices' do
 
   scenario 'Template url shows template', js: true, driver: :webkit do
     visit "/invoices/template/1/invoice/1"
-    expect(page).to have_content("BILLED ON")
+    expect(page).to have_content("Billed:")
   end
 end
