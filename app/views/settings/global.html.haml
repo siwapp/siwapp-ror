@@ -1,38 +1,41 @@
 %h1 Global Settings
 
-= form_tag("#", method: "post") do
-  = label_tag(:company_name, "Company Name:")
-  = text_field_tag(:company_name, @company_name)
-  %br/
-  = label_tag(:company_vat_id, "Company VAT ID:")
-  = text_field_tag(:company_vat_id, @company_vat_id)
-  %br/
-  = label_tag(:company_address, "Company Address:")
-  = text_area_tag(:company_address, @company_address)
-  %br/
-  = label_tag(:company_phone, "Company Phone:")
-  = text_field_tag(:company_phone, @company_phone)
-  %br/
-  = label_tag(:company_email, "Company Email:")
-  = email_field_tag(:company_email, @company_email)
-  %br/
-  = label_tag(:email_to_send, "Email to send with invoices:")
-  = text_area_tag(:email_to_send, @email_to_send)
-  %br/
-  = label_tag(:company_url, "Company Website:")
-  = url_field_tag(:company_url, @company_url)
-  %br/
-  = label_tag(:company_logo, "Company Logo:")
-  = url_field_tag(:company_logo, @company_logo)
-  %br/
-  = label_tag :currency, "Currency:"
-  = collection_select :currency, :id, @currencies, :id, :iso_code
-  %br/
-  = label_tag(:legal_terms, "Legal Terms:")
-  = text_area_tag(:legal_terms, @legal_terms)
-  %br/
-  = label_tag(:days_to_due, "Days to due:")
-  = number_field_tag(:days_to_due, @days_to_due)
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = form_tag("#", method: "post") do
+      .form-group
+        = label_tag(:company_name, "Company Name:")
+        = text_field_tag(:company_name, @company_name, class: 'form-control')
+      .form-group
+        = label_tag(:company_vat_id, "Company VAT ID:")
+        = text_field_tag(:company_vat_id, @company_vat_id, class: 'form-control')
+      .form-group
+        = label_tag(:company_address, "Company Address:")
+        = text_area_tag(:company_address, @company_address, class: 'form-control')
+      .form-group
+        = label_tag(:company_phone, "Company Phone:")
+        = text_field_tag(:company_phone, @company_phone, class: 'form-control')
+      .form-group
+        = label_tag(:company_email, "Company Email:")
+        = email_field_tag(:company_email, @company_email, class: 'form-control')
+      .form-group
+        = label_tag(:email_to_send, "Email to send with invoices:")
+        = text_area_tag(:email_to_send, @email_to_send, class: 'form-control')
+      .form-group
+        = label_tag(:company_url, "Company Website:")
+        = url_field_tag(:company_url, @company_url, class: 'form-control')
+      .form-group
+        = label_tag(:company_logo, "Company Logo:")
+        = url_field_tag(:company_logo, @company_logo, class: 'form-control')
+      .form-group
+        = label_tag :currency, "Currency:"
+        = collection_select :currency, :id, @currencies, :id, :iso_code, {}, {class: 'form-control c-select'}
+      .form-group
+        = label_tag(:legal_terms, "Legal Terms:")
+        = text_area_tag(:legal_terms, @legal_terms, class: 'form-control')
+      .form-group
+        = label_tag(:days_to_due, "Days to due:")
+        = number_field_tag(:days_to_due, @days_to_due, class: 'form-control')
 
 .action-buttons
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

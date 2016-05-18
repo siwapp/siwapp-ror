@@ -1,27 +1,40 @@
 %h1 SMTP Settings
 
-= form_tag("#", method: "post") do
-  = label_tag(:host, "Host:")
-  = text_field_tag(:host, @host)
-  %br/
-  = label_tag(:port, "Port:")
-  = text_field_tag(:port, @port)
-  %br/
-  = label_tag(:domain, "Domain:")
-  = text_field_tag(:domain, @domain)
-  %br/
-  = label_tag(:user, "User:")
-  = email_field_tag(:user, @user)
-  %br/
-  = label_tag(:password, "Password:")
-  = password_field_tag(:password, @password)
-  %br/
-  = label_tag(:authentication, "Authentication:")
-  = select_tag(:authentication, options_for_select([['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], :selected => @authentication))
-  %br/
-  = label_tag(:enable_starttls_auto, "Enable start tls auto:")
-  = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
-  %br/
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = form_tag("#", method: "post") do
+      %fieldset
+        %legend Server
+
+        .form-group
+          = label_tag(:host, "Host:")
+          = text_field_tag(:host, @host, class: 'form-control')
+        .form-group
+          = label_tag(:port, "Port:")
+          = text_field_tag(:port, @port, class: 'form-control')
+        .form-group
+          = label_tag(:domain, "Domain:")
+          = text_field_tag(:domain, @domain, class: 'form-control')
+
+      %fieldset
+        %legend Authentication
+
+        .form-group
+          = label_tag(:user, "User:")
+          = email_field_tag(:user, @user, class: 'form-control')
+        .form-group
+          = label_tag(:password, "Password:")
+          = password_field_tag(:password, @password, class: 'form-control')
+        .form-group
+          = label_tag(:authentication, "Authentication:")
+          = select_tag(:authentication, options_for_select([['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], :selected => @authentication), class: 'form-control c-select')
+        .checkbox
+          %label
+            = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
+            Enable
+            %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
+
+
 
 .action-buttons
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
