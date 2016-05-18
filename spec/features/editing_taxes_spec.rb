@@ -10,7 +10,7 @@ feature 'Editing Taxes' do
   scenario 'Updating a Tax', :js => true, driver: :webkit do
     fill_in 'Name', with: 'NEW Test Tax'
     fill_in 'Value', with: '3'
-    check 'Active'
+    check 'Enabled'
     click_on 'Save'
     expect(page).to have_content("Tax was successfully updated")
   end

@@ -10,8 +10,8 @@ feature 'Creating Taxes' do
   scenario 'can create a tax', :js => true, driver: :webkit do
     fill_in 'Name', with: 'IVA'
     fill_in 'Value', with: '15'
-    check 'Active'
-    check 'Default'
+    check 'Enabled'
+    check 'Apply to new items by default'
 
     click_button 'Save'
     expect(page).to have_content('Tax was successfully created.')
