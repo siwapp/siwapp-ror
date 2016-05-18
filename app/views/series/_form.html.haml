@@ -7,16 +7,17 @@
       %ul
         - @series.errors.full_messages.each do |message|
           %li= message
-  %div
+  .form-group
     = f.label :name
-    = f.text_field :name
-    %br/
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :value
-    = f.text_field :value
-    %br/
+    = f.text_field :value, class: 'form-control'
+  .form-group
     = f.label :next_number
-    = f.number_field :next_number
-    %br/
-    = f.label :enabled
-    = f.check_box :enabled
-    %br/
+    = f.number_field :next_number, class: 'form-control'
+  .checkbox
+    %label
+      = f.check_box :enabled
+      Enabled
+

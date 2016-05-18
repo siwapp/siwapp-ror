@@ -1,5 +1,10 @@
-%h1 Editing Series
-= render 'form'
+%h1
+  = @series
+
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = render 'form'
+
 .action-buttons
   = link_to 'Delete', @series, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
   = link_to 'Back', :back, class: 'btn btn-secondary'
