@@ -8,9 +8,11 @@
         - @template.errors.full_messages.each do |message|
           %li= message
 
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
+  .row
+    .col-xs-12.col-md-6
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
   .form-group
     = f.label :template
     = f.text_area :template, { class: 'form-control code-editor', rows: 20 }
