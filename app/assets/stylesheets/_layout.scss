@@ -24,3 +24,16 @@ body {
 input[type="date"].form-control {
   line-height: 1.5 !important;
 }
+
+.label,
+.form-group label {
+  font-size: 80%;
+  color: $gray-light;
+  text-transform: uppercase;
+}
+
+.code-editor {
+  height: 500px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 80%;
+}

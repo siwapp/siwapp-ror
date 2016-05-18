@@ -7,10 +7,10 @@
       %ul
         - @template.errors.full_messages.each do |message|
           %li= message
-  %div
+
+  .form-group
     = f.label :name
-    = f.text_field :name
-    %br/
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :template
-    = f.text_area :template, { style: 'width:100%; height:25em;' }
-    %br/
+    = f.text_area :template, { class: 'form-control code-editor', rows: 20 }
