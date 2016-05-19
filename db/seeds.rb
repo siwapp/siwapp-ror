@@ -308,10 +308,12 @@ invoice_template = <<HEREDOC
             <th>Subtotal</th>
             <td class="total"><%= display_money invoice.net_amount %></td>
           </tr>
-          <tr>
-            <th>VAT</th>
-            <td class="total"><%= display_money invoice.tax_amount %></td>
-          </tr>
+          <% invoice.taxes.each do |tax, value| %>
+            <tr>
+              <th><%= tax %></th>
+              <td class="total"><%= display_money value %></td>
+            </tr>
+          <% end %>
           <tr class="grand-total">
             <th>Total</th>
             <td class="total"><%= display_money invoice.gross_amount %></td>
