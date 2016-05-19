@@ -3,10 +3,11 @@ class SettingsController < ApplicationController
   def global
     if request.post?
       [:company_name, :company_vat_id, :company_address, :company_phone,
-          :company_email, :email_to_send, :company_url, :company_logo,
+          :company_email, :email_to_send, :company_url,
           :legal_terms, :days_to_due].each do |key|
         Settings[key] = params[key]
       end
+      Settings.company_logo = params[:company_logo].gsub('https://', 'http://')
       Settings.currency = params[:currency][:id]
       redirect_to action: :global
     end

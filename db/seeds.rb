@@ -36,11 +36,10 @@ invoice_template = <<HEREDOC
 
     body {
       margin: 2cm 2cm 0;
+      color: #3d3f3e;
     }
 
     h1 {
-      text-align: center;
-      color: #6f7371;
       text-transform: uppercase;
       font-weight: normal;
       font-size: 1.2rem;
@@ -214,7 +213,7 @@ invoice_template = <<HEREDOC
       <ul class="company text-right">
         <li class="company__name"><%= settings.company_name %></li>
         <li class="company__id"><%= settings.company_vat_id %></li>
-        <li class="company__address"><%= simple_format settings.company_address %></li>
+        <li class="company__address"><%= format_address settings.company_address %></li>
         <li><%= settings.company_email %></li>
         <li><%= settings.company_url %></li>
       </ul>
@@ -239,7 +238,7 @@ invoice_template = <<HEREDOC
               <%= invoice.contact_person %><br>
             <% end %>
             <% if invoice.invoicing_address? %>
-              <%= simple_format invoice.invoicing_address %>
+              <%= format_address invoice.invoicing_address %>
             <% end %>
           </li>
         <% end %>
@@ -253,17 +252,17 @@ invoice_template = <<HEREDOC
         <tbody>
           <tr>
             <th>Billed:</th>
-            <td><%= invoice.issue_date %></td>
+            <td class="total"><%= invoice.issue_date %></td>
           </tr>
           <tr>
-            <th>Invoice#</th>
-            <td><%= invoice %></td>
+            <th>Invoice Number:</th>
+            <td class="total"><%= invoice %></td>
           </tr>
         </tbody>
       </table>
       <div class="amount">
-        1858,24 €
-        <span class="amount__currency">EUR</span>
+        <%= display_money invoice.gross_amount %>
+        <span class="amount__currency"><%= settings.currency.upcase %></span>
       </div>
     </div>
   </div>
@@ -279,7 +278,7 @@ invoice_template = <<HEREDOC
       <% @invoice.items.each do |item| %>
         <tr>
           <td><%= item.description %></td>
-          <td class="total"><%= item.net_amount %></td>
+          <td class="total"><%= display_money item.net_amount %></td>
         </tr>
       <% end %>
     </tbody>
@@ -302,20 +301,20 @@ invoice_template = <<HEREDOC
           <% if invoice.discount_amount != 0 %>
             <tr>
               <th>Discount</th>
-              <td class="total"><%= invoice.discount_amount %></td>
+              <td class="total"><%= display_money invoice.discount_amount %></td>
             </tr>
           <% end %>
           <tr>
             <th>Subtotal</th>
-            <td class="total"><%= invoice.net_amount %></td>
+            <td class="total"><%= display_money invoice.net_amount %></td>
           </tr>
           <tr>
             <th>VAT</th>
-            <td class="total"><%= invoice.tax_amount %></td>
+            <td class="total"><%= display_money invoice.tax_amount %></td>
           </tr>
           <tr class="grand-total">
             <th>Total</th>
-            <td class="total"><%= invoice.gross_amount %></td>
+            <td class="total"><%= display_money invoice.gross_amount %></td>
           </tr>
         </tbody>
       </table>
