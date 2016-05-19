@@ -1,17 +1,16 @@
 class SettingsController < ApplicationController
   # Global configuration settings
   def global
-    if request.post?  # save values posted
+    if request.post?
       [:company_name, :company_vat_id, :company_address, :company_phone,
           :company_email, :email_to_send, :company_url, :company_logo,
-          :legal_terms, :days_to_due]
-      .each do |key|
+          :legal_terms, :days_to_due].each do |key|
         Settings[key] = params[key]
-
-      # save currency
-      Settings.currency = params[:currency][:id]
       end
+      Settings.currency = params[:currency][:id]
+      redirect_to action: :global
     end
+
     @company_name = Settings.company_name
     @company_vat_id = Settings.company_vat_id
     @company_address = Settings.company_address
@@ -36,6 +35,7 @@ class SettingsController < ApplicationController
       [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
         Settings[key] = params[key]
       end
+      redirect_to action: :smtp
     end
 
     @host = Settings.host
@@ -62,6 +62,7 @@ class SettingsController < ApplicationController
         @user.validate!
         @user.save!
       end
+      redirect_to action: :profile
     end
 
   end
