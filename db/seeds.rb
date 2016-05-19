@@ -326,4 +326,4 @@ invoice_template = <<HEREDOC
 </html>
 HEREDOC
 
-Template.create(name: "Default", template: invoice_template.strip())
+Template.create(name: "Default", template: invoice_template.strip(), default: true)
