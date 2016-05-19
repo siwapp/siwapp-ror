@@ -88,13 +88,9 @@ end
 require 'capybara/rspec'
 require 'capybara/webkit'
 
-Capybara.register_server :puma do |app, port, host|
-  Puma::Server.new(app).tap do |s|
-    s.add_tcp_listener host, port
-  end.run.join
+Capybara.configure do |config|
+  config.server = :puma
 end
-
-Capybara.server= :puma
 
 Capybara::Webkit.configure do |config|
   config.allow_url("fonts.googleapis.com")
