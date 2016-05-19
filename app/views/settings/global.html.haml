@@ -2,7 +2,7 @@
 
 .row
   .col-xs-12.col-md-6.col-xl-4
-    = form_tag("#", method: "post") do
+    = form_tag("", method: "post") do
       .form-group
         = label_tag(:company_name, "Company Name:")
         = text_field_tag(:company_name, @company_name, class: 'form-control')
@@ -11,7 +11,7 @@
         = text_field_tag(:company_vat_id, @company_vat_id, class: 'form-control')
       .form-group
         = label_tag(:company_address, "Company Address:")
-        = text_area_tag(:company_address, @company_address, class: 'form-control')
+        = text_area_tag(:company_address, @company_address, class: 'form-control autosize', rows: '3')
       .form-group
         = label_tag(:company_phone, "Company Phone:")
         = text_field_tag(:company_phone, @company_phone, class: 'form-control')
@@ -20,7 +20,7 @@
         = email_field_tag(:company_email, @company_email, class: 'form-control')
       .form-group
         = label_tag(:email_to_send, "Email to send with invoices:")
-        = text_area_tag(:email_to_send, @email_to_send, class: 'form-control')
+        = text_area_tag(:email_to_send, @email_to_send, class: 'form-control autosize', rows: '3')
       .form-group
         = label_tag(:company_url, "Company Website:")
         = url_field_tag(:company_url, @company_url, class: 'form-control')
@@ -32,7 +32,7 @@
         = collection_select :currency, :id, @currencies, :id, :iso_code, {}, {class: 'form-control c-select'}
       .form-group
         = label_tag(:legal_terms, "Legal Terms:")
-        = text_area_tag(:legal_terms, @legal_terms, class: 'form-control')
+        = text_area_tag(:legal_terms, @legal_terms, class: 'form-control autosize', rows: '3')
       .form-group
         = label_tag(:days_to_due, "Days to due:")
         = number_field_tag(:days_to_due, @days_to_due, class: 'form-control')

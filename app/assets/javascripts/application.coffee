@@ -42,3 +42,5 @@ jQuery(document).ready ($) ->
 
   $('.code-editor').each () ->
     editor = new Behave({textarea: this})
+
+  autosize $('textarea.autosize')
