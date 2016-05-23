@@ -40,7 +40,7 @@
           = f.check_box :draft
           Draft
 
-    = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice}
+    = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 
   - unless @invoice.new_record?
     %fieldset.m-b-2{data: {changes: 'amount'}}

@@ -10,7 +10,7 @@ RSpec.describe Customer, :type => :model do
     expect(customer.due).to eq 25.766
   end
 
-  it " won't be deleted if it has invoices" do
+  it " won't be deleted if it has invoices unpaid" do
     customer = FactoryGirl.create :customer
     invoice = FactoryGirl.create :invoice_unpaid, customer: customer
     expect(customer.destroy).to be false

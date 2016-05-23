@@ -1,6 +1,6 @@
 #js-items-table.invoice-table
   = f.fields_for :items, include_id: false  do |item_form|
-    = render partial: 'shared/item_fields', locals: {f: item_form, is_new: false}
+    = render partial: 'shared/item_fields', locals: {f: item_form, is_new: is_new}
 
 .row
   .col-xs-12.col-sm-6.col-md-7.col-lg-8
