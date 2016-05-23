@@ -208,9 +208,11 @@ invoice_template = <<HEREDOC
 <body class="invoice">
 
   <div class="row">
+    <% if settings.company_logo? %>
     <div class="section-lg">
       <img class="logo" src="<%= settings.company_logo %>" alt="<%= settings.company_name %>" />
     </div>
+    <% end %>
     <div class="section-sm pull-right">
       <ul class="company text-right">
         <li class="company__name"><%= settings.company_name %></li>
