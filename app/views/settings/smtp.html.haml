@@ -33,7 +33,15 @@
             = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
             Enable
             %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
-
+      
+      %fieldset
+        %legend E-mail to send with invoices
+        .form-group
+          = label_tag(:email_subject, "Email subject:")
+          = text_field_tag(:email_subject, @email_subject, class: 'form-control autosize')
+        .form-group
+          = label_tag(:email_body, "Email body:")
+          = text_area_tag(:email_body, @email_body, class: 'form-control autosize', rows: '3')  
 
 
 .action-buttons

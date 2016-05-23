@@ -7,8 +7,8 @@ class InvoiceMailer < ApplicationMailer
     mail(
       from: Settings.company_email,
       to: @invoice.email,
-      subject: "Your invoice #{invoice}",
-      body: Settings.email_to_send
+      subject: Settings.email_subject,
+      body: Settings.email_body
     )
   end
 end

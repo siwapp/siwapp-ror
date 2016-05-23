@@ -2,9 +2,7 @@ class SettingsController < ApplicationController
   # Global configuration settings
   def global
     if request.post?
-      [:company_name, :company_vat_id, :company_address, :company_phone,
-          :company_email, :email_to_send, :company_url,
-          :legal_terms, :days_to_due].each do |key|
+      [:company_name, :company_vat_id, :company_address, :company_phone, :company_url, :legal_terms, :days_to_due, :company_email].each do |key|
         Settings[key] = params[key]
       end
       Settings.company_logo = params[:company_logo].gsub('https://', 'http://')
@@ -16,8 +14,6 @@ class SettingsController < ApplicationController
     @company_vat_id = Settings.company_vat_id
     @company_address = Settings.company_address
     @company_phone = Settings.company_phone
-    @company_email = Settings.company_email
-    @email_to_send = Settings.email_to_send
     # This must be an url because there is no way of uploading files to
     # heroku. One option would be to use S3, but it's not worth it.
     @company_url = Settings.company_url
@@ -28,12 +24,13 @@ class SettingsController < ApplicationController
     @currencies = Money::Currency.all
     @legal_terms = Settings.legal_terms
     @days_to_due = Settings.days_to_due
+    @company_email = Settings.company_email
 
   end
 
   def smtp
     if request.post?
-      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
+      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject].each do |key|
         Settings[key] = params[key]
       end
       redirect_to action: :smtp
@@ -46,6 +43,8 @@ class SettingsController < ApplicationController
     @password = Settings.password
     @authentication = Settings.authentication
     @enable_starttls_auto = Settings.enable_starttls_auto
+    @email_body = Settings.email_body
+    @email_subject = Settings.email_subject
 
   end
 
