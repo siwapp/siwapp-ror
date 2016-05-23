@@ -10,11 +10,13 @@ Settings.company_name = ""
 Settings.company_address = ""
 Settings.company_vat_id = ""
 Settings.company_phone = ""
-Settings.email_to_send = ""
+Settings.email_subject = ""
+Settings.email_body = ""
 Settings.company_email = ""
 Settings.company_url = ""
 Settings.company_logo = ""
 Settings.legal_terms = ""
+Settings.currency = "usd"
 
 invoice_template = <<HEREDOC
 <!DOCTYPE html>
