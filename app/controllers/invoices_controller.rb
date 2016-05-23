@@ -3,7 +3,7 @@ class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
 
-    if template = Template.first  # TODO: this should change to get the default
+    if template = Template.where(default: true).first
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
       @template_url = ""
