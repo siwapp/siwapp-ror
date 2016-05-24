@@ -9,7 +9,7 @@ jQuery(document).ready ($) ->
     split_tags(value).pop()
 
   # Configure inputs for tagging
-  $( 'input[data-role="tagging"]' )
+  $( 'textarea[data-role="tagging"]' )
     .on 'keydown', (e) ->
       # Don't navigate away from the field on tab when selecting an item
       if e.keyCode is $.ui.keyCode.TAB and $(this).autocomplete('instance').menu.active

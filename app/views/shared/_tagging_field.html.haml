@@ -1,6 +1,7 @@
 .form-group
   = f.label :tag_list, "Tags (separated by commas)"
-  = f.text_area :tag_list, value: instance.tag_list.to_s, class: 'form-control', id: 'tagList', autocomplete: 'off', data: { role: 'tagging' }
+  = f.text_area :tag_list, value: instance.tag_list.to_s, class: 'form-control', id: 'tagList', autocomplete: 'on', data: { role: 'tagging' }
+
 - if @tags.size > 0
   :javascript
     var availableTags = ['#{raw @tags.join("', '")}'];
