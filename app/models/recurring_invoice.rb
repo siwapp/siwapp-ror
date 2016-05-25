@@ -62,6 +62,9 @@ class RecurringInvoice < Common
       inv.status = 'Open'
       inv.issue_date = Date.today
       inv.due_date = Date.today + days_to_due.days if days_to_due
+      inv.finishing_date = next_date
+      inv.starting_date = inv.finishing_date - period.send(period_type)
+
       if inv.save
         inv.send_email if self.sent_by_email  # If recurring is set to send emails
       end
