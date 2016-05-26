@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def update
   	@user = User.find(params[:id])
     if @user.update_attributes(user_params)
-      flash[:info] = 'User updated correctly'	
+      flash[:info] = 'User updated correctly'
       redirect_to invoices_url
     else
       render 'edit'
@@ -25,5 +25,6 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
     end
+    
 
 end
