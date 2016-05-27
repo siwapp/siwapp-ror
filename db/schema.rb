@@ -83,6 +83,9 @@ ActiveRecord::Schema.define(version: 0) do
     t.decimal  "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
     t.integer  "common_id",    limit: 4,                                             null: false
     t.string   "description",  limit: 20000
+    t.date     "previous_date"
+    t.date     "current_date"
+    t.date     "next_date"
     t.decimal  "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
     t.integer  "product_id",   limit: 4
     t.datetime "deleted_at"

@@ -1,6 +1,6 @@
 %h1 New Recurring Invoice
 
-= render 'form'
+= render 'form', locals: {is_new: true}
 
 .action-buttons
   = link_to 'Back', :back, class: 'btn btn-secondary'

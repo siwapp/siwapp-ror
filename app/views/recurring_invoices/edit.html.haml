@@ -1,7 +1,7 @@
 %h1
   = @recurring_invoice
 
-= render 'form'
+= render partial: 'form', locals: {is_new: false}
 
 .action-buttons
   = link_to 'Delete', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'

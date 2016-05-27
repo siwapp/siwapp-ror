@@ -62,9 +62,11 @@ class RecurringInvoice < Common
       inv.status = 'Open'
       inv.issue_date = Date.today
       inv.due_date = Date.today + days_to_due.days if days_to_due
-      inv.finishing_date = next_date
-      inv.starting_date = inv.finishing_date - period.send(period_type)
-
+      inv.items.each do |item|
+        item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')
+        item.description.sub! "$(issue_date - period)", (inv.issue_date - period.send(period_type)).strftime('%Y-%m-%d')
+        item.description.sub! "$(issue_date + period)", (inv.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
+      end
       if inv.save
         inv.send_email if self.sent_by_email  # If recurring is set to send emails
       end
