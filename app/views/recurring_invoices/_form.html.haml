@@ -13,9 +13,7 @@
     %legend.m-b-1 Customer
     = render partial: 'customers/form_fields', locals: {f: f}
 
-    %div
-      = f.label :id, "Customer id (this will be hidden)"
-      = f.text_field :customer_id
+    = f.hidden_field :customer_id
 
   %fieldset.m-b-2
     %legend.m-b-1 Configuration
