@@ -34,18 +34,6 @@
           = f.label :due_date
           = f.date_field :due_date,  is_new ? { class: 'form-control', value: Date.today() + @days_to_due.days} : { class: 'form-control' }
 
-    .row
-      .col-xs-12.col-sm-4
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :starting_date
-          = f.date_field :starting_date,  is_new ? { class: 'form-control', value: @invoice.starting_date } : { class: 'form-control' }
-      .col-xs-12.col-sm-4
-        .form-group
-          = f.label :finishing_date
-          = f.date_field :finishing_date,  is_new ? { class: 'form-control', value: @invoice.finishing_date } : { class: 'form-control' }
-
-
     - if @invoice.new_record? or @invoice.draft
       .checkbox
         %label
