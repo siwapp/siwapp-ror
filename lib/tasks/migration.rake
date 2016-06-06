@@ -61,10 +61,14 @@ namespace :siwapp do
     client.query("ALTER TABLE common CHANGE customer_identification identification VARCHAR(50)")
     client.query("ALTER TABLE common CHANGE customer_email email VARCHAR(100)")
     client.query("ALTER TABLE common DROP last_execution_date")
+    client.query("ALTER TABLE common ADD deleted_at datetime DEFAULT NULL")
+    client.query("ALTER TABLE common ADD template_id INT DEFAULT NULL")
 
     client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")
     client.query("ALTER TABLE customer CHANGE shipping_address shipping_address TEXT")
+    client.query("ALTER TABLE customer ADD deleted_at datetime DEFAULT NULL")
+
 
     client.query("ALTER TABLE item CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE item CHANGE common_id common_id INT")
@@ -72,6 +76,7 @@ namespace :siwapp do
 
     client.query("ALTER TABLE item DROP INDEX desc_idx")
     client.query("ALTER TABLE item CHANGE description description VARCHAR(20000) COLLATE utf8_unicode_ci DEFAULT NULL")
+    client.query("ALTER TABLE item ADD deleted_at datetime DEFAULT NULL")
     client.query("ALTER TABLE item ADD INDEX desc_idx (description(255)) USING BTREE")
 
     client.query("ALTER TABLE item_tax CHANGE item_id item_id INT")
@@ -84,6 +89,7 @@ namespace :siwapp do
 
     client.query("ALTER TABLE payment ADD created_at datetime")
     client.query("ALTER TABLE payment ADD updated_at datetime")
+    client.query("ALTER TABLE payment ADD deleted_at datetime DEFAULT NULL")
     current_date = DateTime.now.strftime('%Y/%m/%d %H:%M:%S')
     client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
     client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
@@ -91,6 +97,7 @@ namespace :siwapp do
 
     client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE product CHANGE description description TEXT")
+    client.query("ALTER TABLE product ADD deleted_at datetime DEFAULT NULL")
 
     client.query("DROP TABLE property")
     client.query("CREATE TABLE `settings` (
@@ -108,6 +115,7 @@ namespace :siwapp do
     client.query("ALTER TABLE series CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE series CHANGE first_number next_number INT(11) DEFAULT '1'")
     client.query("ALTER TABLE series ADD COLUMN `default` TINYINT(1) DEFAULT FALSE ")
+    client.query("ALTER TABLE series ADD deleted_at datetime DEFAULT NULL")
 
 
     # Get max invoice number for each series and set the series next_number
@@ -163,6 +171,7 @@ namespace :siwapp do
 
     client.query("ALTER TABLE tax CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE tax CHANGE `is_default` `default` TINYINT(1) DEFAULT false")
+    client.query("ALTER TABLE tax ADD deleted_at datetime DEFAULT NULL")
 
     # Templates
 
@@ -171,6 +180,7 @@ namespace :siwapp do
     client.query("ALTER TABLE template CHANGE template template TEXT")
     client.query("ALTER TABLE template DROP `slug`")
     client.query("ALTER TABLE template ADD COLUMN `default` TINYINT(1) DEFAULT false")
+    client.query("ALTER TABLE template ADD deleted_at datetime DEFAULT NULL")
 
     # Table renaming according to rails convention
     client.query("RENAME TABLE common TO commons")
