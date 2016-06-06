@@ -1,2 +1,9 @@
 .chart-responsive
   #db-chart.ct-chart
+
+%h1 Overdue Invoices
+
+.table-responsive
+  %table.table.table-hover.table-striped.table-bordered
+    %tbody
+      = render @invoices

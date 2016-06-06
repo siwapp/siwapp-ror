@@ -20,6 +20,5 @@ jQuery(document).ready ($) ->
         lineSmooth: Chartist.Interpolation.simple()
         plugins: [
           Chartist.plugins.tooltip({class: 'ct-tooltip'})
-          Chartist.plugins.legend({legendNames: ['Invoicing blah']})
         ]
       )
