@@ -80,6 +80,27 @@ class InvoicesController < CommonsController
     redirect_to :back, notice: "Email successfully sent."
   end
 
+  # Bulk actions for the invoices listing
+  def bulk
+    ids = params["#{model.name.underscore}_ids"]
+    if ids.is_a?(Array) && ids.length > 0
+      invoices = Invoice.where(id: params["#{model.name.underscore}_ids"])
+      case params['bulk_action']
+      when 'delete'
+        invoices.destroy_all
+        flash[:info] = "Successfully deleted #{ids.length} invoices."
+      when 'send_email'
+        invoices.each do |inv|
+          inv.send_email
+        end
+        flash[:info] = "Successfully sent #{ids.length} emails."
+      else
+        flash[:info] = "Unknown action."
+      end
+    end
+    redirect_to sti_path(@type)
+  end
+
   protected
 
   def configure_search

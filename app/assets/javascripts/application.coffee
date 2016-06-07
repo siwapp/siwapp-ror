@@ -35,7 +35,7 @@
 #= require js-routes
 #
 # I've removed the following turbolinks require because it causes problems
-# with Waypoint and the infinite scroll, it makes endless requests
+# with Waypoint and the infinite scroll, it makes endless requests. @peillis
 # require turbolinks
 
 

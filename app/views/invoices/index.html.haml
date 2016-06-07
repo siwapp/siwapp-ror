@@ -14,7 +14,8 @@
       Total Tax
       %span.label.label-default.label-pill.pull-right= display_money @tax
 
-= form_tag remove_invoices_path, method: :delete, id: 'js-list-form' do
+= form_tag bulk_invoices_path, method: :post, id: 'js-list-form' do
+  %input#bulk_action{'type'=>'hidden', 'name'=>'bulk_action', 'value'=>''}
   %div{data: {role: 'infinite-scroll'}}
     .table-responsive
       %table.table.table-hover.table-striped.table-bordered
@@ -32,4 +33,7 @@
       .spinner
 
 .action-buttons
-  = link_to 'Remove Selected', '#', class: 'btn btn-danger', data: {role: 'submit-form', target: '#js-list-form'}
+  = link_to 'Delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'Are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
+  = link_to 'Send Email', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'send_email', target: '#js-list-form'}
+  = link_to 'Set Paid', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'set_paid', target: '#js-list-form'}
+  = link_to 'Download PDF', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'pdf', target: '#js-list-form'}

@@ -101,17 +101,6 @@ class CommonsController < ApplicationController
     end
   end
 
-  # DELETE /commons
-  # bulk deletes selected elements on list
-  def remove
-    ids = params["#{model.name.underscore}_ids"]
-    if ids.is_a?(Array) && ids.length > 0
-      model.where(id: params["#{model.name.underscore}_ids"]).destroy_all
-      flash[:info] = "Successfully deleted #{ids.length} #{type_label}"
-    end
-    redirect_to sti_path(@type)
-  end
-
   # GET /commons/amounts
   #
   # Calculates the amounts totals

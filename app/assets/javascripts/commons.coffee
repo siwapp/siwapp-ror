@@ -81,11 +81,11 @@ jQuery(document).ready ($) ->
         # Attention: discounts and taxes are not calculated here!!
         # those are calculated only in the totals.
         item_row = item.parents('.js-item')
-        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), (data) -> 
+        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), (data) ->
           base_amount = data.amount
           item_row.find('[data-role="base-amount"]').val(base_amount)
           item_row.find('.js-base-amount').html(base_amount)
-        
+
         # Set total amounts of invoice
         set_amounts(controller_name, form)
       # When an item is removed, update form amounts
@@ -157,6 +157,8 @@ jQuery(document).ready ($) ->
   # Submit Form
   $(document).on 'click', '[data-role="submit-form"]', (e) ->
     e.preventDefault()
+    if $(this).data('action')  # if we have data-action on button, set the action
+      $('#bulk_action').val($(this).data('action'))
     $($(this).data('target')).submit()
 
   #
@@ -172,4 +174,3 @@ jQuery(document).ready ($) ->
 
   sectionInfo.on 'hide.bs.collapse', (e) ->
     sectionInfoButton.removeClass('toggled')
-
