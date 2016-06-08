@@ -90,10 +90,11 @@ class InvoicesController < CommonsController
         invoices.destroy_all
         flash[:info] = "Successfully deleted #{ids.length} invoices."
       when 'send_email'
-        invoices.each do |inv|
-          inv.send_email
-        end
+        invoices.each {|inv| inv.send_email}
         flash[:info] = "Successfully sent #{ids.length} emails."
+      when 'set_paid'
+        invoices.each {|inv| inv.set_paid}
+        flash[:info] = "Successfully set as paid #{ids.length} invoices."
       else
         flash[:info] = "Unknown action."
       end

@@ -84,6 +84,19 @@ public
     draft ? 0.0 : gross_amount - paid_amount
   end
 
+  # Public: Creates the payment to set as paid the invoice.
+  #
+  def set_paid
+    if unpaid_amount > 0 and not paid
+      payment = Payment.create(
+          invoice_id: self.id,
+          date: Date.today,
+          amount: unpaid_amount)
+      self.paid = true
+      self.save
+    end
+  end
+
   # Public: Calculate totals for this invoice by iterating items and payments.
   #
   # Returns nothing.
