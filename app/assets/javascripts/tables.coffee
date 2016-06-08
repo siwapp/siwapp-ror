@@ -13,6 +13,11 @@ jQuery(document).ready ($) ->
         $('[data-role="infinite-status"]').addClass 'hide'
     })
 
+  # Hide buttons when we are in invoices and recurring_invoices listing
+  if (window.location.pathname == Routes.invoices_path() \
+      or window.location.pathname == Routes.recurring_invoices_path())
+    $('.action-buttons').hide()
+
   $(document)
     # Existing and future table rows with the data-href attribute act as links
     .on 'click', 'tr[data-href]', (e) ->
@@ -28,6 +33,8 @@ jQuery(document).ready ($) ->
       self = $(this)
       table = self.closest 'table'
       checked = self.is ':checked'
+      # Make visible the action buttons
+      $('.action-buttons').show()
 
       if self.parent().data('role') == 'select-all'
         # All row selection checks has the same value as the select all
