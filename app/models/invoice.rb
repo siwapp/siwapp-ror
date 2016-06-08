@@ -1,6 +1,7 @@
 class Invoice < Common
   # Relations
   belongs_to :recurring_invoice
+  belongs_to :template
   has_many :payments, dependent: :destroy
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 
@@ -75,6 +76,14 @@ public
     else
       :overdue
     end
+  end
+
+  # Returns the invoice template if set, and the default otherwise
+  def get_template
+    if self.template
+      return self.template
+    end
+    Template.find_by(default: true)
   end
 
   # Public: Returns the amount that has not been already paid.

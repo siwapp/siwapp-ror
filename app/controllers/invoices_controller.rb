@@ -3,7 +3,7 @@ class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
 
-    if template = Template.where(default: true).first
+    if template = Template.find_by(default: true)
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
       @template_url = ""
@@ -95,11 +95,23 @@ class InvoicesController < CommonsController
       when 'set_paid'
         invoices.each {|inv| inv.set_paid}
         flash[:info] = "Successfully set as paid #{ids.length} invoices."
+      when 'pdf'
+        html = ''
+        invoices.each do |inv|
+          @invoice = inv
+          html += render_to_string :inline => inv.get_template.template,
+            :locals => {:invoice => @invoice, :settings => Settings}
+        end
+        send_data(@invoice.pdf(html),
+          :filename => "invoices.pdf",
+          :disposition => 'attachment'
+        )
+        return
       else
         flash[:info] = "Unknown action."
       end
     end
-    redirect_to sti_path(@type)
+    redirect_to action: :index
   end
 
   protected
