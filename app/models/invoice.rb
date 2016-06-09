@@ -14,6 +14,7 @@ class Invoice < Common
   before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
   after_update :purge_payments
+  after_save :update_paid
 
   # Status
   PAID = 1
@@ -90,7 +91,7 @@ public
   #
   # Returns a double.
   def unpaid_amount
-    draft ? 0.0 : gross_amount - paid_amount
+    gross_amount - paid_amount
   end
 
   # Public: Creates the payment to set as paid the invoice.
@@ -101,9 +102,31 @@ public
           invoice_id: self.id,
           date: Date.today,
           amount: unpaid_amount)
-      self.paid = true
       self.save
     end
+  end
+
+  # Public: Check the payments and update the paid and
+  # paid_amount fields
+  #
+  def check_paid
+    self.paid_amount = 0
+    self.paid = false
+    payments.each do |payment|
+      self.paid_amount += payment.amount
+    end
+    if self.paid_amount - self.gross_amount >= 0
+      self.paid = true
+    end
+  end
+
+  # Public: After saving check the payments and update the paid and
+  # paid_amount fields
+  #
+  def update_paid
+    self.check_paid
+    # Use update_columns to skip more callbacks
+    self.update_columns(paid: self.paid, paid_amount: self.paid_amount)
   end
 
   # Public: Calculate totals for this invoice by iterating items and payments.
@@ -111,10 +134,7 @@ public
   # Returns nothing.
   def set_amounts
     super
-    self.paid_amount = 0
-    payments.each do |payment|
-      self.paid_amount += payment.amount
-    end
+    self.check_paid
     paid_amount_will_change!
   end
 
