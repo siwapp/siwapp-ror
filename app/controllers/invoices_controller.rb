@@ -12,7 +12,7 @@ class InvoicesController < CommonsController
 
   def show
     # Redirect to edit if invoice not closed
-    if @invoice.status != Invoice::PAID or not get_template
+    if @invoice.get_status != :paid or not get_template
       redirect_to action: :edit
     else
       # Show the template in an iframe

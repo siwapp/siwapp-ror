@@ -90,8 +90,6 @@ feature 'Editing Invoices' do
      end
     # now there's no discount row
     expect(page).to have_selector '#amounts table tr', count: 4
-
-
   end
 
 end

@@ -11,25 +11,25 @@ class Invoice < Common
   validates :number, numericality: { only_integer: true, allow_nil: true }
 
   # Events
-  before_save :set_status
   around_save :ensure_invoice_number, if: :needs_invoice_number
   after_update :purge_payments
   after_save :update_paid
 
-  # Status
-  PAID = 1
-  PENDING = 2
-  OVERDUE = 3
-
-  STATUS = {paid: PAID, pending: PENDING, overdue: OVERDUE}
-
   scope :with_status, ->(status) {
     return nil if status.empty?
     status = status.to_sym
-    return where('draft = 1') if status == :draft
-    return where('status = ?', STATUS[status]) if STATUS.has_key?(status)
-    nil
+    case status
+    when :draft
+      where(draft: true)
+    when :paid
+      where(draft: false, paid: true)
+    when :pending
+      where(draft: false, paid: false).where("due_date >= ?", Date.today)
+    when :overdue
+      where(draft: false, paid: false).where("due_date < ?", Date.today)
+    end
   }
+
   # Invoices belonging to certain recurring_invoice
   scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
 
@@ -49,15 +49,6 @@ public
 
   # Public: Get a string representation of this object
   #
-  # Examples
-  #
-  #   series = Series.new(name: "Sample Series", value: "SS").to_s
-  #   Invoice.new(series: series).to_s
-  #   # => "SS-(1)"
-  #   invoice.number = 10
-  #   invoice.to_s
-  #   # => "SS-10"
-  #
   # Returns a string.
   def to_s
     label = draft ? '[draft]' : number? ? number: "(#{series.next_number})"
@@ -70,7 +61,7 @@ public
   def get_status
     if draft
       :draft
-    elsif paid || gross_amount <= paid_amount
+    elsif paid
       :paid
     elsif due_date and due_date > Date.today
       :pending
@@ -175,11 +166,6 @@ public
     # make sure every soft-deleted payment is really deleted
     def purge_payments
       payments.only_deleted.delete_all
-    end
-
-    # Protected: Update instance's status digit to reflect its status
-    def set_status
-      self.status = draft ? nil : STATUS[get_status]
     end
 
 end

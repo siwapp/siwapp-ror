@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @invoices = Invoice.where(status: Invoice::STATUS[:overdue])
+    @invoices = Invoice.with_status(:overdue)
   end
 end
