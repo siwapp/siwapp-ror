@@ -52,7 +52,7 @@ class RecurringInvoice < Common
     ending_date = finishing_date.blank? ? Date.new(2999) : finishing_date
     # next date to issue an invoice
     next_date = self.invoices.length > 0 ? \
-        self.invoices.last.created_at + period.send(period_type) \
+        self.invoices.last.issue_date + period.send(period_type) \
         : starting_date
     invs = []
 
@@ -60,7 +60,7 @@ class RecurringInvoice < Common
       inv = self.becomes(Invoice).deep_clone include: { items: :taxes}
       inv.recurring_invoice_id = self.id
       inv.status = 'Open'
-      inv.issue_date = Date.today
+      inv.issue_date = next_date
       inv.due_date = Date.today + days_to_due.days if days_to_due
       inv.items.each do |item|
         item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')
