@@ -1,12 +1,64 @@
+# try to make it custom
+
+class BothInfinite extends Waypoint.Infinite
+  constructor: (options) ->
+    super(options)
+    @$less = jQuery @options.less
+
+    if @$less.length
+      @lessOptions = jQuery.extend({}, @options, {offset: 0})
+      @setupLessHandler()
+      @lesswaypoint = new Waypoint(@lessOptions)
+
+  setupLessHandler: () ->
+
+    @lessOptions.handler = jQuery.proxy(
+      (direction) ->
+        @destroy
+        @$container.addClass @lessOptions.loadingClass
+        if direction == 'down'
+          console.log 'exit'
+          return
+        console.log "Less Handler: direction : #{direction}"
+        $.get(@$less.attr('href'), $.proxy(
+          (data) ->
+            console.log 'getting some'
+            $data = $($.parseHTML data)
+            $newLess = $data.find @lessOptions.less
+
+            $items = $data.find @lessOptions.items
+            if not $items.length
+              $items = $data.filter @lessOptions.items
+
+            @$container.prepend $items
+
+            if not $newLess.length
+              $newLess = $data.filter @lessOptions.less
+            if $newLess.length
+              @$less.replaceWith $newLess
+              @$less = $newLess
+              @lessWaypoint = new Waypoint @lessOptions
+            else
+              @$less.remove()
+
+          this))
+
+      this
+    )
+
+
+
+
 jQuery(document).ready ($) ->
 
   # If there's an infinite scrolling pager, configure it:
   if $('#js-infinite-scrolling').length == 1
-    infiniteScroll = new Waypoint.Infinite({
+    infiniteScroll = new BothInfinite({
       element: $('[data-role="infinite-scroll"]')[0]
       container: $('[data-role="infinite-content"]')[0]
       items: '[data-role="infinite-content"] > tr'
       more: '.pagination a.next_page'
+      less: '.pagination a.previous_page'
       onBeforePageLoad: () ->
         $('[data-role="infinite-status"]').removeClass 'hide'
       onAfterPageLoad: (items) ->
