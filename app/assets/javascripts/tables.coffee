@@ -8,7 +8,7 @@ class BothInfinite extends Waypoint.Infinite
     if @$less.length
       @lessOptions = jQuery.extend({}, @options, {offset: 0})
       @setupLessHandler()
-      @lesswaypoint = new Waypoint(@lessOptions)
+      @lessWaypoint = new Waypoint(@lessOptions)
 
   setupLessHandler: () ->
 
@@ -30,7 +30,10 @@ class BothInfinite extends Waypoint.Infinite
             if not $items.length
               $items = $data.filter @lessOptions.items
 
+            console.log @$container.offset().top
             @$container.prepend $items
+            console.log @lessWaypoint.context
+            $(@lessWaypoint.context.element).scrollTop(@$container.offset().top)
 
             if not $newLess.length
               $newLess = $data.filter @lessOptions.less
