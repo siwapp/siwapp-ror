@@ -10,19 +10,21 @@ class BothInfinite extends Waypoint.Infinite
       @setupLessHandler()
       @lessWaypoint = new Waypoint(@lessOptions)
 
+  destroy: () ->
+    super()
+    if @lessWaypoint
+      @lessWaypoint.destroy()
+
   setupLessHandler: () ->
 
     @lessOptions.handler = jQuery.proxy(
       (direction) ->
-        @destroy
         @$container.addClass @lessOptions.loadingClass
         if direction == 'down'
-          console.log 'exit'
           return
-        console.log "Less Handler: direction : #{direction}"
+        @destroy()
         $.get(@$less.attr('href'), $.proxy(
           (data) ->
-            console.log 'getting some'
             $data = $($.parseHTML data)
             $newLess = $data.find @lessOptions.less
 
@@ -43,7 +45,6 @@ class BothInfinite extends Waypoint.Infinite
               @lessWaypoint = new Waypoint @lessOptions
             else
               @$less.remove()
-
           this))
 
       this
