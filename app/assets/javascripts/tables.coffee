@@ -4,16 +4,11 @@ class BothInfinite extends Waypoint.Infinite
   constructor: (options) ->
     super(options)
     @$less = jQuery @options.less
-
-
     if @$less.length
       @lessOptions = jQuery.extend {}, @options, offset: 0
       @setupLessHandler()
       @lessWaypoint = new Waypoint @lessOptions
       @$window = jQuery @lessWaypoint.context.element
-      # locate the scrollbar at the beginning of the items
-      $items = jQuery(document).find @lessOptions.items
-      @$window.scrollTop $items.offset().top - $items.outerHeight()
 
   setupLessHandler: () ->
     @lessOptions.handler = jQuery.proxy(
@@ -45,11 +40,8 @@ class BothInfinite extends Waypoint.Infinite
             else
               @$less.remove()
           this))
-
       this
     )
-
-
 
 
 jQuery(document).ready ($) ->
@@ -67,6 +59,17 @@ jQuery(document).ready ($) ->
       onAfterPageLoad: (items) ->
         $('[data-role="infinite-status"]').addClass 'hide'
     })
+
+  # if there's anchor or page param, jump to the item
+  if '#' in window.location.href
+    $firstItem = $(document).find("[data-role='infinite-content'] >
+      tr[data-itemid='#{window.location.href.split('#')[1]}']")
+  if not ($firstItem and $firstItem.length) and window.location.search.match /page=/
+    $firstItem = $(document).find("[data-role='infinite-content'] > tr").first()
+
+  if $firstItem
+    $(window).scrollTop $firstItem.offset().top - $firstItem.outerHeight()
+
 
   $(document)
     # Existing and future table rows with the data-href attribute act as links
