@@ -30,10 +30,10 @@ class BothInfinite extends Waypoint.Infinite
             if not $items.length
               $items = $data.filter @lessOptions.items
 
-            console.log @$container.offset().top
+            oldTop =  $(@lessWaypoint.context.element).scrollTop()
             @$container.prepend $items
-            console.log @lessWaypoint.context
-            $(@lessWaypoint.context.element).scrollTop(@$container.offset().top)
+            itemHeight = $items.outerHeight()
+            $(@lessWaypoint.context.element).scrollTop(oldTop + itemHeight*$items.length)
 
             if not $newLess.length
               $newLess = $data.filter @lessOptions.less
