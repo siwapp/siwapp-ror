@@ -58,10 +58,16 @@ jQuery(document).ready ($) ->
         $('[data-role="infinite-status"]').removeClass 'hide'
       onAfterPageLoad: (items) ->
         $('[data-role="infinite-status"]').addClass 'hide'
+        # waypoint for changing history
+        waypoint = new Waypoint({
+          element: items.filter('tr[data-page-start]')[0]
+          handler: (direction) ->
+            console.log "new #{direction}"
+        })
     })
     # waypoints to change history
-    historyWaypoint = new Waypoint({
-      element: $('[data-role="infinite-scroll"]')[0]
+    waypoint = new Waypoint({
+      element: $('[data-role="infinite-content"] > tr[data-page-start]')[0]
       handler: (direction) ->
         console.log direction
     })
