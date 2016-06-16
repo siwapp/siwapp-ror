@@ -59,6 +59,13 @@ jQuery(document).ready ($) ->
       onAfterPageLoad: (items) ->
         $('[data-role="infinite-status"]').addClass 'hide'
     })
+    # waypoints to change history
+    historyWaypoint = new Waypoint({
+      element: $('[data-role="infinite-scroll"]')[0]
+      handler: (direction) ->
+        console.log direction
+    })
+
 
   # if there's anchor or page param, jump to the item
   if '#' in window.location.href
@@ -66,7 +73,6 @@ jQuery(document).ready ($) ->
       tr[data-itemid='#{window.location.href.split('#')[1]}']")
   if not ($firstItem and $firstItem.length) and window.location.search.match /page=/
     $firstItem = $(document).find("[data-role='infinite-content'] > tr").first()
-
   if $firstItem
     $(window).scrollTop $firstItem.offset().top - $firstItem.outerHeight()
 
