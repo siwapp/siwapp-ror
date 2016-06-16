@@ -1,5 +1,25 @@
 # try to make it custom
 
+# Function to obtain 'page' param and anchor to point to a specific item in listings
+obtainPageAndAnchor = (searchString, page, itemid) ->
+  oldSearch = searchString.replace(/^\??/, '?').split('#')[0]
+  if oldSearch.match(/page=\d+/)
+    newSearch = oldSearch.replace(/page=\d+/, "page=#{page}")
+  else
+    newSearch = "#{oldSearch}&page=#{page}"
+  newSearch = "#{newSearch}##{itemid}"
+
+# Function to change url according to first item in list and page number
+changeUrl = ($item) ->
+  page = $item.data 'page'
+  itemid = $item.data 'itemid'
+  newSearch = obtainPageAndAnchor document.location.search, page, itemid
+  newUrl = "#{document.location.pathname}#{newSearch}"
+  if $item.data 'page-start'
+    window.history.pushState {}, 'kiko', newUrl
+  else
+    window.history.replaceState {}, 'kiko', newUrl
+
 class BothInfinite extends Waypoint.Infinite
   constructor: (options) ->
     super(options)
@@ -59,18 +79,23 @@ jQuery(document).ready ($) ->
       onAfterPageLoad: (items) ->
         $('[data-role="infinite-status"]').addClass 'hide'
         # waypoint for changing history
-        waypoint = new Waypoint({
-          element: items.filter('tr[data-page-start]')[0]
-          handler: (direction) ->
-            console.log "new #{direction}"
-        })
+        $(items).filter('tr[data-itemid]').each (counter, item) ->
+          waypoint = new Waypoint({
+            element: item
+            offset: "10%"
+            handler: (direction) ->
+              changeUrl $(item)
+          })
     })
     # waypoints to change history
-    waypoint = new Waypoint({
-      element: $('[data-role="infinite-content"] > tr[data-page-start]')[0]
-      handler: (direction) ->
-        console.log direction
-    })
+    $('[data-role="infinite-content"] > tr').each (counter, item) ->
+      waypoint = new Waypoint({
+        element: item
+        offset: "10%"
+        handler: (direction) ->
+          changeUrl $(item)
+      })
+
 
 
   # if there's anchor or page param, jump to the item
