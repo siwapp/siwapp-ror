@@ -1,24 +1,30 @@
-
-
-# Function to obtain 'page' param and anchor to point to a specific item in listings
-obtainPageAndAnchor = (searchString, page, itemid) ->
-  oldSearch = searchString.replace(/^\??/, '?').split('#')[0]
-  if oldSearch.match(/page=\d+/)
-    newSearch = oldSearch.replace(/page=\d+/, "page=#{page}")
-  else
-    newSearch = "#{oldSearch}&page=#{page}"
-  newSearch = "#{newSearch}##{itemid}"
-
 # Function to change url according to first item in list and page number
 changeUrl = ($item) ->
   page = $item.data 'page'
   itemid = $item.data 'itemid'
-  newSearch = obtainPageAndAnchor document.location.search, page, itemid
-  newUrl = "#{document.location.pathname}#{newSearch}"
+
+  oldSearch = document.location.search.replace(/^\??/, '?').split('#')[0]
+
+  if oldSearch.match(/page=\d+/)
+    newSearch = oldSearch.replace(/page=\d+/, "page=#{page}")
+  else
+    newSearch = "#{oldSearch}&page=#{page}"
+
+  newUrl = "#{document.location.pathname}#{newSearch}##{itemid}"
+
   if $item.data 'page-start'
     window.history.pushState {}, 'kiko', newUrl
   else
     window.history.replaceState {}, 'kiko', newUrl
+
+# Function to add a Waypoint to change urls when scrolling through that item
+addHistoryMilestone = (item) ->
+  waypoint = new Waypoint({
+    element: item
+    offset: "10%"
+    handler: (direction) ->
+      changeUrl $(item)
+  })
 
 
 jQuery(document).ready ($) ->
@@ -37,32 +43,21 @@ jQuery(document).ready ($) ->
         $('[data-role="infinite-status"]').addClass 'hide'
         # waypoint for changing history
         $(items).filter('tr[data-itemid]').each (counter, item) ->
-          waypoint = new Waypoint({
-            element: item
-            offset: "10%"
-            handler: (direction) ->
-              changeUrl $(item)
-          })
+          addHistoryMilestone(item)
     })
     # waypoints to change history
     $('[data-role="infinite-content"] > tr').each (counter, item) ->
-      waypoint = new Waypoint({
-        element: item
-        offset: "10%"
-        handler: (direction) ->
-          changeUrl $(item)
-      })
+      addHistoryMilestone(item)
 
 
-
-  # if there's anchor or page param, jump to the item
-  if '#' in window.location.href
-    $firstItem = $(document).find("[data-role='infinite-content'] >
+    # if there's anchor or page param, jump to the item
+    if '#' in window.location.href
+      $firstItem = $(document).find("[data-role='infinite-content'] >
       tr[data-itemid='#{window.location.href.split('#')[1]}']")
-  if not ($firstItem and $firstItem.length) and window.location.search.match /page=/
-    $firstItem = $(document).find("[data-role='infinite-content'] > tr").first()
-  if $firstItem
-    $(window).scrollTop $firstItem.offset().top - $firstItem.outerHeight()
+    if not ($firstItem and $firstItem.length) and window.location.search.match /page=/
+      $firstItem = $(document).find("[data-role='infinite-content'] > tr").first()
+    if $firstItem
+      $(window).scrollTop $firstItem.offset().top - $firstItem.outerHeight()
 
 
   $(document)
