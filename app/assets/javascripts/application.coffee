@@ -35,6 +35,9 @@
 #= require js-routes
 #
 #= require turbolinks
+#
+# Custom
+#= require bothinfinite
 
 
 jQuery(document).ready ($) ->
