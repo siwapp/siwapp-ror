@@ -9,8 +9,8 @@
           %th.text-right Due
           %th.text-right Total
       %tbody{data: {role: 'infinite-content'}}
-        - @customers.each do |customer|
-          %tr{"data-href" => edit_customer_path(customer)}
+        - @customers.each_with_index do |customer, i|
+          %tr{data: {href: edit_customer_path(customer), itemid: customer.id, page_start: i.zero?, page: @customers.current_page}}
             %td.no-wrap= customer.name
             %td.no-wrap= customer.identification
             %td.text-right= customer.due.round 2

@@ -23,7 +23,7 @@
             %th.no-wrap= sort_link(@search, :period_type, "Frecuency")
             %th.text-center= sort_link(@search, :status, "Status")
             %th.text-right= sort_link(@search, :gross_amount, "Total")
-        %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices
+        %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices, current_page: @recurring_invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 

@@ -1,4 +1,4 @@
-%tr{"data-href" => edit_recurring_invoice_path(recurring_invoice)}
+%tr{data: {href: edit_recurring_invoice_path(recurring_invoice), itemid: recurring_invoice.id, page_start: recurring_invoice_counter.zero?, page: current_page}}
   %td.text-center{"data-role" => "select"}= check_box_tag "recurring_invoice_ids[]", recurring_invoice.id
   %td= recurring_invoice.series.value if recurring_invoice.series
   %td.no-wrap= recurring_invoice

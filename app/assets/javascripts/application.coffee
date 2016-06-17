@@ -36,7 +36,10 @@
 #
 # I've removed the following turbolinks require because it causes problems
 # with Waypoint and the infinite scroll, it makes endless requests. @peillis
-# require turbolinks
+#= require turbolinks
+#
+# Custom
+#= require bothinfinite
 
 
 jQuery(document).ready ($) ->
