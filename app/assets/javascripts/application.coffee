@@ -13,7 +13,6 @@
 # jQuery & Utils
 #
 #= require jquery2
-#= require jquery.turbolinks
 #= require jquery_ujs
 #= require jquery-ui/autocomplete
 #= require waypoints/jquery.waypoints
@@ -33,10 +32,6 @@
 #= require_tree .
 #= require cocoon
 #= require js-routes
-#
-# I've removed the following turbolinks require because it causes problems
-# with Waypoint and the infinite scroll, it makes endless requests. @peillis
-#= require turbolinks
 #
 # Custom
 #= require bothinfinite
