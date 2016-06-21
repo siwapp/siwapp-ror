@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     delete 'remove', on: :collection
     post 'bulk', on: :collection
     get 'autocomplete', on: :collection
-    get 'sums', on: :collection
+    get 'totals', on: :collection
     get 'send_email', on: :member
   end
 

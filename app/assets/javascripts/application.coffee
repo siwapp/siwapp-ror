@@ -18,9 +18,8 @@
 #= require waypoints/jquery.waypoints
 #= require waypoints/shortcuts/infinite
 #= require fastclick
-#= require chartist
-#= require chartist-plugin-tooltip
-#= require chartist-plugin-legend
+#= require d3
+#= require c3
 #= require autosize
 #= require behave
 #
