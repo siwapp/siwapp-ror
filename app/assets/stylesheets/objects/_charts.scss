@@ -1,25 +1,10 @@
 .chart-responsive {
   display: block;
-  width: 100%;
   min-height: .01%; // Workaround for IE9 bug (see https://github.com/twbs/bootstrap/issues/14837)
+}
 
-  @include media-breakpoint-down(xs) {
-    overflow-x: auto;
-
-    .ct-chart {
-      min-width: 40rem;
-    }
-  }
-
-  @include media-breakpoint-down(sm) {
-    .ct-label {
-      &.ct-horizontal {
-        white-space: nowrap;
-        transform: rotate(-45deg) translate(-100%, 100%);
-        transform-origin: top right;
-      }
-    }
-  }
+.chart-height-sm {
+  height: 15rem;
 }
 
 .c3-grid line { stroke: $generic-border-color; }

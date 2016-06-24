@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     delete 'remove', on: :collection
     post 'bulk', on: :collection
     get 'autocomplete', on: :collection
-    get 'totals', on: :collection
+    get 'chart_data', on: :collection
     get 'send_email', on: :member
   end
 
@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :recurring_invoices do
     post 'generate', on: :collection
     delete 'remove', on: :collection
+    get 'chart_data', on: :collection
   end
 
   resources :customers do

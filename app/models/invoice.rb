@@ -63,10 +63,15 @@ public
       :draft
     elsif paid
       :paid
-    elsif due_date and due_date > Date.today
-      :pending
+    elsif due_date
+      if due_date > Date.today
+        :pending
+      else
+        :overdue
+      end
     else
-      :overdue
+      # An invoice without a due date can't be overdue
+      :pending
     end
   end
 

@@ -1,5 +1,4 @@
 class InvoicesController < CommonsController
-
   # Gets the template to display invoices
   def get_template
     if template = Template.find_by(default: true)
@@ -51,24 +50,25 @@ class InvoicesController < CommonsController
     end
   end
 
-  # GET /invoices/totals.json
+  # GET /invoices/chart_data.json
   # Returns a json with dates as keys and sums of the invoices
-  # as values
-  def totals
-    # setting params: from, to
-    from = params[:from] ? Date.parse(params[:from]) : 15.days.ago.to_date
-    to = params[:to] ? Date.parse(params[:to]) : Date.today
+  # as values. Uses the same parameters as search.
+  def chart_data
+    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
+    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.today : Date.parse(params[:q][:issue_date_lteq])
+
+    scope = @search.result(distinct: true)
+    scope = scope.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    scope = scope.select('issue_date, sum(gross_amount) as total').where(draft: false).group('issue_date')
 
     # build all keys with 0 values for all
     @date_totals = {}
-    (from..to).each do |day|
+
+    (date_from..date_to).each do |day|
       @date_totals[day.to_formatted_s(:db)] = 0
     end
 
-    # now overwrite with data from invoices
-    sql_date_totals = Invoice.select('issue_date, sum(gross_amount) as total')\
-        .where(issue_date: from..to).where(draft: false).group('issue_date')
-    sql_date_totals.each do |inv|
+    scope.each do |inv|
       @date_totals[inv.issue_date.to_formatted_s(:db)] = inv.total
     end
 

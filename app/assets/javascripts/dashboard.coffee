@@ -1,8 +1,7 @@
 jQuery(document).ready ($) ->
   if window.location.pathname == Routes.root_path()
-
-    # get the data
-    $.getJSON Routes.totals_invoices_path({format: 'json'}), (data) ->
+    # Chart
+    $.getJSON Routes.chart_data_invoices_path({format: 'json'}), (data) ->
       columns = [['Labels'], ['Total']]
 
       $.each data, (key, value) ->
@@ -15,7 +14,6 @@ jQuery(document).ready ($) ->
           type: 'area-step'
           x: 'Labels'
           columns: columns
-          labels: true
         axis:
           x:
             type: 'timeseries'

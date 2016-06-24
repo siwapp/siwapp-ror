@@ -132,6 +132,7 @@ jQuery(document).ready ($) ->
         $("##{model}_contact_person").val ui.item.contact_person
         $("##{model}_invoicing_address").val ui.item.invoicing_address
         $("##{model}_shipping_address").val ui.item.shipping_address
+        autosize.update $('textarea.autosize')
     }
 
     # Configure Tax Selector behavior
