@@ -70,14 +70,15 @@ class RecurringInvoice < Common
         item.description.sub! "$(issue_date + period)", (inv.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
       end
 
-      if inv.save
-        inv.send_email if self.sent_by_email  # If recurring is set to send emails
-      end
-
       next_date += period.send period_type
       occurrences += 1
       generated_invoices.append inv
     end
+
+  
+      # if inv.save
+      #   inv.send_email if self.sent_by_email  # If recurring is set to send emails
+      # end
 
     save
     generated_invoices
