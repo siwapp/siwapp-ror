@@ -111,7 +111,7 @@ jQuery(document).ready ($) ->
         date_item.val (new Date).toISOString().substr 0, 10
       else if item.hasClass 'js-item'
         init_invoice_item_autocomplete item.find('.item-description')
-        item.find('.tax-selector').trigger('update')
+        item.find('.taxes-selector').trigger('update')
         autosize item.find('textarea')
 
     # Execute actions when something dynamic is removed from the form
@@ -136,8 +136,9 @@ jQuery(document).ready ($) ->
     }
 
     # Configure Tax Selector behavior
+    $('.taxes-selector').select2();
     form
-      .on 'update', '.tax-selector', () ->
+      .on 'update', '.taxes-selector', () ->
         checked_taxes = $(this).find(':checked')
         label = []
         checked_taxes.each () ->
@@ -146,9 +147,9 @@ jQuery(document).ready ($) ->
         label = if label.length > 0 then label.join(', ') else 'None'
         $(this).find('[data-role="label"]').html(label)
         $(this).find('[data-role="total"]').html(total)
-      .on 'change', '.tax-selector :checkbox', (e) ->
-        $(this).closest('.tax-selector').trigger('update')
-      .find('.tax-selector').trigger('update')
+      .on 'change', '.taxes-selector :checkbox', (e) ->
+        $(this).closest('.taxes-selector').trigger('update')
+      .find('.taxes-selector').trigger('update')
 
   # /each
   #

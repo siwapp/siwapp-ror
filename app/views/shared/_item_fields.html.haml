@@ -32,17 +32,11 @@
               Taxes
               %span{data: {role: 'total'}}
             .btn-group
-              %button.btn.btn-block.btn-secondary.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}}
-                %span{data: {role: 'label'}} ...
-              %ul.dropdown-menu
-                = f.collection_check_boxes 'tax_ids', @taxes, :id, :name, is_new ? {checked: @default_taxes_ids} : {} do |opt|
-                  %li.dropdown-item
-                    .checkbox
-                      = opt.label do
-                        = opt.check_box
-                        = opt.text
+              = f.collection_select :tax_ids, @taxes, :id, :to_s, {}, {class: 'form-control c-select taxes-selector', multiple: true}
+              
         .col-xs-12.col-sm-6
           .form-group.no-margin
             = f.label :base_amount, 'Total'
             %p.form-control-static.js-base-amount= f.object.base_amount
             = f.hidden_field :base_amount, {data: {role: 'base-amount'}}
+  
