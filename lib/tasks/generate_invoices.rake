@@ -7,7 +7,7 @@ namespace :siwapp do
     end
     generated_invoices.sort_by(&:issue_date).each do |inv|
     	if inv.save
-    		inv.send_by_email if inv.recurring_invoice.sent_by_email
+    		inv.send_email if inv.recurring_invoice.sent_by_email
     	end
     end	
   end
