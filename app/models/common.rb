@@ -17,8 +17,6 @@ class Common < ActiveRecord::Base
   before_save :set_amounts
   after_update :purge_items
 
-
-
   # Search
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
