@@ -1,13 +1,9 @@
 class InvoiceMailer < ApplicationMailer
   add_template_helper TemplatesHelper
   add_template_helper ApplicationHelper
-  # TODO(@ecoslado) There's some repeated code. get_currency is also defined in ApplicationController
+  
+  include Util
   helper_method :get_currency
-
-
-  def get_currency
-    return Money::Currency.find Settings.currency
-  end
   
   def email_invoice(invoice)
     @invoice = invoice

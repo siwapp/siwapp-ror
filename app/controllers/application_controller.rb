@@ -3,15 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  include Util
   # demand authentification everywhere
   before_action :login_required
 
   # available in views
   helper_method :get_currency
-
-  def get_currency
-    return Money::Currency.find Settings.currency
-  end
 
   private
 
