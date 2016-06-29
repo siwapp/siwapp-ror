@@ -1,4 +1,5 @@
 class Common < ActiveRecord::Base
+  include Util
   acts_as_paranoid
   # Relations
   belongs_to :customer
@@ -55,7 +56,7 @@ protected
 public
 
   def set_amounts
-    precision = Money::Currency.find(Settings.currency).exponent.to_int
+    precision = get_currency.exponent.to_int
     self.base_amount = 0
     self.discount_amount = 0
     self.tax_amount = 0
