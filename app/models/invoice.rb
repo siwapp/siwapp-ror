@@ -111,6 +111,7 @@ public
     payments.each do |payment|
       self.paid_amount += payment.amount
     end
+    
     if self.paid_amount - self.gross_amount >= 0
       self.paid = true
     end

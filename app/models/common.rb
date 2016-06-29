@@ -57,6 +57,7 @@ protected
 public
 
   def set_amounts
+    precision = Money::Currency.find(Settings.currency).exponent.to_int
     self.base_amount = 0
     self.discount_amount = 0
     self.tax_amount = 0
@@ -67,7 +68,7 @@ public
     end
 
     self.net_amount = base_amount - discount_amount
-    self.gross_amount = net_amount + tax_amount
+    self.gross_amount = (net_amount + tax_amount).round(precision)
 
   end
 
