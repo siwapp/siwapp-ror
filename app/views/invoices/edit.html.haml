@@ -18,6 +18,11 @@
         = link_to 'Download PDF', @template_url + '.pdf', class: 'dropdown-item'
 
   = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
-  - if @template_url
+  
+  - if @template_url and @templates.length == 1
     = link_to 'Download PDF', @template_url + '.pdf', class: 'btn btn-primary hidden-sm-down'
+  - else
+    %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#template-selector"}} Download PDF
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
+
+= render partial: 'template_selector'

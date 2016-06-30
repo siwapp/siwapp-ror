@@ -1,10 +1,10 @@
 class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
-    if template = Template.find_by(default: true)
+    if template = @invoice.template or template = Template.find_by(default: true)
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
-      @template_url = ""
+      @template_url = nil
     end
   end
 
@@ -20,6 +20,7 @@ class InvoicesController < CommonsController
 
   def edit
     @legal_terms = Settings.legal_terms
+    @templates = Template.all
     get_template
     render
   end
@@ -40,6 +41,10 @@ class InvoicesController < CommonsController
         )
       end
     end
+  end
+
+  def select_template
+    redirect_to action: "template", invoice_id: params[:id], id: params[:invoice][:template_id]
   end
 
   # GET /invoices/autocomplete.json
