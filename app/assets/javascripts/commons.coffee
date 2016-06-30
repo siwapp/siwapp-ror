@@ -136,7 +136,10 @@ jQuery(document).ready ($) ->
     }
 
     # Configure Tax Selector behavior
-    $('.taxes-selector').select2();
+    $('.taxes-selector').select2()
+    $('#js-items-table').on 'cocoon:after-insert', (e, insertedItem) ->
+      $(insertedItem).find('.taxes-selector').select2()
+      
     form
       .on 'update', '.taxes-selector', () ->
         checked_taxes = $(this).find(':checked')
