@@ -43,7 +43,7 @@ RSpec.describe RecurringInvoice, :type => :model do
     expect(recurring_invoice.discount_amount).to eq(10)
     expect(recurring_invoice.net_amount).to eq(123.3)
     expect(recurring_invoice.tax_amount).to eq(2.466)
-    expect(recurring_invoice.gross_amount).to eq(125.766)
+    expect(recurring_invoice.gross_amount).to eq(125.77)
   end
 
   it "generates invoices according to max_occurrences" do
