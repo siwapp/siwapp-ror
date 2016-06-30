@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe Customer, :type => :model do
   it "performs due and total calculations properly" do
     customer = FactoryGirl.create(:customer)
-    invoice = FactoryGirl.create(:invoice, customer: customer) # gross 125.766 , unpaid 0
-    unpaid_invoice = FactoryGirl.create(:invoice_unpaid, customer: customer) # gross 125.766 paid: 100
+    invoice = FactoryGirl.create(:invoice, customer: customer) # gross 125.77 , unpaid 0
+    unpaid_invoice = FactoryGirl.create(:invoice_unpaid, customer: customer) # gross 125.77 paid: 100
     draft_invoice = FactoryGirl.create(:invoice, draft: true, customer: customer)
-    expect(customer.total).to eq 125.766*2
-    expect(customer.due).to eq 25.766
+    expect(customer.total).to eq 125.77*2
+    expect(customer.due).to eq 25.77
   end
 
   it " won't be deleted if it has invoices unpaid" do

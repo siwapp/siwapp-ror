@@ -27,7 +27,7 @@ FactoryGirl.define do
         # discount:      10
         # net:       123.30
         # tax:        2.466
-        # gross:    125.766
+        # gross:    125.77
         common.save
       end
 
@@ -37,14 +37,14 @@ FactoryGirl.define do
         after(:create) do |invoice|
           # Add some payments
           create(:payment, invoice: invoice, date: Date.today, amount: 100)
-          create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.766)
+          create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.77)
 
           # super weird thing. iterating through invoice.items or invoice.payments
           # BEFORE the create_list calls, makes the newly created children not to
           # be bound to invoice so we need to reload it.
           invoice.reload
 
-          # paid:     125.766
+          # paid:     125.77
           invoice.save
         end
       end
@@ -55,7 +55,7 @@ FactoryGirl.define do
         after(:create) do |i|
           create(:payment, invoice: i, date: Date.today, amount: 100)
           i.reload
-          # unpaid: 25.766
+          # unpaid: 25.77
           i.save
         end
       end
