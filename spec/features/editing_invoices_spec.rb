@@ -46,7 +46,7 @@ feature 'Editing Invoices' do
     # actually there but capybara does not find it if it's hidden.
     within :xpath, new_item_xpath do
       page.execute_script("$('.action-buttons').hide()");
-      find('.taxes-selector').find('.btn-group').find('.btn').click
+      find('.tax-selector').find('.btn-group').find('input').click
       checkbox = find('.taxes-selector').find('.btn-group').find('input[type="checkbox"][checked="checked"]')
       expect(checkbox.value.to_i).to eq default_tax.id
       page.execute_script("$('.action-buttons').show()");
