@@ -47,7 +47,7 @@ feature 'Editing Invoices' do
     within :xpath, new_item_xpath do
       page.execute_script("$('.action-buttons').hide()");
       find('.tax-selector').find('.btn-group').find('input').click
-      checkbox = find('.taxes-selector').find('.btn-group').find('input[type="checkbox"][checked="checked"]')
+      checkbox = find('.tax-selector').find('.btn-group').find('input[type="checkbox"][checked="checked"]')
       expect(checkbox.value.to_i).to eq default_tax.id
       page.execute_script("$('.action-buttons').show()");
     end
