@@ -4,7 +4,7 @@ class InvoicesController < CommonsController
     if template = @invoice.template or template = Template.find_by(default: true)
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
-      @template_url = nil
+      @template_url = ""
     end
   end
 
