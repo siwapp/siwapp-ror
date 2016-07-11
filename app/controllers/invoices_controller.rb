@@ -12,26 +12,17 @@ class InvoicesController < CommonsController
     end
   end
 
-  def create
-    @invoice = Invoice.new(params[:invoice])
-	if @invoice.save
-	  respond_to do |format|
-        format.json { render json: @invoice }
-      end
-	end
-  end
-
   def show
     # Redirect to edit if invoice not closed
     if @invoice.get_status != :paid or not get_template
       redirect_to action: :edit
     else
       # Show the template in an iframe
-	  respond_to do |format|
+      respond_to do |format|
         format.json { render json: @invoice }
         format.html
         format.xml { render }
-	  end
+      end
     end
   end
 
