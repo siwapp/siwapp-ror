@@ -1,8 +1,4 @@
 class InvoicesController < CommonsController
-
-  # To test API POST without protection
-  # protect_from_forgery with: :null_session
-
   # Gets the template to display invoices
   def get_template
     if template = @invoice.template or template = Template.find_by(default: true)
@@ -13,15 +9,15 @@ class InvoicesController < CommonsController
   end
 
   def show
-    # Redirect to edit if invoice not closed
-    if @invoice.get_status != :paid or not get_template
-      redirect_to action: :edit
-    else
-      # Show the template in an iframe
-      respond_to do |format|
-        format.json { render json: @invoice }
+    # Show the template in an iframe
+    respond_to do |format|
+      format.json { render json: @invoice }
+      format.html do
+        # Redirect to edit if invoice not closed
+        if @invoice.get_status != :paid or not get_template
+          redirect_to action: :edit
+        end
         format.html
-        format.xml { render }
       end
     end
   end
