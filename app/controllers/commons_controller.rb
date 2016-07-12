@@ -55,11 +55,11 @@ class CommonsController < ApplicationController
         end
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
-        format.json { render sti_template(@type, :show), status: :created, location: get_instance }  # TODO: test
+        format.json { render sti_template(@type, :show), status: :created, location: get_instance }
       else
         flash[:alert] = "#{type_label} has not been created."
         format.html { render sti_template(@type, :new) }
-        # format.json { render json: @common.errors, status: :unprocessable_entity }
+        format.json { render json: get_instance.errors, status: :unprocessable_entity }
       end
     end
   end

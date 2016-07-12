@@ -158,6 +158,8 @@ class InvoicesController < CommonsController
       :contact_person,
       :invoicing_address,
       :shipping_address,
+      :terms,
+      :notes,
 
       :draft,
 
