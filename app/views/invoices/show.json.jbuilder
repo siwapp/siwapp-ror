@@ -9,7 +9,10 @@ json.extract! @invoice,
 json.series_number @invoice.to_s
 json.status @invoice.get_status
 
-json.customer @invoice.customer, :id, :name, :identification, :email
+if @invoice.customer
+  json.customer @invoice.customer, :id, :name, :identification, :email
+end
+
 
 json.items  @invoice.items, :id, :description, :unitary_cost, :quantity, :discount
 json.payments  @invoice.payments, :id, :date, :amount, :notes

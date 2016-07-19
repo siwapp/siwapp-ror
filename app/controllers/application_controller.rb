@@ -1,15 +1,14 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  protect_from_forgery with: :exception
-  # avoid csrf on api requests
-  protect_from_forgery unless: -> { request.format.json? }
+  # CSRF attacks: raise an exception. disable for API ops.
+  protect_from_forgery with: :exception, unless: -> { request.format.json? }
+
   include SessionsHelper
   include Util
   # demand authentification everywhere
   before_action :login_required
-
   # available in views
   helper_method :get_currency
+
 
   private
 

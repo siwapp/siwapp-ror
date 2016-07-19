@@ -42,7 +42,7 @@ class CommonsController < ApplicationController
     respond_to do |format|
       if get_instance.save
         # if there is no customer associated then create a new one
-        if type_params[:customer_id] == ''
+        if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
           customer = Customer.create(
             :name => type_params[:name],
             :identification => type_params[:identification],
