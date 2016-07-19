@@ -11,7 +11,7 @@ class InvoicesController < CommonsController
   def show
     # Show the template in an iframe
     respond_to do |format|
-      format.json { render json: @invoice }
+      format.json
       format.html do
         # Redirect to edit if invoice not closed
         if @invoice.get_status != :paid or not get_template
