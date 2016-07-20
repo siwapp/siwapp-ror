@@ -44,6 +44,7 @@ class PaymentsController < ApplicationController
   # PATCH/PUT /payments/1
   # PATCH/PUT /payments/1.json
   def update
+#    payment_params.require(:payment).exclude(:invoice_id)
     respond_to do |format|
       if @payment.update(payment_params)
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
@@ -73,7 +74,14 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      allowed_params = params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
-      allowed_params.merge(params.permit(:invoice_id)) # /invoices/:invoice_id/payments...
+      if action_name == 'update' # can't modify invoice_id when updatign
+        params.require(:payment).permit(:date, :amount, :notes)
+      else
+        allowed_params = params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
+        allowed_params.merge(params.permit(:invoice_id)) # API request : /invoices/:invoice_id/payments..
+        end
+      end
+
+
     end
 end
