@@ -74,6 +74,6 @@ class PaymentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
       allowed_params = params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
-      allowed_params.merge(params.permit(:invoice_id))
+      allowed_params.merge(params.permit(:invoice_id)) # /invoices/:invoice_id/payments...
     end
 end
