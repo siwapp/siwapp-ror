@@ -1,10 +1,10 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
-  # GET /payments
-  # GET /payments.json
+  # GET /payments /invoices/:invoice_id/payments
+  # GET /payments.json /invoices/:invoice_id/paymets
   def index
-    @payments = Payment.all
+    @payments = params[:invoice_id] ?  Invoice.find(params[:invoice_id]).payments : Payment.all
   end
 
   # GET /payments/1
@@ -25,8 +25,8 @@ class PaymentsController < ApplicationController
     @invoices = Invoice.all
   end
 
-  # POST /payments
-  # POST /payments.json
+  # POST /payments /invoices/:invoice_id/payments
+  # POST /payments.json /invoices/:invoice_id/payments.json
   def create
     @payment = Payment.new(payment_params)
 
@@ -73,6 +73,7 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
+      allowed_params = params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
+      allowed_params.merge(params.permit(:invoice_id))
     end
 end

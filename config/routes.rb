@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get "items/amount"
 
   resources :invoices do
+    resources :payments
     delete 'remove', on: :collection
     post 'bulk', on: :collection
     post 'select_template', on: :member
