@@ -74,14 +74,10 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      if action_name == 'update' # can't modify invoice_id when updatign
-        params.require(:payment).permit(:date, :amount, :notes)
-      else
-        allowed_params = params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
-        allowed_params.merge(params.permit(:invoice_id)) # API request : /invoices/:invoice_id/payments..
-        end
-      end
-
-
+      allowed =  [:date, :amount, :notes]
+      action_name == 'update' ? nil : allowed.append(:invoice_id)
+      allowed_params = params.require(:payment).permit *allowed
+      # if API, allow :invoice_id coming from the url path
+      request.format.json? ? allowed_params.merge(params.permit(:invoice_id)) : allowed_params
     end
 end
