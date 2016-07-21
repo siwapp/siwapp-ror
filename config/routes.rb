@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   end
 
   resources :customers do
+    resources :invoices
     get 'autocomplete', on: :collection
   end
 
