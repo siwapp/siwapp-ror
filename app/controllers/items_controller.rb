@@ -12,4 +12,20 @@ class ItemsController < ApplicationController
       format.json
     end
   end
+
+  # GET /invoices/:invoice_id/items.json
+  def index
+    @items = Invoice.find(params[:invoice_id]).items
+    respond_to do |format|
+      format.json
+    end
+  end
+
+  # GET /invoices/:invoice_id/items/:id.json
+  def show
+    @item = Item.find params[:id]
+    respond_to do |format|
+      format.json
+    end
+  end
 end
