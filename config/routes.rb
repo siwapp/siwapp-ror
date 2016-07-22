@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
   resources :taxes, :series, :payments, :templates
-  # only for API requests
+  # API requests
   resources :items, only: [:show, :delete, :update], constraints: lambda { |req| req.format == :json }
 
 
@@ -16,15 +16,14 @@ Rails.application.routes.draw do
   get "items/amount"
 
   resources :invoices do
-    # only for API requests
-    resources :payments, :items, only: [:index, :create], constraints: lambda { |req| req.format == :json }
     delete 'remove', on: :collection
     post 'bulk', on: :collection
     post 'select_template', on: :member
     get 'autocomplete', on: :collection
     get 'chart_data', on: :collection
     get 'send_email', on: :member
-#    get 'rendered_templates', constraints: lambda { |req| req.format == :json }
+    # API requests
+    resources :payments, :items, only: [:index, :create], constraints: lambda { |req| req.format == :json }
   end
 
   get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template', as: :rendered_template
@@ -36,9 +35,9 @@ Rails.application.routes.draw do
   end
 
   resources :customers do
-    # only API requests
-    resources :invoices, only: [:index], constraints: lambda { |req| req.format == :json }
     get 'autocomplete', on: :collection
+    # API requests
+    resources :invoices, only: [:index], constraints: lambda { |req| req.format == :json }
   end
 
   post 'templates/set_default', to: 'templates#set_default'
