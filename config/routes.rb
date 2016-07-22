@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
   resources :taxes, :series, :payments, :templates
+  resources :items, only: [:show, :delete, :udate]
 
 
   get "invoices/amounts"
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
   get "items/amount"
 
   resources :invoices do
-    resources :payments, :items
+    resources :payments, :items, only: [:index, :create]
     delete 'remove', on: :collection
     post 'bulk', on: :collection
     post 'select_template', on: :member
@@ -32,7 +33,7 @@ Rails.application.routes.draw do
   end
 
   resources :customers do
-    resources :invoices
+    resources :invoices, only: [:index]
     get 'autocomplete', on: :collection
   end
 

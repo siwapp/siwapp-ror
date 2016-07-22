@@ -1,1 +1,1 @@
-json.partial! 'invoice', invoice: @invoice
+json.partial! 'invoice', invoice: @invoice, expand: true

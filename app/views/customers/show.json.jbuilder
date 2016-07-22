@@ -1,0 +1,1 @@
+json.partial! 'customer', customer: @customer, expand: true

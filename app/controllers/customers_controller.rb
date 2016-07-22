@@ -12,6 +12,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }
+      format.json
     end
   end
 

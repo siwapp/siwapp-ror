@@ -1,1 +1,1 @@
-json.array! @invoices, partial: 'invoice', as: :invoice
+json.array! @invoices, partial: 'invoice', as: :invoice, locals: {expand: false}
