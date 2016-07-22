@@ -10,6 +10,7 @@ class InvoicesController < CommonsController
 
   def show
     # Show the template in an iframe
+    @templates = Template.all # for the API. display one pdf download link per every template
     respond_to do |format|
       format.json
       format.html do
