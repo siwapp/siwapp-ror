@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
-  resources :taxes, :series, :payments, :templates
+  resources :taxes, :series, :templates
   # API requests
   resources :items, only: [:show, :destroy, :update], constraints: lambda { |req| req.format == :json }
 
