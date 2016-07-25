@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :taxes, :series, :payments, :templates
   # API requests
-  resources :items, only: [:show, :delete, :update], constraints: lambda { |req| req.format == :json }
+  resources :items, only: [:show, :destroy, :update], constraints: lambda { |req| req.format == :json }
 
 
   get "invoices/amounts"

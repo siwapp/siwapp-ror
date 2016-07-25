@@ -21,11 +21,21 @@ class ItemsController < ApplicationController
     end
   end
 
-  # GET /invoices/:invoice_id/items/:id.json
+  # GET /invoices/:invoice_id/items/:id.json GET /items/:id.json
   def show
     @item = Item.find params[:id]
     respond_to do |format|
       format.json
     end
   end
+
+  # DELETE /imvoices/:invoice_id/items/:id.json /items/:id.json (API only)
+  def destroy
+    item = Item.find params[:id]
+    item.destroy
+    respond_to do |format|
+      format.json {head :no_content}
+    end
+  end
+
 end

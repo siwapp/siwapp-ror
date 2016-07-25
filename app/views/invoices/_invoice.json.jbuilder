@@ -14,12 +14,29 @@ if invoice.get_template
 end
 
 if expand
-  json.customer invoice.customer, partial: 'customers/customer', as: :customer, locals: {expand: false}
-  json.items  invoice.items, partial: 'items/item', as: :item, locals: {expand: false}
-  json.payments  invoice.payments, partial: 'payments/payment', as: :payment, locals: {expand: false}
-  unless invoice.get_template
-   json.rendered_templates @templates, partial: 'rendered_template', as: :template, locals: {invoice: invoice}
+
+  json.customer do
+    json.extract! invoice.customer, :id, :identification
+    json.url customer_url invoice.customer, format: :json
   end
+  json.items invoice.items do |item|
+    json.extract! item, :id, :description, :unitary_cost, :quantity, :discount
+    json.url item_url item, format: :json
+  end
+
+  json.payments invoice.payments do |payment|
+    json.extract! payment, :id, :notes, :amount, :date
+    json.url payment_url payment, format: :json
+  end
+
+  unless invoice.get_template
+    json.rendered_templates @templates, partial: 'rendered_template', as: :template, locals: {invoice: invoice}
+  end
+
 else
-  json.customer invoice.customer, :id, :name, :identification, :email
+
+  json.customer customer_url invoice.customer, format: :json
+  json.items invoice_items_url invoice, format: :json
+  json.payments invoice_payments_url invoice, format: :json
+
 end
