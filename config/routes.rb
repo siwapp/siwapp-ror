@@ -51,6 +51,21 @@ Rails.application.routes.draw do
   get 'settings/smtp'
   post 'settings/smtp'
 
+  # API
+  namespace :api do
+    namespace :v1 do
+      resources :customers, :taxes, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+      resources :payments, only: [:show, :update, :destroy]
+      resources :items, only: [:show, :update]
+      resources :invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
+        resources :items, only: [:index, :create]
+        resources :payments, only: [:index, :create]
+      end
+      resources :recurring_invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+    end
+  end
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

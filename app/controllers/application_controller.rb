@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include Util
   # demand authentification everywhere
-  before_action :login_required
+  before_action :authenticate
   # available in views
   helper_method :get_currency
 
@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
     @type.underscore.humanize.titleize
   end
 
-  def login_required
+  def authenticate
     unless current_user || controller_name.eql?('sessions')
       redirect_to login_url # halts request cycle
     end
