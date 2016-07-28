@@ -31,9 +31,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     respond_to do |format|
       @item = Item.find params[:id]
       if @item.update(item_params)
-#        add_human_taxes @item, params
-#        format.json { redirect_to api_v1_item_url(@item) }
-#        format.json { render action: show, status: ok, location: api_v1_item_url(@item) }
+        add_human_taxes @item, params
         format.json { render action: 'show', status: :ok, location: api_v1_item_url(@item) }
       else
         format.json { render json: @item.errors, status: :unprocessable_entity }

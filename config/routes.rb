@@ -7,9 +7,6 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
   resources :taxes, :series, :templates
-  # API requests
-  resources :items, only: [:show, :destroy, :update], constraints: lambda { |req| req.format == :json }
-
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"
@@ -22,8 +19,6 @@ Rails.application.routes.draw do
     get 'autocomplete', on: :collection
     get 'chart_data', on: :collection
     get 'send_email', on: :member
-    # API requests
-    resources :payments, :items, only: [:index, :create], constraints: lambda { |req| req.format == :json }
   end
 
   get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template', as: :rendered_template
@@ -58,8 +53,7 @@ Rails.application.routes.draw do
       resources :payments, only: [:show, :update, :destroy]
       resources :items, only: [:show, :update]
       resources :invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
-        resources :items, only: [:index, :create]
-        resources :payments, only: [:index, :create]
+        resources :items, :payments, only: [:index, :create]
       end
       resources :recurring_invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
     end
