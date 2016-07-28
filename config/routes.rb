@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      resources :taxes, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+      resources :taxes, :series, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering
       end
