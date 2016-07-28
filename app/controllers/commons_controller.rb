@@ -8,14 +8,9 @@ class CommonsController < ApplicationController
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
   # GET /commons
-  # GET /commons.json /customers/:customer_id/commons
   def index
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
-    # /customers/:customer_id/commons :filtered by customer
-    if params[:customer_id]
-      results = results.where(customer_id: params[:customer_id])
-    end
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
@@ -47,7 +42,7 @@ class CommonsController < ApplicationController
     respond_to do |format|
       if get_instance.save
         # if there is no customer associated then create a new one
-        if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
+        if type_params[:customer_id] == ''
           customer = Customer.create(
             :name => type_params[:name],
             :identification => type_params[:identification],

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # CSRF attacks: raise an exception. disable for API ops.
-  protect_from_forgery with: :exception, unless: -> { request.format.json? }
+  # CSRF attacks: raise an exception.
+  protect_from_forgery with: :exception
 
   include SessionsHelper
   include Util

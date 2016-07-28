@@ -10,9 +10,8 @@ class InvoicesController < CommonsController
 
   def show
     # Show the template in an iframe
-    @templates = Template.all # for the API. display one pdf download link per every template
     respond_to do |format|
-      format.json
+      format.json { render json: @invoice }
       format.html do
         # Redirect to edit if invoice not closed
         if @invoice.get_status != :paid or not get_template

@@ -1,5 +1,5 @@
 json.extract! invoice,
-  :id, :series_id, :draft, :sent_by_email, 
+  :id, :series_id, :draft, :sent_by_email,
   :name, :identification, :email, :invoicing_address, :shipping_address, :contact_person,
   :terms, :notes,
   :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :tax_amount,

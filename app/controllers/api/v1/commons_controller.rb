@@ -8,11 +8,13 @@ class Api::V1::CommonsController < Api::V1::BaseController
 
 
   def show
-    respond_to do |format| 
+    respond_to do |format|
       format.json
     end
   end
 
+  # GET /api/v1/commons
+  # GET /api/v1/customers/customer_id/commons  --> for API
   def index
     results = @search.result(distinct: true)
     if params[:customer_id]
@@ -34,7 +36,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
         if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
           begin
             customer = Customer.find_by_name type_params[:name]
-          rescue ActiveRecord::RecordNotFound 
+          rescue ActiveRecord::RecordNotFound
             customer = Customer.create(
               :name => type_params[:name],
               :identification => type_params[:identification],

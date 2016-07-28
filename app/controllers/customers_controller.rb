@@ -3,7 +3,6 @@ class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
   # GET /customers
-  # GET /customers.json
   def index
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
@@ -12,7 +11,6 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }
-      format.json
     end
   end
 

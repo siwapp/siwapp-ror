@@ -64,7 +64,7 @@ module CommonsHelper
   # Returns the instance or a redirection to the index action
   def set_model_instance
     set_instance model.find(params[:id])
-    
+
   rescue ActiveRecord::RecordNotFound
     flash[:alert] = "The #{type_label} you were looking for could not be found."
     redirect_to sti_path(@type)

@@ -31,8 +31,6 @@ Rails.application.routes.draw do
 
   resources :customers do
     get 'autocomplete', on: :collection
-    # API requests
-    resources :invoices, only: [:index], constraints: lambda { |req| req.format == :json }
   end
 
   post 'templates/set_default', to: 'templates#set_default'
@@ -49,7 +47,10 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      resources :customers, :taxes, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+      resources :taxes, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+      resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
+        resources :invoices, only: [:index] # for filtering
+      end
       resources :payments, only: [:show, :update, :destroy]
       resources :items, only: [:show, :update]
       resources :invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do

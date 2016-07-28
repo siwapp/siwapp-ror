@@ -1,7 +1,7 @@
 class Api::V1::PaymentsController < Api::V1::BaseController
 
   before_action :set_payment, only: [:show, :update, :destroy]
-  
+
   # GET /api/v1/invoices/:invoice_id/payments
   def index
     @payments = Invoice.find(params[:invoice_id]).payments
@@ -46,10 +46,10 @@ class Api::V1::PaymentsController < Api::V1::BaseController
 
   private
 
-  def set_payment 
+  def set_payment
     @payment = Payment.find params[:id]
   end
-  
+
   def payment_params
     params.require(:payment).permit(:notes, :date, :amount)
   end
