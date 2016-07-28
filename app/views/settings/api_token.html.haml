@@ -1,0 +1,9 @@
+%h1 API Token
+
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = @api_token
+
+
+.action-buttons
+  = link_to 'Generate', 'api_token', method: :post, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'

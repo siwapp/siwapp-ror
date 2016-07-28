@@ -43,6 +43,8 @@ Rails.application.routes.draw do
   post 'settings/profile'
   get 'settings/smtp'
   post 'settings/smtp'
+  get 'settings/api_token' , to: 'settings#api_token'#,  constraints: {protocol: /https/}
+  post 'settings/api_token', to: 'settings#api_token'#,  constraints: {protocol: /https/}
 
   # API
   namespace :api do

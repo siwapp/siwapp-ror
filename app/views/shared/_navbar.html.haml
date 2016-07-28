@@ -41,6 +41,8 @@
             %a.dropdown-item{:href => taxes_path} Taxes
             %a.dropdown-item{:href => templates_path} Templates
             .dropdown-divider
+            %a.dropdown-item{:href => settings_api_token_path} API Token
+            .dropdown-divider
             = link_to 'Log out', logout_path, method: "delete", class: "dropdown-item"
         %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}} Account
 
@@ -51,6 +53,7 @@
         %a.nav-item.nav-link{:href => series_index_path} Series
         %a.nav-item.nav-link{:href => taxes_path} Taxes
         %a.nav-item.nav-link{:href => templates_path} Templates
+        %a.nav-item.nav-link{:href => settings_api_token_path} API Token
         = link_to 'Log out', logout_path, method: "delete", class: "nav-item nav-link"
 
   - if current_user and @search

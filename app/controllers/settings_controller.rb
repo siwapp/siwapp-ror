@@ -66,4 +66,13 @@ class SettingsController < ApplicationController
     end
 
   end
+
+  # API Token show/generation
+  def api_token
+    if request.post?
+      Settings[:api_token] = SecureRandom.uuid.gsub(/\-/,'')
+      redirect_to action: :api_token
+    end
+    @api_token = Settings.api_token
+  end
 end
