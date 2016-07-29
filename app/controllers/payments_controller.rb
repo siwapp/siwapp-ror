@@ -1,10 +1,10 @@
 class PaymentsController < ApplicationController
   before_action :set_payment, only: [:show, :edit, :update, :destroy]
 
-  # GET /payments /invoices/:invoice_id/payments
-  # GET /payments.json /invoices/:invoice_id/paymets
+  # GET /payments
+  # GET /payments.json
   def index
-    @payments = params[:invoice_id] ?  Invoice.find(params[:invoice_id]).payments : Payment.all
+    @payments = Payment.all
   end
 
   # GET /payments/1
@@ -25,8 +25,8 @@ class PaymentsController < ApplicationController
     @invoices = Invoice.all
   end
 
-  # POST /payments /invoices/:invoice_id/payments
-  # POST /payments.json /invoices/:invoice_id/payments.json
+  # POST /payments
+  # POST /payments.json
   def create
     @payment = Payment.new(payment_params)
 
@@ -44,7 +44,6 @@ class PaymentsController < ApplicationController
   # PATCH/PUT /payments/1
   # PATCH/PUT /payments/1.json
   def update
-#    payment_params.require(:payment).exclude(:invoice_id)
     respond_to do |format|
       if @payment.update(payment_params)
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
@@ -74,10 +73,6 @@ class PaymentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def payment_params
-      allowed =  [:date, :amount, :notes]
-      action_name == 'update' ? nil : allowed.append(:invoice_id)
-      allowed_params = params.require(:payment).permit *allowed
-      # if API, allow :invoice_id coming from the url path
-      request.format.json? ? allowed_params.merge(params.permit(:invoice_id)) : allowed_params
+      params.require(:payment).permit(:invoice_id, :date, :amount, :notes)
     end
 end
