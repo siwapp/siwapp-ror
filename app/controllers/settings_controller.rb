@@ -1,4 +1,7 @@
 class SettingsController < ApplicationController
+
+  force_ssl only: [:api_token], unless: :is_development
+
   # Global configuration settings
   def global
     if request.post?
@@ -75,4 +78,16 @@ class SettingsController < ApplicationController
     end
     @api_token = Settings.api_token
   end
+
+
+
+  private
+
+  def is_development
+    Rails.env.development?
+  end
+
+
+
+
 end

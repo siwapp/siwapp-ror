@@ -1,4 +1,7 @@
 class Api::V1::BaseController < ApplicationController
+
+  force_ssl unless: proc { Rails.env.development?}
+
   protect_from_forgery with: :null_session
 
   before_action :destroy_session
