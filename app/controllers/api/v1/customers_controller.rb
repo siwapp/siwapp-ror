@@ -7,7 +7,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
     @customers = @search.result(distinct: true).paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
-      format.json 
+      format.json
     end
   end
 
@@ -55,5 +55,5 @@ class Api::V1::CustomersController < Api::V1::BaseController
     params.require(:customer).permit(:name, :identification, :email, :contact_person,
                                      :invoicing_address, :shipping_address)
   end
-  
+
 end
