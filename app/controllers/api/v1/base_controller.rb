@@ -6,14 +6,32 @@ class Api::V1::BaseController < ApplicationController
 
   before_action :destroy_session
 
-#  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from Exception, with: :render_error # any error? go to handler!
 
-  def not_found
-    return api_error(status: 404, errors: 'Not found')
-  end
+
+
 
   protected
 
+  # handle errors
+  def render_error exception
+    case exception.class.name
+    when 'ActiveRecord::RecordNotFound' then
+      error_info = { error: 'Resource Not Found' }
+      status = 404
+    else
+      error_info = {
+        error: 'Oops!! Internal Server Error',
+        exception: "#{exception.class.name} : #{exception.message}"
+      }
+      error_info[:trace] = exception.backtrace[0,10] if Rails.env.development?
+      status = 500
+    end
+    render json: error_info, status: status
+  end
+
+  # add pagination headers
+  # see http://www.metabates.com/2012/02/22/adding-pagination-to-an-api/
   def self.set_pagination_headers(name, options = {})
     after_filter(options) do |controller|
       results = instance_variable_get("@#{name}")
