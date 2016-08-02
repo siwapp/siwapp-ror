@@ -9,29 +9,23 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     @headers = {'Content-Type' => 'application/json', 
         'Authorization' => 'Token token="123token"'}
     @customer = FactoryGirl.create :customer
+    @series = FactoryGirl.create :series
+    @invoice = FactoryGirl.create :invoice, customer: @customer
   end
 
   describe 'Invoices show' do
     
-    before do
-      @series = FactoryGirl.create :series
-      @customer = FactoryGirl.create :customer
-    end
-    
     it 'Show single invoice with details' do
-      invoice = FactoryGirl.create :invoice, customer: @customer
-      get api_v1_invoice_path(invoice), nil, @headers
+      get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
       expect(json['items'].length).to eql 3
-      expect(json['items'][0]['url']).to eql api_v1_item_url(invoice.items[0])
+      expect(json['items'][0]['url']).to eql api_v1_item_url(@invoice.items[0])
       expect(json['customer']['url']).to eql api_v1_customer_url(@customer)
     end
   end
 
   describe "Invoices Listing" do
     it "Standard listing works ok" do
-
-      invoice = FactoryGirl.create :invoice, customer: @customer 
 
       get api_v1_invoices_path, nil, @headers
 
@@ -41,8 +35,9 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     end
 
     describe "Paginated invoicies listing" do
+
       before do
-        invoice = FactoryGirl.create_list :invoice, 30, customer: @customer
+        FactoryGirl.create_list :invoice, 30, customer: @customer # 30 more invoices
       end
 
       it "Display only 20 results per page" do
@@ -54,17 +49,13 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       it "'Page' param sets the page" do
         get api_v1_invoices_path, {page: 2},  @headers
         expect(response).to be_success
-        expect(json.count).to eql 10
+        expect(json.count).to eql 11
       end
     end
   end
 
   describe "Invoice creation" do
     
-    before do
-      @series = FactoryGirl.create :series
-    end
-
     it "basic invoice creation on POST requeset" do
       inv = { 
         'invoice' => {
@@ -125,11 +116,6 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
   describe 'Invoice updating' do
     
-    before do
-      @series = FactoryGirl.create :series
-      @invoice = FactoryGirl.create :invoice, customer: @customer
-    end
-    
     it "basic invoice updating" do
 
        put api_v1_invoice_path(@invoice), {'invoice':{'name': 'modified'}}.to_json, @headers
@@ -141,10 +127,6 @@ RSpec.describe "Api::V1::Invoices", type: :request do
   end
 
   describe 'Invoice deleting' do
-    before do
-      @series = FactoryGirl.create :series
-      @invoice = FactoryGirl.create :invoice, customer: @customer
-    end
 
     it 'basic invoice deleting' do
       delete api_v1_invoice_path(@invoice), nil, @headers
