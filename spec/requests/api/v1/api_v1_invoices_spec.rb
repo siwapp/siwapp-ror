@@ -43,10 +43,14 @@ RSpec.describe "Api::V1::Invoices", type: :request do
         FactoryGirl.create_list :invoice, 30, customer: @customer # 30 more invoices
       end
 
-      it "Display only 20 results per page" do
+      it "Display only 20 results per page and return pagination headers" do
         get api_v1_invoices_path, nil, @headers
         expect(response).to be_success
         expect(json.count).to eql 20
+        expect(response.headers).to have_key 'X-Pagination'
+        pagination_header = JSON.parse response.headers['X-Pagination']
+        expect(pagination_header['total']).to eql 31
+        expect(pagination_header['next_page']).to eql 2
       end
 
       it "'Page' param sets the page" do
