@@ -83,7 +83,6 @@ RSpec.describe "Api::V1::Items", type: :request do
     
     it 'DELETE /api/v1/items/:id' do
       delete api_v1_item_path(@item), nil, @headers
-      print response.body
       expect(response).to have_http_status :no_content
       expect(Item.find_by_id(@item.id)).to be_nil
     end
