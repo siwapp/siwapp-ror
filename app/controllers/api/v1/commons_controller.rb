@@ -34,9 +34,8 @@ class Api::V1::CommonsController < Api::V1::BaseController
       if get_instance.save
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
-          begin
-            customer = Customer.find_by_name type_params[:name]
-          rescue ActiveRecord::RecordNotFound
+          customer = Customer.find_by_name type_params[:name]
+          if !customer  
             customer = Customer.create(
               :name => type_params[:name],
               :identification => type_params[:identification],

@@ -71,6 +71,13 @@ RSpec.configure do |config|
     click_on 'Log in'
   end
 
+  # generate zauth token before every api request example
+  # config.before :each, type: :request do |example|
+  #   factory_name = example.metadata[:not_authorized]
+  #   return if factory_name
+    
+  # end
+
   config.after(:each) do
     DatabaseCleaner.clean
   end
