@@ -18,7 +18,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
 
     respond_to do |format|
       if @tax.save
-        format.json { render :show, status: :created, location: @tax }
+        format.json { render :show, status: :created, location: api_v1_tax_url(@tax) }
       else
         format.json { render json: @tax.errors, status: :unprocessable_entity }
       end
