@@ -53,8 +53,11 @@ Rails.application.routes.draw do
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering
       end
-      resources :payments, only: [:show, :update, :destroy]
-      resources :items, only: [:show, :update]
+      resources :payments, only: [:show, :update, :destroy], defaults: {format: :json}
+      resources :items, only: [:show, :update, :destroy], defaults: {format: :json} do
+        resources :taxes, only: [:index], defaults: { format: :json}
+      end
+
       resources :invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :items, :payments, only: [:index, :create]
       end

@@ -19,7 +19,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     add_human_taxes @item, params
     respond_to do |format|
       if @item.save
-        format.json { redirect_to api_v1_item_url(@item) }
+        format.json { render action: 'show', status: :created, location: api_v1_item_url(@item) }
        else
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -36,6 +36,17 @@ class Api::V1::ItemsController < Api::V1::BaseController
       else
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # DELETE /api/v1/items/:id
+  def destroy
+    item = Item.find_by_id params[:id]
+    if item
+        item.destroy
+    end
+    respond_to do |format|
+      format.json {  head :no_content }
     end
   end
 

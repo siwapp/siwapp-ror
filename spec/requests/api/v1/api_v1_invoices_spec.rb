@@ -15,7 +15,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
   describe 'Invoices show' do
     
-    it 'Show single invoice with details' do
+    it 'GET /api/v1/invoices/:id Show single invoice with details' do
       get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
       expect(json['items'].length).to eql 3
@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
   end
 
   describe "Invoices Listing" do
-    it "Standard listing works ok" do
+    it "GET /api/v1/invoices Standard listing works ok" do
 
       get api_v1_invoices_path, nil, @headers
 
