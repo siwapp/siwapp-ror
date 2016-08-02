@@ -6,6 +6,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     Rails.cache.clear
     FactoryGirl.create :token
     FactoryGirl.create :user
+    @template = FactoryGirl.create :template
     @headers = {'Content-Type' => 'application/json', 
         'Authorization' => 'Token token="123token"'}
     @customer = FactoryGirl.create :customer
@@ -21,6 +22,8 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       expect(json['items'].length).to eql 3
       expect(json['items'][0]['url']).to eql api_v1_item_url(@invoice.items[0])
       expect(json['customer']['url']).to eql api_v1_customer_url(@customer)
+      # download link
+      expect(json['download_link']).to eql rendered_template_url(@template, @invoice, format: :pdf)
     end
   end
 
