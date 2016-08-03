@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Payments", type: :request do
+RSpec.describe "Api::V1::Taxes", type: :request do
 
   before do
     Rails.cache.clear

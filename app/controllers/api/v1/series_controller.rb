@@ -18,7 +18,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
 
     respond_to do |format|
       if @series.save
-        format.json { render :show, status: :created, location: @series }
+        format.json { render :show, status: :created, location: api_v1_series_url(@series) }
       else
         format.json { render json: @series.errors, status: :unprocessable_entity }
       end
@@ -29,7 +29,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   def update
     respond_to do |format|
       if @series.update(series_params)
-        format.json { render :show, status: :ok, location: @series }
+        format.json { render :show, status: :ok, location: api_v1_series_url(@series) }
       else
         format.json { render json: @series.errors, status: :unprocessable_entity }
       end
