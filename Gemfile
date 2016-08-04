@@ -80,3 +80,9 @@ gem 'wkhtmltopdf-binary'
 gem 'money'
 # to prevent records from being actually deleted
 gem "paranoia", "~> 2.0"
+# to have a pub/sub mechanism
+#gem 'wisper', '2.0.0.rc1'
+# to allow async jobs in wisper.
+gem 'wisper-celluloid'
+## to make http POST requests
+gem "http"

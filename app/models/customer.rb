@@ -35,6 +35,12 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  def to_jbuilder
+    Jbuilder.new do |json|
+      json.(self, *(attribute_names - ["name_slug", "deleted_at"]))
+    end
+  end
+
 
 private
 

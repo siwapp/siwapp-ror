@@ -60,6 +60,23 @@ GEM
     capybara-webkit (1.11.1)
       capybara (>= 2.3.0, < 2.8.0)
       json
+    celluloid (0.17.3)
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      timers (>= 4.1.1)
+    celluloid-essentials (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-extras (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-fsm (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-pool (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-supervision (0.20.6)
+      timers (>= 4.1.1)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     cocoon (1.2.9)
@@ -77,6 +94,8 @@ GEM
     deep_cloneable (2.1.1)
       activerecord (>= 3.1.0, < 5.0.0)
     diff-lcs (1.2.5)
+    domain_name (0.5.20160615)
+      unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -90,6 +109,16 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
+    hitimes (1.2.4)
+    http (2.0.3)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
     i18n (0.7.0)
     jbuilder (2.5.0)
       activesupport (>= 3.0.0, < 5.1)
@@ -223,10 +252,15 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    timers (4.1.1)
+      hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.2)
     web-console (2.3.0)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -235,6 +269,10 @@ GEM
     websocket (1.2.3)
     wicked_pdf (1.0.6)
     will_paginate (3.1.0)
+    wisper (2.0.0.rc1)
+    wisper-celluloid (0.0.1)
+      celluloid
+      wisper
     wkhtmltopdf-binary (0.9.9.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -256,6 +294,7 @@ DEPENDENCIES
   factory_girl_rails
   fastclick-rails
   haml
+  http
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
@@ -280,7 +319,11 @@ DEPENDENCIES
   web-console (~> 2.0)
   wicked_pdf
   will_paginate
+  wisper-celluloid
   wkhtmltopdf-binary
+
+RUBY VERSION
+   ruby 2.2.0p0
 
 BUNDLED WITH
    1.12.5

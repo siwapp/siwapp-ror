@@ -43,6 +43,8 @@
             .dropdown-divider
             %a.dropdown-item{:href => settings_api_token_path} API Token
             .dropdown-divider
+            %a.dropdown-item{:href => settings_hooks_path} Hooks
+            .dropdown-divider
             = link_to 'Log out', logout_path, method: "delete", class: "dropdown-item"
         %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}} Account
 

@@ -1,4 +1,8 @@
 class RecurringInvoice < Common
+
+  # make this object a publisher
+  include Wisper::Publisher
+
   # Relations
   has_many :invoices
 
@@ -68,12 +72,15 @@ class RecurringInvoice < Common
         item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')
         item.description.sub! "$(issue_date - period)", (inv.issue_date - period.send(period_type)).strftime('%Y-%m-%d')
         item.description.sub! "$(issue_date + period)", (inv.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
-      end
+       end
 
+#      broadcast(:invoice_generation, inv)
       next_date += period.send period_type
       occurrences += 1
       generated_invoices.append inv
     end
+
+
 
   
       # if inv.save
@@ -117,6 +124,11 @@ class RecurringInvoice < Common
       pendings.append actual
     end
   end
+
+  def test
+    broadcast(:invoice_generation, Invoice.first)
+  end
+
 
   private
 

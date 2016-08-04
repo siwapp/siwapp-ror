@@ -33,6 +33,17 @@ class Invoice < Common
   # Invoices belonging to certain recurring_invoice
   scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
 
+  def to_jbuilder
+    Jbuilder.new do |json|
+      json.(self, *(serializable_attribute_names))
+      json.series_number to_s
+      json.status get_status
+      json.customer customer.to_jbuilder
+      json.items items.collect { |item| item.to_jbuilder.attributes! }
+      json.payments payments.collect {|payment| payment.to_jbuilder.attributes!}
+    end
+  end
+
 
 protected
 
@@ -173,5 +184,14 @@ public
     def purge_payments
       payments.only_deleted.delete_all
     end
+
+    private
+
+    # attributes fitted for serialization
+    def serializable_attribute_names
+      [:id, :name, :identification, :email, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :tax_amount, :issue_date, :due_date, :days_to_due]
+    end
+
+
 
 end

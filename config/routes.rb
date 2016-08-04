@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
+  post 'test' => 'hooks#test'
+
   resources :taxes, :series, :templates
 
   get "invoices/amounts"
@@ -43,6 +45,8 @@ Rails.application.routes.draw do
   post 'settings/profile'
   get 'settings/smtp'
   post 'settings/smtp'
+  get 'settings/hooks'
+  post 'settings/hooks'
   get 'settings/api_token'
   post 'settings/api_token'
 

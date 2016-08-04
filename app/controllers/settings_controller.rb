@@ -70,6 +70,17 @@ class SettingsController < ApplicationController
 
   end
 
+  # Hooks settings
+  def hooks
+    if request.post?
+      Settings[:event_invoice_generation_url] = params[:event_invoice_generation_url]
+      redirect_to action: :hooks
+    end
+
+    @event_invoice_generation = Settings.event_invoice_generation
+  end
+
+
   # API Token show/generation
   def api_token
     if request.post?

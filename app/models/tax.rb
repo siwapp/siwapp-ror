@@ -8,4 +8,11 @@ class Tax < ActiveRecord::Base
   def to_s
     name
   end
+
+  def to_jbuilder
+    Jbuilder.new do |json|
+      json.(self, *(attribute_names - ["deleted_at"]))
+    end
+  end
+
 end

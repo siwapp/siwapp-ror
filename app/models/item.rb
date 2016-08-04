@@ -37,4 +37,11 @@ class Item < ActiveRecord::Base
     description? ? description : 'No description'
   end
 
+  def to_jbuilder
+    Jbuilder.new do |json|
+      json.(self, :quantity, :discount, :description, :unitary_cost)
+      json.taxes  taxes.collect { |tax| tax.to_jbuilder.attributes!}
+    end
+  end
+
 end
