@@ -77,7 +77,7 @@ class SettingsController < ApplicationController
       redirect_to action: :hooks
     end
 
-    @event_invoice_generation = Settings.event_invoice_generation
+    @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
 
 
