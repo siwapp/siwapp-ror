@@ -5,6 +5,8 @@ class SiwappHooks
         HTTP.post(Settings.invoice_generation_url, :json => JSON.parse(invoice.to_jbuilder.target!))
       rescue ActiveRecord::RecordNotFound
         # do nothing
+      rescue HTTP::Error
+        # TODO: some logging mechanism
       end
     end
   end
