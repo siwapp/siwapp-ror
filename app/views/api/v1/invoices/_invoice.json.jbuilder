@@ -10,7 +10,7 @@ json.url api_v1_invoice_url invoice
 json.series_number invoice.to_s
 json.status invoice.get_status
 if invoice.get_template
-   json.download_link rendered_template_url id: invoice.get_template.id, invoice_id: invoice.id, format: :pdf
+   json.download_link api_v1_rendered_template_url id: invoice.get_template.id, invoice_id: invoice.id, format: :pdf
 end
 
 if expand
@@ -39,7 +39,9 @@ if expand
 
 else
 
-  json.customer api_v1_customer_url invoice.customer
+  if invoice.customer
+    json.customer api_v1_customer_url invoice.customer
+  end
   json.items api_v1_invoice_items_url invoice
   json.payments api_v1_invoice_payments_url invoice
 
