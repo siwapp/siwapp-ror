@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       expect(json['items'][0]['url']).to eql api_v1_item_url(@invoice.items[0])
       expect(json['customer']['url']).to eql api_v1_customer_url(@customer)
       # download link
-      expect(json['download_link']).to eql rendered_template_url(@template, @invoice, format: :pdf)
+      expect(json['download_link']).to eql api_v1_rendered_template_url(@template, @invoice, format: :pdf)
     end
   end
 
