@@ -22,6 +22,10 @@ if expand
   json.items invoice.items do |item|
     json.extract! item, :id, :description, :unitary_cost, :quantity, :discount
     json.url api_v1_item_url item
+    json.taxes item.taxes do |tax|
+      json.extract! tax, :id, :name, :value
+      json.url api_v1_tax_url tax
+    end
   end
 
   json.payments invoice.payments do |payment|
