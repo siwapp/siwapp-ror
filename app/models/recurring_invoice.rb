@@ -74,7 +74,7 @@ class RecurringInvoice < Common
         item.description.sub! "$(issue_date + period)", (inv.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
        end
 
-#      broadcast(:invoice_generation, inv)
+      broadcast(:invoice_generation, inv)
       next_date += period.send period_type
       occurrences += 1
       generated_invoices.append inv

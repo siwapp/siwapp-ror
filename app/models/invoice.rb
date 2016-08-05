@@ -38,7 +38,9 @@ class Invoice < Common
       json.(self, *(serializable_attribute_names))
       json.series_number to_s
       json.status get_status
-      json.customer customer.to_jbuilder
+      if customer
+        json.customer customer.to_jbuilder
+      end
       json.items items.collect { |item| item.to_jbuilder.attributes! }
       json.payments payments.collect {|payment| payment.to_jbuilder.attributes!}
     end

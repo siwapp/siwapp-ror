@@ -1,9 +1,11 @@
 class SiwappHooks
-  def invoice_generation(invoice)
-    sleep 5
-    print "here it comes\n"
+  def invoice_generation(inv)
     unless Settings.invoice_generation_url.blank?
-      HTTP.post(Settings.invoice_generation, :json => JSON.parse(invoice.to_jbuilder.target!))
+      begin
+        HTTP.post(Settings.invoice_generation_url, :json => JSON.parse(invoice.to_jbuilder.target!))
+      rescue ActiveRecord::RecordNotFound
+        # do nothing
+      end
     end
   end
 end
