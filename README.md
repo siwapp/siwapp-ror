@@ -94,6 +94,28 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
   * When listing invoices, the results are paginated (20 results per page), you can fetch a specific page using the `page` request parameter.
   * The `X-Pagination` header contains all pagination info.
 
+#### Searching.
+It's just like listing, but adding the `q` search parameter with any of these keys:
+  * `q[with_terms]=acme+inc` invoices with those terms in either name, email or identification
+  * `q[customer_id]=3` invoice whose customer has the id=3
+  * `q[issue_date_gte]=2012-01-01` invoice whose issue date is greater or equal than `2012-01-01`
+  * `q[issue_date_lte]=2012-01-01` invoice whose issue date is less or equal than `2012-01-01`
+  * `q[series_id]=3` invoices whose series has the id=3
+  * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `overdue`
+
+If you wanted to search for invoices named 'acme' whose status is 'paid', you would do a GET request to
+
+`https://siwapp-server.com/api/v1/invoices?q[with_status]=paid&q[with_terms]=acme`
+
+#### Getting all invoices from a customer
+
+Use a conveniently nested path:
+
+````http
+GET https://siwapp-server.com/api/v1/customers/2/invoices HTTP/1.1
+Authorization: Token token="abc"
+````
+
 #### Show
 
 A full representation of the invoice and its items and payments associated.
@@ -559,6 +581,109 @@ Content-Type: application/json
 
 ````http
 DELETE https://siwapp-server.com/api/v1/taxes/12 HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+__Response__
+
+```http
+HTTP/1.1 204 NO CONTENT
+Content-Type: application/json; charset=utf-8
+```
+
+### Series
+
+#### Listing
+
+List all series
+
+````http
+GET https://siwapp-server.com/api/v1/series HTTP/1.1
+Authorization: Token token="abc"
+````
+
+__Response__
+````http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+[
+    {
+        "id": "2",
+        "name": "Sample Series A",
+        "value": "SSA-",
+        "enabled": true,
+        "default": null,
+        "url": "https://siwapp-server.com/api/v1/taxes/2"
+    }
+]
+````
+
+#### Show
+
+A full representation of the Series
+
+````http
+GET https://siwapp-server.com/api/v1/series/2 HTTP/1.1
+Authorization: Token token="abc"
+````
+
+__Response__
+````http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+{
+    "name": "Sample Series A",
+    "value": "SSA-",
+    "enabled": true,
+    "default": null,
+    "next_number": 13,
+    "url": "https://siwapp-server.com/api/v1/taxes/2"
+}
+````
+
+#### Create
+
+Create a series
+
+````http
+POST https://siwapp-server.com/api/v1/series HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+{
+    "series": {
+        "name": "IT services",
+        "value": "ITS-",
+        "enabled": true,
+        "default": null
+    }
+}
+````
+
+* The `"series"` key must be present.
+
+#### Update
+
+````http
+PUT https://siwapp-server.com/api/v1/taxes/5 HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+{
+    "series": {
+        "name": "IT services mod"
+    }
+}
+````
+
+* The `"series"` key must be present.
+* Only the attributes present in the json sent are updated. The rest remain the same
+
+#### Delete
+
+````http
+DELETE https://siwapp-server.com/api/v1/series/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
