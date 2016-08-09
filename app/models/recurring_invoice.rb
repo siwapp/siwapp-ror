@@ -78,6 +78,7 @@ class RecurringInvoice < Common
       next_date += period.send period_type
       occurrences += 1
       generated_invoices.append inv
+#      inv.save # de momento.
     end
 
 

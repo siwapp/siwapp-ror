@@ -77,6 +77,21 @@ class SettingsController < ApplicationController
       redirect_to action: :hooks
     end
 
+    # grab last logs
+    @last_logs = `tac log/#{Rails.env}.log | grep WEBHOOK`.split("\n").collect { |log|
+      m = log.match(/\[(ERROR|DEBUG)\]/)
+      if !m
+        next
+      end
+      case m[0]
+      when '[ERROR]'
+        {level: 'ERROR', message: log.gsub(/\[(ERROR|DEBUG|WEBHOOK)\]/, '')}
+      when '[DEBUG]'
+        {level: 'DEBUG', message: log.gsub(/\[(ERROR|DEBUG|WEBHOOK)\]/, '')}
+      else
+        nil
+      end
+    }.compact!
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
 
