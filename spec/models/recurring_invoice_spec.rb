@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe RecurringInvoice, :type => :model do
+
+  before do
+    Celluloid.shutdown; Celluloid.boot
+  end
+
   it "is invalid without a series" do
     expect(FactoryGirl.build(:recurring_invoice, series: nil)).not_to be_valid
   end
