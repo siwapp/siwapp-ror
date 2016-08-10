@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
+      get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template', as: :rendered_template
       resources :taxes, :series, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering

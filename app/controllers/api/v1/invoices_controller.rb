@@ -4,6 +4,22 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
   set_pagination_headers :invoices, only: [:index]
 
+  # Renders invoice template in pdf
+  # GET /api/v1/invoices/template/:id/invoice/:invoice_id
+  def template
+    @invoice = Invoice.find(params[:invoice_id])
+    @template = Template.find(params[:id])
+    html = render_to_string :inline => @template.template,
+      :locals => {invoice: @invoice, settings: Settings}
+    respond_to do |format|
+      format.pdf do
+        pdf = @invoice.pdf(html)
+        send_data(pdf, :filename => "#{@invoice}.pdf", :disposition => 'attachment')
+      end
+    end
+  end
+
+
 
   protected
 
