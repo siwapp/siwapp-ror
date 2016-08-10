@@ -78,20 +78,24 @@ class SettingsController < ApplicationController
     end
 
     # grab last logs
-    @last_logs = `tac log/#{Rails.env}.log | grep WEBHOOK`.split("\n").collect { |log|
+    last_logs = `tac log/#{Rails.env}.log | grep WEBHOOK | head -n 1500`.split("\n").collect { |log|
       m = log.match(/\[(ERROR|INFO)\]/)
       if !m
         next
       end
+      message = log.gsub /\[(ERROR|INFO|WEBHOOK)\]/, ''
       case m[0]
       when '[ERROR]'
-        {level: 'ERROR', message: log.gsub(/\[(ERROR|INFO|WEBHOOK)\]/, '')}
+        {level: 'ERROR', message: message }
       when '[INFO]'
-        {level: 'INFO', message: log.gsub(/\[(ERROR|INFO|WEBHOOK)\]/, '')}
+        {level: 'INFO', message: message }
       else
         nil
       end
     }.compact!
+    # paginate logs
+    page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1
+    @last_logs = last_logs[ (page - 1) * 20, 20]
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
 

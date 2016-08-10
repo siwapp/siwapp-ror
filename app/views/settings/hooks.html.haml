@@ -8,9 +8,10 @@
         = url_field_tag(:event_invoice_generation_url, @event_invoice_generation_url, class: 'form-control')
 .row
   .col-xs-12.col-md-6.col-xl-4
-    - @last_logs.each do |i|
-      %p{class: i[:level] == 'ERROR' ? 'alert alert-danger' : 'alert alert-info'}
-        = i[:message]
+    - if @last_logs
+      - @last_logs.each do |i|
+        %p{class: i[:level] == 'ERROR' ? 'alert alert-danger' : 'alert alert-info'}
+          = i[:message]
 
 
 .action-buttons
