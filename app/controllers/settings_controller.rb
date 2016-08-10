@@ -93,9 +93,15 @@ class SettingsController < ApplicationController
         nil
       end
     }.compact!
+
     # paginate logs
     page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1
-    @last_logs = last_logs[ (page - 1) * 20, 20]
+    @paged_logs = last_logs[ (page - 1) * 20, 20]
+
+    #pagination info
+    @previous_page = page > 1 ? page - 1 : nil
+    @next_page = last_logs[page * 20, 20] ? page + 1 : nil
+
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
 
