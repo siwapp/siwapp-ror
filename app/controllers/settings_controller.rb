@@ -96,7 +96,7 @@ class SettingsController < ApplicationController
 
     # paginate logs
     page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1
-    @paged_logs = last_logs[ (page - 1) * 20, 20]
+    @paged_logs = last_logs ? last_logs[ (page - 1) * 20, 20] : nil
 
     #pagination info
     @previous_page = page > 1 ? page - 1 : nil
