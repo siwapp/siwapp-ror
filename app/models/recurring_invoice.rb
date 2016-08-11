@@ -49,7 +49,6 @@ class RecurringInvoice < Common
   end
 
   def generate_pending_invoices
-    Rails.logger.info "GENERATE PENDING INVOICES"
     if !status?
       return
     end
