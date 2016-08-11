@@ -78,21 +78,7 @@ class SettingsController < ApplicationController
     end
 
     # grab last logs
-    last_logs = `tac log/#{Rails.env}.log | grep WEBHOOK | head -n 1500`.split("\n").collect { |log|
-      m = log.match(/\[(ERROR|INFO)\]/)
-      if !m
-        next
-      end
-      message = log.gsub /\[(ERROR|INFO|WEBHOOK)\]/, ''
-      case m[0]
-      when '[ERROR]'
-        {level: 'ERROR', message: message }
-      when '[INFO]'
-        {level: 'INFO', message: message }
-      else
-        nil
-      end
-    }.compact!
+    last_logs = WebhookLog.order(created_at: :desc).where event: :invoice_generation
 
     # paginate logs
     page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1

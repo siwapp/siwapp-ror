@@ -10,7 +10,7 @@
   .col-xs-12.col-md-6.col-xl-4
     - if @paged_logs
       - @paged_logs.each do |i|
-        %p{class: i[:level] == 'ERROR' ? 'alert alert-danger' : 'alert alert-info'}
+        %p{class: i[:level] == 'error' ? 'alert alert-danger' : 'alert alert-info'}
           = i[:message]
 .row
   .col-xs-12.col-md-6.col-xl-4
