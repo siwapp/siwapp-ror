@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160811093550) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -53,15 +53,15 @@ ActiveRecord::Schema.define(version: 0) do
     t.integer  "template_id",          limit: 4
   end
 
-  add_index "commons", ["contact_person"], where: "deleted_at IS NULL", name: "cntct_idx", using: :btree
-  add_index "commons", ["customer_id"], where: "deleted_at IS NULL", name: "customer_id_idx", using: :btree
+  add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
+  add_index "commons", ["customer_id"], name: "customer_id_idx", using: :btree
   add_index "commons", ["deleted_at"], name: "deleted_at_idx", using: :btree
-  add_index "commons", ["email"], name: "cstml_idx", where: "deleted_at IS NULL", using: :btree
-  add_index "commons", ["identification"], name: "cstid_idx", where: "deleted_at IS NULL", using: :btree
-  add_index "commons", ["name"], name: "cstnm_idx", where: "deleted_at IS NULL", using: :btree
-  add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", where: "deleted_at IS NULL", using: :btree
-  add_index "commons", ["series_id"], name: "series_id_idx", where: "deleted_at IS NULL", using: :btree
-  add_index "commons", ["type"], name: "common_type_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "commons", ["email"], name: "cstml_idx", using: :btree
+  add_index "commons", ["identification"], name: "cstid_idx", using: :btree
+  add_index "commons", ["name"], name: "cstnm_idx", using: :btree
+  add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
+  add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
+  add_index "commons", ["type"], name: "common_type_idx", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",              limit: 100
@@ -75,26 +75,26 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
-  add_index "customers", ["name"], name: "cstm_idx", unique: true, where: "deleted_at IS NULL", using: :btree
-  add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, where: "deleted_at IS NULL", using: :btree
+  add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
+  add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
-    t.decimal  "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
-    t.decimal  "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer  "common_id",    limit: 4,                                             null: false
-    t.string   "description",  limit: 20000
+    t.decimal  "quantity",                    precision: 53, scale: 15, default: 1.0, null: false
+    t.decimal  "discount",                    precision: 53, scale: 2,  default: 0.0, null: false
+    t.integer  "common_id",     limit: 4,                                             null: false
+    t.string   "description",   limit: 20000
     t.date     "previous_date"
     t.date     "current_date"
     t.date     "next_date"
-    t.decimal  "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
-    t.integer  "product_id",   limit: 4
+    t.decimal  "unitary_cost",                precision: 53, scale: 15, default: 0.0, null: false
+    t.integer  "product_id",    limit: 4
     t.datetime "deleted_at"
   end
 
-  add_index "items", ["common_id"], name: "common_id_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "items", ["common_id"], name: "common_id_idx", using: :btree
   add_index "items", ["deleted_at"], name: "item_deleted_at_idx", using: :btree
-  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, where: "deleted_at IS NULL", using: :btree
-  add_index "items", ["product_id"], name: "item_product_id_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, using: :btree
+  add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
 
   create_table "items_taxes", id: false, force: :cascade do |t|
     t.integer "item_id", limit: 4, default: 0, null: false
@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "payments", ["deleted_at"], name: "payment_deleted_at_idx", using: :btree
-  add_index "payments", ["invoice_id"], name: "invoice_id_idx", where: "deleted_at IS NULL", using: :btree
+  add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
 
   create_table "products", force: :cascade do |t|
     t.string   "reference",   limit: 100,                                           null: false
@@ -178,7 +178,6 @@ ActiveRecord::Schema.define(version: 0) do
 
   add_index "taxes", ["deleted_at"], name: "tax_deleted_at_idx", using: :btree
 
-
   create_table "templates", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "template",   limit: 65535
@@ -201,5 +200,15 @@ ActiveRecord::Schema.define(version: 0) do
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+
+  create_table "webhook_logs", force: :cascade do |t|
+    t.string   "level",      limit: 255, default: "info", null: false
+    t.string   "message",    limit: 255
+    t.string   "event",      limit: 255,                  null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "webhook_logs", ["event"], name: "index_webhook_logs_on_event", using: :btree
 
 end

@@ -1,21 +1,20 @@
 class SiwappHooks
   def invoice_generation(inv)
     unless Settings.event_invoice_generation_url.blank?
-      datetime = DateTime.now.strftime '%Y-%m-%d %H:%M'
       begin
         response = HTTP.post(
                    Settings.event_invoice_generation_url,
                    :json => JSON.parse(inv.to_jbuilder.target!)
                    )
         if response.code / 100 == 2
-          Rails.logger.tagged("WEBHOOK", "INFO") { Rails.logger.info "#{datetime} Invoice #{inv} successfully posted" }
+          WebhookLog.create level: 'info', message: "Invoice #{inv} successfully posted", event: :invoice_generation
         else
-          Rails.logger.tagged("WEBHOOK", "ERROR") { Rails.logger.error "#{datetime} Invoice #{inv} couldn't be posted. Error #{response.code}" }
+          WebhookLog.create level: 'error', message: "Invoice #{inv} couldn't be posted. Error #{response.code}", event: :invoice_generation
         end
       rescue ActiveRecord::RecordNotFound
-        Rails.logger.tagged("WEBHOOK", "ERROR") { Rails.logger.error "#{datetime} Invoice #{inv} not found" }
+        WebhookLog.create level: 'error', message: "Invoice #{inv} not found", event: :invoice_generation
       rescue HTTP::Error => error
-        Rails.logger.tagged("WEBHOOK", "ERROR") { Rails.error "#{datetime} Error posting #{inv}: #{error}" }
+        WebhookLog.create level: 'error', message: "Error posting #{inv}: #{error}", event: :invoice_generation
       end
     end
   end
