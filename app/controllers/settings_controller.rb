@@ -100,7 +100,7 @@ class SettingsController < ApplicationController
 
     #pagination info
     @previous_page = page > 1 ? page - 1 : nil
-    @next_page = (last_logs and last_logs[page * 20, 20]) ? page + 1 : nil
+    @next_page = last_logs[page * 20, 20] ? page + 1 : nil
 
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
