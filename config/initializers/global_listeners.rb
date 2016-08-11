@@ -1,6 +1,5 @@
 class SiwappHooks
   def invoice_generation(inv)
-    Rails.logger { Rails.logger.info "Hey man, inside invoice generation"}
     unless Settings.event_invoice_generation_url.blank?
       datetime = DateTime.now.strftime '%Y-%m-%d %H:%M'
       begin
