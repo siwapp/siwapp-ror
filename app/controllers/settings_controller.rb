@@ -77,16 +77,23 @@ class SettingsController < ApplicationController
       redirect_to action: :hooks
     end
 
-    # grab last logs
-    last_logs = WebhookLog.order(created_at: :desc).where event: :invoice_generation
-
-    # paginate logs
+    # log count
+    total_logs = WebhookLog.order(created_at: :desc).where(event: :invoice_generation).count
+    # pagination math
+    if total_logs < 20
+      num_pages = 1
+    else
+      num_pages = total_logs / 20 + ( total_logs % 20 == 0 ? 0 : 1)
+    end
+    # pagination parameters
     page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1
-    @paged_logs = last_logs[ (page - 1) * 20, 20]
+
+    # fetch paged logs
+    @paged_logs = WebhookLog.order(created_at: :desc).limit(20).offset((page-1)*20).where event: :invoice_generation
 
     #pagination info
     @previous_page = page > 1 ? page - 1 : nil
-    @next_page = last_logs[page * 20, 20] ? page + 1 : nil
+    @next_page = page < num_pages ? page + 1 : nil
 
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
