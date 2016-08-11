@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       payment = {
         'payment'=> {
           'notes' => 'new notes',
-          'date' => Date.today.strftime('%Y-%m-%d'),
+          'date' => Date.current.strftime('%Y-%m-%d'),
           'amount' => 33.3
           }
       }
@@ -66,7 +66,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       # notes modified
       expect(json['notes']).to eql 'modified NOTES'
       # date not
-      expect(json['date']).to eql Date.today.strftime('%Y-%m-%d')
+      expect(json['date']).to eql Date.current.strftime('%Y-%m-%d')
       # db, too
       expect(Payment.find(json['id']).notes).to eql 'modified NOTES'
     end

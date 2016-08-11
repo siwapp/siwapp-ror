@@ -59,14 +59,14 @@ class RecurringInvoice < Common
 
     generated_invoices = []
 
-    while next_date <= [Date.today, finishing_date.blank? ? Date.today + 1 : finishing_date].min and
+    while next_date <= [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min and
         (max_occurrences.nil? or occurrences < max_occurrences) do
       inv = self.becomes(Invoice).deep_clone include: { items: :taxes}, except: [:period, :period_type, :starting_date, :finishing_date, :max_occurrences]
 
       inv.recurring_invoice_id = self.id
       inv.status = 'Open'
       inv.issue_date = next_date
-      inv.due_date = Date.today + days_to_due.days if days_to_due
+      inv.due_date = Date.current + days_to_due.days if days_to_due
 
       inv.items.each do |item|
         item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')
@@ -118,7 +118,7 @@ class RecurringInvoice < Common
           : actual.starting_date
 
       # is it within range?
-      if next_date > Date.today or !next_date.in? (actual.starting_date...ending_date)
+      if next_date > Date.current or !next_date.in? (actual.starting_date...ending_date)
         next
       end
 

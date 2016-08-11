@@ -14,7 +14,7 @@ feature "Editing Recurring Invoices" do
 
   scenario "Updating a recurring invoice with invalid attributes is bad", :js => true, driver: :webkit do
     fill_in "Name", with: ""
-    fill_in "Starting date", with: Date.today
+    fill_in "Starting date", with: Date.current
     fill_in "Finishing date", with: Date.yesterday
     click_on "Save"
     expect(page).to have_content("Name can't be blank")

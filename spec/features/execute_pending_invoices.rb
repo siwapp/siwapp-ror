@@ -12,11 +12,11 @@ feature 'Execute Pending Invoices' do
 
   scenario 'can generate pending invoices' do
     # There is no Invoice for today
-    expect(page).not.to have_content(Date.today.to_s)
+    expect(page).not.to have_content(Date.current.to_s)
     visit 'recurring_invoices/'
     click_link 'Build Pending Invoices'
     # Now there should be 1 Invoice for today
-    expect(page).to have_content(Date.today.to_s)
+    expect(page).to have_content(Date.current.to_s)
     expect(page).to have_content('New Invoice')
 
     #invoice = RecurringInvoice.where(name: 'Test Customer').first

@@ -29,7 +29,7 @@ class RecurringInvoicesController < CommonsController
   # as values
   def chart_data
     # date_from = (params[:q].nil? or params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
-    # date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.today : Date.parse(params[:q][:issue_date_lteq])
+    # date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
     # scope = @search.result(distinct: true)
     # scope = scope.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
