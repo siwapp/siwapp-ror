@@ -46,6 +46,46 @@ class Common < ActiveRecord::Base
     restore! recursive: true
   end
 
+
+  def get_meta(key)
+    if self.meta_attributes?
+      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
+      attributes[key]
+    end
+  end
+
+  def set_meta(key, value)
+    if self.meta_attributes?
+      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
+    else
+      attributes = {}
+    end
+    attributes[key] = value
+    attributes = ActiveSupport::JSON.encode(attributes)
+    self.meta_attributes = attributes
+    self.save
+  end
+
+  def set_meta_multi(attr_hash)
+    attributes = {}
+    attr_hash.each do |key, value|
+      attributes[key] = value
+    end
+    self.meta_attributes = ActiveSupport::JSON.encode(attributes)
+    self.save  
+  end
+
+  def meta()
+    puts "XXX"
+    puts self.meta_attributes
+    if self.meta_attributes?
+      puts "ES AQUI"
+      return ActiveSupport::JSON.decode(self.meta_attributes)
+    else
+      return {}
+    end
+  end
+
 protected
 
   # Declare scopes for search

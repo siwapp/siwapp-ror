@@ -45,9 +45,11 @@ class Api::V1::CommonsController < Api::V1::BaseController
               :shipping_address => type_params[:shipping_address]
             )
           end
-
           get_instance.update(:customer_id => customer.id)
         end
+        puts "TYPE PARAMS"
+        puts type_params
+
         format.json { render sti_template(@type, :show), status: :created, location: get_instance }
       else
         format.json { render json: get_instance.errors, status: :unprocessable_entity }
