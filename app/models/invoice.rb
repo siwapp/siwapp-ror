@@ -15,6 +15,8 @@ class Invoice < Common
   after_update :purge_payments
   after_save :update_paid
 
+  attr_accessor :meta
+
   scope :with_status, ->(status) {
     return nil if status.empty?
     status = status.to_sym
@@ -46,6 +48,37 @@ class Invoice < Common
     end
   end
 
+  def get_meta(key)
+    if self.meta_attributes?
+      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
+      attributes[key]
+    end
+  end
+
+  def set_meta(key, value)
+    if self.meta_attributes?
+      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
+    else
+      attributes = {}
+    end
+    attributes[key] = value
+    attributes = ActiveSupport::JSON.encode(attributes)
+    self.meta_attributes = attributes
+    self.save
+  end
+
+  def set_meta_multi(attr_hash)
+    attributes = {}
+    attr_hash.each do |key, value|
+      attributes[key] = value
+    end
+    self.meta_attributes = ActiveSupport::JSON.encode(attributes)
+    self.save  
+  end
+
+  def meta()
+    ActiveSupport::JSON.decode(self.meta_attributes)
+  end
 
 protected
 

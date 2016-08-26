@@ -59,6 +59,24 @@ jQuery(document).ready ($) ->
     $(this).closest('nav').find('[data-toggle="collapse"]').not(this).each () ->
       $($(this).data('target')).collapse('hide')
 
+  # DIY Nested Forms: necessary when no model relation
+  $('[data-role="add-item"]').on 'click', (e) ->
+    e.preventDefault()
+    insertionNode = $(this).data('insertion-node')
+    nested = $(insertionNode).children('.invoice-row').last().clone()
+    nested.find("input").val("")
+  
+    $(insertionNode).append(nested)
+  
+  $('[data-role="remove-item"]').on 'click', (e) ->
+    console.log "HELLO"
+    e.preventDefault()
+    $this = $(this)
+    wrapper = $this.data("wrapper-class")
+    $(this).parents(".#{wrapper}").remove()
+
+  
+
   #
   # Invoice-like Forms
   #

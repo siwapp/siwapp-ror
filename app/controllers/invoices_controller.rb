@@ -181,7 +181,8 @@ class InvoicesController < CommonsController
         :amount,
         :notes,
         :_destroy
-      ]
+      ] 
+      
     ]
   end
 end

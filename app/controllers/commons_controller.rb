@@ -38,9 +38,15 @@ class CommonsController < ApplicationController
   # POST /commons
   # POST /commons.json
   def create
-    set_instance model.new(type_params)
+    instance = model.new(type_params)
+    set_instance instance
     respond_to do |format|
       if get_instance.save
+        attributes = {}
+        params[:key].zip(params[:value]).each do |key, value|
+          attributes[key] = value
+        end
+        instance.set_meta_multi(attributes)
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == ''
           customer = Customer.create(
@@ -79,10 +85,17 @@ class CommonsController < ApplicationController
   # PATCH/PUT /commons/1.json
   def update
     respond_to do |format|
-      if get_instance.update(type_params)
+      instance = get_instance
+      attributes = {}
+      params[:key].zip(params[:value]).each do |key, value|
+        attributes[key] = value
+      end
+      instance.set_meta_multi(attributes)
+
+      if instance.update(type_params)
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
-        format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
+        format.json { render sti_template(@type, :show), status: :ok, location: instance }  # TODO: test
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }

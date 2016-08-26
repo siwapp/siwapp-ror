@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160811093550) do
     t.datetime "updated_at",                                                                   null: false
     t.datetime "deleted_at"
     t.integer  "template_id",          limit: 4
+    t.text     "meta_attributes",                                                              null: true
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
