@@ -43,8 +43,10 @@ class CommonsController < ApplicationController
     respond_to do |format|
       if get_instance.save
         attributes = {}
-        params[:key].zip(params[:value]).each do |key, value|
-          attributes[key] = value
+        if params[:key] and params[:value]
+          params[:key].zip(params[:value]).each do |key, value|
+            attributes[key] = value
+          end
         end
         instance.set_meta_multi(attributes)
         # if there is no customer associated then create a new one
@@ -87,8 +89,10 @@ class CommonsController < ApplicationController
     respond_to do |format|
       instance = get_instance
       attributes = {}
-      params[:key].zip(params[:value]).each do |key, value|
-        attributes[key] = value
+      if params[:key] and params[:value]
+        params[:key].zip(params[:value]).each do |key, value|
+          attributes[key] = value
+        end
       end
       instance.set_meta_multi(attributes)
 

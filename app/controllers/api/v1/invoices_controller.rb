@@ -56,7 +56,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
       :tag_list,
 
-      { items_attributes: [
+      {items_attributes: [
         :id,
         :description,
         :quantity,

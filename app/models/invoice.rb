@@ -77,7 +77,11 @@ class Invoice < Common
   end
 
   def meta()
-    ActiveSupport::JSON.decode(self.meta_attributes)
+    if self.meta_attributes?
+      ActiveSupport::JSON.decode(self.meta_attributes)
+    else
+      {}
+    end
   end
 
 protected
