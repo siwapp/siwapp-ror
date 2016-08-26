@@ -56,21 +56,21 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
       :tag_list,
 
-      {items_attributes: [
+      :items => [
         :id,
         :description,
         :quantity,
         :unitary_cost,
         :discount,
-        {:tax_ids => []}
-      ]},
+        :tax_ids => []
+      ],
 
-      {payments_attributes: [
+      :payments => [
         :id,
         :date,
         :amount,
         :notes
-      ]}
+      ]
     ]
   end
 

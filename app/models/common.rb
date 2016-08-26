@@ -76,10 +76,7 @@ class Common < ActiveRecord::Base
   end
 
   def meta()
-    puts "XXX"
-    puts self.meta_attributes
     if self.meta_attributes?
-      puts "ES AQUI"
       return ActiveSupport::JSON.decode(self.meta_attributes)
     else
       return {}

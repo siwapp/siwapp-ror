@@ -47,8 +47,6 @@ class Api::V1::CommonsController < Api::V1::BaseController
           end
           get_instance.update(:customer_id => customer.id)
         end
-        puts "TYPE PARAMS"
-        puts type_params
 
         format.json { render sti_template(@type, :show), status: :created, location: get_instance }
       else
@@ -61,6 +59,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # PATCH/PUT /commons/1.json
   def update
     respond_to do |format|
+
       if get_instance.update(type_params)
         # Redirect to index
         format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
@@ -78,8 +77,6 @@ class Api::V1::CommonsController < Api::V1::BaseController
       format.json { head :no_content }
     end
   end
-
-
 
 
 
