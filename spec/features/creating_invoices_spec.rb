@@ -14,7 +14,7 @@ feature 'Creating Invoices' do
 
     fill_in 'Name', with: 'Test Customer'
     fill_in 'Email', with: 'pepe@abc.com'
-    fill_in 'Issue date', with: Date.today
+    fill_in 'Issue date', with: Date.current
 
     click_on 'Save'
     expect(page).to have_content('Invoice was successfully created.')

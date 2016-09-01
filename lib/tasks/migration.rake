@@ -91,7 +91,7 @@ namespace :siwapp do
     client.query("ALTER TABLE payment ADD created_at datetime")
     client.query("ALTER TABLE payment ADD updated_at datetime")
     client.query("ALTER TABLE payment ADD deleted_at datetime DEFAULT NULL")
-    current_date = DateTime.now.strftime('%Y/%m/%d %H:%M:%S')
+    current_date = DateTime.current.strftime('%Y/%m/%d %H:%M:%S')
     client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
     client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
     client.query("ALTER TABLE payment CHANGE updated_at updated_at datetime NOT NULL")
@@ -157,7 +157,7 @@ namespace :siwapp do
     client.query("ALTER TABLE `tagging` ADD INDEX `index_taggings_on_taggable_id_and_taggable_type_and_context` (`taggable_id`, `taggable_type`, `context`)")
     client.query("RENAME TABLE `tagging` TO `taggings`")
 
-    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.now.strftime('%Y/%m/%d %H:%M:%S') << "'")
+    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.current.strftime('%Y/%m/%d %H:%M:%S') << "'")
 
     # Update taggings_count
 

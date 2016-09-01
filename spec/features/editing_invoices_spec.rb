@@ -12,7 +12,7 @@ feature 'Editing Invoices' do
   scenario 'Updating an Invoice', :js => true, driver: :webkit do
     fill_in 'Name', with: 'Different Name'
     fill_in 'Email', with: 'different.name@test.com'
-    fill_in 'Due date', with: Date.today + 30
+    fill_in 'Due date', with: Date.current + 30
     click_on 'Save'
     expect(page).to have_content("Invoice was successfully updated")
   end
@@ -68,7 +68,7 @@ feature 'Editing Invoices' do
       # default amount: what's left to pay. rounded with precision of 2
       expect(find('input[name*="amount"]').value.to_f).to eq 25.77
       # default date: today
-      expect(find('input[name*="date"]').value).to eq Date.today.iso8601
+      expect(find('input[name*="date"]').value).to eq Date.current.iso8601
     end
 
     # click over "remove payment"
