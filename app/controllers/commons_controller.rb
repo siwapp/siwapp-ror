@@ -1,6 +1,7 @@
 class CommonsController < ApplicationController
   include StiHelper
   include CommonsHelper
+  include MetaAttributesController
 
   before_action :set_type
   before_action :configure_search, only: [:index, :chart_data]
@@ -43,13 +44,7 @@ class CommonsController < ApplicationController
     set_instance instance
     respond_to do |format|
       if get_instance.save
-        attributes = {}
-        if params[:key] and params[:value]
-          params[:key].zip(params[:value]).each do |key, value|
-            attributes[key] = value
-          end
-        end
-        instance.set_meta_multi(attributes)
+        set_meta instance
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == ''
           customer = Customer.create(
@@ -89,14 +84,7 @@ class CommonsController < ApplicationController
   def update
     respond_to do |format|
       instance = get_instance
-      attributes = {}
-      if params[:key] and params[:value]
-        params[:key].zip(params[:value]).each do |key, value|
-          attributes[key] = value
-        end
-      end
-      instance.set_meta_multi(attributes)
-
+      set_meta instance
       if instance.update(type_params)
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }

@@ -1,4 +1,6 @@
 class Customer < ActiveRecord::Base
+  include MetaAttributes
+  
   acts_as_paranoid
   has_many :invoices
   has_many :estimates

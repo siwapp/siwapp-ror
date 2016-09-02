@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20160811093550) do
     t.string   "contact_person",    limit: 100
     t.text     "invoicing_address", limit: 65535
     t.text     "shipping_address",  limit: 65535
+    t.text     "meta_attributes",   null: true
     t.datetime "deleted_at"
   end
 

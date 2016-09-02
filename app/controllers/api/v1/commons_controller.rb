@@ -1,6 +1,7 @@
 class Api::V1::CommonsController < Api::V1::BaseController
   include CommonsHelper
   include StiHelper
+  include MetaAttributesController
 
   before_action :set_type
   before_action :configure_search, only: [:index]
@@ -29,9 +30,16 @@ class Api::V1::CommonsController < Api::V1::BaseController
   end
 
   def create
-    set_instance model.new(type_params)
+    instance = model.new(type_params)
+    set_instance instance
     respond_to do |format|
       if get_instance.save
+        # Check if there is any meta_attribute
+        if params[:meta_attributes]
+          instance.set_meta_multi params[:meta_attributes]
+        elsif params[:invoice] and params[:invoice][:meta_attributes]
+          instance.set_meta_multi params[:invoice][:meta_attributes]
+        end
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
           customer = Customer.find_by_name type_params[:name]
@@ -59,8 +67,15 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # PATCH/PUT /commons/1.json
   def update
     respond_to do |format|
-
-      if get_instance.update(type_params)
+      instance = get_instance
+      set_meta instance
+      if instance.update(type_params)
+        # Check if there is any meta_attribute
+        if params[:meta_attributes]
+          instance.set_meta_multi params[:meta_attributes]
+        elsif params[:invoice] and params[:invoice][:meta_attributes]
+          instance.set_meta_multi params[:invoice][:meta_attributes]
+        end
         # Redirect to index
         format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
       else

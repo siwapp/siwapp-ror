@@ -67,6 +67,7 @@ class RecurringInvoice < Common
       inv.status = 'Open'
       inv.issue_date = next_date
       inv.due_date = Date.current + days_to_due.days if days_to_due
+      inv.meta_attributes = meta_attributes
 
       inv.items.each do |item|
         item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')

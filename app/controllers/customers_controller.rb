@@ -1,4 +1,5 @@
 class CustomersController < ApplicationController
+  include MetaAttributesController
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
@@ -32,6 +33,7 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     @customer = Customer.new(customer_params)
+    set_meta @customer
 
     respond_to do |format|
       if @customer.save
@@ -49,6 +51,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
+        set_meta @customer
         format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
         format.json { render :show, status: :ok, location: @customer }
       else

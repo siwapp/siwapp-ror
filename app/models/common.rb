@@ -1,6 +1,9 @@
 class Common < ActiveRecord::Base
   include Util
+  include MetaAttributes
+
   acts_as_paranoid
+  
   # Relations
   belongs_to :customer
   belongs_to :series
@@ -44,43 +47,6 @@ class Common < ActiveRecord::Base
   # restore if soft deleted, along with its items
   def back_from_death
     restore! recursive: true
-  end
-
-
-  def get_meta(key)
-    if self.meta_attributes?
-      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
-      attributes[key]
-    end
-  end
-
-  def set_meta(key, value)
-    if self.meta_attributes?
-      attributes = ActiveSupport::JSON.decode(self.meta_attributes)
-    else
-      attributes = {}
-    end
-    attributes[key] = value
-    attributes = ActiveSupport::JSON.encode(attributes)
-    self.meta_attributes = attributes
-    self.save
-  end
-
-  def set_meta_multi(attr_hash)
-    attributes = {}
-    attr_hash.each do |key, value|
-      attributes[key] = value
-    end
-    self.meta_attributes = ActiveSupport::JSON.encode(attributes)
-    self.save  
-  end
-
-  def meta()
-    if self.meta_attributes?
-      return ActiveSupport::JSON.decode(self.meta_attributes)
-    else
-      return {}
-    end
   end
 
 protected
