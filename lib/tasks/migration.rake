@@ -69,6 +69,7 @@ namespace :siwapp do
     client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")
     client.query("ALTER TABLE customer CHANGE shipping_address shipping_address TEXT")
     client.query("ALTER TABLE customer ADD deleted_at datetime DEFAULT NULL")
+    client.query("ALTER TABLE customer ADD meta_attributes TEXT")
 
 
     client.query("ALTER TABLE item CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
