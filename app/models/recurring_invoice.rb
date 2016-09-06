@@ -17,9 +17,9 @@ class RecurringInvoice < Common
   after_initialize :set_default_status
 
   PERIOD_TYPES = [
-    ["Daily", "days"],
-    ["Monthly", "months"],
-    ["Yearly", "years"]
+    ["Daily", "day"],
+    ["Monthly", "month"],
+    ["Yearly", "year"]
   ].freeze
 
   # Status
@@ -96,7 +96,7 @@ class RecurringInvoice < Common
   def self.with_pending_invoices
     # candidates to have pending invoices
     candidates = with_status(1).where("period is not null").
-      where(period_type: ['days', 'months', 'years'])
+      where(period_type: ['day', 'month', 'year'])
     pendings = []
     candidates.each do |actual|
 

@@ -5,7 +5,7 @@ feature 'Execute Pending Invoices' do
   before do
     recurring_invoice = FactoryGirl.create(:recurring_invoice)
     recurring_invoice.period = 1
-    recurring_invoice.period_type = 'months'
+    recurring_invoice.period_type = 'month'
     recurring_invoice.save
     visit 'invoices/'
   end
