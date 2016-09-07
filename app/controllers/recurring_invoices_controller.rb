@@ -81,7 +81,7 @@ class RecurringInvoicesController < CommonsController
       :invoicing_address,
       :shipping_address,
 
-      :status,
+      :enabled,
       :days_to_due,
       :draft,
       :starting_date,
