@@ -96,6 +96,7 @@ namespace :siwapp do
     client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
     client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
     client.query("ALTER TABLE payment CHANGE updated_at updated_at datetime NOT NULL")
+    client.query("DELETE FROM payment WHERE amount IS NULL")
 
     client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE product CHANGE description description TEXT")
@@ -223,5 +224,8 @@ namespace :siwapp do
 
     # Load data seed
     Rake::Task['db:seed'].invoke
+
+    # Iterate saving each invoice to update status
+    Invoice.all.each {|invoice| invoice.save}
   end
 end
