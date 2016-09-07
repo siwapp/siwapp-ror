@@ -16,7 +16,7 @@ class CommonsController < ApplicationController
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
-    
+
     # series has to be included after totals calculations
     results = results.includes :series
 
@@ -33,7 +33,6 @@ class CommonsController < ApplicationController
     instance = model.new
     instance.items.new
     set_instance instance
-    @days_to_due = Integer Settings.days_to_due
     render sti_template(@type, action_name)
   end
 
@@ -129,6 +128,7 @@ class CommonsController < ApplicationController
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @tags = commons_tags
+    @days_to_due = Integer Settings.days_to_due
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts
