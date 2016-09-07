@@ -194,6 +194,18 @@ namespace :siwapp do
     client.query("RENAME TABLE tax TO taxes")
     client.query("RENAME TABLE item_tax TO items_taxes")
 
+    # Create webhooks table
+    client.query("CREATE TABLE `webhook_logs` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `level` varchar(255) NOT NULL DEFAULT 'info',
+      `message` varchar(255) DEFAULT NULL,
+      `event` varchar(255) NOT NULL,
+      `created_at` datetime NOT NULL,
+      `updated_at` datetime NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `index_webhook_logs_on_event` (`event`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
+
     # Create migrations table
     client.query("CREATE TABLE `schema_migrations` (
        `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
