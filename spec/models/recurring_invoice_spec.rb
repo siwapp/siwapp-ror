@@ -20,18 +20,18 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "active is invalid without a starting date" do
-    expect(FactoryGirl.build(:recurring_invoice, status: 1, starting_date: nil)).not_to be_valid
+    expect(FactoryGirl.build(:recurring_invoice, starting_date: nil)).not_to be_valid
   end
 
   for field in [:max_occurrences, :finishing_date]
     it "active is valid with either max_occurrences or finishing date" do
-      expect(FactoryGirl.build(:recurring_invoice, status: 1, field =>  nil)
+      expect(FactoryGirl.build(:recurring_invoice, field =>  nil)
              ).to be_valid
     end
   end
 
   it "is active per default" do
-    expect(FactoryGirl.build(:recurring_invoice).status).to eq 1
+    expect(FactoryGirl.build(:recurring_invoice).enabled).to eq true
   end
 
 

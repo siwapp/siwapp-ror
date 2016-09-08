@@ -9,12 +9,9 @@ class RecurringInvoice < Common
   # Validation
   validates :series, presence: true
   validates :name, presence: true
-  validates :starting_date, presence: true, if: :status?
-  validates :period, :period_type, presence: true, if: :status?
+  validates :starting_date, presence: true
+  validates :period, :period_type, presence: true
   validate :valid_date_range
-
-  # callbacks
-  after_initialize :set_default_status
 
   PERIOD_TYPES = [
     ["Daily", "day"],
@@ -22,20 +19,8 @@ class RecurringInvoice < Common
     ["Yearly", "year"]
   ].freeze
 
-  # Status
-  INACTIVE = 0
-  ACTIVE = 1
-
   def to_s
     "#{name}"
-  end
-
-  def get_status
-    if enabled
-      ACTIVE
-    else
-      INACTIVE
-    end
   end
 
   def next_invoice_date
@@ -125,13 +110,6 @@ class RecurringInvoice < Common
 
     if starting_date > finishing_date
       errors.add(:finishing_time, "Finishing Date must be after Starting Date")
-    end
-  end
-
-  def set_default_status
-    # default status for new records is "active"
-    if status.nil?
-      self.status = 1
     end
   end
 
