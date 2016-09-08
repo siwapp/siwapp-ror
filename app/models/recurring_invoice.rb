@@ -10,7 +10,9 @@ class RecurringInvoice < Common
   validates :series, presence: true
   validates :name, presence: true
   validates :starting_date, presence: true
-  validates :period, :period_type, presence: true
+  validates :period_type, presence: true
+  validates :period, presence: true,
+            numericality: {only_integer: true, greater_than: 0}
   validate :valid_date_range
 
   PERIOD_TYPES = [
