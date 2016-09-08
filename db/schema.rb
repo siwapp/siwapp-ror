@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907152236) do
+ActiveRecord::Schema.define(version: 20160908093323) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160907152236) do
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
   add_index "commons", ["customer_id"], name: "customer_id_idx", using: :btree
+  add_index "commons", ["deleted_at"], name: "index_commons_on_deleted_at", using: :btree
   add_index "commons", ["email"], name: "cstml_idx", using: :btree
   add_index "commons", ["identification"], name: "cstid_idx", using: :btree
   add_index "commons", ["name"], name: "cstnm_idx", using: :btree
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.text     "meta_attributes",   limit: 65535
   end
 
+  add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
   add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
@@ -91,6 +93,7 @@ ActiveRecord::Schema.define(version: 20160907152236) do
   end
 
   add_index "items", ["common_id"], name: "common_id_idx", using: :btree
+  add_index "items", ["deleted_at"], name: "index_items_on_deleted_at", using: :btree
   add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, using: :btree
   add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
 
@@ -109,6 +112,7 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.datetime "deleted_at"
   end
 
+  add_index "payments", ["deleted_at"], name: "index_payments_on_deleted_at", using: :btree
   add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
 
   create_table "products", force: :cascade do |t|
@@ -120,6 +124,8 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.datetime "deleted_at"
   end
 
+  add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
+
   create_table "series", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "value",       limit: 255
@@ -128,6 +134,8 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.boolean  "default",                 default: false
     t.datetime "deleted_at"
   end
+
+  add_index "series", ["deleted_at"], name: "index_series_on_deleted_at", using: :btree
 
   create_table "settings", force: :cascade do |t|
     t.string   "var",        limit: 255,   null: false
@@ -168,6 +176,8 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.datetime "deleted_at"
   end
 
+  add_index "taxes", ["deleted_at"], name: "index_taxes_on_deleted_at", using: :btree
+
   create_table "templates", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.text     "template",   limit: 65535
@@ -177,6 +187,8 @@ ActiveRecord::Schema.define(version: 20160907152236) do
     t.boolean  "default",                  default: false
     t.datetime "deleted_at"
   end
+
+  add_index "templates", ["deleted_at"], name: "index_templates_on_deleted_at", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",            limit: 255
