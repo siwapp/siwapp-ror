@@ -213,15 +213,6 @@ namespace :siwapp do
        UNIQUE KEY `unique_schema_migrations` (`version`)
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
 
-    # Get all migrations defined in the migrations directory
-    migrations = Dir.glob(File.expand_path('../../../db/migrate', __FILE__) + '/*.rb')
-    # Collect migration versions
-    timestamps = migrations.collect{ |f| f.split("/").last.split("_").first }
-    # And insert them into the schema_migrations table
-    timestamps.each do |version|
-      client.query("INSERT INTO `schema_migrations` (`version`) VALUES (#{version})")
-    end
-
     # Load data seed
     Rake::Task['db:seed'].invoke
 
