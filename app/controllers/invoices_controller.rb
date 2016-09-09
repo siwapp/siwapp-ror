@@ -67,9 +67,11 @@ class InvoicesController < CommonsController
     date_from = (params[:q].nil? or params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
     date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
-    scope = @search.result(distinct: true)
+    scope = @search.result.where(draft: false).\
+      where("issue_date >= :date_from AND issue_date <= :date_to",
+            {date_from: date_from, date_to: date_to})
     scope = scope.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
-    scope = scope.select('issue_date, sum(gross_amount) as total').where(draft: false).group('issue_date')
+    scope = scope.select('issue_date, sum(gross_amount) as total').group('issue_date')
 
     # build all keys with 0 values for all
     @date_totals = {}
