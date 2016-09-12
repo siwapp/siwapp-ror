@@ -3,6 +3,14 @@
 .row
   .col-xs-12.col-md-6.col-xl-4
     = form_for @smtp_settings, url: smtp_settings_update_path, method: :put, :html => {id: 'smtp-settings'} do |f|
+      - if @smtp_settings.errors.any?
+        #error_explanation
+          %h2
+            = pluralize @smtp_settings.errors.count, "error"
+            prohibited these settings from being saved:
+          %ul
+            - @global_settings.errors.full_messages.each do |message|
+              %li= message
       %fieldset
         %legend Server
 

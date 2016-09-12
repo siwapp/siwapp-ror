@@ -9,9 +9,14 @@ class SmtpSettingsController < ApplicationController
 
   def update
     @smtp_settings = SmtpSettings.new smtp_settings_params
-    @smtp_settings.save_settings
+
     respond_to do |format|
-      format.html { redirect_to action: :edit}
+      if @smtp_settings.save_settings
+        format.html { redirect_to smtp_settings_edit_path, notice: "SMTP settings successfully saved"}
+      else
+        flash.now[:alert] = "SMTP settings couldn't be saved"
+        format.html { render 'smtp_settings/edit' }
+      end
     end
   end
 

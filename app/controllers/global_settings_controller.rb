@@ -9,9 +9,13 @@ class GlobalSettingsController < ApplicationController
 
   def update
     @global_settings = GlobalSettings.new global_settings_params
-    @global_settings.save_settings
     respond_to do |format|
-      format.html { redirect_to action: :edit}
+      if @global_settings.save_settings
+        format.html { redirect_to global_settings_edit_path, notice: "Global settings successfully saved"}
+      else
+        flash.now[:alert] = "Global settings could not be saved"
+        format.html {render 'global_settings/edit'}
+      end
     end
   end
 
