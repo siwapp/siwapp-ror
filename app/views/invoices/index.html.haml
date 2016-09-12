@@ -26,6 +26,7 @@
             %th.no-wrap= sort_link(@search, :series_value, "Number")
             %th.no-wrap= sort_link(@search, :name, "Customer Name")
             %th.no-wrap= sort_link(@search, :issue_date, "Date")
+            %th.text-center= sort_link(@search, :sent_by_email, "Sent")
             %th.text-center= sort_link(@search, :status, "Status")
             %th.text-right Pending
             %th.text-right= sort_link(@search, :gross_amount, "Total")

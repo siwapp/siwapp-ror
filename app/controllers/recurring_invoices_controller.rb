@@ -2,9 +2,7 @@ class RecurringInvoicesController < CommonsController
 
   def generate
     # Generates pending invoices up to today
-    for r in RecurringInvoice.with_pending_invoices
-      r.generate_pending_invoices
-    end
+    RecurringInvoice.generate_pending_invoices
     redirect_to invoices_url
   end
 
