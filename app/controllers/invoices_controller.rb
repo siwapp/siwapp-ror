@@ -89,8 +89,12 @@ class InvoicesController < CommonsController
 
   def send_email
     @invoice = Invoice.find(params[:id])
-    @invoice.send_email
-    redirect_to :back, notice: "Email successfully sent."
+    begin
+      @invoice.send_email
+      redirect_to :back, notice: "Email successfully sent."
+    rescue Exception => e
+      redirect_to :back, alert: e.message
+    end
   end
 
   # Bulk actions for the invoices listing
@@ -103,8 +107,12 @@ class InvoicesController < CommonsController
         invoices.destroy_all
         flash[:info] = "Successfully deleted #{ids.length} invoices."
       when 'send_email'
-        invoices.each {|inv| inv.send_email}
-        flash[:info] = "Successfully sent #{ids.length} emails."
+        begin
+          invoices.each {|inv| inv.send_email}
+          flash[:info] = "Successfully sent #{ids.length} emails."
+        rescue Exception => e
+          flash[:alert] = e.message
+        end
       when 'set_paid'
         invoices.each {|inv| inv.set_paid}
         flash[:info] = "Successfully set as paid #{ids.length} invoices."

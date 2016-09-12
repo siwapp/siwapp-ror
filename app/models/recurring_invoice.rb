@@ -56,12 +56,10 @@ class RecurringInvoice < Common
       next_date += period.send period_type
       occurrences += 1
       generated_invoices.append inv
-      inv.save # de momento.
+      if inv.save
+        inv.send_email if self.sent_by_email  # If recurring is set to send emails
+      end
     end
-
-      # if inv.save
-      #   inv.send_email if self.sent_by_email  # If recurring is set to send emails
-      # end
 
     save
     generated_invoices
