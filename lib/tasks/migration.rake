@@ -64,6 +64,7 @@ namespace :siwapp do
     client.query("ALTER TABLE common ADD deleted_at datetime DEFAULT NULL")
     client.query("ALTER TABLE common ADD template_id INT DEFAULT NULL")
     client.query("ALTER TABLE common ADD meta_attributes TEXT")
+    client.query("update common set draft=0 where type='RecurringInvoice'")
 
     client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")
