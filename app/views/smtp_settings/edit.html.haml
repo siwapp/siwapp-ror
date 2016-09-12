@@ -1,0 +1,48 @@
+%h1 SMTP Settings
+
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = form_for @smtp_settings, url: smtp_settings_update_path, method: :put, :html => {id: 'smtp-settings'} do |f|
+      %fieldset
+        %legend Server
+
+        .form-group
+          = f.label :host, "Host:"
+          = f.text_field :host, class: 'form-control'
+        .form-group
+          = f.label :port, "Port:"
+          = f.text_field :port, class: 'form-control'
+        .form-group
+          = f.label :domain, "Domain:"
+          = f.text_field :domain, class: 'form-control'
+
+      %fieldset
+        %legend Authentication
+
+        .form-group
+          = f.label :user, "User:"
+          = f.email_field :user, class: 'form-control'
+        .form-group
+          = f.label :password, "Password:"
+          = f.password_field :password, class: 'form-control'
+        .form-group
+          = f.label :authentication, "Authentication:"
+          = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'
+        .checkbox
+          %label
+            = f.check_box :enable_starttls_auto
+            Enable
+            %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
+
+      %fieldset
+        %legend E-mail to send with invoices
+        .form-group
+          = f.label :email_subject, "Email subject:"
+          = f.text_field :email_subject, class: 'form-control autosize'
+        .form-group
+          = f.label :email_body, "Email body:"
+          = f.text_area :email_body, class: 'form-control autosize', rows: '3'
+
+
+.action-buttons
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

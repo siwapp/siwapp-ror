@@ -1,17 +1,17 @@
 class GlobalSettingsController < ApplicationController
 
-  def new
+  def edit
     @global_settings = GlobalSettings.new
     respond_to do |format|
       format.html
     end
   end
 
-  def create
+  def update
     @global_settings = GlobalSettings.new global_settings_params
     @global_settings.save_settings
     respond_to do |format|
-      format.html { redirect_to action: :new}
+      format.html { redirect_to action: :edit}
     end
   end
 

@@ -2,7 +2,7 @@
 
 .row
   .col-xs-12.col-md-6.col-xl-4
-    =form_for @global_settings, url: global_settings_path, :html => {id: 'global-settings'}  do |f|
+    =form_for @global_settings, url: global_settings_update_path, method: :put, :html => {id: 'global-settings'}  do |f|
       .form-group
         = f.label :company_name, "Company Name:"
         = f.text_field :company_name, class: 'form-control'

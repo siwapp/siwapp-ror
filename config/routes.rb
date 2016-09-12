@@ -49,7 +49,11 @@ Rails.application.routes.draw do
   post 'settings/hooks'
   get 'settings/api_token'
   post 'settings/api_token'
-  resources :global_settings, only: [:new, :create]
+  get 'global_settings/edit'
+  put 'global_settings/update'
+  get 'smtp_settings/edit'
+  put 'smtp_settings/update'
+
 
   # API
   namespace :api do
