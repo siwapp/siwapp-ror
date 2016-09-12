@@ -15,10 +15,9 @@
       Total Tax
       %span.label.label-default.label-pill.pull-right= display_money @tax
 
-- if @has_pendings
-  %div
-    = link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post
-    = @get_pendings
+%div
+  = link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post
+  = @get_pendings
 
 
 = form_tag remove_recurring_invoices_path, method: :delete, id: 'js-list-form' do

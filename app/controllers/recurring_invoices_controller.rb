@@ -8,11 +8,6 @@ class RecurringInvoicesController < CommonsController
     redirect_to invoices_url
   end
 
-  def index
-    @has_pendings = (not RecurringInvoice.with_pending_invoices.empty?)
-    super
-  end
-
   # DELETE
   # bulk deletes selected elements on list
   def remove
