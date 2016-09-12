@@ -96,6 +96,7 @@ class RecurringInvoice < Common
 
       pendings.append actual
     end
+    pendings
   end
 
   def test
