@@ -63,11 +63,14 @@ namespace :siwapp do
     client.query("ALTER TABLE common DROP last_execution_date")
     client.query("ALTER TABLE common ADD deleted_at datetime DEFAULT NULL")
     client.query("ALTER TABLE common ADD template_id INT DEFAULT NULL")
+    client.query("ALTER TABLE common ADD meta_attributes TEXT")
+    client.query("update common set draft=0 where type='RecurringInvoice'")
 
     client.query("ALTER TABLE customer CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE customer CHANGE invoicing_address invoicing_address TEXT")
     client.query("ALTER TABLE customer CHANGE shipping_address shipping_address TEXT")
     client.query("ALTER TABLE customer ADD deleted_at datetime DEFAULT NULL")
+    client.query("ALTER TABLE customer ADD meta_attributes TEXT")
 
 
     client.query("ALTER TABLE item CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
@@ -90,10 +93,11 @@ namespace :siwapp do
     client.query("ALTER TABLE payment ADD created_at datetime")
     client.query("ALTER TABLE payment ADD updated_at datetime")
     client.query("ALTER TABLE payment ADD deleted_at datetime DEFAULT NULL")
-    current_date = DateTime.now.strftime('%Y/%m/%d %H:%M:%S')
+    current_date = DateTime.current.strftime('%Y/%m/%d %H:%M:%S')
     client.query("UPDATE payment SET created_at = '" << current_date << "', updated_at = '" << current_date << "'")
     client.query("ALTER TABLE payment CHANGE created_at created_at datetime NOT NULL")
     client.query("ALTER TABLE payment CHANGE updated_at updated_at datetime NOT NULL")
+    client.query("DELETE FROM payment WHERE amount IS NULL")
 
     client.query("ALTER TABLE product CHANGE `id` `id` INT NOT NULL AUTO_INCREMENT")
     client.query("ALTER TABLE product CHANGE description description TEXT")
@@ -156,7 +160,7 @@ namespace :siwapp do
     client.query("ALTER TABLE `tagging` ADD INDEX `index_taggings_on_taggable_id_and_taggable_type_and_context` (`taggable_id`, `taggable_type`, `context`)")
     client.query("RENAME TABLE `tagging` TO `taggings`")
 
-    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.now.strftime('%Y/%m/%d %H:%M:%S') << "'")
+    client.query("UPDATE `taggings` SET `taggable_type` = 'Common', `context` = 'tags', `created_at` = '" << DateTime.current.strftime('%Y/%m/%d %H:%M:%S') << "'")
 
     # Update taggings_count
 
@@ -192,22 +196,28 @@ namespace :siwapp do
     client.query("RENAME TABLE tax TO taxes")
     client.query("RENAME TABLE item_tax TO items_taxes")
 
+    # Create webhooks table
+    client.query("CREATE TABLE `webhook_logs` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `level` varchar(255) NOT NULL DEFAULT 'info',
+      `message` varchar(255) DEFAULT NULL,
+      `event` varchar(255) NOT NULL,
+      `created_at` datetime NOT NULL,
+      `updated_at` datetime NOT NULL,
+      PRIMARY KEY (`id`),
+      KEY `index_webhook_logs_on_event` (`event`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
+
     # Create migrations table
     client.query("CREATE TABLE `schema_migrations` (
        `version` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
        UNIQUE KEY `unique_schema_migrations` (`version`)
        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci")
 
-    # Get all migrations defined in the migrations directory
-    migrations = Dir.glob(File.expand_path('../../../db/migrate', __FILE__) + '/*.rb')
-    # Collect migration versions
-    timestamps = migrations.collect{ |f| f.split("/").last.split("_").first }
-    # And insert them into the schema_migrations table
-    timestamps.each do |version|
-      client.query("INSERT INTO `schema_migrations` (`version`) VALUES (#{version})")
-    end
-
     # Load data seed
     Rake::Task['db:seed'].invoke
+
+    # Iterate saving each invoice to update status
+    Invoice.all.each {|invoice| invoice.save}
   end
 end

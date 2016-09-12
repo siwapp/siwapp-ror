@@ -1,6 +1,7 @@
 class CommonsController < ApplicationController
   include StiHelper
   include CommonsHelper
+  include MetaAttributesController
 
   before_action :set_type
   before_action :configure_search, only: [:index, :chart_data]
@@ -15,6 +16,7 @@ class CommonsController < ApplicationController
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
+
     # series has to be included after totals calculations
     results = results.includes :series
 
@@ -31,16 +33,17 @@ class CommonsController < ApplicationController
     instance = model.new
     instance.items.new
     set_instance instance
-    @days_to_due = Integer Settings.days_to_due
     render sti_template(@type, action_name)
   end
 
   # POST /commons
   # POST /commons.json
   def create
-    set_instance model.new(type_params)
+    instance = model.new(type_params)
+    set_instance instance
     respond_to do |format|
       if get_instance.save
+        set_meta instance
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == ''
           customer = Customer.create(
@@ -79,10 +82,12 @@ class CommonsController < ApplicationController
   # PATCH/PUT /commons/1.json
   def update
     respond_to do |format|
-      if get_instance.update(type_params)
+      instance = get_instance
+      set_meta instance
+      if instance.update(type_params)
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
-        format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
+        format.json { render sti_template(@type, :show), status: :ok, location: instance }  # TODO: test
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }
@@ -123,6 +128,7 @@ class CommonsController < ApplicationController
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @tags = commons_tags
+    @days_to_due = Integer Settings.days_to_due
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts

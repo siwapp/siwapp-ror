@@ -18,6 +18,12 @@ class Api::V1::CustomersController < Api::V1::BaseController
     @customer = Customer.new customer_params
     respond_to do |format|
       if @customer.save
+        # Check if there is any meta_attribute
+        if params[:meta_attributes]
+          @customer.set_meta_multi params[:meta_attributes]
+        elsif params[:invoice] and params[:invoice][:meta_attributes]
+          @customer.set_meta_multi params[:invoice][:meta_attributes]
+        end
         format.json { render :show, status: :created, location: api_v1_customer_url(@customer) }
       else
         format.json { render json: @customer.errors, status: :unprocessable_entity }
@@ -28,6 +34,12 @@ class Api::V1::CustomersController < Api::V1::BaseController
   def update
     respond_to do |format|
       if @customer.update customer_params
+        # Check if there is any meta_attribute
+        if params[:meta_attributes]
+          @customer.set_meta_multi params[:meta_attributes]
+        elsif params[:invoice] and params[:invoice][:meta_attributes]
+          @customer.set_meta_multi params[:invoice][:meta_attributes]
+        end
         format.json { render :show, status: :ok, location: api_v1_customer_url(@customer)}
       else
         format.json { render json: @customer.errors, status: :unprocessable_entity }

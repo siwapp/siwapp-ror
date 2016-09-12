@@ -9,3 +9,7 @@
           %li= message
   %p
     = render partial: 'customers/form_fields', locals: {f: f}
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Meta
+    = render partial: 'shared/meta_form', locals: {f: f, instance: @customer}

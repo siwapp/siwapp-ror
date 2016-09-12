@@ -32,12 +32,12 @@ FactoryGirl.define do
       end
 
       factory :invoice, class: Invoice do
-        issue_date Date.today - 1
-        due_date Date.today + 30
+        issue_date Date.current - 1
+        due_date Date.current + 30
         after(:create) do |invoice|
           # Add some payments
-          create(:payment, invoice: invoice, date: Date.today, amount: 100)
-          create(:payment, invoice: invoice, date: Date.today + 1, amount: 25.77)
+          create(:payment, invoice: invoice, date: Date.current, amount: 100)
+          create(:payment, invoice: invoice, date: Date.current + 1, amount: 25.77)
 
           # super weird thing. iterating through invoice.items or invoice.payments
           # BEFORE the create_list calls, makes the newly created children not to
@@ -50,10 +50,10 @@ FactoryGirl.define do
       end
 
       factory :invoice_unpaid, class: Invoice do
-        issue_date Date.today - 1
-        due_date Date.today + 30
+        issue_date Date.current - 1
+        due_date Date.current + 30
         after(:create) do |i|
-          create(:payment, invoice: i, date: Date.today, amount: 100)
+          create(:payment, invoice: i, date: Date.current, amount: 100)
           i.reload
           # unpaid: 25.77
           i.save
@@ -61,8 +61,8 @@ FactoryGirl.define do
       end
 
       factory :recurring_invoice, class: RecurringInvoice do
-        starting_date Date.today
-        finishing_date Date.today + 7  # 1 week later
+        starting_date Date.current
+        finishing_date Date.current + 7  # 1 week later
         period 1
         period_type "days"
         max_occurrences 5
@@ -73,8 +73,8 @@ FactoryGirl.define do
     factory :common_random do
       factory :invoice_random, class: Invoice do
         draft {rand > 0.5}
-        issue_date Date.today - 1
-        due_date Date.today + 30
+        issue_date Date.current - 1
+        due_date Date.current + 30
 
         customer { Customer.all.sample }
         name { customer.name }
@@ -113,11 +113,11 @@ FactoryGirl.define do
         series { Series.all.sample }
 
         # Set random start (past/present) and finish (present/future) dates
-        starting_date { Date.today >> rand(-8..1) }
-        finishing_date { Date.today >> rand(1..12) }
+        starting_date { Date.current >> rand(-8..1) }
+        finishing_date { Date.current >> rand(1..12) }
 
         period { rand(1..10) }
-        period_type {['days', 'months', 'years'].sample }
+        period_type {['day', 'month', 'year'].sample }
 
         after(:create) do |recurring_invoice|
           create_list(:item_random, rand(1..10), common: recurring_invoice)

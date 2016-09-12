@@ -24,9 +24,9 @@ class Invoice < Common
     when :paid
       where(draft: false, paid: true)
     when :pending
-      where(draft: false, paid: false).where("due_date >= ?", Date.today)
+      where(draft: false, paid: false).where("due_date >= ?", Date.current)
     when :overdue
-      where(draft: false, paid: false).where("due_date < ?", Date.today)
+      where(draft: false, paid: false).where("due_date < ?", Date.current)
     end
   }
 
@@ -45,7 +45,6 @@ class Invoice < Common
       json.payments payments.collect {|payment| payment.to_jbuilder.attributes!}
     end
   end
-
 
 protected
 
@@ -77,7 +76,7 @@ public
     elsif paid
       :paid
     elsif due_date
-      if due_date > Date.today
+      if due_date > Date.current
         :pending
       else
         :overdue
@@ -109,7 +108,7 @@ public
     if unpaid_amount > 0 and not paid
       payment = Payment.create(
           invoice_id: self.id,
-          date: Date.today,
+          date: Date.current,
           amount: unpaid_amount)
       self.save
     end
@@ -124,7 +123,7 @@ public
     payments.each do |payment|
       self.paid_amount += payment.amount
     end
-    
+
     if self.paid_amount - self.gross_amount >= 0
       self.paid = true
     end

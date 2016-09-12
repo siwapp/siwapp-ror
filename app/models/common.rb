@@ -1,6 +1,9 @@
 class Common < ActiveRecord::Base
   include Util
+  include MetaAttributes
+
   acts_as_paranoid
+  
   # Relations
   belongs_to :customer
   belongs_to :series
