@@ -2,11 +2,12 @@ class SettingsController < ApplicationController
 
   force_ssl only: [:api_token], unless: :is_development
 
-  # Global configuration settings
+  # GET /settings/global
   def global
     @global_settings = GlobalSettings.new
   end
 
+  # PUT /settings/global
   def global_update
     @global_settings = GlobalSettings.new global_settings_params
     if @global_settings.save_settings
@@ -17,10 +18,12 @@ class SettingsController < ApplicationController
     end
   end
 
+  # GET /settings/smtp
   def smtp
     @smtp_settings = SmtpSettings.new
   end
 
+  # PUT /settings/smtp
   def smtp_update
     @smtp_settings = SmtpSettings.new smtp_settings_params
     if @smtp_settings.save_settings
