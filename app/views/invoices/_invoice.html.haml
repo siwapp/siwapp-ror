@@ -3,6 +3,7 @@
   %td.no-wrap= link_to invoice, invoice
   %td.no-wrap= invoice.name
   %td.no-wrap= invoice.issue_date
+  %td.text-center= invoice.sent_by_email
   %td.text-center= invoice.get_status
   %td.text-right.no-wrap= invoice.unpaid_amount > 0.0 ? display_money(invoice.unpaid_amount) : ""
   %td.text-right.no-wrap= display_money invoice.gross_amount
