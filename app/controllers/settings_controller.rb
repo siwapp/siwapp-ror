@@ -30,7 +30,7 @@ class SettingsController < ApplicationController
       redirect_to settings_smtp_path, notice: "SMTP settings successfully saved"
     else
       flash.now[:alert] = "SMTP settings couldn't be saved"
-      render 'smtp_settings/edit'
+      render 'settings/smtp'
     end
   end
 
