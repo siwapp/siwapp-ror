@@ -24,7 +24,7 @@ feature 'Editing Global Settings' do
     expect(page).to have_content("Days to due is not a number")
     expect(page).to have_content(' Global settings could not be saved')
     # nothing saved
-    expect(Settings[:days_to_due]).to eql "0" # the default setting
-    expect(Settings[:company_email]).to eql "bad@company.com"
+    expect(Settings[:days_to_due]).to eql 0 # the default setting
+    expect(Settings[:company_email]).to be nil # no saved
   end
 end
