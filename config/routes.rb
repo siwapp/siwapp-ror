@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   post 'taxes/set_default', to: 'taxes#set_default'
 
   get 'settings/global'
-  post 'settings/global'
+  put 'settings/global', to: 'settings#global_update'
   get 'settings/profile'
   post 'settings/profile'
   get 'settings/smtp'
@@ -49,8 +49,6 @@ Rails.application.routes.draw do
   post 'settings/hooks'
   get 'settings/api_token'
   post 'settings/api_token'
-  get 'global_settings/edit'
-  put 'global_settings/update'
   get 'smtp_settings/edit'
   put 'smtp_settings/update'
 

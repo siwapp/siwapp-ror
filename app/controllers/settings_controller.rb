@@ -4,31 +4,17 @@ class SettingsController < ApplicationController
 
   # Global configuration settings
   def global
-    if request.post?
-      [:company_name, :company_vat_id, :company_address, :company_phone, :company_url, :legal_terms, :days_to_due, :company_email].each do |key|
-        Settings[key] = params[key]
-      end
-      Settings.company_logo = params[:company_logo].gsub('https://', 'http://')
-      Settings.currency = params[:currency][:id]
-      redirect_to action: :global
+    @global_settings = GlobalSettings.new
+  end
+
+  def global_update
+    @global_settings = GlobalSettings.new global_settings_params
+    if @global_settings.save_settings
+      redirect_to settings_global_path, {notice: "Global settings successfully saved"}
+    else
+      flash.now[:alert] = "Global settings could not be saved"
+      render 'settings/global'
     end
-
-    @company_name = Settings.company_name
-    @company_vat_id = Settings.company_vat_id
-    @company_address = Settings.company_address
-    @company_phone = Settings.company_phone
-    # This must be an url because there is no way of uploading files to
-    # heroku. One option would be to use S3, but it's not worth it.
-    @company_url = Settings.company_url
-    @company_logo = Settings.company_logo
-    # currency select
-    currency_id = Settings.currency
-    @currency = Money::Currency.find currency_id
-    @currencies = Money::Currency.all
-    @legal_terms = Settings.legal_terms
-    @days_to_due = Settings.days_to_due
-    @company_email = Settings.company_email
-
   end
 
   def smtp
@@ -114,6 +100,10 @@ class SettingsController < ApplicationController
 
   def is_development
     Rails.env.development?
+  end
+
+  def global_settings_params
+    params.require(:global_settings).permit(:company_name, :company_vat_id, :company_address, :company_phone, :company_email, :company_url, :company_logo, :currency, :legal_terms, :days_to_due)
   end
 
 

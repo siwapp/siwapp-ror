@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Editing Global Settings' do
   before do
-    visit "/global_settings/edit"
+    visit "/settings/global"
   end
 
   scenario 'Edit global settings', :js => true, driver: :webkit do
