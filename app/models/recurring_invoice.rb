@@ -62,45 +62,11 @@ class RecurringInvoice < Common
     pending_invoices
   end
 
-  def self.with_pending_invoices
-    # Find the RecurringInvoices with pending invoices
-    # candidates to have pending invoices
-    candidates = where(:enabled => true)
-    pendings = []
-    candidates.each do |actual|
-
-      # get the finishing date from either max_occurrences or finishing_date
-      ending_date = Date.new 2999
-      if actual.max_occurrences?
-        if Invoice.belonging_to(actual.id).count >= actual.max_occurrences
-          next
-        end
-        ending_date = actual.starting_date +
-          (actual.period * actual.max_occurrences).send(actual.period_type)
-      end
-      if actual.finishing_date? and actual.finishing_date < ending_date
-        ending_date = actual.finishing_date
-      end
-
-      # get the next invoice issuing date
-      next_date = actual.invoices.length > 0 ? \
-          actual.invoices.last.created_at + actual.period.send(actual.period_type) \
-          : actual.starting_date
-
-      # is it within range?
-      if next_date > Date.current or !next_date.in? (actual.starting_date...ending_date)
-        next
-      end
-
-      pendings.append actual
-    end
-    pendings
-  end
-
   def self.generate_pending_invoices
     # Generates and saves all the pending invoices
     invoices = []  # list of invoices to generate
-    with_pending_invoices.each { |r_inv| invoices += r_inv.get_pending_invoices }
+    where(:enabled => true).where("starting_date <= ?", Date.current).each \
+        { |r_inv| invoices += r_inv.get_pending_invoices }
     invoices.sort_by!(&:issue_date)
 
     invoices.each do |inv|
