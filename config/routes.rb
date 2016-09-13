@@ -44,13 +44,11 @@ Rails.application.routes.draw do
   get 'settings/profile'
   post 'settings/profile'
   get 'settings/smtp'
-  post 'settings/smtp'
+  put 'settings/smtp', to: 'settings#smtp_update'
   get 'settings/hooks'
   post 'settings/hooks'
   get 'settings/api_token'
   post 'settings/api_token'
-  get 'smtp_settings/edit'
-  put 'smtp_settings/update'
 
 
   # API

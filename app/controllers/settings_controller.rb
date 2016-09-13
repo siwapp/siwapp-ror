@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
   def global_update
     @global_settings = GlobalSettings.new global_settings_params
     if @global_settings.save_settings
-      redirect_to settings_global_path, {notice: "Global settings successfully saved"}
+      redirect_to settings_global_path, notice: "Global settings successfully saved"
     else
       flash.now[:alert] = "Global settings could not be saved"
       render 'settings/global'
@@ -18,24 +18,19 @@ class SettingsController < ApplicationController
   end
 
   def smtp
-    if request.post?
-      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject].each do |key|
-        Settings[key] = params[key]
-      end
-      redirect_to action: :smtp
-    end
-
-    @host = Settings.host
-    @port = Settings.port
-    @domain = Settings.domain
-    @user = Settings.user
-    @password = Settings.password
-    @authentication = Settings.authentication
-    @enable_starttls_auto = Settings.enable_starttls_auto
-    @email_body = Settings.email_body
-    @email_subject = Settings.email_subject
-
+    @smtp_settings = SmtpSettings.new
   end
+
+  def smtp_update
+    @smtp_settings = SmtpSettings.new smtp_settings_params
+    if @smtp_settings.save_settings
+      redirect_to settings_smtp_path, notice: "SMTP settings successfully saved"
+    else
+      flash.now[:alert] = "SMTP settings couldn't be saved"
+      render 'smtp_settings/edit'
+    end
+  end
+
 
   def profile
     # TODO: This is still pretty lame. Validation errors should be shown into
@@ -104,6 +99,10 @@ class SettingsController < ApplicationController
 
   def global_settings_params
     params.require(:global_settings).permit(:company_name, :company_vat_id, :company_address, :company_phone, :company_email, :company_url, :company_logo, :currency, :legal_terms, :days_to_due)
+  end
+
+  def smtp_settings_params
+    params.require(:smtp_settings).permit(:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject)
   end
 
 
