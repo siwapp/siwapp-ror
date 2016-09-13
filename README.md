@@ -211,6 +211,13 @@ Content-Type: application/json
                 "tax_ids": [2, 4],
                 "unitary_cost": 12.1
             }
+        ],
+        "payments_attributes": [
+            {
+                "notes": "payment #1",
+                "amount": 32.1,
+                "date": "2016-02-02"
+            }
         ]
     }
 }
@@ -218,7 +225,7 @@ Content-Type: application/json
 
 * The `"invoice"` key must be present.
 * You can create invoice with items. Notice the name of the key: `items_attributes`
-* You can not create invoice with payments
+* You can create invoice with payments. Notice the name of the key: `payments_attributes`
 
 #### Update
 
