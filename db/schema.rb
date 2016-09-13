@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908093323) do
+ActiveRecord::Schema.define(version: 20160913081503) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20160908093323) do
     t.decimal  "gross_amount",                       precision: 53, scale: 15, default: 0.0
     t.decimal  "paid_amount",                        precision: 53, scale: 15, default: 0.0
     t.decimal  "tax_amount",                         precision: 53, scale: 15, default: 0.0
-    t.integer  "status",               limit: 1
     t.string   "type",                 limit: 255
     t.boolean  "draft",                                                        default: false
     t.boolean  "paid",                                                         default: false
@@ -62,9 +61,8 @@ ActiveRecord::Schema.define(version: 20160908093323) do
   add_index "commons", ["name"], name: "cstnm_idx", using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
   add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
-  add_index "commons", ["status"], name: "status_idx", using: :btree
-  add_index "commons", ["type", "status"], name: "type_and_status_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree
+  add_index "commons", ["type"], name: "type_and_status_idx", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",              limit: 100
