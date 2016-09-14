@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get 'settings/smtp'
   put 'settings/smtp', to: 'settings#smtp_update'
   get 'settings/hooks'
-  post 'settings/hooks'
+  put 'settings/hooks', to: 'settings#hooks_update'
   get 'settings/api_token'
   post 'settings/api_token'
 
