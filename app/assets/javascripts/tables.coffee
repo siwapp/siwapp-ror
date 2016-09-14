@@ -70,6 +70,10 @@ jQuery(document).ready ($) ->
       e.preventDefault()
       window.document.location = $(this).data("href")
 
+    # let a's do their job
+    .on 'click', 'tr[data-href] > td > a', (e) ->
+      e.stopPropagation()
+
     # but avoid redirecting when clicking on a row-selection cell
     .on 'click', 'tr[data-href] > [data-role|="select"]', (e) ->
       e.stopPropagation()

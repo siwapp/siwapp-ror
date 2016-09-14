@@ -9,9 +9,16 @@ class CommonsController < ApplicationController
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
   # GET /commons
+  # GET /customers/:customer_id/commons --> filter by customer
   def index
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
+    # filter by customer
+    if params[:customer_id]
+      results = results.where customer_id: params[:customer_id]
+      @customer = Customer.find params[:customer_id]
+      @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
+    end
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount

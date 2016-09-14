@@ -1,5 +1,10 @@
 .section-hd
-  %h1 Invoices
+  %h1
+    Invoices
+    - if @customer
+      for
+      = @customer
+
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
 #js-section-info.section-summary.collapse
