@@ -12,10 +12,10 @@
             - @user.errors.full_messages.each do |message|
               %li= message
       .form-group
-        = f.label "Username:"
+        = f.label :name, "Name:"
         = f.text_field :name, class: 'form-control'
       .form-group
-        = f.label "Email:"
+        = f.label :email, "Email:"
         = f.text_field :email, class: 'form-control'
       .form-group
         = label_tag :old_password, "Old Password:"
