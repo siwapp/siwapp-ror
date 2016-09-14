@@ -54,32 +54,16 @@ class SettingsController < ApplicationController
 
   end
 
-  # Hooks settings
+  # GET /settings/hooks
   def hooks
-    if request.post?
-      Settings[:event_invoice_generation_url] = params[:event_invoice_generation_url]
-      redirect_to action: :hooks
-    end
-
-    # log count
-    total_logs = WebhookLog.order(created_at: :desc).where(event: :invoice_generation).count
-    # pagination math
-    if total_logs < 20
-      num_pages = 1
-    else
-      num_pages = total_logs / 20 + ( total_logs % 20 == 0 ? 0 : 1)
-    end
-    # pagination parameters
-    page = (params.has_key?(:page) and Integer(params[:page]) >= 1) ? Integer(params[:page]) : 1
-
-    # fetch paged logs
-    @paged_logs = WebhookLog.order(created_at: :desc).limit(20).offset((page-1)*20).where event: :invoice_generation
-
-    #pagination info
-    @previous_page = page > 1 ? page - 1 : nil
-    @next_page = page < num_pages ? page + 1 : nil
-
+    @nlogs = WebhookLog.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
     @event_invoice_generation_url = Settings.event_invoice_generation_url
+  end
+
+  # PUT /settings/hooks
+  def hooks_update
+    Settings[:event_invoice_generation_url] = params[:event_invoice_generation_url]
+    redirect_to action: :hooks
   end
 
 
@@ -107,8 +91,5 @@ class SettingsController < ApplicationController
   def smtp_settings_params
     params.require(:smtp_settings).permit(:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject)
   end
-
-
-
 
 end
