@@ -78,7 +78,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       expect(Invoice.find(json['id']).name).to eql 'newly created'
     end
 
-    it "can create invoice along with items" do
+    it "can create invoice along with items and payments" do
       tax = FactoryGirl.create :tax
       
       inv = {
@@ -94,7 +94,15 @@ RSpec.describe "Api::V1::Invoices", type: :request do
                                    'quantity': 2,
                                    'tax_ids': [tax.id]
                                  }
+                                ],
+          'payments_attributes' => [
+                                 {
+                                   'notes': 'payment 1',
+                                   'amount': 3.3,
+                                   'date': '2016-02-02'
+                                 }
                                 ]
+
         }
       }
 
@@ -104,6 +112,9 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       item = invoice.items[0]
       expect(item.description).to eql 'item 1'
       expect(item.taxes[0].name).to eql 'VAT 21%'
+      payment = invoice.payments[0]
+      expect(payment.notes).to eql 'payment 1'
+      expect(payment.amount).to eql 3.3
 
     end
 
