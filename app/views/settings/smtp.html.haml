@@ -9,7 +9,7 @@
             = pluralize @smtp_settings.errors.count, "error"
             prohibited these settings from being saved:
           %ul
-            - @global_settings.errors.full_messages.each do |message|
+            - @smtp_settings.errors.full_messages.each do |message|
               %li= message
       %fieldset
         %legend Server
