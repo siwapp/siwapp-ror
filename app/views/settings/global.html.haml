@@ -2,37 +2,48 @@
 
 .row
   .col-xs-12.col-md-6.col-xl-4
-    = form_tag("", id:"global-settings", method: "post") do
+    =form_for @global_settings, url: settings_global_path, method: :put, :html => {id: 'global-settings'}  do |f|
+      - if @global_settings.errors.any?
+        #error_explanation
+          %h2
+            = pluralize @global_settings.errors.count, "error"
+            prohibited these settings from being saved:
+          %ul
+            - @global_settings.errors.full_messages.each do |message|
+              %li= message
+
       .form-group
-        = label_tag(:company_name, "Company Name:")
-        = text_field_tag(:company_name, @company_name, class: 'form-control')
+        = f.label :company_name, "Company Name:"
+        = f.text_field :company_name, class: 'form-control'
       .form-group
-        = label_tag(:company_vat_id, "Company VAT ID:")
-        = text_field_tag(:company_vat_id, @company_vat_id, class: 'form-control')
+        = f.label :company_vat_id, "Company VAT ID:"
+        = f.text_field :company_vat_id, class: 'form-control'
       .form-group
-        = label_tag(:company_address, "Company Address:")
-        = text_area_tag(:company_address, @company_address, class: 'form-control autosize', rows: '3')
+        = f.label :company_address, "Company Address:"
+        = f.text_area :company_address, class: 'form-control autosize', rows: '3'
       .form-group
-        = label_tag(:company_phone, "Company Phone:")
-        = text_field_tag(:company_phone, @company_phone, class: 'form-control')
+        = f.label :company_phone, "Company Phone:"
+        = f.text_field :company_phone, class: 'form-control'
       .form-group
-        = label_tag(:company_email, "Company Email:")
-        = email_field_tag(:company_email, @company_email, class: 'form-control')
+        = f.label :company_email, "Company Email:"
+        = f.email_field :company_email, class: 'form-control'
       .form-group
-        = label_tag(:company_url, "Company Website:")
-        = url_field_tag(:company_url, @company_url, class: 'form-control')
+        = f.label :company_url, "Company Website:"
+        = f.url_field :company_url, class: 'form-control'
       .form-group
-        = label_tag(:company_logo, "Company Logo:")
-        = url_field_tag(:company_logo, @company_logo, class: 'form-control')
+        = f.label :company_logo, "Company Logo:"
+        = f.url_field :company_logo, class: 'form-control'
       .form-group
-        = label_tag :currency, "Currency:"
-        = collection_select :currency, :id, @currencies, :id, :iso_code, {}, {class: 'form-control c-select'}
+        = f.label :currency, "Currency:"
+        = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
+
       .form-group
-        = label_tag(:legal_terms, "Legal Terms:")
-        = text_area_tag(:legal_terms, @legal_terms, class: 'form-control autosize', rows: '3')
+        = f.label :legal_terms, "Legal Terms:"
+        = f.text_area :legal_terms, class: 'form-control autosize', rows: '3'
+
       .form-group
-        = label_tag(:days_to_due, "Days to due:")
-        = number_field_tag(:days_to_due, @days_to_due, class: 'form-control')
+        = f.label :days_to_due, "Days to due:"
+        = f.number_field :days_to_due, class: 'form-control'
 
 .action-buttons
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

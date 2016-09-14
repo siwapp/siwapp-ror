@@ -2,46 +2,54 @@
 
 .row
   .col-xs-12.col-md-6.col-xl-4
-    = form_tag("", method: "post") do
+    = form_for @smtp_settings, url: settings_smtp_path, method: :put, :html => {id: 'smtp-settings'} do |f|
+      - if @smtp_settings.errors.any?
+        #error_explanation
+          %h2
+            = pluralize @smtp_settings.errors.count, "error"
+            prohibited these settings from being saved:
+          %ul
+            - @smtp_settings.errors.full_messages.each do |message|
+              %li= message
       %fieldset
         %legend Server
 
         .form-group
-          = label_tag(:host, "Host:")
-          = text_field_tag(:host, @host, class: 'form-control')
+          = f.label :host, "Host:"
+          = f.text_field :host, class: 'form-control'
         .form-group
-          = label_tag(:port, "Port:")
-          = text_field_tag(:port, @port, class: 'form-control')
+          = f.label :port, "Port:"
+          = f.text_field :port, class: 'form-control'
         .form-group
-          = label_tag(:domain, "Domain:")
-          = text_field_tag(:domain, @domain, class: 'form-control')
+          = f.label :domain, "Domain:"
+          = f.text_field :domain, class: 'form-control'
 
       %fieldset
         %legend Authentication
 
         .form-group
-          = label_tag(:user, "User:")
-          = email_field_tag(:user, @user, class: 'form-control')
+          = f.label :user, "User:"
+          = f.email_field :user, class: 'form-control'
         .form-group
-          = label_tag(:password, "Password:")
-          = password_field_tag(:password, @password, class: 'form-control')
+          = f.label :password, "Password:"
+          = f.password_field :password, class: 'form-control'
         .form-group
-          = label_tag(:authentication, "Authentication:")
-          = select_tag(:authentication, options_for_select([['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], :selected => @authentication), class: 'form-control c-select')
+          = f.label :authentication, "Authentication:"
+          = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'
         .checkbox
           %label
-            = check_box_tag(:enable_starttls_auto, 1, @enable_starttls_auto)
+            = f.check_box :enable_starttls_auto
             Enable
             %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
-      
+
       %fieldset
         %legend E-mail to send with invoices
         .form-group
-          = label_tag(:email_subject, "Email subject:")
-          = text_field_tag(:email_subject, @email_subject, class: 'form-control autosize')
+          = f.label :email_subject, "Email subject:"
+          = f.text_field :email_subject, class: 'form-control autosize'
         .form-group
-          = label_tag(:email_body, "Email body:")
-          = text_area_tag(:email_body, @email_body, class: 'form-control autosize', rows: '3')  
+          = f.label :email_body, "Email body:"
+          = f.text_area :email_body, class: 'form-control autosize', rows: '3'
 
 
 .action-buttons

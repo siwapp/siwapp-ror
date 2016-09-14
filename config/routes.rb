@@ -40,15 +40,16 @@ Rails.application.routes.draw do
   post 'taxes/set_default', to: 'taxes#set_default'
 
   get 'settings/global'
-  post 'settings/global'
+  put 'settings/global', to: 'settings#global_update'
   get 'settings/profile'
-  post 'settings/profile'
+  put 'settings/profile', to: 'settings#profile_update'
   get 'settings/smtp'
-  post 'settings/smtp'
+  put 'settings/smtp', to: 'settings#smtp_update'
   get 'settings/hooks'
   post 'settings/hooks'
   get 'settings/api_token'
   post 'settings/api_token'
+
 
   # API
   namespace :api do

@@ -2,73 +2,61 @@ class SettingsController < ApplicationController
 
   force_ssl only: [:api_token], unless: :is_development
 
-  # Global configuration settings
+  # GET /settings/global
   def global
-    if request.post?
-      [:company_name, :company_vat_id, :company_address, :company_phone, :company_url, :legal_terms, :days_to_due, :company_email].each do |key|
-        Settings[key] = params[key]
-      end
-      Settings.company_logo = params[:company_logo].gsub('https://', 'http://')
-      Settings.currency = params[:currency][:id]
-      redirect_to action: :global
-    end
-
-    @company_name = Settings.company_name
-    @company_vat_id = Settings.company_vat_id
-    @company_address = Settings.company_address
-    @company_phone = Settings.company_phone
-    # This must be an url because there is no way of uploading files to
-    # heroku. One option would be to use S3, but it's not worth it.
-    @company_url = Settings.company_url
-    @company_logo = Settings.company_logo
-    # currency select
-    currency_id = Settings.currency
-    @currency = Money::Currency.find currency_id
-    @currencies = Money::Currency.all
-    @legal_terms = Settings.legal_terms
-    @days_to_due = Settings.days_to_due
-    @company_email = Settings.company_email
-
+    @global_settings = GlobalSettings.new
   end
 
+  # PUT /settings/global
+  def global_update
+    @global_settings = GlobalSettings.new global_settings_params
+    if @global_settings.save_settings
+      redirect_to settings_global_path, notice: "Global settings successfully saved"
+    else
+      flash.now[:alert] = "Global settings could not be saved"
+      render 'settings/global'
+    end
+  end
+
+  # GET /settings/smtp
   def smtp
-    if request.post?
-      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject].each do |key|
-        Settings[key] = params[key]
-      end
-      redirect_to action: :smtp
-    end
-
-    @host = Settings.host
-    @port = Settings.port
-    @domain = Settings.domain
-    @user = Settings.user
-    @password = Settings.password
-    @authentication = Settings.authentication
-    @enable_starttls_auto = Settings.enable_starttls_auto
-    @email_body = Settings.email_body
-    @email_subject = Settings.email_subject
-
+    @smtp_settings = SmtpSettings.new
   end
 
+  # PUT /settings/smtp
+  def smtp_update
+    @smtp_settings = SmtpSettings.new smtp_settings_params
+    if @smtp_settings.save_settings
+      redirect_to settings_smtp_path, notice: "SMTP settings successfully saved"
+    else
+      flash.now[:alert] = "SMTP settings couldn't be saved"
+      render 'settings/smtp'
+    end
+  end
+
+  # GET /settings/profile
   def profile
-    # TODO: This is still pretty lame. Validation errors should be shown into
-    #       the form.
     @user = current_user
-    if request.post?
-      @user.update_attribute(:name, params[:user][:name])
-      @user.update_attribute(:email, params[:user][:email])
-      if params[:new_password] \
-          and params[:new_password] == params[:new_password2] \
-          and @user.authenticate(params[:old_password])
-        @user.password = params[:new_password]
-        @user.validate!
-        @user.save!
-      end
-      redirect_to action: :profile
-    end
-
   end
+
+  # PUT /settings/profile
+  def profile_update
+    @user = current_user
+    if !params[:user][:password].blank? and !@user.authenticate(params[:old_password])
+      @user.errors[:base] = "Incorrect old password"
+      test = false
+    else
+      @user.update profile_params # danger. when valid, updates password_digest by itself
+      test = @user.save
+    end
+    if test
+      redirect_to settings_profile_path, notice: "User profile successfully saved"
+    else
+      flash.now[:alert] = "User profile couldn't be updated"
+      render 'settings/profile'
+    end
+  end
+
 
   # Hooks settings
   def hooks
@@ -114,6 +102,18 @@ class SettingsController < ApplicationController
 
   def is_development
     Rails.env.development?
+  end
+
+  def profile_params
+    params.require(:user).permit(:password, :password_confirmation, :name, :email)
+  end
+
+  def global_settings_params
+    params.require(:global_settings).permit(:company_name, :company_vat_id, :company_address, :company_phone, :company_email, :company_url, :company_logo, :currency, :legal_terms, :days_to_due)
+  end
+
+  def smtp_settings_params
+    params.require(:smtp_settings).permit(:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject)
   end
 
 
