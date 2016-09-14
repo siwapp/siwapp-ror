@@ -56,7 +56,7 @@ class SettingsController < ApplicationController
 
   # GET /settings/hooks
   def hooks
-    @nlogs = WebhookLog.paginate(page: params[:page], per_page: 5).order(created_at: :desc)
+    @logs = WebhookLog.paginate(page: params[:page]).order(created_at: :desc)
     @event_invoice_generation_url = Settings.event_invoice_generation_url
   end
 

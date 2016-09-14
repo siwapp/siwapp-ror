@@ -8,19 +8,18 @@
         = url_field_tag(:event_invoice_generation_url, @event_invoice_generation_url, class: 'form-control')
 .row
   .col-xs-12.col-md-6.col-xl-4
-    - if @nlogs
-      - @nlogs.each do |i|
-        %p{class: i[:level] == 'error' ? 'alert alert-danger' : 'alert alert-info'}
-          = i
+    - @logs.each do |i|
+      %p{class: i[:level] == 'error' ? 'alert alert-danger' : 'alert alert-info'}
+        = i
 .row
   .col-xs-12.col-md-6.col-xl-4
     %ul{ class: "pager"}
-      - if @nlogs.previous_page
+      - if @logs.previous_page
         %li
-          = link_to "Previous", settings_hooks_path(page: @nlogs.previous_page)
-      - if @nlogs.next_page
+          = link_to "Previous", settings_hooks_path(page: @logs.previous_page)
+      - if @logs.next_page
         %li
-          = link_to "Next", settings_hooks_path(page: @nlogs.next_page)
+          = link_to "Next", settings_hooks_path(page: @logs.next_page)
 
 
 .action-buttons
