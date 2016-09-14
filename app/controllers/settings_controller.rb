@@ -34,24 +34,27 @@ class SettingsController < ApplicationController
     end
   end
 
-
+  # GET /settings/profile
   def profile
-    # TODO: This is still pretty lame. Validation errors should be shown into
-    #       the form.
     @user = current_user
-    if request.post?
-      @user.update_attribute(:name, params[:user][:name])
-      @user.update_attribute(:email, params[:user][:email])
-      if params[:new_password] \
-          and params[:new_password] == params[:new_password2] \
-          and @user.authenticate(params[:old_password])
-        @user.password = params[:new_password]
-        @user.validate!
-        @user.save!
-      end
-      redirect_to action: :profile
-    end
+  end
 
+  # PUT /settings/profile
+  def profile_update
+    @user = current_user
+    if !params[:user][:password].blank? and !@user.authenticate(params[:old_password])
+      @user.errors[:base] = "Incorrect old password"
+      test = false
+    else
+      @user.update profile_params # danger. when valid, updates password_digest by itself
+      test = @user.save
+    end
+    if test
+      redirect_to settings_profile_path, notice: "User profile successfully saved"
+    else
+      flash.now[:alert] = "User profile couldn't be updated"
+      render 'settings/profile'
+    end
   end
 
   # GET /settings/hooks
@@ -82,6 +85,10 @@ class SettingsController < ApplicationController
 
   def is_development
     Rails.env.development?
+  end
+
+  def profile_params
+    params.require(:user).permit(:password, :password_confirmation, :name, :email)
   end
 
   def global_settings_params
