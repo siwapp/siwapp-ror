@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 
   resources :customers do
     get 'autocomplete', on: :collection
+    resources :invoices, only: [:index]
+    resources :recurring_invoices, only: [:index]
   end
 
   post 'templates/set_default', to: 'templates#set_default'
