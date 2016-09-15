@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913081503) do
+ActiveRecord::Schema.define(version: 20160915000824) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160913081503) do
     t.text     "shipping_address",  limit: 65535
     t.datetime "deleted_at"
     t.text     "meta_attributes",   limit: 65535
+    t.boolean  "active",                          default: true
   end
 
   add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
