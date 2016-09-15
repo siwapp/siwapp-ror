@@ -37,6 +37,11 @@
         %label
           = f.check_box :draft
           Draft
+    - else
+      .checkbox
+        %label
+          = f.check_box :failed
+          Failed
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 

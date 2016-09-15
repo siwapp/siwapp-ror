@@ -21,12 +21,14 @@ class Invoice < Common
     case status
     when :draft
       where(draft: true)
+    when :failed
+      where(draft: false, failed: true)
     when :paid
-      where(draft: false, paid: true)
+      where(draft: false, failed: false, paid: true)
     when :pending
-      where(draft: false, paid: false).where("due_date >= ?", Date.current)
+      where(draft: false, failed: false, paid: false).where("due_date >= ?", Date.current)
     when :overdue
-      where(draft: false, paid: false).where("due_date < ?", Date.current)
+      where(draft: false, failed: false, paid: false).where("due_date < ?", Date.current)
     end
   }
 
@@ -56,7 +58,8 @@ protected
 public
 
   def self.status_collection
-    [["Draft", :draft], ["Paid", :paid], ["Pending", :pending], ["Overdue", :overdue]]
+    [["Draft", :draft], ["Paid", :paid], ["Pending", :pending],
+      ["Overdue", :overdue], ["Failed", :failed]]
   end
 
   # Public: Get a string representation of this object
@@ -73,6 +76,8 @@ public
   def get_status
     if draft
       :draft
+    elsif failed
+      :failed
     elsif paid
       :paid
     elsif due_date
@@ -192,7 +197,5 @@ public
     def serializable_attribute_names
       [:id, :name, :identification, :email, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :tax_amount, :issue_date, :due_date, :days_to_due]
     end
-
-
 
 end

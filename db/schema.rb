@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915000824) do
+ActiveRecord::Schema.define(version: 20160915094942) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160915000824) do
     t.datetime "deleted_at"
     t.integer  "template_id",          limit: 4
     t.text     "meta_attributes",      limit: 65535
+    t.boolean  "failed",                                                       default: false
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree

@@ -173,6 +173,7 @@ class InvoicesController < CommonsController
       :notes,
 
       :draft,
+      :failed,
 
       :tag_list,
 
@@ -192,8 +193,7 @@ class InvoicesController < CommonsController
         :amount,
         :notes,
         :_destroy
-      ] 
-      
+      ]
     ]
   end
 end
