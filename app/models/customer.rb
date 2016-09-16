@@ -6,6 +6,9 @@ class Customer < ActiveRecord::Base
   has_many :estimates
   has_many :recurring_invoices
 
+  # Behaviors
+  acts_as_taggable
+
   before_destroy :check_invoices
 
   scope :with_terms, ->(terms) {

@@ -11,6 +11,8 @@
     = render partial: 'customers/form_fields', locals: {f: f}
     .row
       .col-sm-4
+        = render partial: 'shared/tagging_field', locals: {f: f, instance: @customer}
+      .col-sm-4
         .form-group
           = f.label :active, 'Active Customer'
           = f.check_box :active

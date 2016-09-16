@@ -134,8 +134,8 @@ class CommonsController < ApplicationController
     @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
-    @tags = commons_tags
     @days_to_due = Integer Settings.days_to_due
+    @tags = saved_tags_for 'Common'
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts

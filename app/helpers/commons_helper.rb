@@ -71,19 +71,4 @@ module CommonsHelper
   end
 
 
-
-
-
-
-  # Returns a list of tag names
-  def commons_tags
-    tag_ids = ActsAsTaggableOn::Tagging
-      .where(taggable_type: 'Common', context: :tags)
-      .collect(&:tag_id)
-      .uniq
-    ActsAsTaggableOn::Tag
-      .where(id: tag_ids)
-      .collect(&:name)
-  end
-
 end
