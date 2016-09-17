@@ -24,7 +24,6 @@ class InvoicesController < CommonsController
   end
 
   def edit
-    @legal_terms = Settings.legal_terms
     @templates = Template.all
     get_template
     render

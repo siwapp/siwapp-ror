@@ -73,6 +73,8 @@ class RecurringInvoicesController < CommonsController
       :contact_person,
       :invoicing_address,
       :shipping_address,
+      :terms,
+      :notes,
 
       :enabled,
       :days_to_due,

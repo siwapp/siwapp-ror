@@ -39,6 +39,8 @@ class CommonsController < ApplicationController
   def new
     instance = model.new
     instance.items.new
+    # default legal terms
+    instance.terms = Settings.legal_terms
     set_instance instance
     render sti_template(@type, action_name)
   end

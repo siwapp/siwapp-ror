@@ -19,15 +19,19 @@
       = f.email_field :email, class: 'form-control'
 
 .row
-  .col-sm-4
+  .col-sm-3
     .form-group
       = f.label :invoicing_address, "Invoicing Address"
       = f.text_area :invoicing_address, class: 'form-control autosize'
-  .col-sm-4
+  .col-sm-3
     .form-group
       = f.label :shipping_address, "Shipping Address"
       = f.text_area :shipping_address, class: 'form-control autosize'
-  .col-sm-4
+  .col-sm-3
     .form-group
       = f.label :terms, "Legal Terms and Conditions"
-      = f.text_area :terms, class: 'form-control autosize', value: @legal_terms
+      = f.text_area :terms, class: 'form-control autosize'
+  .col-sm-3
+    .form-group
+      = f.label :terms, "Notes"
+      = f.text_area :notes, class: 'form-control autosize'
