@@ -34,6 +34,27 @@ class SettingsController < ApplicationController
     end
   end
 
+  # GET /settings/tags
+  def tags
+    @common_tags = tags_for 'Common'
+    @customer_tags = tags_for 'Customer'
+  end
+
+  # PUT /settings/tags
+  def tags_update
+    ids = params['tag_ids']
+    tags = ActsAsTaggableOn::Tag.where(id: ids)
+    tags.each do |tag|
+      if params[:tags][tag.id.to_s][:_delete]
+        tag.destroy
+      else
+        tag.name = params[:tags][tag.id.to_s][:name]
+        tag.save
+      end
+    end
+    redirect_to settings_tags_path
+  end
+
   # GET /settings/profile
   def profile
     @user = current_user

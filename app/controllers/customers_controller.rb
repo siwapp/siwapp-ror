@@ -100,6 +100,6 @@ class CustomersController < ApplicationController
     end
 
     def set_tags
-      @tags = saved_tags_for 'Customer'
+      @tags = tags_for('Customer').collect(&:name)
     end
 end

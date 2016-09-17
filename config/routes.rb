@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get "items/amount"
 
   resources :invoices do
-    delete 'remove', on: :collection
     post 'bulk', on: :collection
     post 'select_template', on: :member
     get 'autocomplete', on: :collection
@@ -47,6 +46,8 @@ Rails.application.routes.draw do
   put 'settings/profile', to: 'settings#profile_update'
   get 'settings/smtp'
   put 'settings/smtp', to: 'settings#smtp_update'
+  get 'settings/tags'
+  put 'settings/tags', to: 'settings#tags_update'
   get 'settings/hooks'
   put 'settings/hooks', to: 'settings#hooks_update'
   get 'settings/api_token'
