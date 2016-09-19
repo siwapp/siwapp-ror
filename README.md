@@ -101,7 +101,7 @@ It's just like listing, but adding the `q` search parameter with any of these ke
   * `q[issue_date_gte]=2012-01-01` invoice whose issue date is greater or equal than `2012-01-01`
   * `q[issue_date_lte]=2012-01-01` invoice whose issue date is less or equal than `2012-01-01`
   * `q[series_id]=3` invoices whose series has the id=3
-  * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `overdue`
+  * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `past_due`
 
 If you wanted to search for invoices named 'acme' whose status is 'paid', you would do a GET request to
 

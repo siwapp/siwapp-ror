@@ -27,7 +27,7 @@ class Invoice < Common
       where(draft: false, failed: false, paid: true)
     when :pending
       where(draft: false, failed: false, paid: false).where("due_date >= ?", Date.current)
-    when :overdue
+    when :past_due
       where(draft: false, failed: false, paid: false).where("due_date < ?", Date.current)
     end
   }
@@ -59,7 +59,7 @@ public
 
   def self.status_collection
     [["Draft", :draft], ["Paid", :paid], ["Pending", :pending],
-      ["Overdue", :overdue], ["Failed", :failed]]
+      ["Past Due", :past_due], ["Failed", :failed]]
   end
 
   # Public: Get a string representation of this object
@@ -84,10 +84,10 @@ public
       if due_date > Date.current
         :pending
       else
-        :overdue
+        :past_due
       end
     else
-      # An invoice without a due date can't be overdue
+      # An invoice without a due date can't be past_due
       :pending
     end
   end
