@@ -8,6 +8,7 @@
       %i.material-icons.green  done
     - else
       %i.material-icons.red  clear
-  %td.text-center= invoice.get_status
+  %td.text-center
+    %span{class: "status #{invoice.get_status}"}= invoice.get_status
   %td.text-right.no-wrap= invoice.unpaid_amount > 0.0 ? display_money(invoice.unpaid_amount) : ""
   %td.text-right.no-wrap= display_money invoice.gross_amount

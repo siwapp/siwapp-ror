@@ -134,12 +134,24 @@ invoice_template = <<HEREDOC
       margin-top: -1rem;
     }
 
-    .paid {
-      background-color: green;
+    .failed {
+      background-color: rgb(55, 58, 60);
     }
 
-    .failed {
-      background-color: red;
+    .past_due {
+      background-color: #d9534f;
+    }
+
+    .draft {
+      background-color: #ddd;
+    }
+
+    .paid {
+      background-color: #5cb85c;
+    }
+
+    .pending {
+      background-color: #D8B256;
     }
 
     .amount {
