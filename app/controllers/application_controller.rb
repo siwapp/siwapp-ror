@@ -9,6 +9,21 @@ class ApplicationController < ActionController::Base
   # available in views
   helper_method :get_currency
 
+  # Public: return a list of tags  already saved for a certain types
+  #
+  # Params:
+  #     type (string) the type to obtain the used tags for i.e. 'common' or 'customer'
+  #
+  # Returns tags rs
+
+  def tags_for type
+    tag_ids = ActsAsTaggableOn::Tagging
+      .where(taggable_type: type.camelize, context: :tags)
+      .collect(&:tag_id)
+      .uniq
+    ActsAsTaggableOn::Tag
+      .where(id: tag_ids)
+  end
 
   private
 

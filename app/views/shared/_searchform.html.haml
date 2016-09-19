@@ -1,4 +1,5 @@
-= search_form_for @search, html: {class: "collapse nav navbar-nav navbar-toggleable-lg siwapp-search-form", id: "js-search-form"} do |f|
+= search_form_for @search, url: @search_url, html: {class: "collapse nav navbar-nav navbar-toggleable-lg siwapp-search-form", id: "js-search-form"} do |f|
+
   .input-group.siwapp-input-search
     - if @search_filters
       .input-group-btn

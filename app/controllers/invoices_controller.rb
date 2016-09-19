@@ -1,7 +1,8 @@
 class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
-    if template = @invoice.template or template = Template.find_by(default: true)
+    if template = @invoice.template or template = Template.find_by(default: true) \
+        or template = Template.first
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
       @template_url = ""
@@ -23,7 +24,6 @@ class InvoicesController < CommonsController
   end
 
   def edit
-    @legal_terms = Settings.legal_terms
     @templates = Template.all
     get_template
     render
@@ -67,9 +67,11 @@ class InvoicesController < CommonsController
     date_from = (params[:q].nil? or params[:q][:issue_date_gteq].empty?) ? 30.days.ago.to_date : Date.parse(params[:q][:issue_date_gteq])
     date_to = (params[:q].nil? or params[:q][:issue_date_lteq].empty?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
 
-    scope = @search.result(distinct: true)
+    scope = @search.result.where(draft: false, failed: false).\
+      where("issue_date >= :date_from AND issue_date <= :date_to",
+            {date_from: date_from, date_to: date_to})
     scope = scope.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
-    scope = scope.select('issue_date, sum(gross_amount) as total').where(draft: false).group('issue_date')
+    scope = scope.select('issue_date, sum(gross_amount) as total').group('issue_date')
 
     # build all keys with 0 values for all
     @date_totals = {}
@@ -87,8 +89,12 @@ class InvoicesController < CommonsController
 
   def send_email
     @invoice = Invoice.find(params[:id])
-    @invoice.send_email
-    redirect_to :back, notice: "Email successfully sent."
+    begin
+      @invoice.send_email
+      redirect_to :back, notice: "Email successfully sent."
+    rescue Exception => e
+      redirect_to :back, alert: e.message
+    end
   end
 
   # Bulk actions for the invoices listing
@@ -101,8 +107,12 @@ class InvoicesController < CommonsController
         invoices.destroy_all
         flash[:info] = "Successfully deleted #{ids.length} invoices."
       when 'send_email'
-        invoices.each {|inv| inv.send_email}
-        flash[:info] = "Successfully sent #{ids.length} emails."
+        begin
+          invoices.each {|inv| inv.send_email}
+          flash[:info] = "Successfully sent #{ids.length} emails."
+        rescue Exception => e
+          flash[:alert] = e.message
+        end
       when 'set_paid'
         invoices.each {|inv| inv.set_paid}
         flash[:info] = "Successfully set as paid #{ids.length} invoices."
@@ -162,6 +172,7 @@ class InvoicesController < CommonsController
       :notes,
 
       :draft,
+      :failed,
 
       :tag_list,
 
@@ -181,8 +192,7 @@ class InvoicesController < CommonsController
         :amount,
         :notes,
         :_destroy
-      ] 
-      
+      ]
     ]
   end
 end

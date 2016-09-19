@@ -2,15 +2,8 @@ class RecurringInvoicesController < CommonsController
 
   def generate
     # Generates pending invoices up to today
-    for r in RecurringInvoice.with_pending_invoices
-      r.generate_pending_invoices
-    end
+    RecurringInvoice.generate_pending_invoices
     redirect_to invoices_url
-  end
-
-  def index
-    @has_pendings = (not RecurringInvoice.with_pending_invoices.empty?)
-    super
   end
 
   # DELETE
@@ -80,8 +73,10 @@ class RecurringInvoicesController < CommonsController
       :contact_person,
       :invoicing_address,
       :shipping_address,
+      :terms,
+      :notes,
 
-      :status,
+      :enabled,
       :days_to_due,
       :draft,
       :starting_date,

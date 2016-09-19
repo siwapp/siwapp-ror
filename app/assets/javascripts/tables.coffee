@@ -61,8 +61,7 @@ jQuery(document).ready ($) ->
 
 
   # Hide buttons when we are in invoices and recurring_invoices listing
-  if (window.location.pathname == Routes.invoices_path() \
-      or window.location.pathname == Routes.recurring_invoices_path())
+  if $('#js-list-form').length
     $('.action-buttons').hide()
 
   $(document)
@@ -70,6 +69,10 @@ jQuery(document).ready ($) ->
     .on 'click', 'tr[data-href]', (e) ->
       e.preventDefault()
       window.document.location = $(this).data("href")
+
+    # let a's do their job
+    .on 'click', 'tr[data-href] > td > a', (e) ->
+      e.stopPropagation()
 
     # but avoid redirecting when clicking on a row-selection cell
     .on 'click', 'tr[data-href] > [data-role|="select"]', (e) ->

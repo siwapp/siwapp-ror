@@ -1,14 +1,17 @@
 class CustomersController < ApplicationController
   include MetaAttributesController
-  before_action :set_type
+
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /customers
   def index
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
+    @search_filters = true
     @customers = @search.result(distinct: true)
       .paginate(page: params[:page], per_page: 20)
+    @customers = @customers.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }
@@ -78,7 +81,7 @@ class CustomersController < ApplicationController
   # GET /customers/autocomplete.json
   # View to get the customer autocomplete feature editing invoices.
   def autocomplete
-    @customers = Customer.order(:name).where("name LIKE ?", "%#{params[:term]}%")
+    @customers = Customer.order(:name).where("name LIKE ? and active = ?", "%#{params[:term]}%", true)
     respond_to do |format|
       format.json
     end
@@ -93,6 +96,10 @@ class CustomersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
       params.require(:customer).permit(:name, :identification, :email, :contact_person,
-                                       :invoicing_address, :shipping_address)
+                                       :invoicing_address, :shipping_address, :active, :tag_list)
+    end
+
+    def set_tags
+      @tags = tags_for('Customer').collect(&:name)
     end
 end

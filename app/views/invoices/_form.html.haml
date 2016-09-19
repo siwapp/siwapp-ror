@@ -12,7 +12,6 @@
   %fieldset.m-b-2
     %legend.m-b-1 Customer
     = render partial: 'customers/form_fields', locals: {f: f}
-
     = f.hidden_field :customer_id
 
   %fieldset.m-b-2{"data-changes" => "amount"}
@@ -32,12 +31,6 @@
           = f.label :due_date
           = f.date_field :due_date,  is_new ? { class: 'form-control', value: Date.current() + @days_to_due.days} : { class: 'form-control' }
 
-    - if @invoice.new_record? or @invoice.draft
-      .checkbox
-        %label
-          = f.check_box :draft
-          Draft
-
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 
   - unless @invoice.new_record?
@@ -55,6 +48,21 @@
           :class => 'btn btn-secondary'                           |
 
   %fieldset.m-b-2
+    %legend.m-b-1 Tags
+    = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
+
+  %fieldset.m-b-2
     %legend.m-b-1 Meta
     = render partial: 'shared/meta_form', locals: {f: f, instance: @invoice}
-    = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
+
+  - if @invoice.new_record? or @invoice.draft
+    .checkbox
+      %label
+        = f.check_box :draft
+        Draft
+  - else
+    .checkbox
+      %label
+        = f.check_box :failed
+        Failed
+

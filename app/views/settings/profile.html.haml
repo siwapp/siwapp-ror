@@ -2,22 +2,30 @@
 
 .row
   .col-xs-12.col-md-6.col-xl-4
-    = form_tag("", method: "post") do
+    = form_for @user, url: settings_profile_path, method: :put do |f|
+      - if @user.errors.any?
+        #error_explanation
+          %h2
+            = pluralize @user.errors.count, "error"
+            prohibited these profile settings from being saved:
+          %ul
+            - @user.errors.full_messages.each do |message|
+              %li= message
       .form-group
-        = label_tag "Username:"
-        = text_field(:user, :name, class: 'form-control')
+        = f.label :name, "Name:"
+        = f.text_field :name, class: 'form-control'
       .form-group
-        = label_tag("Email:")
-        = text_field(:user, :email, class: 'form-control')
+        = f.label :email, "Email:"
+        = f.text_field :email, class: 'form-control'
       .form-group
-        = label_tag(:old_password, "Old Password:")
-        = password_field_tag(:old_password, nil, class: 'form-control')
+        = label_tag :old_password, "Old Password:"
+        = password_field_tag :old_password, nil, class: 'form-control'
       .form-group
-        = label_tag(:new_password, "New Password:")
-        = password_field_tag(:new_password, nil, class: 'form-control')
+        = f.label :password, "New Password:"
+        = f.password_field :password, class: 'form-control'
       .form-group
-        = label_tag(:new_password2, "New Password Again:")
-        = password_field_tag(:new_password2, nil, class: 'form-control')
+        = f.label :password_confirmation, "New Password Confirmation:"
+        = f.password_field :password_confirmation, class: 'form-control'
 
 .action-buttons
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

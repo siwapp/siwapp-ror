@@ -9,14 +9,21 @@ class CommonsController < ApplicationController
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
   # GET /commons
+  # GET /customers/:customer_id/commons --> filter by customer
   def index
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
+    # filter by customer
+    if params[:customer_id]
+      results = results.where customer_id: params[:customer_id]
+      @customer = Customer.find params[:customer_id]
+      @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
+    end
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
-    
+
     # series has to be included after totals calculations
     results = results.includes :series
 
@@ -32,8 +39,9 @@ class CommonsController < ApplicationController
   def new
     instance = model.new
     instance.items.new
+    # default legal terms
+    instance.terms = Settings.legal_terms
     set_instance instance
-    @days_to_due = Integer Settings.days_to_due
     render sti_template(@type, action_name)
   end
 
@@ -128,7 +136,8 @@ class CommonsController < ApplicationController
     @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
-    @tags = commons_tags
+    @days_to_due = Integer Settings.days_to_due
+    @tags = tags_for('Common').collect(&:name)
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts

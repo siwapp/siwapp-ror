@@ -1,0 +1,38 @@
+%h1 My Tags
+
+.row
+  = form_tag settings_tags_path, method: :put, id: 'tag-settings' do
+    .col-xs-5.col-md-2.col-xl-3
+      .table-responsive
+        %h2 Invoices tags
+        %table.table.table-hover.table-stripped.table-bordered
+          %thead
+            %tr
+              %th.no-wrap Tag Name
+              %th.no-wrap Delete?
+          %tbody
+            - @common_tags.each do |tag|
+              %tr
+                %td.no-wrap
+                  = hidden_field_tag "tag_ids[]", tag.id
+                  = text_field_tag "tags[#{tag.id}][name]", tag.name, class: 'form-control'
+                %td.text-center{data: {role: 'select'}}= check_box_tag "tags[#{tag.id}][_delete]", tag.id
+    .col-xs-5.col-md-2.col-xl-3
+      .table-responsive
+        %h2 Customer tags
+        %table.table.table-hover.table-stripped.table-bordered
+          %thead
+            %tr
+              %th.no-wrap Tag Name
+              %th.no-wrap Delete?
+          %tbody
+            - @customer_tags.each do |tag|
+              %tr
+                %td.no-wrap
+                  = hidden_field_tag "tag_ids[]", tag.id
+                  = text_field_tag "tags[#{tag.id}][name]", tag.name, class: 'form-control'
+                %td.text-center{data: {role: 'select'}}= check_box_tag "tags[#{tag.id}][_delete]", tag.id
+
+
+.action-buttons
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Apply Changes

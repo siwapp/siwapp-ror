@@ -21,3 +21,30 @@ td, th {
     height: auto;
   }
 }
+
+.status {
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 0.3rem;
+}
+
+.failed {
+  background-color: rgb(55, 58, 60);
+}
+
+.past_due {
+  background-color: $brand-danger;
+}
+
+.draft {
+  background-color: #ddd;
+}
+
+.paid {
+  background-color: $brand-success;
+}
+
+.pending {
+  background-color: #D8B256;
+}

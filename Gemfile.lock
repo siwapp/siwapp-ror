@@ -322,5 +322,8 @@ DEPENDENCIES
   wisper-celluloid
   wkhtmltopdf-binary
 
+RUBY VERSION
+   ruby 2.2.0p0
+
 BUNDLED WITH
-   1.12.5
+   1.13.1

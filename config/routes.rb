@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   get "items/amount"
 
   resources :invoices do
-    delete 'remove', on: :collection
     post 'bulk', on: :collection
     post 'select_template', on: :member
     get 'autocomplete', on: :collection
@@ -33,6 +32,8 @@ Rails.application.routes.draw do
 
   resources :customers do
     get 'autocomplete', on: :collection
+    resources :invoices, only: [:index]
+    resources :recurring_invoices, only: [:index]
   end
 
   post 'templates/set_default', to: 'templates#set_default'
@@ -40,15 +41,18 @@ Rails.application.routes.draw do
   post 'taxes/set_default', to: 'taxes#set_default'
 
   get 'settings/global'
-  post 'settings/global'
+  put 'settings/global', to: 'settings#global_update'
   get 'settings/profile'
-  post 'settings/profile'
+  put 'settings/profile', to: 'settings#profile_update'
   get 'settings/smtp'
-  post 'settings/smtp'
+  put 'settings/smtp', to: 'settings#smtp_update'
+  get 'settings/tags'
+  put 'settings/tags', to: 'settings#tags_update'
   get 'settings/hooks'
-  post 'settings/hooks'
+  put 'settings/hooks', to: 'settings#hooks_update'
   get 'settings/api_token'
   post 'settings/api_token'
+
 
   # API
   namespace :api do

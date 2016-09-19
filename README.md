@@ -101,7 +101,7 @@ It's just like listing, but adding the `q` search parameter with any of these ke
   * `q[issue_date_gte]=2012-01-01` invoice whose issue date is greater or equal than `2012-01-01`
   * `q[issue_date_lte]=2012-01-01` invoice whose issue date is less or equal than `2012-01-01`
   * `q[series_id]=3` invoices whose series has the id=3
-  * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `overdue`
+  * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `past_due`
 
 If you wanted to search for invoices named 'acme' whose status is 'paid', you would do a GET request to
 
@@ -211,6 +211,13 @@ Content-Type: application/json
                 "tax_ids": [2, 4],
                 "unitary_cost": 12.1
             }
+        ],
+        "payments_attributes": [
+            {
+                "notes": "payment #1",
+                "amount": 32.1,
+                "date": "2016-02-02"
+            }
         ]
     }
 }
@@ -218,7 +225,7 @@ Content-Type: application/json
 
 * The `"invoice"` key must be present.
 * You can create invoice with items. Notice the name of the key: `items_attributes`
-* You can not create invoice with payments
+* You can create invoice with payments. Notice the name of the key: `payments_attributes`
 
 #### Update
 

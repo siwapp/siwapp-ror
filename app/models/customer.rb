@@ -1,16 +1,24 @@
 class Customer < ActiveRecord::Base
   include MetaAttributes
-  
+
   acts_as_paranoid
   has_many :invoices
   has_many :estimates
   has_many :recurring_invoices
+
+  # Behaviors
+  acts_as_taggable
 
   before_destroy :check_invoices
 
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
     where('name LIKE :terms OR email LIKE :terms OR identification LIKE :terms', terms: '%' + terms + '%')
+  }
+
+  scope :only_active, ->(boolean = true) {
+    return nil unless boolean
+    where(active: true)
   }
 
   def total
@@ -55,6 +63,6 @@ private
   end
 
   def self.ransackable_scopes(auth_object = nil)
-    [:with_terms]
+    [:with_terms, :only_active]
   end
 end

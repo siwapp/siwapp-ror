@@ -45,7 +45,6 @@ invoice_template = <<HEREDOC
       text-transform: uppercase;
       font-weight: normal;
       font-size: 1.2rem;
-      background: white;
     }
 
     .row + h1 {
@@ -71,7 +70,6 @@ invoice_template = <<HEREDOC
     }
 
     .logo {
-      margin: 2rem 0 0;
       max-height: 50px;
       width: auto;
     }
@@ -106,12 +104,10 @@ invoice_template = <<HEREDOC
       clear:both; 
       page-break-after:always; 
     }
-    
 
     .company {
       list-style: none;
       font-size: 90%;
-      padding-right: 1rem;
       line-height: 1.2;
     }
     .company .company__name {
@@ -129,16 +125,43 @@ invoice_template = <<HEREDOC
       font-size: 1.2rem;
     }
 
+    .status {
+      color: white;
+      float: right;
+      border: 1px solid #cbcbc0;
+      border-left: none;
+      padding: 1.623rem;
+      margin-top: -1rem;
+    }
+
+    .failed {
+      background-color: rgb(55, 58, 60);
+    }
+
+    .past_due {
+      background-color: #d9534f;
+    }
+
+    .draft {
+      background-color: #ddd;
+    }
+
+    .paid {
+      background-color: #5cb85c;
+    }
+
+    .pending {
+      background-color: #D8B256;
+    }
+
     .amount {
-      clear: both;
       font-size: 2rem;
       font-weight: bold;
-      line-height: 1;
       text-align: center;
       border: 1px solid #cbcbc0;
-      background: white;
       padding: 1rem;
-      margin-left: 2rem;
+      float: right;
+      margin-top: -1rem;
     }
 
     .amount__currency {
@@ -215,12 +238,12 @@ invoice_template = <<HEREDOC
 <body class="invoice">
 
   <div class="row">
-    <% if settings.company_logo? %>
+    <% if settings.company_logo != "" %>
     <div class="section-lg">
       <img class="logo" src="<%= settings.company_logo %>" alt="<%= settings.company_name %>" />
     </div>
     <% end %>
-    <div class="section-sm pull-right">
+    <div>
       <ul class="company text-right">
         <li class="company__name"><%= settings.company_name %></li>
         <li class="company__id"><%= settings.company_vat_id %></li>
@@ -262,19 +285,29 @@ invoice_template = <<HEREDOC
       <table cellspacing="0" class="info">
         <tbody>
           <tr>
+            <th>Invoice Number:</th>
+            <td class="total"><%= invoice %></td>
+          </tr>
+          <tr>
             <th>Billed:</th>
             <td class="total"><%= invoice.issue_date %></td>
           </tr>
           <tr>
-            <th>Invoice Number:</th>
-            <td class="total"><%= invoice %></td>
+            <th>Due on:</th>
+            <td class="total"><%= invoice.due_date %></td>
           </tr>
         </tbody>
       </table>
-      <div class="amount">
-        <%= display_money invoice.gross_amount %>
-        <span class="amount__currency"><%= settings.currency.upcase %></span>
-      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="status <%= invoice.get_status %>">
+      <%= invoice.get_status.upcase %>
+    </div>
+    <div class="amount">
+      <%= display_money invoice.gross_amount %>
+      <span class="amount__currency"><%= settings.currency.upcase %></span>
     </div>
   </div>
 
