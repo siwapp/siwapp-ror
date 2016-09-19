@@ -40,6 +40,7 @@
             %a.dropdown-item{:href => series_index_path} Series
             %a.dropdown-item{:href => taxes_path} Taxes
             %a.dropdown-item{:href => templates_path} Templates
+            %a.dropdown-item{href: settings_tags_path} Tags
             .dropdown-divider
             %a.dropdown-item{:href => settings_api_token_path} API Token
             .dropdown-divider
@@ -55,6 +56,7 @@
         %a.nav-item.nav-link{:href => series_index_path} Series
         %a.nav-item.nav-link{:href => taxes_path} Taxes
         %a.nav-item.nav-link{:href => templates_path} Templates
+        %a.nav-item.nav-link{href: settings_tags_path} Tags
         %a.nav-item.nav-link{:href => settings_api_token_path} API Token
         = link_to 'Log out', logout_path, method: "delete", class: "nav-item nav-link"
 

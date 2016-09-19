@@ -137,7 +137,7 @@ class CommonsController < ApplicationController
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @days_to_due = Integer Settings.days_to_due
-    @tags = saved_tags_for 'Common'
+    @tags = tags_for('Common').collect(&:name)
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts
