@@ -20,11 +20,12 @@ class Api::V1::CommonsController < Api::V1::BaseController
     results = @search.result(distinct: true)
     # meta attributes filtering
     if params[:meta]
-      splitted = params[:meta].split(":")
-      if splitted.length == 2
-        results = @search.result(distinct: true)
-        .where("meta_attributes like '%\"#{splitted[0]}\":\"#{splitted[1]}\"%'")
+      conditions = []
+      params[:meta].each do |key, value|
+        conditions.push("meta_attributes like '%\"#{key}\":\"#{value}\"%'")
       end
+      results = @search.result(distinct: true)
+        .where(conditions.join(" and "))
     end
     if params[:customer_id]
       results = results.where(customer_id: params[:customer_id])
