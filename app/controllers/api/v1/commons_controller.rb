@@ -18,11 +18,16 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # GET /api/v1/customers/customer_id/commons  --> for API
   def index
     results = @search.result(distinct: true)
+    # meta attributes filtering
     if params[:meta]
-      splitted = params[:meta].split(":")
-      if splitted.length == 2
+      conditions = []
+      params[:meta].split(',').each do |condition|
+        splitted = condition.split(":")
+        if splitted.length == 2
+          conditions.push("meta_attributes like '%\"#{splitted[0]}\":\"#{splitted[1]}\"%'")
         results = @search.result(distinct: true)
-        .where("meta_attributes like '%\"#{splitted[0]}\":\"#{splitted[1]}\"%'")
+        .where(conditions.join(" and "))
+        end
       end
     end
     if params[:customer_id]
