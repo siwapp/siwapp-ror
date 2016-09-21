@@ -22,11 +22,12 @@
   .col-sm-3
     .form-group
       = f.label :invoicing_address, "Invoicing Address"
-      = f.text_area :invoicing_address, class: 'form-control autosize'
+      = f.text_area :invoicing_address, class: 'form-control autosize', "data-address": "invoice"
   .col-sm-3
     .form-group
       = f.label :shipping_address, "Shipping Address"
-      = f.text_area :shipping_address, class: 'form-control autosize'
+      = f.text_area :shipping_address, class: 'form-control autosize', "data-address": "shipping"
+      = link_to "copy invoicing address", "", "id": "js-copy-address"
   - unless f.object_name == 'customer'
     .col-sm-3
       .form-group

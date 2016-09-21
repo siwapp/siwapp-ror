@@ -1,4 +1,8 @@
 jQuery(document).ready ($) ->
+  $('#js-copy-address').on 'click', (e) ->
+    e.preventDefault()
+    $('[data-address="shipping"]').val($('[data-address="invoice"]').val())
+
   if window.location.pathname == Routes.invoices_path()
     # Chart
     chartDisplayed = false
