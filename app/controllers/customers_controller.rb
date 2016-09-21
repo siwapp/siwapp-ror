@@ -1,6 +1,7 @@
 class CustomersController < ApplicationController
   include MetaAttributesController
 
+  before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 

@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
     FactoryGirl.create :user
     @headers = {'Content-Type' => 'application/json', 
         'Authorization' => 'Token token="123token"'}
-    @customer = FactoryGirl.create :customer
+    @customer = FactoryGirl.create(:customer, name: "Test Customer")
     @series = FactoryGirl.create :series
     @invoice = FactoryGirl.create :invoice, customer: @customer
   end
@@ -23,7 +23,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
 
     it 'GET /api/v1/customers/:id/invoices shows filtered invoices' do
       # create extra invoice for another customer
-      alt_customer = FactoryGirl.create :customer
+	  alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
       alt_invoice = FactoryGirl.create :invoice, customer: alt_customer
       get api_v1_customer_invoices_path(@customer), nil, @headers
       expect(response).to be_success
@@ -72,7 +72,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       #name modified
       expect(json['name']).to eql 'modified NAME'
       # the rest not
-      expect(json['email']).to eql @customer.name
+      expect(json['email']).to eql @customer.email
       # in db, too
       expect(Customer.find(json['id']).name).to eql 'modified NAME'
     end

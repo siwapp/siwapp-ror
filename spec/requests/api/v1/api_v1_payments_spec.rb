@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
     FactoryGirl.create :user
     @headers = {'Content-Type' => 'application/json', 
         'Authorization' => 'Token token="123token"'}
-    @customer = FactoryGirl.create :customer
+    @customer = FactoryGirl.create(:customer, name: "Test Customer")
     @series = FactoryGirl.create :series
     @invoice = FactoryGirl.create :invoice, customer: @customer
     @payment = @invoice.payments.first
