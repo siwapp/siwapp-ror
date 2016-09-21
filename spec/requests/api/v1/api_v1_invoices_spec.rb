@@ -9,7 +9,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     @template = FactoryGirl.create :template
     @headers = {'Content-Type' => 'application/json', 
         'Authorization' => 'Token token="123token"'}
-    @customer = FactoryGirl.create :customer
+    @customer = FactoryGirl.create(:customer, name: "Test Customer")
     @series = FactoryGirl.create :series
     @invoice = FactoryGirl.create :invoice, customer: @customer
   end
