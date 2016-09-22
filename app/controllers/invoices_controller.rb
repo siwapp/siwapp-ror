@@ -1,3 +1,5 @@
+require 'csv'
+
 class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
@@ -133,6 +135,15 @@ class InvoicesController < CommonsController
       end
     end
     redirect_to action: :index
+  end
+
+  def get_csv(invoices=Invoice.all)
+    csv_string = CSV.generate do |csv|
+      csv << ["hey", "man"]
+      invoices.each do |inv|
+        csv << [inv.id, inv.name]
+      end
+    end
   end
 
   protected
