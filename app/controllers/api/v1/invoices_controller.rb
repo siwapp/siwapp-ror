@@ -37,10 +37,12 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
   def invoice_params
     [
+      :number,
       :series_id,
       :issue_date,
       :due_date,
       :days_to_due,
+      :invoice_number,
 
       :customer_id,
       :identification,

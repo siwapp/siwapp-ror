@@ -24,6 +24,10 @@
           = f.collection_select :series_id, @series, :id, :to_s, is_new ? { selected: @default_series_id} : {}, {multiple: false, class: 'form-control c-select'}
       .col-xs-12.col-sm-4
         .form-group
+          = f.label :number
+          = f.text_field :number, {class: 'form-control'}
+      .col-xs-12.col-sm-4
+        .form-group
           = f.label :issue_date
           = f.date_field :issue_date,  is_new ? { class: 'form-control', value: Date.current() } : { class: 'form-control' }
       .col-xs-12.col-sm-4
