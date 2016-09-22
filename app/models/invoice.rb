@@ -8,12 +8,12 @@ class Invoice < Common
   # Validation
   validates :series, presence: true
   validates :issue_date, presence: true
-  validates :number, numericality: { only_integer: true, allow_nil: true }
-  validates :number, uniqueness: { scope: :series,
-    message: "Exists an invoice with this number." }
+  validates :number, numericality: { only_integer: true, 
+    allow_nil: true }
+  validates_uniqueness_of :number,  scope: :series, conditions: -> { where.not(draft: true) } 
 
   # Events
-  around_save :ensure_invoice_number
+  around_save :ensure_invoice_number, if: :needs_invoice_number
   after_update :purge_payments
   after_save :update_paid
 
@@ -170,6 +170,14 @@ public
 
   protected
 
+    # Protected: Decide whether this invoice needs an invoice number. It's true
+    # when the invoice is not a draft and has no invoice number.
+    #
+    # Returns a boolean.
+    def needs_invoice_number
+      !draft and number.nil?
+    end
+
     # Protected: Sets the invoice number to the series next number if
     # come no forced number and updates
     # the series by incrementing the next_number counter.
@@ -177,10 +185,11 @@ public
     # Returns nothing.
     def ensure_invoice_number
       if not number
+        invoice = Invoice.where(series: series).order(:number).last
         self.number = series.next_number
       end
       yield
-      invoice = Invoice.where(series: series).order(:number).last
+      
       if invoice and invoice.number and invoice.number > number
         series.update_attribute :next_number, invoice.number + 1
       else

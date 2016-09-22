@@ -13,6 +13,23 @@ class CommonsController < ApplicationController
   def index
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
+    # If there is meta param, it's allowed filtering by meta_attributes
+    # the format is: 
+    #   key1:value1,key2:value2
+    #   key1, ...
+    if params[:meta]
+      conditions = []
+      params[:meta].split(',').each do |condition_string|
+        condition_list = condition_string.split ':'
+        if condition_list.length == 1
+          conditions.push("meta_attributes like '%#{condition_list[0]}%'")
+        elsif condition_list.length == 2
+          conditions.push("meta_attributes like '%\"#{condition_list[0]}\":\"#{condition_list[1]}\"%'")
+        end
+      end
+      results = @search.result(distinct: true)
+        .where(conditions.join(" and "))
+    end
     # filter by customer
     if params[:customer_id]
       results = results.where customer_id: params[:customer_id]
