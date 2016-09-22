@@ -57,14 +57,15 @@ class TaxesController < ApplicationController
   # DELETE /taxes/1.json
   def destroy
 	respond_to do |format|
-		if @tax.destroy
-		  format.html { redirect_to taxes_url, notice: 'Tax was successfully destroyed.' }
-		  format.json { head :no_content }
-		else
-		  format.html { redirect_to taxes_url, notice: 'Tax has invoices and can not be destroyed.' }
-		  format.json { head :no_content }
-		end
-	end
+      if @tax.destroy
+        format.html { redirect_to taxes_url, notice: 'Tax was successfully destroyed.' }
+        format.json { head :no_content }
+      else
+        flash[:alert] = "Tax has invoices and can not be destroyed."
+        format.html { redirect_to edit_tax_path(@tax) }
+        format.json { head :no_content }
+      end
+    end
   end
 
   def set_default
