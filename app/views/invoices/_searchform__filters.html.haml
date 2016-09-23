@@ -19,16 +19,3 @@
         .form-group
           = f.label :with_status, "Status:"
           = f.select :with_status, Invoice::status_collection, {include_blank: 'Choose…'}, {class: 'form-control c-select'}
-
-= render 'shared/searchform__tagsfield'
-
-// In order to filter by meta_attributes
-// we do this out of ransack
-.row
-  .col-xs-12.col-md-6
-    .row
-      .col-xs-12.col-sm-6
-        .form-group
-          = label_tag :meta
-          = text_field_tag :meta, "", class: "form-control"
-

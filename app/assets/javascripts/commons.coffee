@@ -157,7 +157,7 @@ jQuery(document).ready ($) ->
     $('.taxes-selector').select2()
     $('#js-items-table').on 'cocoon:after-insert', (e, insertedItem) ->
       $(insertedItem).find('.taxes-selector').select2()
-      
+
     form
       .on 'update', '.taxes-selector', () ->
         checked_taxes = $(this).find(':checked')
@@ -172,10 +172,19 @@ jQuery(document).ready ($) ->
         $(this).closest('.taxes-selector').trigger('update')
       .find('.taxes-selector').trigger('update')
 
-  # /each
   #
   # Action Buttons
   #
+
+  # Submit Search Form to download CSV files
+  $(document).on 'click', '[data-role="csv-form"]', (e) ->
+    e.preventDefault()
+    console.log('hey man')
+    old_action = $('#js-search-form').attr('action')
+    $('#js-search-form').attr('action', "#{old_action}.csv")
+    $('#js-search-form').submit()
+    # back to normal action
+    $('#js-search-form').attr('action', "#{old_action}")
 
   # Submit Form
   $(document).on 'click', '[data-role="submit-form"]', (e) ->
