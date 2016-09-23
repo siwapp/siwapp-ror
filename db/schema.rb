@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915094942) do
+ActiveRecord::Schema.define(version: 20160923100618) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -127,12 +127,12 @@ ActiveRecord::Schema.define(version: 20160915094942) do
   add_index "products", ["deleted_at"], name: "index_products_on_deleted_at", using: :btree
 
   create_table "series", force: :cascade do |t|
-    t.string   "name",        limit: 255
-    t.string   "value",       limit: 255
-    t.integer  "next_number", limit: 4,   default: 1
-    t.boolean  "enabled",                 default: true
-    t.boolean  "default",                 default: false
+    t.string   "name",         limit: 255
+    t.string   "value",        limit: 255
+    t.boolean  "enabled",                  default: true
+    t.boolean  "default",                  default: false
     t.datetime "deleted_at"
+    t.integer  "first_number", limit: 4,   default: 1
   end
 
   add_index "series", ["deleted_at"], name: "index_series_on_deleted_at", using: :btree

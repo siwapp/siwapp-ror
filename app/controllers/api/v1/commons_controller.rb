@@ -102,8 +102,6 @@ class Api::V1::CommonsController < Api::V1::BaseController
     end
   end
 
-
-
   def not_found
     return api_error(status: 404, errors: 'Not found')
   end

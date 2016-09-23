@@ -644,7 +644,7 @@ Content-Type: application/json; charset=UTF-8
     "value": "SSA-",
     "enabled": true,
     "default": null,
-    "next_number": 13,
+    "first_number": 1000,
     "url": "https://siwapp-server.com/api/v1/taxes/2"
 }
 ````
