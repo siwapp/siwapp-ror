@@ -139,9 +139,20 @@ class InvoicesController < CommonsController
 
   def get_csv(invoices=Invoice.all)
     csv_string = CSV.generate do |csv|
-      csv << ["hey", "man"]
-      invoices.each do |inv|
-        csv << [inv.id, inv.name]
+      csv << ["id", "series", "customer_id", "name", "identification", "email",
+          "invoicing_address", "shipping_address", "contact_person", "terms",
+          "notes", "base_amount", "discount_amount", "net_amount",
+          "gross_amount", "paid_amount", "tax_amount", "draft", "paid",
+          "sent_by_email", "number", "recurring_invoice_id", "issue_date",
+          "due_date", "created_at", "updated_at", "template_id", "meta_attributes",
+          "failed" ]
+      invoices.each do |i|
+        csv << [i.id, i.series, i.customer_id, i.name, i.identification, i.email,
+            i.invoicing_address, i.shipping_address, i.contact_person, i.terms,
+            i.notes, i.base_amount, i.discount_amount, i.net_amount,
+            i.gross_amount, i.paid_amount, i.tax_amount, i.draft, i.paid,
+            i.sent_by_email, i.number, i.recurring_invoice_id, i.issue_date,
+            i.due_date, i.created_at, i.updated_at, i.template_id, i.meta_attributes]
       end
     end
   end
