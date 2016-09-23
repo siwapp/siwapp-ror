@@ -89,6 +89,6 @@ class SeriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def series_params
-      params.require(:series).permit(:name, :value, :enabled, :next_number)
+      params.require(:series).permit(:name, :value, :enabled, :first_number)
     end
 end

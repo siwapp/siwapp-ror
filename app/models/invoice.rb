@@ -68,7 +68,8 @@ public
   #
   # Returns a string.
   def to_s
-    label = draft ? '[draft]' : number? ? number: "(#{series.next_number})"
+
+    label = draft ? '[draft]' : number
     "#{series.value}#{label}"
   end
 
@@ -178,23 +179,19 @@ public
       !draft and number.nil?
     end
 
-    # Protected: Sets the invoice number to the series next number if
-    # come no forced number and updates
-    # the series by incrementing the next_number counter.
-    #
+    # Protected: Sets the invoice number: 
+    # To sent number (if exists)
+    # To maximum + 1 in the series (if exists)
+    # To the first_number in the series
     # Returns nothing.
     def ensure_invoice_number
-      if not number
-        invoice = Invoice.where(series: series).order(:number).last
-        self.number = series.next_number
+      invoice = Invoice.where(series: series).order(:number).last
+      if invoice
+        self.number = invoice.number + 1
+      else
+        self.number = series.first_number
       end
       yield
-      
-      if invoice and invoice.number and invoice.number > number
-        series.update_attribute :next_number, invoice.number + 1
-      else
-        series.update_attribute :next_number, number + 1
-      end
     end
 
     # make sure every soft-deleted payment is really deleted
@@ -208,5 +205,4 @@ public
     def serializable_attribute_names
       [:id, :name, :identification, :email, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :tax_amount, :issue_date, :due_date, :days_to_due]
     end
-
 end

@@ -1,1 +1,1 @@
-json.extract! @series, :id, :name, :value, :enabled, :default, :next_number
+json.extract! @series, :id, :name, :value, :enabled, :default, :first_number

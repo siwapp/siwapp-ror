@@ -17,7 +17,7 @@ RSpec.describe Invoice, :type => :model do
     invoice2 = FactoryGirl.create(:invoice, series: invoice1.series)
     expect(invoice2.number).to eq(2)
 
-    expect(invoice2.series.next_number).to eq(3)
+    expect(invoice2.series.first_number).to eq(1)
   end
 
   it "is invalid with bad e-mails" do
