@@ -26,7 +26,7 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "is represented with series + number as string" do
-    expect(FactoryGirl.build(:invoice).to_s).to eq("ES-(1)")
+    expect(FactoryGirl.build(:invoice).to_s).to eq("ES-")
     expect(FactoryGirl.create(:invoice).to_s).to eq("ES-1")
   end
 
