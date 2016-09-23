@@ -74,10 +74,15 @@ class SeriesController < ApplicationController
   # DELETE /series/1
   # DELETE /series/1.json
   def destroy
-    @series.destroy
     respond_to do |format|
-      format.html { redirect_to series_index_url, notice: 'Series was successfully destroyed.' }
-      format.json { head :no_content }
+      if @series.destroy
+       format.html { redirect_to series_index_url, notice: 'Series was successfully destroyed.' }
+       format.json { head :no_content }
+	  else
+	    flash[:alert] = "Series has invoices and can not be destroyed."
+        format.html { redirect_to edit_series_path(@series) }
+        format.json { head :no_content }
+      end
     end
   end
 

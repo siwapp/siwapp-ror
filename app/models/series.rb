@@ -1,6 +1,6 @@
 class Series < ActiveRecord::Base
   acts_as_paranoid
-  has_many :commons
+  has_many :commons, :dependent => :restrict_with_error
   validates :value, presence: true
 
   # Public: Get a string representation of this object
