@@ -10,7 +10,7 @@ feature 'Editing Series' do
   scenario 'Updating a Series', :js => true, driver: :webkit do
     fill_in 'Name', with: 'NEW Test Series'
     fill_in 'Value', with: 'NTS'
-    fill_in 'Next number', with: '3'
+    fill_in 'First number', with: '3'
     check 'Enabled'
     click_on 'Save'
     expect(page).to have_content("Series was successfully updated")
