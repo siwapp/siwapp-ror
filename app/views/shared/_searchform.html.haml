@@ -10,16 +10,21 @@
   - if @search_filters
     .siwapp-search-filters
       #js-search-filters.collapse.siwapp-search-filters__content
+
         = render 'searchform__filters', f: f
+
         // In order to filter by meta_attributes
         // we do this out of ransack
         .row
-          .col-xs-12.col-md-6
-            .row
-              .col-xs-12.col-sm-6
-                .form-group
-                  = label_tag :meta
-                  = text_field_tag :meta, "", class: "form-control"
+          .col-xs-12.col-sm-6
+            .form-group
+              = label_tag 'tags'
+              = text_field_tag 'tags', params[:tags], placeholder: 'tag1, tag2, tag3, ...', class: 'form-control'
+          .col-xs-12.col-sm-6
+            .form-group
+              = label_tag :meta
+              = text_field_tag :meta, "", class: "form-control"
+
         .row
           .col-md-12
             = link_to 'Export to CSV', '#', class: 'btn btn-primary', data: {role: 'csv-form'}
