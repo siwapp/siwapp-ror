@@ -10,7 +10,7 @@ feature 'Creating Series' do
   scenario 'can create a series', :js => true, driver: :webkit do
     fill_in 'Name', with: 'Agro supplies'
     fill_in 'Value', with: 'AGR'
-    fill_in 'Next number', with: '3'
+    fill_in 'First number', with: '3'
     check 'Enabled'
 
     click_on 'Save'
