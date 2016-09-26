@@ -1,3 +1,5 @@
+require 'csv'
+
 class CustomersController < ApplicationController
   include MetaAttributesController
 
@@ -16,12 +18,28 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }
+      format.csv do
+        csv_string = CSV.generate do |csv|
+          csv << ["id", "name", "identification", "email", "contact_person",
+                  "invoicing_address", "shipping_address", "meta_attributes",
+                  "active"]
+          @customers.each do |c|
+            csv << [c.id, c.name, c.identification, c.email, c.contact_person,
+                    c.invoicing_address, c.shipping_address, c.meta_attributes,
+                    c.active]
+          end
+        end
+        send_data csv_string,
+          :type => "text/plain",
+          :filename => "customers.csv",
+          :disposition => "attachment"
+      end
     end
   end
 
   # GET /customers/1
-  # GET /customers/1.json
   def show
+    redirect_to action: :edit
   end
 
   # GET /customers/new
