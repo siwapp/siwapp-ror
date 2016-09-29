@@ -14,7 +14,7 @@ class CommonsController < ApplicationController
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true)
     # If there is meta param, it's allowed filtering by meta_attributes
-    # the format is: 
+    # the format is:
     #   key1:value1,key2:value2
     #   key1, ...
     if params[:meta]
@@ -151,6 +151,13 @@ class CommonsController < ApplicationController
     end
   end
 
+  protected
+
+  def configure_search
+    super
+    @tags = tags_for('Common')
+  end
+
   private
 
   # Private: sets taxes and series for some actions
@@ -160,7 +167,7 @@ class CommonsController < ApplicationController
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     @days_to_due = Integer Settings.days_to_due
-    @tags = tags_for('Common').collect(&:name)
+    @tags = tags_for('Common')
   end
 
   # Private: whitelist of parameters that can be used to calculate amounts

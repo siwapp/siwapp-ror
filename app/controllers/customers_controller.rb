@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :set_tags, only: [:new, :create, :edit, :update]
+  before_action :set_tags, only: [:index, :new, :create, :edit, :update]
 
   # GET /customers
   def index
@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
     @search_filters = true
     @customers = @search.result(distinct: true)
       .paginate(page: params[:page], per_page: 20)
-    @customers = @customers.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }
@@ -115,10 +115,10 @@ class CustomersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
       params.require(:customer).permit(:name, :identification, :email, :contact_person,
-                                       :invoicing_address, :shipping_address, :active, :tag_list)
+                                       :invoicing_address, :shipping_address, :active, tag_list: [])
     end
 
     def set_tags
-      @tags = tags_for('Customer').collect(&:name)
+      @tags = tags_for('Customer')
     end
 end
