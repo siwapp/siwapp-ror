@@ -149,3 +149,15 @@
 [data-role="tagging"] + .select2 {
   width: 100% !important;
 }
+
+.select2-container--default {
+  &.select2-container--focus {
+    .select2-selection--multiple {
+      border-color: #66afe9;
+    }
+  }
+  .select2-selection--multiple {
+    border-color: #ccc;
+  }
+}
+

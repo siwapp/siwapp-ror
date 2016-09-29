@@ -18,8 +18,8 @@
         .row
           .col-xs-12.col-sm-6
             .form-group
-              = label_tag 'tags'
-              = text_field_tag 'tags', params[:tags], placeholder: 'tag1, tag2, tag3, ...', class: 'form-control'
+              = label_tag :tag_list, "Tags"
+              = select_tag :tag_list, options_for_select(@tags, params[:tag_list]), {class: 'tags-selector', multiple: true, data: {role: 'tagging'}}
           .col-xs-12.col-sm-6
             .form-group
               = label_tag :meta

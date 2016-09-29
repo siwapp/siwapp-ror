@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :set_tags, only: [:new, :create, :edit, :update]
+  before_action :set_tags, only: [:index, :new, :create, :edit, :update]
 
   # GET /customers
   def index
@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
     @search_filters = true
     @customers = @search.result(distinct: true)
       .paginate(page: params[:page], per_page: 20)
-    @customers = @customers.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
+    @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 
     respond_to do |format|
       format.html { render :index, layout: 'infinite-scrolling' }

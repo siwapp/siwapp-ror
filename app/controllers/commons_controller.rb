@@ -151,6 +151,13 @@ class CommonsController < ApplicationController
     end
   end
 
+  protected
+
+  def configure_search
+    super
+    @tags = tags_for('Common')
+  end
+
   private
 
   # Private: sets taxes and series for some actions
