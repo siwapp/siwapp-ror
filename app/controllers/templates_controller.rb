@@ -41,15 +41,32 @@ class TemplatesController < ApplicationController
   # POST /templates
   # updates default template
   def set_default
-    selected = params["default_template"]
-    current_default = Template.find_by(default: true)
-    if selected
-      new_default = Template.find(id=selected)
+    # Gets the selected templates ids
+    email_selected = params["email_default_template"]
+    print_selected = params["print_default_template"]
+    
+    # Gets the current defaults
+    current_email_default = Template.find_by(email_default: true)
+    current_print_default = Template.find_by(print_default: true)
+    
+    # If selected gets the selected template
+    if email_selected
+      new_email_default = Template.find(id=email_selected)
     end
-    if new_default and new_default != current_default
-      Template.update_all("`default` = false")
-      new_default.default = true
-      new_default.save()
+    if print_selected
+      new_print_default = Template.find(id=print_selected)
+    end
+    
+    # If new selected and different to the current one, update
+    if new_email_default and new_email_default != current_email_default
+      Template.update_all("`email_default` = false")
+      new_email_default.email_default = true
+      new_email_default.save()
+    end
+    if new_print_default and new_print_default != current_print_default
+      Template.update_all("`print_default` = false")
+      new_print_default.print_default = true
+      new_print_default.save()
     end
 
     redirect_to templates_url
