@@ -1,4 +1,6 @@
 class Item < ActiveRecord::Base
+  include Util
+
   acts_as_paranoid
   belongs_to :common
   has_and_belongs_to_many :taxes
@@ -8,6 +10,10 @@ class Item < ActiveRecord::Base
   scope :unique_description, -> (term){
     order(:description).where("description LIKE ?", term).group(:description)
   }
+  before_save do
+    precision = get_currency.exponent.to_int
+    self.unitary_cost = self.unitary_cost.round precision
+  end
 
   def base_amount
     unitary_cost * quantity
