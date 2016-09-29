@@ -7,6 +7,8 @@ class Common < ActiveRecord::Base
   # Relations
   belongs_to :customer
   belongs_to :series
+  belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
+  belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
   has_many :items, dependent: :destroy
 
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true

@@ -69,7 +69,6 @@ jQuery(document).ready ($) ->
     $(insertionNode).append(nested)
   
   $('[data-role="remove-item"]').on 'click', (e) ->
-    console.log "HELLO"
     e.preventDefault()
     $this = $(this)
     wrapper = $this.data("wrapper-class")
