@@ -3,7 +3,7 @@ require 'csv'
 class InvoicesController < CommonsController
   # Gets the template to display invoices
   def get_template
-    if template = @invoice.template or template = Template.find_by(default: true) \
+    if template = @invoice.template or template = Template.find_by(print_default: true) \
         or template = Template.first
       @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
     else
