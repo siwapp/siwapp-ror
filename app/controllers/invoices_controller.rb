@@ -22,28 +22,6 @@ class InvoicesController < CommonsController
     render
   end
 
-  # Renders an invoice template in html and pdf formats
-  def template
-    @invoice = Invoice.find(params[:invoice_id])
-    @template = Template.find(params[:id])
-    html = render_to_string :inline => @template.template,
-      :locals => {:invoice => @invoice, :settings => Settings}
-    respond_to do |format|
-      format.html { render inline: html }
-      format.pdf do
-        pdf = @invoice.pdf(html)
-        send_data(pdf,
-          :filename    => "#{@invoice}.pdf",
-          :disposition => 'attachment'
-        )
-      end
-    end
-  end
-
-  def select_template
-    redirect_to action: "template", invoice_id: params[:id], id: params[:invoice][:template_id]
-  end
-
   # GET /invoices/autocomplete.json
   # View to get the item autocomplete feature.
   def autocomplete
@@ -143,7 +121,7 @@ class InvoicesController < CommonsController
             i.notes, i.base_amount, i.discount_amount, i.net_amount,
             i.gross_amount, i.paid_amount, i.tax_amount, i.draft, i.paid,
             i.sent_by_email, i.number, i.recurring_invoice_id, i.issue_date,
-            i.due_date, i.created_at, i.updated_at, i.template_id, i.meta_attributes]
+            i.due_date, i.created_at, i.updated_at, i.print_template_id, i.meta_attributes]
       end
     end
   end

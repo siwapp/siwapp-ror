@@ -7,11 +7,11 @@
             &times;
 
         %h4 Select the template
-      = form_for :invoice, :url => {:action => "select_print_template", :id => @invoice} do |f|
+      = form_for :common, :url => {:action => "select_print_template", :id => @invoice} do |f|
         .modal-body
           - if @templates
             .form-group
-              = f.collection_select :template_id, @templates, :id, :to_s, {multiple: false}, class: "form-control" 
+              = f.collection_select :print_template_id, @templates, :id, :to_s, {multiple: false}, class: "form-control" 
             
         .modal-footer
           = f.submit class: "btn btn-success hidden-sm-down", value: "Download PDF"

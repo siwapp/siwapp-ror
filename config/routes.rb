@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get "recurring_invoices/amounts"
   get "items/amount"
 
+  resources :commons do
+    post 'select_print_template', on: :member
+  end
   resources :invoices do
     post 'bulk', on: :collection
     post 'select_print_template', on: :member
@@ -22,7 +25,7 @@ Rails.application.routes.draw do
     get 'send_email', on: :member
   end
 
-  get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template', as: :rendered_template
+  get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#print_template', as: :rendered_template
 
   resources :recurring_invoices do
     post 'generate', on: :collection
@@ -36,7 +39,8 @@ Rails.application.routes.draw do
     resources :recurring_invoices, only: [:index]
   end
 
-  post 'templates/set_default', to: 'templates#set_default'
+  post 'templates/set_print_default', to: 'templates#set_print_default'
+  post 'templates/set_email_default', to: 'templates#set_email_default'
   post 'series/set_default', to: 'series#set_default'
   post 'taxes/set_default', to: 'taxes#set_default'
 
@@ -57,7 +61,7 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#template', as: :rendered_template
+      get 'invoices/print_template/:id/invoice/:invoice_id', to: 'commons#print_template', as: :rendered_template
       resources :taxes, :series, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering
