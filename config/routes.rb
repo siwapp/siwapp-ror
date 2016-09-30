@@ -39,8 +39,7 @@ Rails.application.routes.draw do
     resources :recurring_invoices, only: [:index]
   end
 
-  post 'templates/set_print_default', to: 'templates#set_print_default'
-  post 'templates/set_email_default', to: 'templates#set_email_default'
+  post 'templates/set_default', to: 'templates#set_default'
   post 'series/set_default', to: 'series#set_default'
   post 'taxes/set_default', to: 'taxes#set_default'
 
