@@ -20,8 +20,27 @@ class CommonsController < ApplicationController
     end
   end
 
+  # Renders a common's template in html and pdf formats
+  def print_template
+    @invoice = Invoice.find(params[:invoice_id])
+    @print_template = Template.find(params[:id])
+    html = render_to_string :inline => @print_template.template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    respond_to do |format|
+      format.html { render inline: html }
+      format.pdf do
+        pdf = @invoice.pdf(html)
+        send_data(pdf,
+          :filename    => "#{@invoice}.pdf",
+          :disposition => 'attachment'
+        )
+      end
+    end
+  end
 
-
+  def select_print_template
+    redirect_to action: "print_template", invoice_id: params[:id], id: params[:invoice][:print_template_id]
+  end
 
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer

@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   resources :invoices do
     post 'bulk', on: :collection
-    post 'select_template', on: :member
+    post 'select_print_template', on: :member
     get 'autocomplete', on: :collection
     get 'chart_data', on: :collection
     get 'send_email', on: :member
