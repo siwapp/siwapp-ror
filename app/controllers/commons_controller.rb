@@ -39,7 +39,7 @@ class CommonsController < ApplicationController
   end
 
   def select_print_template
-    redirect_to action: "print_template", invoice_id: params[:id], id: params[:invoice][:print_template_id]
+    redirect_to action: "print_template", invoice_id: params[:id], id: params[:common][:print_template_id]
   end
 
   # GET /commons
