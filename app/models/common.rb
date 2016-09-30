@@ -51,6 +51,22 @@ class Common < ActiveRecord::Base
     restore! recursive: true
   end
 
+  # Returns the invoice template if set, and the default otherwise
+  def get_print_template
+    if self.print_template
+      return self.print_template
+    end
+    Template.find_by(print_default: true)
+  end
+
+  # Returns the invoice template if set, and the default otherwise
+  def get_email_template
+    if self.print_template
+      return self.email_template
+    end
+    Template.find_by(email_default: true)
+  end
+
 protected
 
   # Declare scopes for search

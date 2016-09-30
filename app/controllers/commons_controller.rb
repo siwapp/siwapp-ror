@@ -8,6 +8,21 @@ class CommonsController < ApplicationController
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
+  
+  # Gets the template to display invoices
+  def get_print_template
+    if template = get_instance.print_template or template = Template.find_by(print_default: true) \
+        or template = Template.first
+      @template_url = "/#{@type.underscore.downcase.pluralize}/template/
+        #{template.id}/#{@type.underscore.downcase}/#{get_instance.id}"
+    else
+      @template_url = ""
+    end
+  end
+
+
+
+
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer
   def index

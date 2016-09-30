@@ -1,15 +1,6 @@
 require 'csv'
 
 class InvoicesController < CommonsController
-  # Gets the template to display invoices
-  def get_template
-    if template = @invoice.template or template = Template.find_by(print_default: true) \
-        or template = Template.first
-      @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
-    else
-      @template_url = ""
-    end
-  end
 
   def show
     # Show the template in an iframe
@@ -17,7 +8,7 @@ class InvoicesController < CommonsController
       format.json { render json: @invoice }
       format.html do
         # Redirect to edit if invoice not closed
-        if @invoice.get_status != :paid or not get_template
+        if @invoice.get_status != :paid or not get_print_template
           redirect_to action: :edit
         end
         format.html
@@ -27,7 +18,7 @@ class InvoicesController < CommonsController
 
   def edit
     @templates = Template.all
-    get_template
+    get_print_template
     render
   end
 
@@ -122,7 +113,7 @@ class InvoicesController < CommonsController
         html = ''
         invoices.each do |inv|
           @invoice = inv
-          html += render_to_string :inline => inv.get_template.template,
+          html += render_to_string :inline => inv.get_print_template.template,
             :locals => {:invoice => @invoice, :settings => Settings}
         end
         send_data(@invoice.pdf(html),
