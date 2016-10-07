@@ -15,7 +15,7 @@
               = customer.name
               = link_to '(See invoices)', customer_invoices_path(customer.id)
             %td.no-wrap= customer.identification
-            %td.text-right= customer.due.round 2
-            %td.text-right= customer.total.round 2
+            %td.text-right= customer.due > 0.0 ? display_money(customer.due) : ""
+            %td.text-right= display_money customer.total
   .content-loading.hide{data: {role: 'infinite-status'}}
     .spinner
