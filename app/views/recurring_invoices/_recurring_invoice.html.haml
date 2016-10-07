@@ -10,4 +10,9 @@
       %i.material-icons.green  done
     - else
       %i.material-icons.red  clear
+  %td.text-center
+    - if recurring_invoice.sent_by_email
+      %i.material-icons.green  done
+    - else
+      %i.material-icons.red  clear
   %td.text-right.no-wrap= display_money recurring_invoice.gross_amount

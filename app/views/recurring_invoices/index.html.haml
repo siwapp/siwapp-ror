@@ -34,6 +34,7 @@
             %th.no-wrap= sort_link(@search, :name, "Customer")
             %th.no-wrap= sort_link(@search, :period_type, "Frecuency")
             %th.text-center= sort_link(@search, :enabled, "Enabled")
+            %th.text-center= sort_link(@search, :sent_by_email, "Send Email")
             %th.text-right= sort_link(@search, :gross_amount, "Total")
         %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices, current_page: @recurring_invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
