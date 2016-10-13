@@ -40,6 +40,7 @@ class CommonsController < ApplicationController
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @tax = results.sum :tax_amount
+    @count = results.count
 
     # series has to be included after totals calculations
     results = results.includes :series
