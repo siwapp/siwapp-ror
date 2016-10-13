@@ -1,5 +1,8 @@
 .material-icons {
   vertical-align: bottom;
+  &:hover, &:focus {
+    text-decoration: none;
+  }
 }
 
 .btn.material-icons {
@@ -15,3 +18,4 @@
 .green {
   color: $brand-success;
 }
+
