@@ -364,6 +364,7 @@ Content-Type: application/json
 DELETE https://siwapp-server.com/api/v1/items/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
+````
 
 __Response__
 
@@ -468,6 +469,7 @@ Content-Type: application/json
 DELETE https://siwapp-server.com/api/v1/payments/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
+````
 
 __Response__
 
@@ -571,6 +573,7 @@ Content-Type: application/json
 DELETE https://siwapp-server.com/api/v1/taxes/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
+````
 
 __Response__
 
@@ -674,6 +677,7 @@ Content-Type: application/json
 DELETE https://siwapp-server.com/api/v1/series/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
+````
 
 __Response__
 
