@@ -1,7 +1,6 @@
 class EmailAndPrintTemplateToCommon < ActiveRecord::Migration
   def change
-  	remove_column :commons, :template_id
-  	add_column :commons, :print_template_id, :integer
+  	rename_column :commons, :template_id, :print_template_id
   	add_column :commons, :email_template_id, :integer
   end
 end
