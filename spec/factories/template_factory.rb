@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :template do
-    name "default"
+    name "print_default"
     template "fake template"
-    default true
+    print_default true
   end
 end

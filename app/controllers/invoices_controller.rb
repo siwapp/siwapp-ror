@@ -1,15 +1,6 @@
 require 'csv'
 
 class InvoicesController < CommonsController
-  # Gets the template to display invoices
-  def get_template
-    if template = @invoice.template or template = Template.find_by(default: true) \
-        or template = Template.first
-      @template_url = "/invoices/template/#{template.id}/invoice/#{@invoice.id}"
-    else
-      @template_url = ""
-    end
-  end
 
   def show
     # Show the template in an iframe
@@ -17,7 +8,7 @@ class InvoicesController < CommonsController
       format.json { render json: @invoice }
       format.html do
         # Redirect to edit if invoice not closed
-        if @invoice.get_status != :paid or not get_template
+        if @invoice.get_status != :paid or not get_print_template
           redirect_to action: :edit
         end
         format.html
@@ -27,30 +18,8 @@ class InvoicesController < CommonsController
 
   def edit
     @templates = Template.all
-    get_template
+    get_print_template
     render
-  end
-
-  # Renders an invoice template in html and pdf formats
-  def template
-    @invoice = Invoice.find(params[:invoice_id])
-    @template = Template.find(params[:id])
-    html = render_to_string :inline => @template.template,
-      :locals => {:invoice => @invoice, :settings => Settings}
-    respond_to do |format|
-      format.html { render inline: html }
-      format.pdf do
-        pdf = @invoice.pdf(html)
-        send_data(pdf,
-          :filename    => "#{@invoice}.pdf",
-          :disposition => 'attachment'
-        )
-      end
-    end
-  end
-
-  def select_template
-    redirect_to action: "template", invoice_id: params[:id], id: params[:invoice][:template_id]
   end
 
   # GET /invoices/autocomplete.json
@@ -122,7 +91,7 @@ class InvoicesController < CommonsController
         html = ''
         invoices.each do |inv|
           @invoice = inv
-          html += render_to_string :inline => inv.get_template.template,
+          html += render_to_string :inline => inv.get_print_template.template,
             :locals => {:invoice => @invoice, :settings => Settings}
         end
         send_data(@invoice.pdf(html),
@@ -152,7 +121,7 @@ class InvoicesController < CommonsController
             i.notes, i.base_amount, i.discount_amount, i.net_amount,
             i.gross_amount, i.paid_amount, i.tax_amount, i.draft, i.paid,
             i.sent_by_email, i.number, i.recurring_invoice_id, i.issue_date,
-            i.due_date, i.created_at, i.updated_at, i.template_id, i.meta_attributes]
+            i.due_date, i.created_at, i.updated_at, i.print_template_id, i.meta_attributes]
       end
     end
   end

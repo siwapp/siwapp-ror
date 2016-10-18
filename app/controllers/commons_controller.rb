@@ -8,6 +8,40 @@ class CommonsController < ApplicationController
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
+  
+  # Gets the template to display invoices
+  def get_print_template
+    if template = get_instance.print_template or template = Template.find_by(print_default: true) \
+        or template = Template.first
+      @template_url = "/#{@type.underscore.downcase.pluralize}/template/
+        #{template.id}/#{@type.underscore.downcase}/#{get_instance.id}"
+    else
+      @template_url = ""
+    end
+  end
+
+  # Renders a common's template in html and pdf formats
+  def print_template
+    @invoice = Invoice.find(params[:invoice_id])
+    @print_template = Template.find(params[:id])
+    html = render_to_string :inline => @print_template.template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    respond_to do |format|
+      format.html { render inline: html }
+      format.pdf do
+        pdf = @invoice.pdf(html)
+        send_data(pdf,
+          :filename    => "#{@invoice}.pdf",
+          :disposition => 'attachment'
+        )
+      end
+    end
+  end
+
+  def select_print_template
+    redirect_to action: "print_template", invoice_id: params[:id], id: params[:common][:print_template_id]
+  end
+
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer
   def index

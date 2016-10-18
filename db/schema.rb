@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923100618) do
+ActiveRecord::Schema.define(version: 20160929133954) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -49,9 +49,9 @@ ActiveRecord::Schema.define(version: 20160923100618) do
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
     t.datetime "deleted_at"
-    t.integer  "template_id",          limit: 4
     t.text     "meta_attributes",      limit: 65535
     t.boolean  "failed",                                                       default: false
+    t.integer  "template_id",          limit: 4
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -179,13 +179,14 @@ ActiveRecord::Schema.define(version: 20160923100618) do
   add_index "taxes", ["deleted_at"], name: "index_taxes_on_deleted_at", using: :btree
 
   create_table "templates", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.text     "template",   limit: 65535
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.string   "models",     limit: 200
-    t.boolean  "default",                  default: false
+    t.string   "name",          limit: 255
+    t.text     "template",      limit: 65535
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "models",        limit: 200
+    t.boolean  "print_default",               default: false
     t.datetime "deleted_at"
+    t.boolean  "email_default"
   end
 
   add_index "templates", ["deleted_at"], name: "index_templates_on_deleted_at", using: :btree

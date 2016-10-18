@@ -5,11 +5,14 @@
     %table.table.table-hover.table-striped.table-bordered
       %thead
         %tr
-          %th{data: {role: "select-all"}} Default
+          %th{data: {role: "select-all"}} Default e-mail
+          %th{data: {role: "select-all"}} Default PDF
           %th Name
       %tbody
         - @templates.each do |template|
           %tr
             %td.text-center{data: {role: "select"}}
-              = radio_button_tag('default_template', template.id, checked=template.default)
+              = radio_button_tag('email_default_template', template.id, checked=template.email_default)
+            %td.text-center{data: {role: "select"}}
+              = radio_button_tag('print_default_template', template.id, checked=template.print_default)
             %td= link_to template.name, edit_template_path(template)

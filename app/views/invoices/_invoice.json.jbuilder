@@ -9,8 +9,8 @@ json.extract! invoice,
 json.url invoice_url(invoice, format: :json)
 json.series_number invoice.to_s
 json.status invoice.get_status
-if invoice.get_template
-   json.download_link rendered_template_url id: invoice.get_template.id, invoice_id: invoice.id, format: 'pdf'
+if invoice.get_print_template
+   json.download_link rendered_template_url id: invoice.get_print_template.id, invoice_id: invoice.id, format: 'pdf'
 end
 
 if expand
@@ -29,7 +29,7 @@ if expand
     json.url payment_url payment, format: :json
   end
 
-  unless invoice.get_template
+  unless invoice.get_print_template
     json.rendered_templates @templates, partial: 'rendered_template', as: :template, locals: {invoice: invoice}
   end
 

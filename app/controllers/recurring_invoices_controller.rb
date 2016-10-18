@@ -62,7 +62,7 @@ class RecurringInvoicesController < CommonsController
             i.sent_by_email, i.days_to_due, i.enabled, i.max_occurrences,
             i.must_occurrences, i.period, i.period_type,
             i.starting_date, i.finishing_date, i.created_at, i.updated_at,
-            i.template_id, i.meta_attributes]
+            i.print_template_id, i.meta_attributes]
       end
     end
   end
