@@ -32,7 +32,7 @@
           = f.email_field :user, class: 'form-control'
         .form-group
           = f.label :password, "Password:"
-          = f.password_field :password, class: 'form-control'
+          = f.text_field :password, class: 'form-control'
         .form-group
           = f.label :authentication, "Authentication:"
           = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'

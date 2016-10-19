@@ -1,0 +1,18 @@
+#email-template-selector.modal.fade{ tabindex: -1, role: "dialog", style: "top: 50%; left: 50%; transform: translate(-50%, -50%);"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{data: {dismiss: "modal"}}
+          %span
+            &times;
+
+        %h4 Select the template
+      
+      = form_for :common, :url => {:action => "send_email", :id => @invoice}, :method => "get" do |f|
+        .modal-body
+          - if @templates
+            .form-group
+              = f.collection_select :email_template_id, @templates, :id, :to_s, {multiple: false}, class: "form-control" 
+            
+        .modal-footer
+          = f.submit class: "btn btn-success hidden-sm-down", value: "Send e-mail"
