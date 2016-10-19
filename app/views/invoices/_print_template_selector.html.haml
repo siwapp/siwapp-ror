@@ -1,4 +1,4 @@
-#template-selector.modal.fade{ tabindex: -1, role: "dialog", style: "top: 50%; left: 50%; transform: translate(-50%, -50%);"}
+#print-template-selector.modal.fade{ tabindex: -1, role: "dialog", style: "top: 50%; left: 50%; transform: translate(-50%, -50%);"}
   .modal-dialog
     .modal-content
       .modal-header
@@ -7,6 +7,7 @@
             &times;
 
         %h4 Select the template
+      
       = form_for :common, :url => {:action => "select_print_template", :id => @invoice} do |f|
         .modal-body
           - if @templates

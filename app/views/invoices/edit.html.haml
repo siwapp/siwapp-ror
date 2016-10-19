@@ -13,16 +13,19 @@
     %button.btn.btn-success.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded:'false'}}
       %span.sr-only Toggle Dropdown
     .dropdown-menu.dropdown-menu-right
-      = link_to 'Send Email', send_email_invoice_path, class: 'dropdown-item'
+      %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}} Send Email
       - if @template_url
         = link_to 'Download PDF', @template_url + '.pdf', class: 'dropdown-item'
-
-  = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
+  - if @invoice.email_template
+    = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
+  - else
+    %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}} Send Email
   
   - if @template_url and @templates.length == 1
     = link_to 'Download PDF', @template_url + '.pdf', class: 'btn btn-primary hidden-sm-down'
   - else
-    %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#template-selector"}} Download PDF
+    %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#print-template-selector"}} Download PDF
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
 
-= render partial: 'template_selector'
+= render partial: 'print_template_selector'
+= render partial: 'email_template_selector'

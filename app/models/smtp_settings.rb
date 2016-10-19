@@ -11,6 +11,9 @@ class SmtpSettings
   def save_settings
     if valid?
       [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject].each do |key|
+        if key == :password
+          puts send key
+        end
         Settings[key] = send key
       end
     else

@@ -7,7 +7,7 @@ class ApplicationMailer < ActionMailer::Base
     user_name:            Settings.user,
     password:             Settings.password,
     authentication:       Settings.authentication,
-    enable_starttls_auto: Settings.enable_starttls_auto == '1' ? true : false
+    enable_starttls_auto: Settings.enable_starttls_auto == '1' ? true : false 
   }
   self.raise_delivery_errors = true
 end

@@ -19,7 +19,23 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     end
   end
 
-
+  def send_email
+    @invoice = Invoice.find(params[:id])
+    if params && params[:template_id]
+      @invoice.email_template = Template.find(params[:template_id])
+      @invoice.save
+    end
+    begin
+      @invoice.send_email
+      respond_to do |format|
+        format.json { render json: {"message": "E-mail succesfully sent."}, status: :ok }
+      end
+    rescue Exception => e
+      respond_to do |format|
+        format.json { render json: {"message": e.message}, status: :error }
+      end
+    end
+  end
 
   protected
 
