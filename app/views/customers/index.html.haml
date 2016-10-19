@@ -8,14 +8,18 @@
           %th.no-wrap Identification
           %th.text-right Due
           %th.text-right Total
+          %th.text-right
       %tbody{data: {role: 'infinite-content'}}
         - @customers.each_with_index do |customer, i|
           %tr{data: {href: edit_customer_path(customer), itemid: customer.id, page_start: i.zero?, page: @customers.current_page}}
             %td.no-wrap
               = customer.name
-              = link_to '(See invoices)', customer_invoices_path(customer.id)
             %td.no-wrap= customer.identification
-            %td.text-right= customer.due.round 2
-            %td.text-right= customer.total.round 2
+            %td.text-right= customer.due > 0.0 ? display_money(customer.due) : ""
+            %td.text-right= display_money customer.total
+            %td.text-center 
+              %a{class: "material-icons", 
+                 title: "See Invoices", 
+                 href: "#{customer_invoices_path(customer.id)}"} list
   .content-loading.hide{data: {role: 'infinite-status'}}
     .spinner

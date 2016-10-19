@@ -170,8 +170,6 @@ class InvoicesController < CommonsController
       :draft,
       :failed,
 
-      :tag_list,
-
       items_attributes: [
         :id,
         :description,
@@ -188,7 +186,9 @@ class InvoicesController < CommonsController
         :amount,
         :notes,
         :_destroy
-      ]
+      ],
+
+      tag_list: []
     ]
   end
 end

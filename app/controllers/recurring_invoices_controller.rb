@@ -111,8 +111,6 @@ class RecurringInvoicesController < CommonsController
       :max_occurrences,
       :sent_by_email,
 
-      :tag_list,
-
       items_attributes: [
         :id,
         :description,
@@ -121,7 +119,9 @@ class RecurringInvoicesController < CommonsController
         :discount,
         {:tax_ids => []},
         :_destroy
-      ]
+      ],
+
+      tag_list: []
     ]
   end
 

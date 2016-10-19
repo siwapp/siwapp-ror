@@ -1,7 +1,3 @@
 .form-group
-  = f.label :tag_list, "Tags (separated by commas)"
-  = f.text_area :tag_list, value: instance.tag_list.to_s, class: 'form-control', id: 'tagList', autocomplete: 'on', data: { role: 'tagging' }
-
-- if @tags.size > 0
-  :javascript
-    var availableTags = ['#{raw @tags.join("', '")}'];
+  = f.label :tag_list, "Tags"
+  = f.select :tag_list, options_for_select(@tags, instance.tag_list), {class: 'tags-selector'}, {multiple: true, data: {role: 'tagging'}}

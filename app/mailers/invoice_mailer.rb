@@ -7,12 +7,14 @@ class InvoiceMailer < ApplicationMailer
   
   def email_invoice(invoice)
     @invoice = invoice
+
     if @invoice.email_template
       template = @invoice.email_template.template
     else
       template = Template.find_by(email_default: true).template
     end
     html = render_to_string :inline => template,
+
       :locals => {:invoice => @invoice, :settings => Settings}
     attachments["#{@invoice}.pdf"] = @invoice.pdf(html)
     mail(

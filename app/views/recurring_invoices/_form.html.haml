@@ -50,6 +50,9 @@
       = f.label :series
       = f.collection_select :series_id, @series, :id, :to_s, {}, {class: 'form-control c-select'}
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice, is_new: is_new}
+
+  %fieldset.m-b-2
+    %legend.m-b-1 Tags
     = render partial: 'shared/tagging_field', locals: {f: f, instance: @recurring_invoice}
 
   %fieldset.m-b-2

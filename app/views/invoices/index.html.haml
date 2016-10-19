@@ -4,6 +4,10 @@
     - if @customer
       for
       = @customer
+  %span.counter
+    (
+    = @count
+    found )
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 

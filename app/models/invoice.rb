@@ -99,6 +99,9 @@ public
   #
   # Returns a double.
   def unpaid_amount
+    if failed
+      return 0
+    end
     gross_amount - paid_amount
   end
 
