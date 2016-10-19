@@ -99,10 +99,10 @@ invoice_template = <<HEREDOC
       width: 60%;
     }
 
-    .page-break { 
-      display:block; 
-      clear:both; 
-      page-break-after:always; 
+    .page-break {
+      display:block;
+      clear:both;
+      page-break-after:always;
     }
 
     .company {
@@ -322,7 +322,7 @@ invoice_template = <<HEREDOC
       <% @invoice.items.each do |item| %>
         <tr>
           <td><%= item.description %></td>
-          <td class="total"><%= display_money item.net_amount %></td>
+          <td class="total"><%= display_money item.base_amount %></td>
         </tr>
       <% end %>
     </tbody>
