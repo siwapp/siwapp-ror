@@ -4,8 +4,8 @@ class SmtpSettings
   attr_accessor :host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject
 
   validates :port, numericality: {only_integer: true, greater_than: 0}, allow_blank: true
- # validates :domain, format: {with: /\A((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: 'bad format'}, allow_blank: true
- # validate :host_is_legal
+  validates :domain, format: {with: /\A((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: 'bad format'}, allow_blank: true
+  validate :host_is_legal
 
 
   def save_settings

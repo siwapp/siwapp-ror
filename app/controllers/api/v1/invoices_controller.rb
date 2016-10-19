@@ -21,8 +21,8 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
   def send_email
     @invoice = Invoice.find(params[:id])
-    if params && params[:common] && params[:common][:email_template_id]
-      @invoice.email_template = Template.find(params[:common][:email_template_id])
+    if params && params[:template_id]
+      @invoice.email_template = Template.find(params[:template_id])
       @invoice.save
     end
     begin
