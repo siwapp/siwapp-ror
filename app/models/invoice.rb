@@ -7,14 +7,27 @@ class Invoice < Common
   # Validation
   validates :series, presence: true
   validates :issue_date, presence: true
-  validates :number, numericality: { only_integer: true, 
+  validates :number, numericality: { only_integer: true,
     allow_nil: true }
-  validates_uniqueness_of :number,  scope: :series, conditions: -> { where.not(draft: true) } 
+  validates_uniqueness_of :number,  scope: :series, conditions: -> { where.not(draft: true) }
 
   # Events
   around_save :ensure_invoice_number, if: :needs_invoice_number
   after_update :purge_payments
   after_save :update_paid
+
+  CSV_FIELDS = [
+    "id", "series", "customer_id", "name",
+    "identification", "email",
+    "invoicing_address", "shipping_address",
+    "contact_person", "terms",
+    "notes", "base_amount", "discount_amount", "net_amount",
+    "gross_amount", "paid_amount", "tax_amount", "draft",
+    "paid", "sent_by_email", "number",
+    "recurring_invoice_id", "issue_date",
+    "due_date", "created_at", "updated_at",
+    "print_template_id", "failed"
+  ]
 
   scope :with_status, ->(status) {
     return nil if status.empty?
@@ -164,6 +177,7 @@ public
       margin: {:top => 0, :bottom => 0, :left => 0, :right => 0})
   end
 
+
   protected
 
     # Protected: Decide whether this invoice needs an invoice number. It's true
@@ -174,7 +188,7 @@ public
       !draft and number.nil?
     end
 
-    # Protected: Sets the invoice number: 
+    # Protected: Sets the invoice number:
     # To sent number (if exists)
     # To maximum + 1 in the series (if exists)
     # To the first_number in the series

@@ -1,5 +1,3 @@
-require 'csv'
-
 class CustomersController < ApplicationController
   include MetaAttributesController
 
@@ -13,22 +11,16 @@ class CustomersController < ApplicationController
     @search.sorts = 'id desc' if @search.sorts.empty?
     @search_filters = true
     @customers = @search.result(distinct: true)
-      .paginate(page: params[:page], per_page: 20)
     @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 
     respond_to do |format|
-      format.html { render :index, layout: 'infinite-scrolling' }
+      format.html do
+        @customers = @customers.paginate(page: params[:page],
+                                         per_page: 20)
+        render :index, layout: 'infinite-scrolling'
+      end
       format.csv do
-        csv_string = CSV.generate do |csv|
-          csv << ["id", "name", "identification", "email", "contact_person",
-                  "invoicing_address", "shipping_address", "meta_attributes",
-                  "active"]
-          @customers.each do |c|
-            csv << [c.id, c.name, c.identification, c.email, c.contact_person,
-                    c.invoicing_address, c.shipping_address, c.meta_attributes,
-                    c.active]
-          end
-        end
+        csv_string = Customer.csv(@customers)
         send_data csv_string,
           :type => "text/plain",
           :filename => "customers.csv",

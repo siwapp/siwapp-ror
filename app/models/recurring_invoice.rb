@@ -21,6 +21,18 @@ class RecurringInvoice < Common
     ["Yearly", "year"]
   ].freeze
 
+  CSV_FIELDS = [
+    "id", "series", "customer_id", "name", "identification",
+    "email", "invoicing_address", "shipping_address",
+    "contact_person", "terms",
+    "notes", "base_amount", "discount_amount", "net_amount",
+    "gross_amount", "tax_amount", "draft",
+    "sent_by_email", "days_to_due", "enabled", "max_occurrences",
+    "must_occurrences", "period", "period_type",
+    "starting_date", "finishing_date", "created_at", "updated_at",
+    "print_template_id"
+  ]
+
   def to_s
     "#{name}"
   end

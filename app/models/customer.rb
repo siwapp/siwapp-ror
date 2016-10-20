@@ -1,6 +1,8 @@
 class Customer < ActiveRecord::Base
   include MetaAttributes
 
+  extend ModelCsv
+
   acts_as_paranoid
   has_many :invoices
   has_many :estimates
@@ -13,6 +15,12 @@ class Customer < ActiveRecord::Base
   acts_as_taggable
 
   before_destroy :check_invoices
+
+  CSV_FIELDS = [
+    "id", "name", "identification", "email", "contact_person",
+    "invoicing_address", "shipping_address", "meta_attributes",
+    "active"
+  ]
 
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
@@ -54,6 +62,12 @@ class Customer < ActiveRecord::Base
     end
   end
 
+  # returns a string with a csv format
+  def self.csv(results)
+    csv_string(results, self::CSV_FIELDS,
+               results.meta_attributes_keys)
+  end
+
 
 private
 
@@ -68,4 +82,5 @@ private
   def self.ransackable_scopes(auth_object = nil)
     [:with_terms, :only_active]
   end
+
 end

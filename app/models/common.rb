@@ -2,6 +2,8 @@ class Common < ActiveRecord::Base
   include Util
   include MetaAttributes
 
+  extend ModelCsv  # To export to csv file
+
   acts_as_paranoid
 
   # Relations
@@ -87,16 +89,12 @@ class Common < ActiveRecord::Base
     items.only_deleted.delete_all
   end
 
-  # returns a list of unique meta_attributes keys
-  def self.meta_attributes_keys(invoices=Invoice.all)
-    keys = Set.new []
-    invoices.each do |i|
-      i.meta.keys.each do |key|
-        keys.add(key)
-      end
-    end
-    keys.to_a
+  # returns a string with a csv format
+  def self.csv(results)
+    csv_string(results, self::CSV_FIELDS,
+               results.meta_attributes_keys)
   end
+
 
 protected
 
