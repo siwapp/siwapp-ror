@@ -273,7 +273,7 @@ GEM
     wisper-celluloid (0.0.1)
       celluloid
       wisper
-    wkhtmltopdf-binary (0.9.9.3)
+    wkhtmltopdf-binary (0.12.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
