@@ -51,7 +51,15 @@ class Api::V1::CommonsController < Api::V1::BaseController
         end
         # if there is no customer associated then create a new one
         if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
-          customer = Customer.find_by_name type_params[:name]
+          
+          if type_params[:identification]
+            # First check: by VAT_ID
+            customer = Customer.find_by_identification type_params[:identification] 
+          elsif type_params[:name]
+            # Second check: by name
+            customer = Customer.find_by_name type_params[:name] 
+          end
+
           if !customer  
             customer = Customer.create(
               :name => type_params[:name],
