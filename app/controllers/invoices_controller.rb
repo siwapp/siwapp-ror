@@ -93,8 +93,11 @@ class InvoicesController < CommonsController
         html = ''
         invoices.each do |inv|
           @invoice = inv
-          html += render_to_string :inline => inv.get_print_template.template,
-            :locals => {:invoice => @invoice, :settings => Settings}
+          html += render_to_string \
+              :inline => inv.get_print_template.template,
+              :locals => {:invoice => @invoice,
+                          :settings => Settings}
+          html += '<div class="page-break" style="page-break-after:always;"></div>'
         end
         send_data(@invoice.pdf(html),
           :filename => "invoices.pdf",

@@ -99,12 +99,6 @@ invoice_template = <<HEREDOC
       width: 60%;
     }
 
-    .page-break {
-      display:block;
-      clear:both;
-      page-break-after:always;
-    }
-
     .company {
       list-style: none;
       font-size: 90%;
@@ -366,7 +360,6 @@ invoice_template = <<HEREDOC
       </table>
     </div>
   </div>
-<div class="page-break"></div>
 </body>
 </html>
 HEREDOC

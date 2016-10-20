@@ -174,7 +174,7 @@ public
   # Returns the pdf file
   def pdf(html)
     WickedPdf.new.pdf_from_string(html,
-      margin: {:top => 0, :bottom => 0, :left => 0, :right => 0})
+      margin: {:top => "20mm", :bottom => 0, :left => 0, :right => 0})
   end
 
 
