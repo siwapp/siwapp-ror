@@ -29,7 +29,7 @@ module MetaAttributes
       end
     end
     self.meta_attributes = ActiveSupport::JSON.encode(attributes)
-    self.save  
+    self.save
   end
 
   def meta()
@@ -39,4 +39,23 @@ module MetaAttributes
       return {}
     end
   end
+
+  # To include class methods into the models
+  def self.included(base)
+    base.extend(ClassMethods)
+  end
+
+  module ClassMethods
+    # Returns a list of unique meta_attributes keys
+    def meta_attributes_keys(objects=self.all)
+      keys = Set.new []
+      objects.each do |i|
+        i.meta.keys.each do |key|
+          keys.add(key)
+        end
+      end
+      keys.to_a
+    end
+  end
+
 end

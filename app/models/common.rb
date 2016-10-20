@@ -87,17 +87,6 @@ class Common < ActiveRecord::Base
     items.only_deleted.delete_all
   end
 
-  # returns a list of unique meta_attributes keys
-  def self.meta_attributes_keys(invoices=Invoice.all)
-    keys = Set.new []
-    invoices.each do |i|
-      i.meta.keys.each do |key|
-        keys.add(key)
-      end
-    end
-    keys.to_a
-  end
-
 protected
 
   # Declare scopes for search
