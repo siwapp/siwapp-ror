@@ -2,6 +2,8 @@ class Common < ActiveRecord::Base
   include Util
   include MetaAttributes
 
+  extend ModelCsv  # To export to csv file
+
   acts_as_paranoid
 
   # Relations
@@ -86,6 +88,13 @@ class Common < ActiveRecord::Base
   def purge_items
     items.only_deleted.delete_all
   end
+
+  # returns a string with a csv format
+  def self.csv(results)
+    csv_string(results, self::CSV_FIELDS,
+               results.meta_attributes_keys)
+  end
+
 
 protected
 

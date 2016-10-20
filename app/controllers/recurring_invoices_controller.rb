@@ -1,5 +1,3 @@
-require 'csv'
-
 class RecurringInvoicesController < CommonsController
 
   def generate
@@ -42,35 +40,6 @@ class RecurringInvoicesController < CommonsController
     # end
 
     render
-  end
-
-  def get_csv(invoices=RecurringInvoice.all)
-    meta_attributes_keys = invoices.meta_attributes_keys
-    csv_string = CSV.generate do |csv|
-      csv << ["id", "series", "customer_id", "name", "identification", "email",
-          "invoicing_address", "shipping_address", "contact_person", "terms",
-          "notes", "base_amount", "discount_amount", "net_amount",
-          "gross_amount", "tax_amount", "draft",
-          "sent_by_email", "days_to_due", "enabled", "max_occurrences",
-          "must_occurrences", "period", "period_type",
-          "starting_date", "finishing_date", "created_at", "updated_at",
-          "print_template_id"] +
-          meta_attributes_keys
-      invoices.each do |i|
-        meta_attributes_values = meta_attributes_keys.map do |key|
-          i.meta[key]
-        end
-        csv << [i.id, i.series, i.customer_id, i.name, i.identification, i.email,
-            i.invoicing_address, i.shipping_address, i.contact_person, i.terms,
-            i.notes, i.base_amount, i.discount_amount, i.net_amount,
-            i.gross_amount, i.tax_amount, i.draft,
-            i.sent_by_email, i.days_to_due, i.enabled, i.max_occurrences,
-            i.must_occurrences, i.period, i.period_type,
-            i.starting_date, i.finishing_date, i.created_at, i.updated_at,
-            i.print_template_id] +
-            meta_attributes_values
-      end
-    end
   end
 
 

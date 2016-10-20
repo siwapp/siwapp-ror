@@ -46,10 +46,11 @@ module MetaAttributes
   end
 
   module ClassMethods
-    # Returns a list of unique meta_attributes keys
-    def meta_attributes_keys(objects=self.all)
+    # Returns a list of unique meta_attributes keys in the whole
+    # collection of objects
+    def meta_attributes_keys(results=self.all)
       keys = Set.new []
-      objects.each do |i|
+      results.each do |i|
         i.meta.keys.each do |key|
           keys.add(key)
         end
