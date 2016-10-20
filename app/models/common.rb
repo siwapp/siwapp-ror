@@ -3,7 +3,7 @@ class Common < ActiveRecord::Base
   include MetaAttributes
 
   acts_as_paranoid
-  
+
   # Relations
   belongs_to :customer
   belongs_to :series
@@ -67,15 +67,6 @@ class Common < ActiveRecord::Base
     Template.find_by(email_default: true)
   end
 
-protected
-
-  # Declare scopes for search
-  def self.ransackable_scopes(auth_object = nil)
-    [:with_terms]
-  end
-
-public
-
   def set_amounts
     precision = get_currency.exponent.to_int
     self.base_amount = 0
@@ -89,12 +80,29 @@ public
 
     self.net_amount = base_amount - discount_amount
     self.gross_amount = (net_amount + tax_amount).round(precision)
-
   end
 
   # make sure every soft-deleted item is really destroyed
   def purge_items
     items.only_deleted.delete_all
+  end
+
+  # returns a list of unique meta_attributes keys
+  def self.meta_attributes_keys(invoices=Invoice.all)
+    keys = Set.new []
+    invoices.each do |i|
+      i.meta.keys.each do |key|
+        keys.add(key)
+      end
+    end
+    keys.to_a
+  end
+
+protected
+
+  # Declare scopes for search
+  def self.ransackable_scopes(auth_object = nil)
+    [:with_terms]
   end
 
 end
