@@ -8,10 +8,11 @@ class CommonsController < ApplicationController
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 
-  
+
   # Gets the template to display invoices
   def get_print_template
-    if template = get_instance.print_template or template = Template.find_by(print_default: true) \
+    if template = get_instance.print_template \
+        or template = Template.find_by(print_default: true) \
         or template = Template.first
       @template_url = "/#{@type.underscore.downcase.pluralize}/template/
         #{template.id}/#{@type.underscore.downcase}/#{get_instance.id}"
@@ -50,7 +51,8 @@ class CommonsController < ApplicationController
     # If there is meta param, it's allowed filtering by meta_attributes
     # the format is:
     #   key1:value1,key2:value2
-    #   key1, ...
+    #   key1, ... (if you only search for invoices having key1 no matter value)
+    # TODO: I think this below should be on the model
     if params[:meta]
       conditions = []
       params[:meta].split(',').each do |condition_string|
@@ -71,9 +73,10 @@ class CommonsController < ApplicationController
       @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
     end
     results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
-    @gross = results.sum :gross_amount
-    @net = results.sum :net_amount
-    @tax = results.sum :tax_amount
+    # For amount totals exclude the Failed invoices
+    @gross = results.where(failed: false).sum :gross_amount
+    @net = results.where(failed: false).sum :net_amount
+    @tax = results.where(failed: false).sum :tax_amount
     @count = results.count
 
     # series has to be included after totals calculations
