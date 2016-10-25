@@ -2,7 +2,7 @@ class ApplicationMailer < ActionMailer::Base
   self.delivery_method = :smtp
   self.smtp_settings = {
     address:              Settings.host,
-    port:                 Settings.port,
+    port:                 587,
     domain:               Settings.domain,
     user_name:            Settings.user,
     password:             Settings.password,
