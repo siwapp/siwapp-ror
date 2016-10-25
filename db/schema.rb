@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160929133954) do
+ActiveRecord::Schema.define(version: 20161025134552) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20160929133954) do
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
     t.datetime "deleted_at"
-    t.integer  "print_template_id",    limit: 4
     t.text     "meta_attributes",      limit: 65535
     t.boolean  "failed",                                                       default: false
     t.integer  "email_template_id",    limit: 4
+    t.integer  "print_template_id",    limit: 4
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -80,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160929133954) do
   end
 
   add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
-  add_index "customers", ["name"], name: "cstm_idx", unique: true, using: :btree
+  add_index "customers", ["name", "identification"], name: "cstm_idx", unique: true, using: :btree
   add_index "customers", ["name_slug"], name: "cstm_slug_idx", unique: true, using: :btree
 
   create_table "items", force: :cascade do |t|
