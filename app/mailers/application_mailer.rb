@@ -3,7 +3,7 @@ class ApplicationMailer < ActionMailer::Base
   # Filling in the settings
   self.smtp_settings = {
     address:              Settings.host,
-    port:                 "587",
+    port:                 Settings.port.to_i,
     domain:               Settings.domain,
     user_name:            Settings.user,
     password:             Settings.password,
