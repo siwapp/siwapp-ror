@@ -70,7 +70,7 @@ gem 'mysql2'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
-gem "rails-settings-cached", "~> 0.4.0"
+gem "rails-settings-cached", "~> 0.6.5"
 gem 'ransack'
 gem 'sass'
 gem 'wicked_pdf'
