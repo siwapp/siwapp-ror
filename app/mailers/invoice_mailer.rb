@@ -19,7 +19,8 @@ class InvoiceMailer < ApplicationMailer
     attachments["#{@invoice}.pdf"] = @invoice.pdf(html)
     mail(
       from: Settings.company_email,
-      to: @invoice.email,
+      # Just for testing
+      to: "kike@doofinder.com", #@invoice.email,
       subject: Settings.email_subject,
       body: html
     ) do |format|
