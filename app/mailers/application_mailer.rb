@@ -1,6 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
   self.delivery_method = :smtp
-  # Filling in the settings
   self.smtp_settings = {
     address:              Settings.host,
     port:                 Settings.port,
