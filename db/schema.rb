@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(version: 20161026092553) do
     t.string   "models",        limit: 200
     t.boolean  "print_default",               default: false
     t.datetime "deleted_at"
-    t.boolean  "email_default"
+    t.boolean  "email_default",               default: false
     t.string   "subject",       limit: 200
   end
 
