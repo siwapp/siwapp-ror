@@ -204,7 +204,12 @@ class CommonsController < ApplicationController
     @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
     @series = Series.where enabled: true
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
-    @default_email_template_id = Template.find_by(email_default: true).id
+    default_email_template = Template.find_by(email_default: true)
+    if default_email_template
+      @default_email_template_id = default_email_template.id
+    else
+      @default_email_template_id = 1
+    end
     @days_to_due = Integer Settings.days_to_due
     @tags = tags_for('Common')
   end
