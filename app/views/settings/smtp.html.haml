@@ -42,15 +42,6 @@
             Enable
             %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
 
-      %fieldset
-        %legend E-mail to send with invoices
-        .form-group
-          = f.label :email_subject, "Email subject:"
-          = f.text_field :email_subject, class: 'form-control autosize'
-        .form-group
-          = f.label :email_body, "Email body:"
-          = f.text_area :email_body, class: 'form-control autosize', rows: '3'
-
 
 .action-buttons
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
