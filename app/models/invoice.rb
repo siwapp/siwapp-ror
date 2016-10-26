@@ -194,7 +194,7 @@ public
     # To the first_number in the series
     # Returns nothing.
     def ensure_invoice_number
-      invoice = Invoice.where(series: series).order(:number).last
+      invoice = Invoice.where(series: series, draft: false).order(:number).last
       if invoice
         self.number = invoice.number + 1
       else
