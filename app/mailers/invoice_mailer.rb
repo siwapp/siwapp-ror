@@ -14,6 +14,7 @@ class InvoiceMailer < ApplicationMailer
     else
       email_template = Template.find_by(email_default: true)
     end
+    # E-mail parts
     body_template = email_template.template
     subject_template = email_template.subject
 
