@@ -365,4 +365,4 @@ invoice_template = <<HEREDOC
 HEREDOC
 
 Template.create(name: "Print Default", template: invoice_template.strip(), print_default: true)
-Template.create(name: "Email Default", template: invoice_template.strip(), subject: "Siwapp Invoice", print_default: true)
+Template.create(name: "Email Default", template: invoice_template.strip(), subject: "Siwapp Invoice", email_default: true)
