@@ -34,6 +34,10 @@
         .form-group
           = f.label :due_date
           = f.date_field :due_date,  is_new ? { class: 'form-control', value: Date.current() + @days_to_due.days} : { class: 'form-control' }
+      .col-xs-12.col-sm-4
+        .form-group
+          = f.label :email_template_id
+          = f.collection_select :email_template_id, @templates, :id, :to_s, is_new ? { selected: @default_email_template_id} : {}, {multiple: false, class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 

@@ -16,10 +16,8 @@
       %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}} Send Email
       - if @template_url
         = link_to 'Download PDF', @template_url + '.pdf', class: 'dropdown-item'
-  - if @invoice.email_template
-    = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
-  - else
-    %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}} Send Email
+
+  = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
   
   - if @template_url and @templates.length == 1
     = link_to 'Download PDF', @template_url + '.pdf', class: 'btn btn-primary hidden-sm-down'
@@ -28,4 +26,3 @@
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
 
 = render partial: 'print_template_selector'
-= render partial: 'email_template_selector'

@@ -58,10 +58,6 @@ class InvoicesController < CommonsController
 
   def send_email
     @invoice = Invoice.find(params[:id])
-    if params && params[:common] && params[:common][:email_template_id]
-      @invoice.email_template = Template.find(params[:common][:email_template_id])
-      @invoice.save
-    end
     begin
       @invoice.send_email
       redirect_to :back, notice: "Email successfully sent."
@@ -148,6 +144,8 @@ class InvoicesController < CommonsController
       :shipping_address,
       :terms,
       :notes,
+      
+      :email_template_id,
 
       :draft,
       :failed,

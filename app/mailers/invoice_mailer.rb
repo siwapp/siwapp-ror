@@ -8,23 +8,39 @@ class InvoiceMailer < ApplicationMailer
   def email_invoice(invoice)
     @invoice = invoice
 
+    # Getting email templates
     if @invoice.email_template
-      template = @invoice.email_template.template
+      email_template = @invoice.email_template
     else
-      template = Template.find_by(email_default: true).template
+      email_template = Template.find_by(email_default: true)
     end
-    html = render_to_string :inline => template,
+    body_template = email_template.template
+    subject_template = email_template.subject
 
+    # Getting pdf templates
+    if @invoice.print_template
+      print_template = @invoice.print_template.template
+    else
+      print_template = Template.find_by(print_default: true).template
+    end
+    # Rendering the and composing mail content
+    pdf_html = render_to_string :inline => print_template,
       :locals => {:invoice => @invoice, :settings => Settings}
-    attachments["#{@invoice}.pdf"] = @invoice.pdf(html)
+    email_subject = render_to_string :inline => subject_template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    email_body = render_to_string :inline => body_template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    attachments["#{@invoice}.pdf"] = @invoice.pdf(pdf_html)
+    
+    # Sending the email
     mail(
       from: Settings.company_email,
       # Just for testing
       to: "kike@doofinder.com", #@invoice.email,
-      subject: Settings.email_subject,
-      body: html
+      subject: email_subject,
+      body: email_body
     ) do |format|
-      format.html {html}
+      format.html {email_body}
     end
   end
 end

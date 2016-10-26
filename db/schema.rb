@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025134552) do
+ActiveRecord::Schema.define(version: 20161026092553) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -187,7 +187,8 @@ ActiveRecord::Schema.define(version: 20161025134552) do
     t.string   "models",        limit: 200
     t.boolean  "print_default",               default: false
     t.datetime "deleted_at"
-    t.boolean  "email_default"
+    t.boolean  "email_default",               default: false
+    t.string   "subject",       limit: 200
   end
 
   add_index "templates", ["deleted_at"], name: "index_templates_on_deleted_at", using: :btree
