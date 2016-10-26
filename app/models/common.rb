@@ -63,7 +63,7 @@ class Common < ActiveRecord::Base
 
   # Returns the invoice template if set, and the default otherwise
   def get_email_template
-    if self.print_template
+    if self.email_template
       return self.email_template
     end
     Template.find_by(email_default: true)
