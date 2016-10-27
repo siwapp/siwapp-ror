@@ -35,7 +35,6 @@ class Api::V1::CommonsController < Api::V1::BaseController
     results.paginate(page: params[:page], per_page: 20)
 
     set_listing results.paginate(page: params[:page], per_page: 20)
-
   end
 
   def create

@@ -5,6 +5,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
   # GET /api/v1/invoices/:invoice_id/payments
   def index
     @payments = Invoice.find(params[:invoice_id]).payments
+    render json: @payments
   end
 
   # GET /api/v1/payments/:id
@@ -15,12 +16,10 @@ class Api::V1::PaymentsController < Api::V1::BaseController
   def create
     @payment = Payment.new payment_params
     @payment.update invoice_id: params[:invoice_id]
-    respond_to do |format|
-      if @payment.save
-        format.json { render :show, status: :created, location: api_v1_payment_url(@payment) }
-      else
-        format.json { render json: @payment.errors, status: :unprocessable_entity  }
-      end
+    if @payment.save
+      render :show, status: :created, location: api_v1_payment_url(@payment)
+    else
+      render json: @payment.errors, status: :unprocessable_entity
     end
   end
 
@@ -43,7 +42,6 @@ class Api::V1::PaymentsController < Api::V1::BaseController
     end
   end
 
-
   private
 
   def set_payment
@@ -51,7 +49,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
   end
 
   def payment_params
-    params.require(:payment).permit(:notes, :date, :amount)
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
 
 end

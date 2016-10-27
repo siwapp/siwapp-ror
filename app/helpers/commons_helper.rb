@@ -23,6 +23,7 @@ module CommonsHelper
   # Returns the same value received
   def set_listing(instances)
     @commons = instances
+    render json: @commons
   end
 
   # Protected: set an instance variable for a concrete item of the current model

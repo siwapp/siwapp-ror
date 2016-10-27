@@ -55,6 +55,7 @@ end
 
 # installed 4.0.2.2 version because an issue:
 # https://github.com/ai/autoprefixer-rails/issues/47
+gem 'active_model_serializers', '0.10.0.rc4'
 gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails', '>= 5.0.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'

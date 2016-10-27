@@ -49,51 +49,10 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
 
   def set_listing instances
     @invoices = instances
+    render json: @invoices
   end
 
   def invoice_params
-    [
-      :number,
-      :series_id,
-      :issue_date,
-      :due_date,
-      :days_to_due,
-      :invoice_number,
-
-      :customer_id,
-      :identification,
-      :name,
-      :email,
-      :contact_person,
-      :invoicing_address,
-      :shipping_address,
-      :terms,
-      :notes,
-
-      :draft,
-
-      :tag_list,
-
-      :meta_attributes,
-
-      :items_attributes => [
-        :id,
-        :description,
-        :quantity,
-        :unitary_cost,
-        :discount,
-        :tax_ids => []
-      ],
-
-      :payments_attributes => [
-        :id,
-        :date,
-        :amount,
-        :notes
-      ],
-
-    ]
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
-
-
 end
