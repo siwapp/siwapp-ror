@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       put api_v1_item_path(@item), mod.to_json, @headers
       expect(response).to have_http_status :ok
       expect(json['data']['attributes']['quantity']).to eql '33.0' 
-      expect(json['data'][0]['id']).to eql @taxes[2].id
+      expect(json['data']['id']).to eql @taxes[2].id
       item = Item.find @item.id
       # the db, too
       expect(item.taxes[0].id).to eql @taxes[2].id
