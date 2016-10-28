@@ -11,6 +11,8 @@ class Api::V1::TaxesController < Api::V1::BaseController
 
   # GET /api/v1/taxes/1
   def show
+    @tax = Tax.find params[:id]
+    render json: @tax
   end
 
   # POST /api/v1/taxes
@@ -37,7 +39,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
   # DELETE /api/v1/taxes/1
   def destroy
     @tax.destroy
-    render json: { status: :no_content }
+    render json: { message: "Content deleted" }, status: :no_content
   end
 
 

@@ -35,7 +35,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   # DELETE /api/v1/series/1
   def destroy
     @series.destroy
-    render json: { message: "Content deleted" }, status: "201"
+    render json: { message: "Content deleted" }, status: :no_content
   end
 
   private

@@ -43,9 +43,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     if item
         item.destroy
     end
-    respond_to do |format|
-      format.json {  head :no_content }
-    end
+    render json: { message: "Content deleted" }, status: :no_content
   end
 
   private

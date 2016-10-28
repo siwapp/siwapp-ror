@@ -82,27 +82,30 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       tax = FactoryGirl.create :tax
       
       inv = {
-        'invoice' => {
-          'name' => 'newly created',
-          'email' => 'test@email.com',
-          'issue_date' => '2016-06-06',
-          'series_id' => @series.id,
-          'items_attributes' => [
-                                 {
-                                   'description': 'item 1',
-                                   'unitary_cost': 3.3,
-                                   'quantity': 2,
-                                   'tax_ids': [tax.id]
-                                 }
-                                ],
-          'payments_attributes' => [
-                                 {
-                                   'notes': 'payment 1',
-                                   'amount': 3.3,
-                                   'date': '2016-02-02'
-                                 }
-                                ]
+        'data' => {
+          'type' => 'invoices',
+          'attributes' => {
+            'name' => 'newly created',
+            'email' => 'test@email.com',
+            'issue_date' => '2016-06-06',
+            'series_id' => @series.id
+          },
+          'relationships' => {
+            'items' => {
+              'data' => [
+                {'description': 'item 1',
+                'unitary_cost': 3.3,
+                'quantity': 2,
+                'tax_ids': [tax.id]}
+                                ]},
 
+            'payments' => {
+              'data' => [
+                  {'notes': 'payment 1',
+                  'amount': 3.3,
+                  'date': '2016-02-02'}]
+              }
+          }
         }
       }
 
@@ -120,10 +123,14 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
     it "proper invalidation messages" do
       inv = {
-        'invoice' => {
-          'name' => 'bogus',
-          'issue_date' => '2015-05-05',
-          'email' => 'test@bemail.com'
+        'data' => {
+          'type' => 'invoices',
+          'attributes' => {
+            'name' => 'bogus',
+            'issue_date' => '2015-05-05',
+            'email' => 'test@bemail.com'
+          }
+          
         }
       }
       post api_v1_invoices_path, inv.to_json, @headers
@@ -135,9 +142,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
   describe 'Invoice updating' do
     
     it "basic invoice updating" do
-
-       put api_v1_invoice_path(@invoice), {'invoice':{'name': 'modified'}}.to_json, @headers
-
+      put api_v1_invoice_path(@invoice), {'data':{'attributes': {'name': 'modified'}}}.to_json, @headers
       expect(response.status).to eql 200
       expect(json['name']).to eql 'modified'
     end

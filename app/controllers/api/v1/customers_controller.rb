@@ -44,9 +44,9 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   def destroy
     if @customer.destroy
-      format.json { head :no_content }
+      render json: { message: "Content deleted" }, status: :no_content
     else
-      format.json { render json: @customer.errors, status: :unprocessable_entity }
+      render json: @customer.errors, status: :unprocessable_entity }
     end
   end
 

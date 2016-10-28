@@ -120,9 +120,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # DELETE /commons/1.json
   def destroy
     get_instance.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    render json: { message: "Content deleted" }, status: :no_content
   end
 
   def not_found
