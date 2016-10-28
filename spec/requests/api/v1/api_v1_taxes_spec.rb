@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Taxes", type: :request do
     it 'GET /api/v1/taxes' do
       get api_v1_taxes_path, nil, @headers
       expect(response).to be_success
-      expect(json.length).to eql 2
+      expect(json['data'].length).to eql 2
       expect(json['data'][1]['attributes']['name']).to eql 'RETENTION'
     end
   end

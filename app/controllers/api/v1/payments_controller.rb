@@ -17,7 +17,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
     @payment = Payment.new payment_params
     @payment.update invoice_id: params[:invoice_id]
     if @payment.save
-      render :show, status: :created, location: api_v1_payment_url(@payment)
+      render json: @payment, status: :created, location: api_v1_payment_url(@payment)
     else
       render json: @payment.errors, status: :unprocessable_entity
     end

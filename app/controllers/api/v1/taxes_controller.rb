@@ -19,7 +19,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
   def create
     @tax = Tax.new(tax_params)
     if @tax.save
-      render :show, status: :created, location: api_v1_tax_url(@tax) 
+      render json: @tax, status: :created, location: api_v1_tax_url(@tax) 
     else
       render json: @tax.errors, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class Api::V1::TaxesController < Api::V1::BaseController
   def update
     
     if @tax.update(tax_params)
-      render :show, status: :ok, location: @tax 
+      render json: @tax, status: :ok, location: api_v1_tax_url(@tax) 
     else
       render json: @tax.errors, status: :unprocessable_entity 
     end

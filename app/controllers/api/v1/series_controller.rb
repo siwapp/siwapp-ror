@@ -26,7 +26,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   # PATCH/PUT /api/v1/series/1
   def update
     if @series.update(series_params)
-      render :show, status: :ok, location: api_v1_series_url(@series) 
+      render json: @series, status: :ok, location: api_v1_series_url(@series) 
     else
       render json: @series.errors, status: :unprocessable_entity
     end

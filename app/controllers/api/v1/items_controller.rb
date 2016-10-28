@@ -20,7 +20,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     # alternative taxes format
     add_human_taxes @item, params
     if @item.save
-      render action: 'show', status: :created, location: api_v1_item_url(@item)
+      render json: @item, status: :created, location: api_v1_item_url(@item)
     else
       render json: @item.errors, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     @item = Item.find params[:id]
     if @item.update(item_params)
       add_human_taxes @item, params
-      render action: 'show', status: :ok, location: api_v1_item_url(@item)
+      render json: @item, status: :ok, location: api_v1_item_url(@item)
     else
       render json: @item.errors, status: :unprocessable_entity
     end
