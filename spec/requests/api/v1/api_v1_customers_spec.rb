@@ -46,12 +46,11 @@ RSpec.describe "Api::V1::Payments", type: :request do
       cust = {
         'data' => {
           'type' => 'customers',
-          'attributes' =>{
+          'attributes' => {
             'name' => 'cust name',
             'identification' => 'X-1234',
             'email' => 'test@example.com'
           }
-          
         }
       }
       post api_v1_customers_url, cust.to_json, @headers

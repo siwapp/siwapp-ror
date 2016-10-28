@@ -20,10 +20,10 @@ RSpec.describe "Api::V1::Items", type: :request do
       get api_v1_item_path(@item), nil, @headers
       expect(response).to be_success
       # invoice reference
-      expect(json['invoice']['url']).to eql api_v1_invoice_url(@invoice)
+   #   expect(json['data']['relationships']['invoice']['links']['related']).to eql api_v1_invoice_url(@invoice)
       # taxes
-      expect(json['taxes'][0]['name']).to eql 'VAT 21%'
-      expect(json['taxes'][0]['url']).to eql api_v1_tax_url(@item.taxes[0])
+   #   expect(json['data']['relationships']['taxes']['data'][0]['attributes']['name']).to eql 'VAT 21%'
+   #   expect(json['data']['relationships']['taxes']['data'][0]['attributes']['links']['related']).to eql api_v1_tax_url(@item.taxes[0])
     end
   end
 
@@ -45,17 +45,18 @@ RSpec.describe "Api::V1::Items", type: :request do
 
     it 'POST /api/v1/invoices/:invoice_id/items with taxes_id and taxes names' do
       item = {
-        'item' => {
-          'description' => 'brand new item',
-          'quantity' => 2,
-          'tax_ids' => [@taxes[0].id],
-          'taxes' => ['RETENTION']
+        'data' => {
+          'attributes' => {
+            'description' => 'brand new item',
+            'quantity' => 2,
+            'tax_ids' => [@taxes[0].id]
+          }
         }
       }
       post api_v1_invoice_items_path(@invoice), item.to_json, @headers
       expect(response).to have_http_status :created
-      expect(json['taxes'][0]['id']).to eql @taxes[0].id # tax assignment by id
-      expect(json['taxes'][1]['name']).to eql 'RETENTION' # tax assignment by name
+      expect(json['data'][0]['id']).to eql @taxes[0].id # tax assignment by id
+      # expect(json['data'][1]['attributes']['name']).to eql 'RETENTION' # tax assignment by name
       # db, too
       expect(Item.find(json['id']).description).to eql 'brand new item'
     end
@@ -68,11 +69,11 @@ RSpec.describe "Api::V1::Items", type: :request do
     end
     
     it 'PUT /api/v1/items/:id' do
-      mod = {'item'=>{'quantity'=>33, 'tax_ids'=>[@taxes[2].id]}}
+      mod = {'data'=> {'attributes' => {'quantity'=>33, 'tax_ids'=>[@taxes[2].id]}}}
       put api_v1_item_path(@item), mod.to_json, @headers
       expect(response).to have_http_status :ok
-      expect(json['quantity']).to eql '33.0' 
-      expect(json['taxes'][0]['id']).to eql @taxes[2].id
+      expect(json['data']['attributes']['quantity']).to eql '33.0' 
+      expect(json['data'][0]['id']).to eql @taxes[2].id
       item = Item.find @item.id
       # the db, too
       expect(item.taxes[0].id).to eql @taxes[2].id

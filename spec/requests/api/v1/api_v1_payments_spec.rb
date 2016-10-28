@@ -29,7 +29,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
     it 'GET /api/v1/invoices/:invoice_id/payments' do
       get api_v1_invoice_payments_path(@invoice), nil, @headers
       expect(response).to be_success
-      expect(json.length).to eql 2
+      expect(json['data'].length).to eql 2
       # no invoice reference
       expect(json['data'][0]['relationships']['invoice']).to be_nil
     end
@@ -38,15 +38,19 @@ RSpec.describe "Api::V1::Payments", type: :request do
   describe "Payment creation" do
     it 'POST /api/v1/invoices/:invoice_id/payments' do
       payment = {
-        'payment'=> {
-          'notes' => 'new notes',
-          'date' => Date.current.strftime('%Y-%m-%d'),
-          'amount' => 33.3
+        'data'=> {
+          'type' => 'payments',
+          'attributes' => {
+            'notes' => 'new notes',
+            'date' => Date.current.strftime('%Y-%m-%d'),
+            'amount' => 33.3
           }
+          
+        }
       }
       post api_v1_invoice_payments_path(@invoice), payment.to_json, @headers
       expect(response).to have_http_status :created
-      expect(json['notes']).to eql 'new notes'
+      expect(json['data']['attributes']['notes']).to eql 'new notes'
       # db, too
       expect(Payment.find(json['data']['id']).amount).to eql 33.3
       # location header
@@ -57,8 +61,10 @@ RSpec.describe "Api::V1::Payments", type: :request do
   describe 'Payment updating' do
     it 'PUT /api/v1/payments/:id' do
       mod = {
-        'payment' => {
+        'data' => {
+          'attributes' => {
           'notes' => 'modified NOTES'
+          }
         }
       }
       put api_v1_payment_url(@payment), mod.to_json, @headers
