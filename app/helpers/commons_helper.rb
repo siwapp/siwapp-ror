@@ -53,9 +53,10 @@ module CommonsHelper
   #
   # Returns params
   def type_params
-    params
-      .require(model.name.underscore.to_sym)
-      .permit(send("#{model.name.underscore}_params"))
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    #params
+    #  .require(model.name.underscore.to_sym)
+    #  .permit(send("#{model.name.underscore}_params"))
   end
 
   private

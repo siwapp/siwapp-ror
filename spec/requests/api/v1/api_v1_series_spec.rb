@@ -15,7 +15,7 @@ RSpec.describe "Api::V1::Series", type: :request do
     it 'GET /api/v1/series/:id' do
       get api_v1_series_path(@series), nil, @headers
       expect(response).to be_success
-      expect(json['name']).to eql 'Example Series'
+      expect(json['data']['attributes']['name']).to eql 'Example Series'
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Series", type: :request do
       get api_v1_series_index_path, nil, @headers
       expect(response).to be_success
       expect(json.length).to eql 1
-      expect(json[0]['name']).to eql 'Example Series'
+      expect(json['data'][0]['attributes']['name']).to eql 'Example Series'
     end
   end
 
@@ -38,9 +38,9 @@ RSpec.describe "Api::V1::Series", type: :request do
       }
       post api_v1_series_index_path, sr.to_json, @headers
       expect(response).to be_success
-      expect(json['name']).to eql 'newSERIES'
+      expect(json['data']['attributes']['name']).to eql 'newSERIES'
       # in db, too
-      expect(Series.find(json['id']).name).to eql 'newSERIES'
+      expect(Series.find(json['data']['id']).name).to eql 'newSERIES'
       # location header
       expect(response.headers['Location']).to eql api_v1_series_url(json['id'])
     end
@@ -57,9 +57,9 @@ RSpec.describe "Api::V1::Series", type: :request do
       put api_v1_series_url(@series), mod.to_json, @headers
       expect(response).to be_success
       # name modified
-      expect(json['name']).to eql 'modS'
+      expect(json['data']['attributes']['name']).to eql 'modS'
       # in db, too
-      expect(Series.find(json['id']).name).to eql 'modS'
+      expect(Series.find(json['data']['id']).name).to eql 'modS'
     end
   end
 
