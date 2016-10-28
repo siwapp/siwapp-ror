@@ -31,9 +31,12 @@ RSpec.describe "Api::V1::Series", type: :request do
   describe 'Series creation' do
     it 'POST /api/v1/series' do
       sr = {
-        'series' => {
-          'name' => 'newSERIES',
-          'value' => 33
+        'data' => {
+          'attributes' => {
+            'name' => 'newSERIES',
+            'value' => 33
+          }
+          
         }
       }
       post api_v1_series_index_path, sr.to_json, @headers
@@ -42,16 +45,18 @@ RSpec.describe "Api::V1::Series", type: :request do
       # in db, too
       expect(Series.find(json['data']['id']).name).to eql 'newSERIES'
       # location header
-      expect(response.headers['Location']).to eql api_v1_series_url(json['id'])
+      expect(response.headers['Location']).to eql api_v1_series_url(json['data']['id'])
     end
   end
 
   describe 'Series updating' do
     it 'PUT /api/v1/series/:id' do
       mod = {
-        'series' => {
-          'name' => 'modS',
-          'default' => true
+        'data' => {
+          'attributes' =>{
+            'name' => 'modS',
+            'default' => true
+          }
         }
       }
       put api_v1_series_url(@series), mod.to_json, @headers

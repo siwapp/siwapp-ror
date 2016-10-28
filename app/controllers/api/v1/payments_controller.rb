@@ -10,6 +10,8 @@ class Api::V1::PaymentsController < Api::V1::BaseController
 
   # GET /api/v1/payments/:id
   def show
+    @payment = Payment.find params[:id]
+    render json: @payment
   end
 
   # POST /api/v1/invoices/:invoice_id/payments

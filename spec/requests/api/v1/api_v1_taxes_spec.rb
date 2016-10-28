@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::Taxes", type: :request do
       # in db, too
       expect(Tax.find(json['data']['id']).name).to eql 'newTAX'
       # location header
-      expect(response.headers['Location']).to eql api_v1_tax_url(json['id'])
+      expect(response.headers['Location']).to eql api_v1_tax_url(json['data']['id'])
     end
   end
 
@@ -63,9 +63,9 @@ RSpec.describe "Api::V1::Taxes", type: :request do
       put api_v1_tax_url(@tax), mod.to_json, @headers
       expect(response).to be_success
       # name modified
-      expect(json['name']).to eql 'modTAX'
+      expect(json['data']['attributes']['name']).to eql 'modTAX'
       # in db, too
-      expect(Tax.find(json['id']).name).to eql 'modTAX'
+      expect(Tax.find(json['data']['id']).name).to eql 'modTAX'
     end
   end
 

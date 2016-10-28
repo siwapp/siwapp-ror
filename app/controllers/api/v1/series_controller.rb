@@ -11,6 +11,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
   # GET /api/v1/series/1
   def show
     @series = Series.find params[:id]
+    render json: @series
   end
 
   # POST /api/v1/series
