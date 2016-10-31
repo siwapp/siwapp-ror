@@ -37,7 +37,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   end
 
   def create
-    instance = model.new(type_params)
+    instance = model.new(api_type_params)
     set_instance instance
     if get_instance.save
       # Check if there is any meta_attribute
@@ -76,23 +76,23 @@ class Api::V1::CommonsController < Api::V1::BaseController
         end
       end
       # if there is no customer associated then create a new one
-      if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
-        if type_params[:identification]
+      if api_type_params[:customer_id] == '' or !api_type_params.has_key? :customer_id # for API
+        if api_type_params[:identification]
           # First check: by VAT_ID
-          customer = Customer.find_by_identification type_params[:identification] 
-        elsif type_params[:name]
+          customer = Customer.find_by_identification api_type_params[:identification] 
+        elsif api_type_params[:name]
           # Second check: by name
-          customer = Customer.find_by_name type_params[:name] 
+          customer = Customer.find_by_name api_type_params[:name] 
         end
 
         if !customer  
           customer = Customer.create(
-            :name => type_params[:name],
-            :identification => type_params[:identification],
-            :email => type_params[:email],
-            :contact_person => type_params[:contact_person],
-            :invoicing_address => type_params[:invoicing_address],
-            :shipping_address => type_params[:shipping_address]
+            :name => api_type_params[:name],
+            :identification => api_type_params[:identification],
+            :email => api_type_params[:email],
+            :contact_person => api_type_params[:contact_person],
+            :invoicing_address => api_type_params[:invoicing_address],
+            :shipping_address => api_type_params[:shipping_address]
           )
         end
         get_instance.update(:customer_id => customer.id)
@@ -108,7 +108,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   def update
     instance = get_instance
     set_meta instance
-    if instance.update(type_params)
+    if instance.update(api_type_params)
       # Check if there is any meta_attribute
       if params[:meta_attributes]
         instance.set_meta_multi params[:meta_attributes]
