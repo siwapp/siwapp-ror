@@ -31,9 +31,9 @@ RSpec.describe "Api::V1::Items", type: :request do
     it 'GET /api/v1/invoices/:invoice_id/items provde listing' do
       get api_v1_invoice_items_path(@invoice.id), nil, @headers
       expect(response).to be_success
-      expect(json.length).to eql 3 # 3 items
-      expect(json[0]['invoice']).to be_nil
-      expect(json[0]['taxes']).to eql api_v1_item_taxes_url(@item)
+      expect(json["data"].length).to eql 3 # 3 items
+      expect(json["data"][0]["relationships"]['invoice']).to be_nil
+      expect(json["data"][0]["relationships"]['taxes']).to eql api_v1_item_taxes_url(@item)
     end
   end
 
