@@ -95,20 +95,19 @@ RSpec.describe "Api::V1::Invoices", type: :request do
           'relationships' => {
             'items' => {
               'data' => [
-                {'attributes' {
-                  'description': 'item 1',
-                  'unitary_cost': 3.3,
-                  'quantity': 2,
-                  'tax_ids': [tax.id]
+                {'attributes' => {
+                  'description' => 'item 1',
+                  'unitary_cost'=> 3.3,
+                  'quantity' => 2,
+                  'tax_ids' => [tax.id]
                   }
                 }]},
-
             'payments' => {
               'data' => [{
-                'attributes': {
-                  'notes': 'payment 1',
-                  'amount': 3.3,
-                  'date': '2016-02-02'
+                'attributes' => {
+                  'notes' => 'payment 1',
+                  'amount' => 3.3,
+                  'date' => '2016-02-02'
                 }
               }]
             }
