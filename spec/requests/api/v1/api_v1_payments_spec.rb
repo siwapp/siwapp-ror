@@ -31,7 +31,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       expect(response).to be_success
       expect(json['data'].length).to eql 2
       # no invoice reference
-      expect(json['data'][0]['relationships']['invoice']).to be_nil
+      expect(json['data'][0]['relationships']).to be_nil
     end
   end
 

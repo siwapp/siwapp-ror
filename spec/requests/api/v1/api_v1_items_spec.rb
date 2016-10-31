@@ -33,7 +33,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       expect(response).to be_success
       expect(json["data"].length).to eql 3 # 3 items
       expect(json["data"][0]["relationships"]['invoice']).to be_nil
-      expect(json["data"][0]["relationships"]['taxes']).to eql api_v1_item_taxes_url(@item)
+      expect(json["data"][0]["relationships"]['taxes']).to eql {"data" => [{"id"=>"1", "type"=>"taxes"}, {"id"=>"2", "type"=>"taxes"}]}
     end
   end
 

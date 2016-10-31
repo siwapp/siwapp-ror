@@ -13,7 +13,7 @@ class InvoiceSerializer < ActiveModel::Serializer
       :tag_list,
       :meta_attributes
   belongs_to :customer, url: true
-  has_many :items
+  has_many :items, url: true
   has_many :payments, foreign_key: :common_id, class_name: 'Payment'
 
   def items
