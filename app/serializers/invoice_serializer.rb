@@ -12,6 +12,7 @@ class InvoiceSerializer < ActiveModel::Serializer
       :draft,
       :tag_list,
       :meta_attributes
+  belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id, class_name: 'Payment'
 

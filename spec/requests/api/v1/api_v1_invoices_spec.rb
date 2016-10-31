@@ -46,7 +46,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       it "Display only 20 results per page and return pagination headers" do
         get api_v1_invoices_path, nil, @headers
         expect(response).to be_success
-        expect(json.count).to eql 20
+        expect(json['data'].count).to eql 20
         expect(response.headers).to have_key 'X-Pagination'
         pagination_header = JSON.parse response.headers['X-Pagination']
         expect(pagination_header['total']).to eql 31
@@ -56,14 +56,14 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       it "'Page' param sets the page" do
         get api_v1_invoices_path, {page: 2},  @headers
         expect(response).to be_success
-        expect(json.count).to eql 11
+        expect(json['data'].count).to eql 11
       end
     end
   end
 
   describe "Invoice creation" do
     
-    it "basic invoice creation on POST requeset" do
+    it "basic invoice creation on POST request" do
       inv = { 
         'data' => {
           'attributes' => {
@@ -95,18 +95,23 @@ RSpec.describe "Api::V1::Invoices", type: :request do
           'relationships' => {
             'items' => {
               'data' => [
-                {'description': 'item 1',
-                'unitary_cost': 3.3,
-                'quantity': 2,
-                'tax_ids': [tax.id]}
-                                ]},
+                {'attributes' {
+                  'description': 'item 1',
+                  'unitary_cost': 3.3,
+                  'quantity': 2,
+                  'tax_ids': [tax.id]
+                  }
+                }]},
 
             'payments' => {
-              'data' => [
-                  {'notes': 'payment 1',
+              'data' => [{
+                'attributes': {
+                  'notes': 'payment 1',
                   'amount': 3.3,
-                  'date': '2016-02-02'}]
-              }
+                  'date': '2016-02-02'
+                }
+              }]
+            }
           }
         }
       }

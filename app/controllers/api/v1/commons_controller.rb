@@ -52,7 +52,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
           params[:data][:relationships][:items][:data].each do |item|
             inv_item = Item.new(description: item[:attributes][:description],
               quantity: item[:attributes][:quantity],
-              unitary_cost: item[:attributes][:unitary_cost],)
+              unitary_cost: item[:attributes][:unitary_cost])
             inv_item.common = instance
             inv_item.save
           end
