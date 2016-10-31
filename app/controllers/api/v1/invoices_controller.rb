@@ -27,13 +27,10 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     end
     begin
       @invoice.send_email
-      respond_to do |format|
-        format.json { render json: {"message": "E-mail succesfully sent."}, status: :ok }
-      end
+      render json: {"message": "E-mail succesfully sent."}, status: :ok
+      
     rescue Exception => e
-      respond_to do |format|
-        format.json { render json: {"message": e.message}, status: :error }
-      end
+      render json: {"message": e.message}, status: :error
     end
   end
 
