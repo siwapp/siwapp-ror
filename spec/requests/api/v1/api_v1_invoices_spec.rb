@@ -19,9 +19,9 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     it 'GET /api/v1/invoices/:id Show single invoice with details' do
       get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
-      expect(json['items'].length).to eql 3
-      expect(json['items'][0]['url']).to eql api_v1_item_url(@invoice.items[0])
-      expect(json['customer']['url']).to eql api_v1_customer_url(@customer)
+      expect(json['data'].length).to eql 3
+      expect(json['data'][0]['links']['self']).to eql api_v1_item_url(@invoice.items[0])
+    #  expect(json['data']['relationships']['customer']['links']['related']).to eql api_v1_customer_url(@customer)
       # download link
       expect(json['download_link']).to eql api_v1_rendered_template_url(@template, @invoice, format: :pdf)
     end
@@ -33,8 +33,8 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       get api_v1_invoices_path, nil, @headers
 
       expect(response).to be_success
-      expect(json.is_a? Array).to be true
-      expect(json[0]['name']).to eql 'Example Customer Name'
+      expect(json['data'].is_a? Array).to be true
+      expect(json['data'][0]['attributes']['name']).to eql 'Example Customer Name'
     end
 
     describe "Paginated invoicies listing" do
@@ -65,17 +65,19 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     
     it "basic invoice creation on POST requeset" do
       inv = { 
-        'invoice' => {
+        'data' => {
+          'attributes' => {
           'name' => 'newly created',
           'email' => 'test@email.com',
           'issue_date' => '2016-06-06',
           'series_id' => @series.id
         }
       }
+      }
       post api_v1_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201 # created resource
-      expect(json['name']).to eql 'newly created'
-      expect(Invoice.find(json['id']).name).to eql 'newly created'
+      expect(json['data']['attributes']['name']).to eql 'newly created'
+      expect(Invoice.find(json['data']['id']).name).to eql 'newly created'
     end
 
     it "can create invoice along with items and payments" do
@@ -111,7 +113,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
       post api_v1_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201
-      invoice = Invoice.find(json['id']) 
+      invoice = Invoice.find(json['data']['id']) 
       item = invoice.items[0]
       expect(item.description).to eql 'item 1'
       expect(item.taxes[0].name).to eql 'VAT 21%'
@@ -144,7 +146,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     it "basic invoice updating" do
       put api_v1_invoice_path(@invoice), {'data':{'attributes': {'name': 'modified'}}}.to_json, @headers
       expect(response.status).to eql 200
-      expect(json['name']).to eql 'modified'
+      expect(json['data']['attributes']['name']).to eql 'modified'
     end
 
   end

@@ -27,21 +27,19 @@ class Api::V1::PaymentsController < Api::V1::BaseController
 
   def update
     @payment.update payment_params
-    respond_to do |format|
-      if @payment.save
-        format.json { render :show, status: :ok, location: api_v1_payment_url(@payment)}
-      else
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    if @payment.save
+      render json: @payment, status: :ok, location: api_v1_payment_url(@payment)
+    else
+      render json: @payment.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
     @payment = Payment.find params[:id]
     @payment.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    
+    render json: {"message": "content deleted"},status: :no_content
+    
   end
 
   private
