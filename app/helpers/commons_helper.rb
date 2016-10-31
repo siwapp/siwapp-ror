@@ -44,6 +44,10 @@ module CommonsHelper
     @common
   end
 
+  def api_type_params
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+  end
+
   # Protected: whitelist params for the current model and controller
   #
   # Needs a <type>_params() method inside the child controller:
@@ -53,10 +57,9 @@ module CommonsHelper
   #
   # Returns params
   def type_params
-    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
-    #params
-    #  .require(model.name.underscore.to_sym)
-    #  .permit(send("#{model.name.underscore}_params"))
+    params
+      .require(model.name.underscore.to_sym)
+      .permit(send("#{model.name.underscore}_params"))
   end
 
   private
