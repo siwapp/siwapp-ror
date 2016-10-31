@@ -50,20 +50,28 @@ class Api::V1::CommonsController < Api::V1::BaseController
       if params[:data][:relationships]
         if params[:data][:relationships][:items]
           params[:data][:relationships][:items][:data].each do |item|
-            inv_item = Item.new(description: item[:attributes][:description],
-              quantity: item[:attributes][:quantity],
-              unitary_cost: item[:attributes][:unitary_cost])
-            inv_item.common = instance
-            inv_item.save
+            if item[:attributes]
+              inv_item = Item.new(description: item[:attributes][:description],
+                quantity: item[:attributes][:quantity],
+                unitary_cost: item[:attributes][:unitary_cost])
+              inv_item.common = instance
+              inv_item.save
+            else
+              render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
+            end
           end
         end
         if params[:data][:relationships][:payments]
           params[:data][:relationships][:payments][:data].each do |payment|
-            inv_payment = Payment.new(notes: item[:attributes][:notes],
-              date: item[:attributes][:date],
-              amount: item[:attributes][:amount],)
-            inv_payment.common = instance
-            inv_payment.save
+            if payment[:attributes]
+              inv_payment = Payment.new(notes: payment[:attributes][:notes],
+                date: payment[:attributes][:date],
+                amount: payment[:attributes][:amount])
+              inv_payment.invoice = instance
+              inv_payment.save
+            else
+              render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
+            end
           end
         end
       end

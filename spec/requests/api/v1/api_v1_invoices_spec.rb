@@ -19,6 +19,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     it 'GET /api/v1/invoices/:id Show single invoice with details' do
       get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
+      puts "DDAATTAA", json['data']
       expect(json['data'].length).to eql 3
       expect(json['data'][0]['links']['self']).to eql api_v1_item_url(@invoice.items[0])
     #  expect(json['data']['relationships']['customer']['links']['related']).to eql api_v1_customer_url(@customer)

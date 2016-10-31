@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
     it 'GET /api/v1/customers' do
       get api_v1_customers_path, nil, @headers
       expect(response).to be_success
-      expect(json['data'].length).to eql 1
+      expect(json['data'].length).to eql '1'
       expect(json['data'][0]['attributes']['name']).to eql @customer.name
     end
   end
