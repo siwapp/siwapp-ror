@@ -31,6 +31,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     @item = Item.find params[:id]
     if @item.update(item_params)
       add_human_taxes @item, params
+      add_id_taxes @item, params
       render json: @item, status: :ok, location: api_v1_item_url(@item)
     else
       render json: @item.errors, status: :unprocessable_entity
@@ -52,12 +53,27 @@ class Api::V1::ItemsController < Api::V1::BaseController
   end
 
   # check if there's a 'taxes' array with taxes names and adds them to item
-  def add_human_taxes item, params
-    if params.has_key? :item and params[:item].has_key? :taxes
-      params[:item][:taxes].each do |tax_name|
-        tax = Tax.find_by_name tax_name
+  def add_id_taxes item, params
+    if params.has_key? :data and params[:data].has_key? :attributes and
+      params[:attributes].has_key? :tax_ids
+      params[:data][:attributes][:tax_ids].each do |tax_id|
+        tax = Tax.find_by_id tax_id
         if tax and !item.taxes.exists? tax.id
           item.taxes<< tax
+        end
+      end
+    end
+  end
+
+  # check if there's a 'taxes' array with taxes names and adds them to item
+  def add_human_taxes item, params
+    if params.has_key?(:data) and params[:data].has_key?(:attributes) and params[:data][:attributes].has_key?(:taxes)
+
+      params[:data][:attributes][:taxes].each do |tax_name|
+        tax = Tax.find_by_name tax_name
+        puts tax
+        if tax and !item.taxes.exists? tax.id
+          item.taxes << tax
         end
       end
     end
