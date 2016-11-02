@@ -54,8 +54,9 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
   # check if there's a 'taxes' array with taxes names and adds them to item
   def add_id_taxes item, params
-    if params.has_key? :data and params[:data].has_key? :attributes and
-      params[:attributes].has_key? :tax_ids
+    if params.has_key? :data and params[:data].has_key? :attributes and 
+      params[:data][:attributes].has_key? :tax_ids
+      
       params[:data][:attributes][:tax_ids].each do |tax_id|
         tax = Tax.find_by_id tax_id
         if tax and !item.taxes.exists? tax.id
@@ -67,7 +68,8 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
   # check if there's a 'taxes' array with taxes names and adds them to item
   def add_human_taxes item, params
-    if params.has_key?(:data) and params[:data].has_key?(:attributes) and params[:data][:attributes].has_key?(:taxes)
+    if params.has_key?(:data) and params[:data].has_key?(:attributes) and 
+      params[:data][:attributes].has_key?(:taxes)
 
       params[:data][:attributes][:taxes].each do |tax_name|
         tax = Tax.find_by_name tax_name

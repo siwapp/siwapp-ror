@@ -55,6 +55,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       }
       post api_v1_invoice_items_path(@invoice), item.to_json, @headers
       expect(response).to have_http_status :created
+      puts "JSSSONN ITEMS", json['data']
       expect(json['data'][0]['attributes']['tax_ids'][0]).to eql @taxes[0].id # tax assignment by id
       # expect(json['data'][1]['attributes']['name']).to eql 'RETENTION' # tax assignment by name
       # db, too
