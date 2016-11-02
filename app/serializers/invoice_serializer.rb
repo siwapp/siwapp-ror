@@ -18,8 +18,7 @@ class InvoiceSerializer < ActiveModel::Serializer
     else
       template = Template.where(print_default: true)[0]
     end
-    return api_v1_rendered_template_path(template, 
-      object, format: :pdf)
+    return api_v1_rendered_template_path(template, object)
   end
 
   def items
