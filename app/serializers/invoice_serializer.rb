@@ -27,8 +27,8 @@ class InvoiceSerializer < ActiveModel::Serializer
     object.items.each do |item|
       # Assign object attributes (returns a hash)
       # ===========================================================
-      custom_item = item.attributes
       # ===========================================================
+      custom_item = {"attributes": item.attributes}
       customized_items.push(custom_item)
     end
     return customized_items
