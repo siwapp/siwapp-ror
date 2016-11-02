@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
     #  expect(json['data'][0]['links']['self']).to eql api_v1_item_url(@invoice.items[0])
     #  expect(json['data']['relationships']['customer']['links']['related']).to eql api_v1_customer_url(@customer)
     # download link
-      expect(json['download_link']).to eql api_v1_rendered_template_url(@template, @invoice, format: :pdf)
+      expect(json['download_link']).to eql api_v1_rendered_template_path(@template, @invoice, format: :pdf)
     end
   end
 
@@ -101,14 +101,6 @@ RSpec.describe "Api::V1::Invoices", type: :request do
                   'unitary_cost'=> 3.3,
                   'quantity' => 2,
                   'tax_ids' => [tax.id]
-                  },
-                  'relationships' => {
-                    'taxes' => {
-                      'data' => {
-                        'id' => 2,
-                        'type' => 'taxes'
-                      }
-                    }
                   }
                 }]},
             'payments' => {

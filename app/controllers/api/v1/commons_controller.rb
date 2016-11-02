@@ -53,7 +53,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
             if item[:attributes]
               inv_item = Item.new(description: item[:attributes][:description],
                 quantity: item[:attributes][:quantity],
-                unitary_cost: item[:attributes][:unitary_cost])
+                unitary_cost: item[:attributes][:unitary_cost], tax_ids: item[:attributes][:tax_ids])
               inv_item.common = instance
               inv_item.save
             else
