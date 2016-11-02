@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       # create extra invoice for another customer
 	  alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
       alt_invoice = FactoryGirl.create :invoice, customer: alt_customer
-      puts "AAAAPPPPIIIII", api_v1_customer_invoices_path(@customer)
+      print_template = FactoryGirl.create :template, print_default: true, name: "print default", template: ""
       get api_v1_customer_invoices_path(@customer), nil, @headers
       expect(response).to be_success
       expect(json['data'].length).to eql 1 # only @invoice, not alt_invoice

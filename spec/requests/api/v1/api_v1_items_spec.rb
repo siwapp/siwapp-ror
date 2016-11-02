@@ -58,7 +58,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       expect(json['data']['attributes']['tax-ids'][0]).to eql @taxes[0].id # tax assignment by id
       # expect(json['data'][1]['attributes']['name']).to eql 'RETENTION' # tax assignment by name
       # db, too
-      expect(Item.find(json['id']).description).to eql 'brand new item'
+      expect(Item.find(json['data']['id']).description).to eql 'brand new item'
     end
   end
 
@@ -73,7 +73,7 @@ RSpec.describe "Api::V1::Items", type: :request do
       put api_v1_item_path(@item), mod.to_json, @headers
       expect(response).to have_http_status :ok
       expect(json['data']['attributes']['quantity']).to eql '33.0' 
-      expect(json['data']['attributes']['tax_ids'][0]).to eql @taxes[2].id
+      expect(json['data']['attributes']['tax-ids'][0]).to eql @taxes[2].id
       item = Item.find @item.id
       # the db, too
       expect(item.taxes[0].id).to eql @taxes[2].id
