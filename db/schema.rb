@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161026092553) do
+ActiveRecord::Schema.define(version: 20161028103504) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20161026092553) do
   add_index "commons", ["email"], name: "cstml_idx", using: :btree
   add_index "commons", ["identification"], name: "cstid_idx", using: :btree
   add_index "commons", ["name"], name: "cstnm_idx", using: :btree
+  add_index "commons", ["number", "series_id"], name: "common_unique_number_idx", unique: true, using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
   add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree
@@ -187,7 +188,7 @@ ActiveRecord::Schema.define(version: 20161026092553) do
     t.string   "models",        limit: 200
     t.boolean  "print_default",               default: false
     t.datetime "deleted_at"
-    t.boolean  "email_default",               default: false
+    t.boolean  "email_default"
     t.string   "subject",       limit: 200
   end
 

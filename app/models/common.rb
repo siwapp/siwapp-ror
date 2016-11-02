@@ -11,7 +11,7 @@ class Common < ActiveRecord::Base
   belongs_to :series
   belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
   belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
-  has_many :items, dependent: :destroy
+  has_many :items, autosave: true, dependent: :destroy
 
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
   validates :email,

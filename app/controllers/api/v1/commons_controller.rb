@@ -9,9 +9,8 @@ class Api::V1::CommonsController < Api::V1::BaseController
 
 
   def show
-    respond_to do |format|
-      format.json
-    end
+    @common = Common.find params[:id]
+    render json: @common
   end
 
   # GET /api/v1/commons
@@ -35,68 +34,91 @@ class Api::V1::CommonsController < Api::V1::BaseController
     results.paginate(page: params[:page], per_page: 20)
 
     set_listing results.paginate(page: params[:page], per_page: 20)
-
   end
 
   def create
-    instance = model.new(type_params)
+    instance = model.new(api_type_params)
     set_instance instance
-    respond_to do |format|
-      if get_instance.save
-        # Check if there is any meta_attribute
-        if params[:meta_attributes]
-          instance.set_meta_multi params[:meta_attributes]
-        elsif params[:invoice] and params[:invoice][:meta_attributes]
-          instance.set_meta_multi params[:invoice][:meta_attributes]
-        end
-        # if there is no customer associated then create a new one
-        if type_params[:customer_id] == '' or !type_params.has_key? :customer_id # for API
-          if type_params[:identification]
-            # First check: by VAT_ID
-            customer = Customer.find_by_identification type_params[:identification] 
-          elsif type_params[:name]
-            # Second check: by name
-            customer = Customer.find_by_name type_params[:name] 
-          end
-
-          if !customer  
-            customer = Customer.create(
-              :name => type_params[:name],
-              :identification => type_params[:identification],
-              :email => type_params[:email],
-              :contact_person => type_params[:contact_person],
-              :invoicing_address => type_params[:invoicing_address],
-              :shipping_address => type_params[:shipping_address]
-            )
-          end
-          get_instance.update(:customer_id => customer.id)
-        end
-
-        format.json { render sti_template(@type, :show), status: :created, location: get_instance }
-      else
-        format.json { render json: get_instance.errors, status: :unprocessable_entity }
+    if get_instance.save
+      # Check if there is any meta_attribute
+      if params[:data][:meta_attributes]
+        instance.set_meta_multi params[:meta_attributes]
+      elsif params[:invoice] and params[:invoice][:meta_attributes]
+        instance.set_meta_multi params[:invoice][:meta_attributes]
       end
+      # TODO(@ecoslado) A cleaner way to create nested objects
+      if params[:data][:relationships]
+        if params[:data][:relationships][:items]
+          params[:data][:relationships][:items][:data].each do |item|
+            if item[:attributes]
+              inv_item = Item.new(description: item[:attributes][:description],
+                quantity: item[:attributes][:quantity],
+                unitary_cost: item[:attributes][:unitary_cost], tax_ids: item[:attributes][:tax_ids])
+              inv_item.common = instance
+              inv_item.save
+            else
+              render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
+            end
+          end
+        end
+        if params[:data][:relationships][:payments]
+          params[:data][:relationships][:payments][:data].each do |payment|
+            if payment[:attributes]
+              inv_payment = Payment.new(notes: payment[:attributes][:notes],
+                date: payment[:attributes][:date],
+                amount: payment[:attributes][:amount])
+              inv_payment.invoice = instance
+              inv_payment.save
+            else
+              render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
+            end
+          end
+        end
+      end
+      # if there is no customer associated then create a new one
+      if api_type_params[:customer_id] == '' or !api_type_params.has_key? :customer_id # for API
+        if api_type_params[:identification]
+          # First check: by VAT_ID
+          customer = Customer.find_by_identification api_type_params[:identification] 
+        elsif api_type_params[:name]
+          # Second check: by name
+          customer = Customer.find_by_name api_type_params[:name] 
+        end
+
+        if !customer  
+          customer = Customer.create(
+            :name => api_type_params[:name],
+            :identification => api_type_params[:identification],
+            :email => api_type_params[:email],
+            :contact_person => api_type_params[:contact_person],
+            :invoicing_address => api_type_params[:invoicing_address],
+            :shipping_address => api_type_params[:shipping_address]
+          )
+        end
+        get_instance.update(:customer_id => customer.id)
+      end
+      render json: get_instance, status: :created
+    else
+      render json: get_instance.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /commons/1
   # PATCH/PUT /commons/1.json
   def update
-    respond_to do |format|
-      instance = get_instance
-      set_meta instance
-      if instance.update(type_params)
-        # Check if there is any meta_attribute
-        if params[:meta_attributes]
-          instance.set_meta_multi params[:meta_attributes]
-        elsif params[:invoice] and params[:invoice][:meta_attributes]
-          instance.set_meta_multi params[:invoice][:meta_attributes]
-        end
-        # Redirect to index
-        format.json { render sti_template(@type, :show), status: :ok, location: get_instance }  # TODO: test
-      else
-        format.json { render json: get_instance.errors, status: :unprocessable_entity }
+    instance = get_instance
+    set_meta instance
+    if instance.update(api_type_params)
+      # Check if there is any meta_attribute
+      if params[:meta_attributes]
+        instance.set_meta_multi params[:meta_attributes]
+      elsif params[:invoice] and params[:invoice][:meta_attributes]
+        instance.set_meta_multi params[:invoice][:meta_attributes]
       end
+      # Redirect to index
+      render json: get_instance, status: :ok
+    else
+      render json: get_instance.errors, status: :unprocessable_entity
     end
   end
 
@@ -104,9 +126,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # DELETE /commons/1.json
   def destroy
     get_instance.destroy
-    respond_to do |format|
-      format.json { head :no_content }
-    end
+    render json: { message: "Content deleted" }, status: :no_content
   end
 
   def not_found

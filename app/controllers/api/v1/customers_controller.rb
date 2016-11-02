@@ -5,55 +5,48 @@ class Api::V1::CustomersController < Api::V1::BaseController
   def index
     @search = Customer.ransack(params[:q])
     @customers = @search.result(distinct: true).paginate(page: params[:page], per_page: 20)
-
-    respond_to do |format|
-      format.json
-    end
+    render json: @customers
   end
 
   def show
+    @customer = Customer.find params[:id]
+    render json: @customer
   end
 
   def create
     @customer = Customer.new customer_params
-    respond_to do |format|
-      if @customer.save
-        # Check if there is any meta_attribute
-        if params[:meta_attributes]
-          @customer.set_meta_multi params[:meta_attributes]
-        elsif params[:invoice] and params[:invoice][:meta_attributes]
-          @customer.set_meta_multi params[:invoice][:meta_attributes]
-        end
-        format.json { render :show, status: :created, location: api_v1_customer_url(@customer) }
-      else
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+    if @customer.save
+      # Check if there is any meta_attribute
+      if params[:meta_attributes]
+        @customer.set_meta_multi params[:meta_attributes]
+      elsif params[:invoice] and params[:invoice][:meta_attributes]
+        @customer.set_meta_multi params[:invoice][:meta_attributes]
       end
+      render json: @customer, status: :created, location: api_v1_customer_url(@customer)
+    else
+      render json: @customer.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @customer.update customer_params
-        # Check if there is any meta_attribute
-        if params[:meta_attributes]
-          @customer.set_meta_multi params[:meta_attributes]
-        elsif params[:invoice] and params[:invoice][:meta_attributes]
-          @customer.set_meta_multi params[:invoice][:meta_attributes]
-        end
-        format.json { render :show, status: :ok, location: api_v1_customer_url(@customer)}
-      else
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
+    if @customer.update customer_params
+      # Check if there is any meta_attribute
+      if params[:meta_attributes]
+        @customer.set_meta_multi params[:meta_attributes]
+      elsif params[:invoice] and params[:invoice][:meta_attributes]
+        @customer.set_meta_multi params[:invoice][:meta_attributes]
       end
+      render json: @customer, status: :ok, location: api_v1_customer_url(@customer)
+    else
+      render json: @customer.errors, status: :unprocessable_entity
     end
   end
 
   def destroy
-    respond_to do |format|
-      if @customer.destroy
-        format.json { head :no_content }
-      else
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
-      end
+    if @customer.destroy
+      render json: { message: "Content deleted" }, status: :no_content
+    else
+      render json: @customer.errors, status: :unprocessable_entity
     end
   end
 
@@ -64,8 +57,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :identification, :email, :contact_person,
-                                     :invoicing_address, :shipping_address)
+    res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
 
 end
