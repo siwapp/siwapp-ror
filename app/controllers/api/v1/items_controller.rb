@@ -22,7 +22,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
     if @item.save
       render json: @item, status: :created, location: api_v1_item_url(@item)
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: {errors: @item.errors}, status: :unprocessable_entity
     end
   end
 
@@ -34,7 +34,7 @@ class Api::V1::ItemsController < Api::V1::BaseController
       add_id_taxes @item, params
       render json: @item, status: :ok, location: api_v1_item_url(@item)
     else
-      render json: @item.errors, status: :unprocessable_entity
+      render json: {errors: @item.errors}, status: :unprocessable_entity
     end
   end
 

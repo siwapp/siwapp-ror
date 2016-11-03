@@ -55,20 +55,44 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1, "previous_page": null, "next_page": null, "out_of_bounds": false}'
-[
-    {
-        "id": 1,
-        "name": "Acme",
-        "...": "...",
-        "url": "https://siwapp-server.com/api/v1/invoices/1",
-        "series_number": "D-1234-1",
-        "status": "paid",
-        "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
-        "customer": "https://siwapp-server.com/api/v1/customers/2",
-        "payments": "https://siwapp-server.com/api/v1/invoices/1/payments",
-        "items": "https://siwapp-server.com/api/v1/invoices/1/items"
-    }
-]
+{   
+    "data": [
+        {
+            "id": 1,
+            "type": "invoices",
+            "attributes": {
+                "name": "Acme",
+                "...": "...",
+                "url": "https://siwapp-server.com/api/v1/invoices/1",
+                "series_number": "D-1234-1",
+                "status": "paid",
+                "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
+                "customer": "https://siwapp-server.com/api/v1/customers/2",
+                "payments": "https://siwapp-server.com/api/v1/invoices/1/payments",
+                "items": "https://siwapp-server.com/api/v1/invoices/1/items"
+            },
+
+            "relationships": {
+                "items": {
+                    "data": [
+                    {
+                        "id": 23,
+                        "attributes": {
+                            "description": "Lorem Ipsum",
+                            "unitary_cost": 11.2,
+                            "quantity": 23.0,
+                            "tax_ids": [2]
+                        }
+
+                    }
+                    ]
+                }
+            }
+        }
+
+    ]   
+}
+
 ````
 
 **Pagination Headers**

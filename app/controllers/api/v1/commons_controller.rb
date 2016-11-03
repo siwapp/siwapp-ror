@@ -41,11 +41,10 @@ class Api::V1::CommonsController < Api::V1::BaseController
     set_instance instance
     if get_instance.save
       # Check if there is any meta_attribute
-      if params[:data][:meta_attributes]
-        instance.set_meta_multi params[:meta_attributes]
-      elsif params[:invoice] and params[:invoice][:meta_attributes]
-        instance.set_meta_multi params[:invoice][:meta_attributes]
+      if params[:data][:attributes][:meta_attributes]
+        instance.set_meta_multi(params[:data][:attributes][:meta_attributes])
       end
+
       # TODO(@ecoslado) A cleaner way to create nested objects
       # ActiveModel Serializer should offer anything
       if params[:data][:relationships]

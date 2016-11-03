@@ -20,7 +20,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
     if @series.save
       render json: @series, status: :created, location: api_v1_series_url(@series) 
     else
-      render json: @series.errors, status: :unprocessable_entity
+      render json: {errors: @series.errors}, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,7 @@ class Api::V1::SeriesController < Api::V1::BaseController
     if @series.update(series_params)
       render json: @series, status: :ok, location: api_v1_series_url(@series) 
     else
-      render json: @series.errors, status: :unprocessable_entity
+      render json: {errors: @series.errors}, status: :unprocessable_entity
     end
   end
 

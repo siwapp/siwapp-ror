@@ -21,7 +21,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
     if @payment.save
       render json: @payment, status: :created, location: api_v1_payment_url(@payment)
     else
-      render json: @payment.errors, status: :unprocessable_entity
+      render json: {errors: @payment.errors}, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
     if @payment.save
       render json: @payment, status: :ok, location: api_v1_payment_url(@payment)
     else
-      render json: @payment.errors, status: :unprocessable_entity
+      render json: {errors: @payment.errors}, status: :unprocessable_entity
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::PaymentsController < Api::V1::BaseController
     @payment = Payment.find params[:id]
     @payment.destroy
     
-    render json: {"message": "content deleted"},status: :no_content
+    render json: {"message": "content deleted"}, status: :no_content
     
   end
 
