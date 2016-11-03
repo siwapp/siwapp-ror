@@ -47,6 +47,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
         instance.set_meta_multi params[:invoice][:meta_attributes]
       end
       # TODO(@ecoslado) A cleaner way to create nested objects
+      # ActiveModel Serializer should offer anything
       if params[:data][:relationships]
         if params[:data][:relationships][:items]
           params[:data][:relationships][:items][:data].each do |item|
@@ -54,8 +55,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
               inv_item = Item.new(description: item[:attributes][:description],
                 quantity: item[:attributes][:quantity],
                 unitary_cost: item[:attributes][:unitary_cost], tax_ids: item[:attributes][:tax_ids])
-              inv_item.common = instance
-              inv_item.save
+              instance.items << inv_item
             else
               render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
             end
@@ -67,8 +67,8 @@ class Api::V1::CommonsController < Api::V1::BaseController
               inv_payment = Payment.new(notes: payment[:attributes][:notes],
                 date: payment[:attributes][:date],
                 amount: payment[:attributes][:amount])
-              inv_payment.invoice = instance
-              inv_payment.save
+              
+              instance.payments << inv_payment
             else
               render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
             end
