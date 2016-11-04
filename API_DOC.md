@@ -260,23 +260,12 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "invoice": {
-        "name": "Acme",
-        "series_id": "3",
-        "...": "...",
-
-        "items_attributes": [
-            {
-                "id": "3",
-                "description": "shoe MOD #1"
-            }
-        ],
-        "payments_attributes": [
-            {
-                "id": "33",
-                "notes": "MOD Note"
-            }
-        ]
+    "data": {
+        "attributes": {
+            "name": "Acme",
+            "series_id": "3",
+            "...": "..."
+        }        
     }
 }
 ````

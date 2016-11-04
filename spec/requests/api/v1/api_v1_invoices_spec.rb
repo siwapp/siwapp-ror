@@ -20,9 +20,9 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
       expect(json['data'].length).to eql 5
-    # TODO(@ecoslado) Put the nested object's links
-    #  expect(json['data'][0]['links']['self']).to eql api_v1_item_url(@invoice.items[0])
-    #  expect(json['data']['relationships']['customer']['links']['related']).to eql api_v1_customer_url(@customer)
+    
+      expect(json['data']['links']['self']).to eql api_v1_invoice_path(@invoice)
+      expect(json['data']['links']['customer']).to eql api_v1_customer_path(@customer)
     # download link
       expect(json['data']['attributes']['download-link']).to eql api_v1_rendered_template_path(@template, @invoice)
     end
