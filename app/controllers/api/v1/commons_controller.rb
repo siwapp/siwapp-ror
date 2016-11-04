@@ -53,7 +53,9 @@ class Api::V1::CommonsController < Api::V1::BaseController
             if item[:attributes]
               inv_item = Item.new(description: item[:attributes][:description],
                 quantity: item[:attributes][:quantity],
-                unitary_cost: item[:attributes][:unitary_cost], tax_ids: item[:attributes][:tax_ids])
+                unitary_cost: item[:attributes][:unitary_cost], 
+                tax_ids: item[:attributes][:tax_ids],
+                discount: item[:attributes][:discount] || 0)
               instance.items << inv_item
             else
               render json: {errors: [{message: "No attributes in data object."}]}, status: :bad_request
