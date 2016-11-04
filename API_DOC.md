@@ -63,30 +63,33 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
             "attributes": {
                 "name": "Acme",
                 "...": "...",
-                "url": "https://siwapp-server.com/api/v1/invoices/1",
                 "series_number": "D-1234-1",
-                "status": "paid",
-                "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
-                "customer": "https://siwapp-server.com/api/v1/customers/2",
-                "payments": "https://siwapp-server.com/api/v1/invoices/1/payments",
-                "items": "https://siwapp-server.com/api/v1/invoices/1/items"
+                "status": "paid"
+                
             },
 
             "relationships": {
                 "items": {
                     "data": [
-                    {
-                        "id": 23,
-                        "attributes": {
+                        {
+                            "id": 23,
+                            "type": "items",
+                            "attributes": {
                             "description": "Lorem Ipsum",
                             "unitary_cost": 11.2,
                             "quantity": 23.0,
                             "tax_ids": [2]
+                            }
                         }
-
-                    }
                     ]
                 }
+            },
+
+            "links": {
+                "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
+                "customer": "https://siwapp-server.com/api/v1/customers/2",
+                "payments": "https://siwapp-server.com/api/v1/invoices/1/payments",
+                "items": "https://siwapp-server.com/api/v1/invoices/1/items"
             }
         }
 
@@ -135,62 +138,79 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
-    "id": 1,
-    "name": "Acme",
-    "series_id": "3",
-    "draft": "false",
-    "sent_by_email": "false",
-    "identification": "D-ABC",
-    "email": "email@example.com",
-    "invoicing_address": "4332 Elm st. ",
-    "shipping_address": "",
-    "contact_person": "John doe",
-    "terms": "...",
-    "notes": "...",
-    "base_amount":"3554.3",
-    "discount_amount": "233",
-    "net_amount": "3000",
-    "gross_amount": "5422",
-    "paid_amount": "234",
-    "tax_amount": "88",
-    "issue_date": "2015-02-01",
-    "due_date": "2016-12-12",
-    "days_to_due":"",
-    "url": "https://siwapp-server.com/api/v1/invoices/1",
-    "series_number": "D-1234-1",
-    "status": "paid",
-    "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
-    "customer": {
-        "id": "2",
-        "identification": "Acme",
-        "url": "https://siwapp-server.com/api/v1/customers/2"
-    },
-    "payments": [
-        {
-            "id": "17",
-            "notes": "first payment ...",
-            "amount": "33.3",
-            "date": "2012-09-09",
-            "url": "https://siwapp-server.com/api/v1/payments/17"
-        }
-    ],
-    "items": [
-        {
-            "id": "33",
-            "description": "CAMEL cigarrettes",
-            "quantity": "2",
-            "unitary_cost": "23.2",
-            "discount": "13",
-            "taxes": [
-                {
+    "data": {
+        "id": 1,
+        "type": "invoices",
+        "attributes": {
+            "name": "Acme",
+            "series_id": "3",
+            "draft": "false",
+            "sent_by_email": "false",
+            "identification": "D-ABC",
+            "email": "email@example.com",
+            "invoicing_address": "4332 Elm st. ",
+            "shipping_address": "",
+            "contact_person": "John doe",
+            "terms": "...",
+            "notes": "...",
+            "base_amount":"3554.3",
+            "discount_amount": "233",
+            "net_amount": "3000",
+            "gross_amount": "5422",
+            "paid_amount": "234",
+            "tax_amount": "88",
+            "issue_date": "2015-02-01",
+            "due_date": "2016-12-12",
+            "days_to_due":"",
+            "series_number": "D-1234-1",
+            "status": "paid",
+            "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf"
+        },
+
+        "links": {
+            "self": "/api/v1/invoices/1",
+            "customer": "/api/v1/customers/2",
+            "items": "/api/v1/invoices/1/items",
+            "payments": "/api/v1/invoices/1/payments"
+
+        },
+
+        "relationships": {
+            "customer": {
+                "data": {
                     "id": "2",
-                    "name": "VAT 21%",
-                    "value": "21"
-                    "url": "https://siwapp-server.com/api/v1/taxes/2"
-                }
-            ]
+                    "attributes": {
+                        "identification": "Acme",
+                        "url": "https://siwapp-server.com/api/v1/customers/2"
+                    }
+                } 
+            },
+            "payments": {
+                "data": [{
+                    "id": "17",
+                    "attributes": {
+                        "notes": "first payment ...",
+                        "amount": "33.3",
+                        "date": "2012-09-09",
+                        "url": "https://siwapp-server.com/api/v1/payments/17"
+                    } 
+                }]    
+            },
+            "items": {
+                "data": [{
+                    "id": "33",
+                    "attributes": {
+                        "description": "CAMEL cigarrettes",
+                        "quantity": "2",
+                        "unitary_cost": "23.2",
+                        "discount": "13",
+                        "tax_ids": [2]
+                    }
+                }]
+            }
         }
-    ]
+    }
+    
 }
 ````
 
