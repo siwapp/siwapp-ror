@@ -304,16 +304,22 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 
-[
-    {
+{
+    "data": [{
         "id": "123",
-        "description": "shoe",
-        "unitary_cost": "33.2",
-        "...": "...",
-        "url": "https://siwapp-server.com/api/v1/items/123",
-        "taxes": "https://siwapp-server.com/api/v1/items/123/taxes"
-    }
-]
+        "type": "items",
+        "attributes": {
+            "description": "shoe",
+            "unitary_cost": "33.2",
+            "...": "..."
+        },
+        "links": {
+            "url": "https://siwapp-server.com/api/v1/items/123",
+            "taxes": "https://siwapp-server.com/api/v1/items/123/taxes"
+        }
+    }]
+}
+
 ````
 
 ### Show
@@ -330,22 +336,32 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
-    "id": 123,
-    "name": "shoe",
-    "...": "...",
-    "url": "https://siwapp-server.com/api/v1/items/123",
-    "invoice": {
-        "id": "1",
-        "series_number":"D-1234-1",
-        "url": "https://siwapp-server.com/api/v1/invoices/1"
-    },
-    "taxes": [
-        {
-            "id": "2",
-            "name": "VAT 21%"
-            "url": "https://siwapp-server.com/api/v1/taxes/2"
+    "data": {
+        "id": 123,
+        "type": "items",
+        "attributes": {
+            "name": "shoe",
+            "...": "..."
+        },
+        "relationships": {
+            "invoice": {
+                "data": {
+                    "type": "invoices",
+                    "id": 1
+                }
+            }
+            "taxes": {
+                "data": [{
+                    "type": "taxes",
+                    "id": 2
+                }]
+
+            }
+        },
+        "links": {
+            "self": "https://siwapp-server.com/api/v1/items/123"
         }
-    ]
+    }
 }
 ````
 
@@ -359,13 +375,16 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "item": {
-        "description": "another shoe",
-        "unitary_cost": 33.2,
-        "discount": 12,
-        "...": "...",
-        "taxes": ["VAT 21%", "RETENTION"],
-        "tax_ids": [3]
+    "data": {
+        "attributes": {
+            "description": "another shoe",
+            "unitary_cost": 33.2,
+            "discount": 12,
+            "...": "...",
+            "taxes": ["VAT 21%", "RETENTION"],
+            "tax_ids": [3]
+
+        }
     }
 }
 ````
@@ -381,9 +400,11 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "item": {
-        "name": "modified shoe",
-        "quantity": "2"
+    "data": {
+        "attributes": {
+            "name": "modified shoe",
+            "quantity": "2"
+        } 
     }
 }
 ````
@@ -447,14 +468,25 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
-    "id": "333",
-    "name": "first payment",
-    "...": "...",
-    "url": "https://siwapp-server.com/api/v1/items/333",
-    "invoice": {
-        "id": "1",
-        "series_number":"D-1234-1",
-        "url": "https://siwapp-server.com/api/v1/invoices/1"
+    "data": {
+        "id": "333",
+        "type": "payments",
+        "attributes": {
+            "name": "first payment",
+            "...": "...",
+        },
+        "relationships": {
+            "invoice": {
+                "data": {
+                    "id": 1,
+                    "type": "invoices"
+                }
+
+            }
+        },
+        "links": {
+            "self": "https://siwapp-server.com/api/v1/items/333"
+        }
     }
 }
 ````
@@ -469,10 +501,12 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "payment": {
-        "notes": "second payment",
-        "amount": 33.2,
-        "...": "..."
+    "data": {
+        "attributes":{
+            "notes": "second payment",
+            "amount": 33.2,
+            "...": "..."
+        }   
     }
 }
 ````
@@ -486,10 +520,12 @@ PUT https://siwapp-server.com/api/v1/payments/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
-{
-    "payment": {
-        "notes": "modified second payment"
-    }
+{   
+    "data": {
+        "attributes": {
+            "notes": "modified second payment"
+        }
+    }  
 }
 ````
 
@@ -527,16 +563,26 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 
-[
-    {
-        "id": "2",
-        "name": "VAT 21%",
-        "value": "21",
-        "default": "true",
-        "active": "true",
-        "url": "https://siwapp-server.com/api/v1/taxes/2"
-    }
-]
+{
+    "data": [
+        {
+            "id": "2",
+            "type": "taxes",
+            "attributes": {
+                "name": "VAT 21%",
+                "value": "21",
+                "default": "true",
+                "active": "true"
+            },
+            "links": {
+                 "self": "https://siwapp-server.com/api/v1/taxes/2"
+            }   
+        }
+    ]
+}
+
+
+
 ````
 
 ### Show
@@ -553,12 +599,19 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
-    "id": "2",
-    "name": "name 21%",
-    "value": "21",
-    "active": "true",
-    "default": "false",
-    "url": "https://siwapp-server.com/api/v1/taxes/2"
+    "data": {
+        "id": "2",
+        "type": "taxes",
+        "attributes": {
+            "name": "VAT 21%",
+            "value": "21",
+            "default": "true",
+            "active": "true"
+        },
+        "links": {
+            "self": "https://siwapp-server.com/api/v1/taxes/2"
+        }   
+    }
 }
 ````
 
@@ -572,16 +625,17 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "tax": {
-        "name": "VAT 9%",
-        "value": 9,
-        "active": true,
-        "default": false
+    "data": {
+        "attributes": {
+            "name": "VAT 9%",
+            "value": 9,
+            "active": true,
+            "default": false
+        }
     }
 }
 ````
 
-* The `"tax"` key must be present.
 
 ### Update
 
@@ -591,8 +645,10 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "tax": {
-        "name": "modified VAT"
+    "data": {
+        "attributes": {
+            "name": "modified VAT"
+        } 
     }
 }
 ````
@@ -631,16 +687,27 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 
-[
-    {
-        "id": "2",
-        "name": "Sample Series A",
-        "value": "SSA-",
-        "enabled": true,
-        "default": null,
-        "url": "https://siwapp-server.com/api/v1/taxes/2"
-    }
-]
+
+{
+    "data": [
+        {
+            "id": "2",
+            "attributes": {
+                "name": "Sample Series A",
+                "value": "SSA-",
+                "enabled": true,
+                "default": null
+            },
+            "links": {
+                "self": "https://siwapp-server.com/api/v1/taxes/2"
+            }
+        }
+    ]
+}
+
+
+
+
 ````
 
 ### Show
@@ -657,12 +724,18 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
-    "name": "Sample Series A",
-    "value": "SSA-",
-    "enabled": true,
-    "default": null,
-    "first_number": 1000,
-    "url": "https://siwapp-server.com/api/v1/taxes/2"
+    "data": {
+        "id": "2",
+        "attributes": {
+            "name": "Sample Series A",
+            "value": "SSA-",
+            "enabled": true,
+            "default": null
+        },
+        "links": {
+            "self": "https://siwapp-server.com/api/v1/taxes/2"
+        }
+    }
 }
 ````
 
@@ -676,12 +749,14 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "series": {
-        "name": "IT services",
-        "value": "ITS-",
-        "enabled": true,
-        "default": null
-    }
+    "data": {
+        "attributes": {
+            "name": "IT services",
+            "value": "ITS-",
+            "enabled": true,
+            "default": null
+        }
+    }  
 }
 ````
 
@@ -695,8 +770,10 @@ Authorization: Token token="abc"
 Content-Type: application/json
 
 {
-    "series": {
-        "name": "IT services mod"
+    "data": {
+        "attributes": {
+            "name": "IT services mod"
+        } 
     }
 }
 ````
