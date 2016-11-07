@@ -15,4 +15,13 @@ class CommonSerializer < ActiveModel::Serializer
       :meta_attributes
   has_many :items
   has_many :payments
+
+  def items
+    customized_items = []
+    object.items.each do |item|
+      custom_item = {"attributes": item.attributes}
+      customized_items.push(custom_item)
+    end
+    return customized_items
+  end
 end

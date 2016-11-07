@@ -31,15 +31,6 @@ class InvoiceSerializer < ActiveModel::Serializer
     return api_v1_rendered_template_path(template, object)
   end
 
-  def items
-    customized_items = []
-    object.items.each do |item|
-      custom_item = {"attributes": item.attributes}
-      customized_items.push(custom_item)
-    end
-    return customized_items
-  end
-
   def payments
     customized_payments = []
     object.payments.each do |payment|

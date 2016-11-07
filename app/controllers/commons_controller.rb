@@ -72,7 +72,7 @@ class CommonsController < ApplicationController
       @customer = Customer.find params[:customer_id]
       @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
     end
-    results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
     # For amount totals exclude the Failed invoices
     @gross = results.where(failed: false).sum :gross_amount
     @net = results.where(failed: false).sum :net_amount
