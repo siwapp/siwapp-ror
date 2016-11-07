@@ -221,29 +221,38 @@ POST https://siwapp-server.com/api/v1/invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
-{
-    "invoice": {
-        "name": "Acme",
-        "issue_date": "2012-12-12",
-        "series_id": "3",
-        "...": "...",
-
-        "items_attributes": [
-            {
-                "description": "shoe #1",
-                "quantity": 3,
-                "discount": 10,
-                "tax_ids": [2, 4],
-                "unitary_cost": 12.1
+{   
+    "data": {
+        "attributes": {
+            "name": "Acme",
+            "issue_date": "2012-12-12",
+            "series_id": "3",
+            "...": "..."
+        },
+        
+        "relationships": {
+            "items": {
+                "data": [{
+                    "attributes": {
+                        "description": "shoe #1",
+                        "quantity": 3,
+                        "discount": 10,
+                        "tax_ids": [2, 4],
+                        "unitary_cost": 12.1
+                    }
+               }]
+            },
+            
+            "payments": {
+               "data": [{   
+                    "attributes": {
+                         "notes": "payment #1",
+                         "amount": 32.1,
+                         "date": "2016-02-03"
+                    }        
+               }]
             }
-        ],
-        "payments_attributes": [
-            {
-                "notes": "payment #1",
-                "amount": 32.1,
-                "date": "2016-02-02"
-            }
-        ]
+        }
     }
 }
 ````
@@ -349,7 +358,7 @@ Content-Type: application/json; charset=UTF-8
                     "type": "invoices",
                     "id": 1
                 }
-            }
+            },
             "taxes": {
                 "data": [{
                     "type": "taxes",
