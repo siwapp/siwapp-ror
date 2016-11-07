@@ -29,7 +29,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
     if params[:customer_id]
       results = results.where(customer_id: params[:customer_id])
     end
-    results = results.tagged_with(params[:tags].split(/\s*,\s*/)) if params[:tags].present?
+    results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
     results = results.includes :series
     results.paginate(page: params[:page], per_page: 20)
 
