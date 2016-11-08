@@ -49,10 +49,10 @@ ActiveRecord::Schema.define(version: 20161028103504) do
     t.datetime "created_at",                                                                   null: false
     t.datetime "updated_at",                                                                   null: false
     t.datetime "deleted_at"
+    t.integer  "print_template_id",    limit: 4
     t.text     "meta_attributes",      limit: 65535
     t.boolean  "failed",                                                       default: false
     t.integer  "email_template_id",    limit: 4
-    t.integer  "print_template_id",    limit: 4
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
