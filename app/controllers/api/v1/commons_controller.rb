@@ -31,9 +31,13 @@ class Api::V1::CommonsController < Api::V1::BaseController
     end
     results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
     results = results.includes :series
-    results.paginate(page: params[:page][:number], per_page: params[:page][:size])
+    if params[:page]
+      page_number = params[:page][:number] || 1
+      page_size = params[:page][:size] || 10
+    end
 
-    set_listing results.paginate(page: params[:page][:number], per_page: params[:page][:size])
+    results.paginate(page: page_number, per_page: page_size)
+    set_listing results.paginate(page: page_number, per_page: page_size)
   end
 
   def create
