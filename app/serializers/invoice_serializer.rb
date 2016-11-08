@@ -8,7 +8,7 @@ class InvoiceSerializer < ActiveModel::Serializer
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft, 
     :tag_list, :meta_attributes, :download_link, 
-    :net_amount, :gross_amount, :taxes
+    :net_amount, :gross_amount, :taxes, :status
   belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id
@@ -22,16 +22,8 @@ class InvoiceSerializer < ActiveModel::Serializer
     object.set_amounts
   end
 
-  def net_amount
-    object.net_amount
-  end
-
-  def gross_amount
-    object.gross_amount
-  end
-
-  def taxes
-    object.taxes
+  def status
+    object.get_status
   end
 
   def meta_attributes
