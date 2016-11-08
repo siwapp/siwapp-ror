@@ -17,7 +17,7 @@ class Invoice < Common
   after_save :update_paid
 
   CSV_FIELDS = [
-    "id", "series", "customer_id", "name",
+    "id", "to_s", "customer_id", "name",
     "identification", "email",
     "invoicing_address", "shipping_address",
     "contact_person", "terms",
