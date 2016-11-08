@@ -31,9 +31,9 @@ class Api::V1::CommonsController < Api::V1::BaseController
     end
     results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
     results = results.includes :series
-    results.paginate(page: params[:page], per_page: 20)
+    results.paginate(page: params[:page][:number], per_page: params[:page][:size])
 
-    set_listing results.paginate(page: params[:page], per_page: 20)
+    set_listing results.paginate(page: params[:page][:number], per_page: params[:page][:size])
   end
 
   def create

@@ -35,6 +35,7 @@ class Common < ActiveRecord::Base
   }
 
   def taxes
+    precision = get_currency.exponent.to_int
     taxes = {}
     items.each do |item|
       item.taxes.each do |tax|
@@ -44,6 +45,9 @@ class Common < ActiveRecord::Base
           taxes[tax.name] = item.net_amount * tax.value / 100.0
         end
       end
+    end
+    taxes.each do |tax_name, tax_amount|
+      taxes[tax_name] = tax_amount.round(precision)
     end
     taxes
   end
@@ -79,9 +83,9 @@ class Common < ActiveRecord::Base
       self.discount_amount += item.discount_amount
       self.tax_amount += item.tax_amount
     end
-
-    self.net_amount = base_amount - discount_amount
-    self.gross_amount = (net_amount + tax_amount).round(precision)
+    self.tax_amount = tax_amount.round(precision)
+    self.net_amount = (base_amount - discount_amount).round(precision)
+    self.gross_amount = net_amount + tax_amount
   end
 
   # make sure every soft-deleted item is really destroyed
