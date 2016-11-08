@@ -12,7 +12,7 @@ module ModelCsv
           i.meta[key]
         end
         csv <<
-          fields.map {|field| i[field]} + meta_attributes_values
+          fields.map {|field| i.send(field)} + meta_attributes_values
       end
     end
   end
