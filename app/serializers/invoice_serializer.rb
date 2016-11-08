@@ -7,7 +7,8 @@ class InvoiceSerializer < ActiveModel::Serializer
     :customer_id, :identification, :name, 
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft, 
-    :tag_list, :meta_attributes, :download_link 
+    :tag_list, :meta_attributes, :download_link, 
+    :net_amount, :gross_amount, :taxes
   belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id
@@ -15,6 +16,23 @@ class InvoiceSerializer < ActiveModel::Serializer
   link(:customer){ api_v1_customer_path(object.customer_id) }
   link(:items){ api_v1_invoice_items_path(invoice_id: object.id) }
   link(:payments){ api_v1_invoice_payments_path(invoice_id: object.id) }
+
+  def initialize(object, options={})
+    super
+    object.set_amounts
+  end
+
+  def net_amount
+    object.net_amount
+  end
+
+  def gross_amount
+    object.gross_amount
+  end
+
+  def taxes
+    object.taxes
+  end
 
   def meta_attributes
     if object.meta_attributes
@@ -38,6 +56,15 @@ class InvoiceSerializer < ActiveModel::Serializer
       customized_payments.push(custom_payment)
     end
     return customized_payments
+  end
+
+  def items
+    customized_items = []
+    object.items.each do |item|
+      custom_item = {"attributes": item.attributes}
+      customized_items.push(custom_item)
+    end
+    return customized_items
   end
 
 end
