@@ -90,7 +90,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
           customer = Customer.find_by_identification api_type_params[:identification] 
         elsif api_type_params[:name]
           # Second check: by name
-          customer = Customer.find_by_name api_type_params[:name] 
+          customer = Customer.where('lower(name) = ?', api_type_params[:name].downcase).first 
         end
 
         if !customer  
