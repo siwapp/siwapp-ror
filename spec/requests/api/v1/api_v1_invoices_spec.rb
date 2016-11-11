@@ -55,7 +55,7 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       end
 
       it "'Page' param sets the page" do
-        get api_v1_invoices_path, {page: 2},  @headers
+        get api_v1_invoices_path, {page: {number: 2}},  @headers
         expect(response).to be_success
         expect(json['data'].count).to eql 11
       end

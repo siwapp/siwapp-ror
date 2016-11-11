@@ -33,7 +33,10 @@ class Api::V1::CommonsController < Api::V1::BaseController
     results = results.includes :series
     if params[:page]
       page_number = params[:page][:number] || 1
-      page_size = params[:page][:size] || 10
+      page_size = params[:page][:size] || 20
+    else
+      page_number = 1
+      page_size = 20
     end
 
     results.paginate(page: page_number, per_page: page_size)

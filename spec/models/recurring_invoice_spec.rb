@@ -47,7 +47,7 @@ RSpec.describe RecurringInvoice, :type => :model do
     expect(recurring_invoice.base_amount).to eq(133.3)
     expect(recurring_invoice.discount_amount).to eq(10)
     expect(recurring_invoice.net_amount).to eq(123.3)
-    expect(recurring_invoice.tax_amount).to eq(2.466)
+    expect(recurring_invoice.tax_amount).to eq(2.47)
     expect(recurring_invoice.gross_amount).to eq(125.77)
   end
 
@@ -60,6 +60,6 @@ RSpec.describe RecurringInvoice, :type => :model do
   end
 
   it "generates invoices with items taxed as described in recurring invoice" do
-    expect(FactoryGirl.create(:recurring_invoice, starting_date: Date.current - 1).get_pending_invoices[0].tax_amount).to eq 2.466
+    expect(FactoryGirl.create(:recurring_invoice, starting_date: Date.current - 1).get_pending_invoices[0].tax_amount).to eq 2.47
   end
 end
