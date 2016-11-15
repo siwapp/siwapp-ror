@@ -8,7 +8,8 @@ class InvoiceSerializer < ActiveModel::Serializer
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft, 
     :tag_list, :meta_attributes, :download_link, 
-    :net_amount, :gross_amount, :taxes, :status
+    :net_amount, :gross_amount, :taxes, :status,
+    :sent_by_email
   belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id
