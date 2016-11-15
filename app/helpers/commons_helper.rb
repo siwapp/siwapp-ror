@@ -54,6 +54,10 @@ module CommonsHelper
   # Returns params
   def api_type_params
     res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
+    if res[:meta_attributes]
+      res.delete(:meta_attributes)
+    end
+    res
   end
 
   # Protected: whitelist params for the current model and controller
