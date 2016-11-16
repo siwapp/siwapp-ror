@@ -36,8 +36,7 @@ class InvoiceMailer < ApplicationMailer
     # Sending the email
     mail(
       from: Settings.company_email,
-      # Just for testing
-      to: "kike@doofinder.com,enrique@doofinder.com", #@invoice.email,
+      to: @invoice.email,
       subject: email_subject,
       body: email_body
     ) do |format|
