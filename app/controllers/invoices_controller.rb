@@ -6,7 +6,7 @@ class InvoicesController < CommonsController
       format.json { render json: @invoice }
       format.html do
         # Redirect to edit if invoice not closed
-        if @invoice.get_status != :paid or not get_print_template
+        if @invoice.get_status != :paid
           redirect_to action: :edit
         end
         format.html
