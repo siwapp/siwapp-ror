@@ -15,10 +15,10 @@
     .dropdown-menu.dropdown-menu-right
       %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}} Send Email
       - if @template_url
-        = link_to 'Download PDF', @template_url + '.pdf', class: 'dropdown-item'
+        = link_to 'Download PDF', print_invoice_invoice_path + '.pdf', class: 'dropdown-item'
 
   = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
-  = link_to 'Download PDF', @template_url + '.pdf', class: 'btn btn-primary hidden-sm-down'
+  = link_to 'Download PDF', print_invoice_invoice_path + '.pdf', class: 'btn btn-primary hidden-sm-down'
 
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
 

@@ -16,7 +16,6 @@ class InvoicesController < CommonsController
 
   def edit
     @templates = Template.all
-    get_print_template
     render
   end
 
@@ -63,6 +62,24 @@ class InvoicesController < CommonsController
       redirect_to :back, notice: "Email successfully sent."
     rescue Exception => e
       redirect_to :back, alert: e.message
+    end
+  end
+
+    # Renders a common's template in html and pdf formats
+  def print_invoice
+    @invoice = Invoice.find(params[:id])
+    @print_template = @invoice.print_template || Template.find_by(print_default: true) || Template.first
+    html = render_to_string :inline => @print_template.template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    respond_to do |format|
+      format.html { render inline: html }
+      format.pdf do
+        pdf = @invoice.pdf(html)
+        send_data(pdf,
+          :filename    => "#{@invoice}.pdf",
+          :disposition => 'attachment'
+        )
+      end
     end
   end
 
