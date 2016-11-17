@@ -8,8 +8,7 @@ feature 'Editing Invoices' do
     click_link "ES-1"
     click_link "Edit"
 
-    FactoryGirl.create(:template, print_default: true, template: "")
-    FactoryGirl.create(:template, email_default: true, template: "")
+    FactoryGirl.create(:template, template: "Test")
   end
 
   scenario 'Updating an Invoice', :js => true, driver: :webkit do
