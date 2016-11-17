@@ -206,10 +206,18 @@ class CommonsController < ApplicationController
     @templates = Template.all
     @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     default_email_template = Template.find_by(email_default: true)
+    default_print_template = Template.find_by(print_default: true)
+
     if default_email_template
       @default_email_template_id = default_email_template.id
     else
       @default_email_template_id = 1
+    end
+    
+    if default_print_template
+      @default_print_template_id = default_print_template.id
+    else
+      @default_print_template_id = 1
     end
     @days_to_due = Integer Settings.days_to_due
     @tags = tags_for('Common')

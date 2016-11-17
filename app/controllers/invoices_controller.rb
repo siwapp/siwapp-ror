@@ -146,6 +146,7 @@ class InvoicesController < CommonsController
       :notes,
       
       :email_template_id,
+      :print_template_id,
 
       :draft,
       :failed,
