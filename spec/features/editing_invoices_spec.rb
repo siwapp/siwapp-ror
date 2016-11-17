@@ -3,12 +3,12 @@ require 'rails_helper'
 feature 'Editing Invoices' do
 
   before do
+    FactoryGirl.create(:template, template: "Test")
     FactoryGirl.create(:invoice)
     visit "/invoices"
     click_link "ES-1"
     click_link "Edit"
 
-    FactoryGirl.create(:template, template: "Test")
   end
 
   scenario 'Updating an Invoice', :js => true, driver: :webkit do

@@ -8,12 +8,8 @@ class InvoiceMailer < ApplicationMailer
   def email_invoice(invoice)
     @invoice = invoice
 
-    # Getting email templates
-    if @invoice.email_template
-      email_template = @invoice.email_template
-    else
-      email_template = Template.find_by(email_default: true)
-    end
+    # Getting email template
+    email_template = @invoice.get_email_template
     # E-mail parts
     body_template = email_template.template
     subject_template = email_template.subject
