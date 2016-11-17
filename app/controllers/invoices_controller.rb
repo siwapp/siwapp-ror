@@ -6,7 +6,7 @@ class InvoicesController < CommonsController
       format.json { render json: @invoice }
       format.html do
         # Redirect to edit if invoice not closed
-        if @invoice.get_status != :paid or not get_print_template
+        if @invoice.get_status != :paid
           redirect_to action: :edit
         end
         format.html
@@ -16,7 +16,6 @@ class InvoicesController < CommonsController
 
   def edit
     @templates = Template.all
-    get_print_template
     render
   end
 
@@ -63,6 +62,23 @@ class InvoicesController < CommonsController
       redirect_to :back, notice: "Email successfully sent."
     rescue Exception => e
       redirect_to :back, alert: e.message
+    end
+  end
+
+  # Renders a common's template in html and pdf formats
+  def print_invoice
+    @invoice = Invoice.find(params[:id])
+    html = render_to_string :inline => @invoice.get_print_template.template,
+      :locals => {:invoice => @invoice, :settings => Settings}
+    respond_to do |format|
+      format.html { render inline: html }
+      format.pdf do
+        pdf = @invoice.pdf(html)
+        send_data(pdf,
+          :filename    => "#{@invoice}.pdf",
+          :disposition => 'attachment'
+        )
+      end
     end
   end
 
@@ -146,6 +162,7 @@ class InvoicesController < CommonsController
       :notes,
       
       :email_template_id,
+      :print_template_id,
 
       :draft,
       :failed,

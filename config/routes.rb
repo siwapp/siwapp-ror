@@ -23,9 +23,8 @@ Rails.application.routes.draw do
     get 'autocomplete', on: :collection
     get 'chart_data', on: :collection
     get 'send_email', on: :member
+    get 'print_invoice', on: :member
   end
-
-  get 'invoices/template/:id/invoice/:invoice_id', to: 'invoices#print_template', as: :rendered_template
 
   resources :recurring_invoices do
     post 'generate', on: :collection
