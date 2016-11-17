@@ -59,10 +59,9 @@ class Common < ActiveRecord::Base
 
   # Returns the invoice template if set, and the default otherwise
   def get_print_template
-    if self.print_template
-      return self.print_template
-    end
-    Template.find_by(print_default: true)
+    return self.print_template || 
+      Template.find_by(print_default: true) || 
+      Template.first
   end
 
   # Returns the invoice template if set, and the default otherwise
