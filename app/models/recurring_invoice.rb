@@ -46,7 +46,6 @@ class RecurringInvoice < Common
     # how many invoices have been generated so far
     occurrences = Invoice.belonging_to(id).count
     next_date = next_invoice_date()
-
     pending_invoices = []
 
     while next_date <= [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min and
