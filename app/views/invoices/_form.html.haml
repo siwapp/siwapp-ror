@@ -37,11 +37,11 @@
       .col-xs-12.col-sm-4
         .form-group
           = f.label :email_template_id
-          = f.collection_select :email_template_id, @templates, :id, :to_s, !@invoice.email_template ? { selected: @default_email_template_id} : {}, {multiple: false, class: 'form-control c-select'}
+          = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: "Select template for e-mail"}, {multiple: false, class: 'form-control c-select'}
       .col-xs-12.col-sm-4
         .form-group
           = f.label :print_template_id
-          = f.collection_select :print_template_id, @templates, :id, :to_s, !@invoice.print_template ? { selected: @default_print_template_id} : {}, {multiple: false, class: 'form-control c-select'}
+          = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: "Select template to print."}, {multiple: false, class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 
