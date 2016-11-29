@@ -45,10 +45,8 @@ class SeriesController < ApplicationController
     respond_to do |format|
       if @series.update(series_params)
         format.html { redirect_to series_index_url, notice: 'Series was successfully updated.' }
-        format.json { render :show, status: :ok, location: @series }
       else
         format.html { render :edit }
-        format.json { render json: @series.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -77,11 +75,9 @@ class SeriesController < ApplicationController
     respond_to do |format|
       if @series.destroy
        format.html { redirect_to series_index_url, notice: 'Series was successfully destroyed.' }
-       format.json { head :no_content }
 	  else
 	    flash[:alert] = "Series has invoices and can not be destroyed."
         format.html { redirect_to edit_series_path(@series) }
-        format.json { head :no_content }
       end
     end
   end

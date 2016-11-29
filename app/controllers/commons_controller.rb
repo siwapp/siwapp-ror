@@ -111,11 +111,9 @@ class CommonsController < ApplicationController
         end
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
-        format.json { render sti_template(@type, :show), status: :created, location: get_instance }
       else
         flash[:alert] = "#{type_label} has not been created."
         format.html { render sti_template(@type, :new) }
-        format.json { render json: get_instance.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -140,11 +138,9 @@ class CommonsController < ApplicationController
       if instance.update(type_params)
         # Redirect to index
         format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
-        format.json { render sti_template(@type, :show), status: :ok, location: instance }  # TODO: test
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }
-        format.json { render json: get_instance.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -155,7 +151,6 @@ class CommonsController < ApplicationController
     get_instance.destroy
     respond_to do |format|
       format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 

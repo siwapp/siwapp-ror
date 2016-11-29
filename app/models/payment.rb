@@ -19,7 +19,4 @@ class Payment < ActiveRecord::Base
       json.(self, :date, :amount, :notes)
     end
   end
-
-
-
 end
