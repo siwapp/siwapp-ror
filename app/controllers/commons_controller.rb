@@ -163,6 +163,7 @@ class CommonsController < ApplicationController
     @common.set_amounts # they may have changed in the form
     respond_to do |format|
       format.js
+      format.json
     end
   end
 
