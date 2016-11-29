@@ -52,10 +52,8 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.save
         format.html { redirect_to customers_path, notice: 'Customer was successfully created.' }
-        format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -67,10 +65,8 @@ class CustomersController < ApplicationController
       if @customer.update(customer_params)
         set_meta @customer
         format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
-        format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -81,10 +77,8 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.destroy
         format.html { redirect_to customers_path, notice: 'Customer was successfully destroyed.' }
-        format.json { head :no_content }
       else
         format.html { render :edit }
-        format.json { render json: @customer.errors, status: :unprocessable_entity }
       end
     end
   end
