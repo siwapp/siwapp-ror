@@ -30,10 +30,8 @@ class TemplatesController < ApplicationController
     respond_to do |format|
       if @template.save
         format.html { redirect_to templates_url, notice: 'Template was successfully created.' }
-        format.json { render :show, status: :created, location: @template }
       else
         format.html { render :new }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -79,10 +77,8 @@ class TemplatesController < ApplicationController
     respond_to do |format|
       if @template.update(template_params)
         format.html { redirect_to templates_url, notice: 'Template was successfully updated.' }
-        format.json { render :show, status: :ok, location: @template }
       else
         format.html { render :edit }
-        format.json { render json: @template.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -93,7 +89,6 @@ class TemplatesController < ApplicationController
     @template.destroy
     respond_to do |format|
       format.html { redirect_to templates_url, notice: 'Template was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

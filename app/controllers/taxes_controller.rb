@@ -30,11 +30,9 @@ class TaxesController < ApplicationController
     respond_to do |format|
       if @tax.save
         format.html { redirect_to taxes_url, notice: 'Tax was successfully created.' }
-        format.json { render :show, status: :created, location: @tax }
       else
         flash[:alert] = "Tax has not been created."
         format.html { render :new }
-        format.json { render json: @tax.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -45,10 +43,8 @@ class TaxesController < ApplicationController
     respond_to do |format|
       if @tax.update(tax_params)
         format.html { redirect_to taxes_url, notice: 'Tax was successfully updated.' }
-        format.json { render :show, status: :ok, location: @tax }
       else
         format.html { render :edit }
-        format.json { render json: @tax.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -59,11 +55,9 @@ class TaxesController < ApplicationController
 	respond_to do |format|
       if @tax.destroy
         format.html { redirect_to taxes_url, notice: 'Tax was successfully destroyed.' }
-        format.json { head :no_content }
       else
         flash[:alert] = "Tax has invoices and can not be destroyed."
         format.html { redirect_to edit_tax_path(@tax) }
-        format.json { head :no_content }
       end
     end
   end
