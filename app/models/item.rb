@@ -10,6 +10,7 @@ class Item < ActiveRecord::Base
   scope :unique_description, -> (term){
     order(:description).where("description LIKE ?", term).group(:description)
   }
+
   before_save do
     precision = get_currency.exponent.to_int
     self.unitary_cost = self.unitary_cost.round precision
