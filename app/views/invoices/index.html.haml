@@ -32,7 +32,7 @@
         %thead
           %tr
             %th{data: {role: "select-all"}}= check_box_tag "select_all", 1
-            %th.no-wrap= sort_link(@search, :series_value, "Number")
+            %th.no-wrap= sort_link(@search, :number, "Number")
             %th.no-wrap= sort_link(@search, :name, "Customer Name")
             %th.no-wrap= sort_link(@search, :issue_date, "Date")
             %th.text-center= sort_link(@search, :sent_by_email, "Sent")
