@@ -52,11 +52,11 @@ class TaxesController < ApplicationController
   # DELETE /taxes/1
   # DELETE /taxes/1.json
   def destroy
-	respond_to do |format|
+    respond_to do |format|
       if @tax.destroy
-        format.html { redirect_to taxes_url, notice: 'Tax was successfully destroyed.' }
+        format.html { redirect_to taxes_url, notice: 'Tax was successfully deleted.' }
       else
-        flash[:alert] = "Tax has invoices and can not be destroyed."
+        flash[:alert] = @tax.errors.full_messages.join(" ")
         format.html { redirect_to edit_tax_path(@tax) }
       end
     end
@@ -74,11 +74,11 @@ class TaxesController < ApplicationController
       unselected_tax.default = false
       unselected_tax.save
     end
-     
+
     redirect_to(:action => 'index')
   end
 
-    
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

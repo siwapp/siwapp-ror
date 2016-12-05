@@ -10,7 +10,7 @@ class Tax < ActiveRecord::Base
 
   def has_items
     if items.count > 0
-      errors.add(:base, "Can not delete tax with invoices")
+      errors.add(:base, "Can not delete a tax which is used in some invoices")
       return false
     end
   end
