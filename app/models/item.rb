@@ -28,7 +28,7 @@ class Item < ActiveRecord::Base
     base_amount - discount_amount
   end
 
-  def effective_tax_rate
+  def total_tax_rate
     tax_percent = 0
     taxes.each do |tax|
       tax_percent += tax.value
@@ -37,7 +37,7 @@ class Item < ActiveRecord::Base
   end
 
   def tax_amount
-    net_amount * effective_tax_rate / 100.0
+    net_amount * total_tax_rate / 100.0
   end
 
   def to_s

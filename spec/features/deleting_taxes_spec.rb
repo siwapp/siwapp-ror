@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Deleting taxes' do
-  scenario 'Delete a tax from the listing page', :js => true, driver: :webkit do
+  scenario 'Delete a tax from the edit page', :js => true, driver: :webkit do
     tax = FactoryGirl.create(:tax)
     visit '/taxes/1/edit'
     click_link 'Delete'
