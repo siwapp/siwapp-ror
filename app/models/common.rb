@@ -59,15 +59,15 @@ class Common < ActiveRecord::Base
 
   # Returns the invoice template if set, and the default otherwise
   def get_print_template
-    return self.print_template || 
-      Template.find_by(print_default: true) || 
+    return self.print_template ||
+      Template.find_by(print_default: true) ||
       Template.first
   end
 
   # Returns the invoice template if set, and the default otherwise
   def get_email_template
-    return self.email_template || 
-      Template.find_by(email_default: true) || 
+    return self.email_template ||
+      Template.find_by(email_default: true) ||
       Template.first
   end
 
@@ -75,15 +75,16 @@ class Common < ActiveRecord::Base
     precision = get_currency.exponent.to_int
     self.base_amount = 0
     self.discount_amount = 0
-    self.tax_amount = 0
+    # self.tax_amount = 0
     items.each do |item|
       self.base_amount += item.base_amount
       self.discount_amount += item.discount_amount
-      self.tax_amount += item.tax_amount
+      # self.tax_amount += item.tax_amount
     end
-    self.tax_amount = tax_amount.round(precision)
+    # self.tax_amount = tax_amount.round(precision)
     self.net_amount = (base_amount - discount_amount).round(precision)
-    self.gross_amount = net_amount + tax_amount
+    # self.gross_amount = net_amount + tax_amount
+    self.gross_amount = net_amount
   end
 
   # make sure every soft-deleted item is really destroyed

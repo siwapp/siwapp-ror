@@ -65,7 +65,7 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
                 "...": "...",
                 "series_number": "D-1234-1",
                 "status": "paid"
-                
+
             },
 
             "relationships": {
@@ -158,7 +158,6 @@ Content-Type: application/json; charset=UTF-8
             "net_amount": "3000",
             "gross_amount": "5422",
             "paid_amount": "234",
-            "tax_amount": "88",
             "issue_date": "2015-02-01",
             "due_date": "2016-12-12",
             "days_to_due":"",
@@ -183,7 +182,7 @@ Content-Type: application/json; charset=UTF-8
                         "identification": "Acme",
                         "url": "https://siwapp-server.com/api/v1/customers/2"
                     }
-                } 
+                }
             },
             "payments": {
                 "data": [{
@@ -193,7 +192,7 @@ Content-Type: application/json; charset=UTF-8
                         "amount": "33.3",
                         "date": "2012-09-09",
                         "url": "https://siwapp-server.com/api/v1/payments/17"
-                    } 
+                    }
                 }]    
             },
             "items": {
@@ -210,7 +209,7 @@ Content-Type: application/json; charset=UTF-8
             }
         }
     }
-    
+
 }
 ````
 
@@ -229,7 +228,7 @@ Content-Type: application/json
             "series_id": "3",
             "...": "..."
         },
-        
+
         "relationships": {
             "items": {
                 "data": [{
@@ -242,7 +241,7 @@ Content-Type: application/json
                     }
                }]
             },
-            
+
             "payments": {
                "data": [{   
                     "attributes": {
@@ -413,7 +412,7 @@ Content-Type: application/json
         "attributes": {
             "name": "modified shoe",
             "quantity": "2"
-        } 
+        }
     }
 }
 ````
@@ -657,7 +656,7 @@ Content-Type: application/json
     "data": {
         "attributes": {
             "name": "modified VAT"
-        } 
+        }
     }
 }
 ````
@@ -782,7 +781,7 @@ Content-Type: application/json
     "data": {
         "attributes": {
             "name": "IT services mod"
-        } 
+        }
     }
 }
 ````

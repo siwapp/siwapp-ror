@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028103504) do
+ActiveRecord::Schema.define(version: 20161207184222) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20161028103504) do
     t.decimal  "net_amount",                         precision: 53, scale: 15, default: 0.0
     t.decimal  "gross_amount",                       precision: 53, scale: 15, default: 0.0
     t.decimal  "paid_amount",                        precision: 53, scale: 15, default: 0.0
-    t.decimal  "tax_amount",                         precision: 53, scale: 15, default: 0.0
     t.string   "type",                 limit: 255
     t.boolean  "draft",                                                        default: false
     t.boolean  "paid",                                                         default: false
