@@ -36,21 +36,12 @@ class Common < ActiveRecord::Base
 
   # A hash with each tax amount rounded
   def taxes
-    taxes = {}
-    items.each do |item|
-      item.taxes.each do |tax|
-        begin
-          taxes[tax.name] += item.net_amount * tax.value / 100.0
-        rescue NoMethodError
-          taxes[tax.name] = item.net_amount * tax.value / 100.0
-        end
-      end
-    end
+    # Get taxes_hash for each item
+    tax_hashes = items.each.map {|item| item.taxes_hash}
+    # Sum and merge them
+    taxes = tax_hashes.inject({}) {|memo, el| memo.merge(el){|k, old_v, new_v| old_v + new_v}}
     # Round of taxes is made over total of each tax
-    taxes.each do |tax_name, tax_amount|
-      taxes[tax_name] = tax_amount.round(currency_precision)
-    end
-    taxes
+    taxes.each {|tax, amount| taxes[tax] = amount.round(currency_precision)}
   end
 
   def have_items_discount?

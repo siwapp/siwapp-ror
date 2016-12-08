@@ -27,6 +27,12 @@ class Item < ActiveRecord::Base
     description? ? description : 'No description'
   end
 
+  # Returns a hash where keys are the tax object
+  # and values the tax calculated amount
+  def taxes_hash
+    taxes.each.inject({}) {|memo, tax| memo.merge({tax => net_amount * tax.value / 100.0}) }
+  end
+
   def to_jbuilder
     Jbuilder.new do |json|
       json.(self, :quantity, :discount, :description, :unitary_cost)
