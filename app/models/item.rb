@@ -11,11 +11,6 @@ class Item < ActiveRecord::Base
     order(:description).where("description LIKE ?", term).group(:description)
   }
 
-  before_save do
-    precision = get_currency.exponent.to_int
-    self.unitary_cost = self.unitary_cost.round precision
-  end
-
   def base_amount
     unitary_cost * quantity
   end
@@ -25,7 +20,7 @@ class Item < ActiveRecord::Base
   end
 
   def net_amount
-    base_amount - discount_amount
+    (base_amount - discount_amount).round(currency_precision)
   end
 
   def to_s

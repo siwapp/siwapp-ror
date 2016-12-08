@@ -46,6 +46,7 @@ class Common < ActiveRecord::Base
         end
       end
     end
+    # Round of taxes is made over total of each tax
     taxes.each do |tax_name, tax_amount|
       taxes[tax_name] = tax_amount.round(precision)
     end
@@ -53,7 +54,7 @@ class Common < ActiveRecord::Base
   end
 
   def tax_amount
-    self.taxes.values.reduce(:+)
+    self.taxes.values.reduce(0, :+)
   end
 
   # restore if soft deleted, along with its items
