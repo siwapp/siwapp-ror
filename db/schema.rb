@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207184222) do
+ActiveRecord::Schema.define(version: 20161208171651) do
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id",            limit: 4
@@ -24,8 +24,6 @@ ActiveRecord::Schema.define(version: 20161207184222) do
     t.string   "contact_person",       limit: 100
     t.text     "terms",                limit: 65535
     t.text     "notes",                limit: 65535
-    t.decimal  "base_amount",                        precision: 53, scale: 15, default: 0.0
-    t.decimal  "discount_amount",                    precision: 53, scale: 15, default: 0.0
     t.decimal  "net_amount",                         precision: 53, scale: 15, default: 0.0
     t.decimal  "gross_amount",                       precision: 53, scale: 15, default: 0.0
     t.decimal  "paid_amount",                        precision: 53, scale: 15, default: 0.0
@@ -187,7 +185,7 @@ ActiveRecord::Schema.define(version: 20161207184222) do
     t.string   "models",        limit: 200
     t.boolean  "print_default",               default: false
     t.datetime "deleted_at"
-    t.boolean  "email_default"
+    t.boolean  "email_default",               default: false
     t.string   "subject",       limit: 200
   end
 

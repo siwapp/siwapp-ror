@@ -53,6 +53,15 @@ class Common < ActiveRecord::Base
     taxes
   end
 
+  def have_items_discount?
+    items.each do |item|
+      if item.discount > 0
+        return true
+      end
+    end
+    false
+  end
+
   # Total taxes amount added up
   def tax_amount
     self.taxes.values.reduce(0, :+)
@@ -79,7 +88,7 @@ class Common < ActiveRecord::Base
 
   def set_amounts
     self.net_amount =
-        self.items.reduce(0) {|sum, item| sum + item.net_amount}
+        items.reduce(0) {|sum, item| sum + item.net_amount}
     self.gross_amount = net_amount + tax_amount
   end
 
