@@ -78,7 +78,8 @@ class Common < ActiveRecord::Base
   end
 
   def set_amounts
-    self.net_amount = self.items.reduce(0) {|sum, item| sum + item.net_amount}
+    self.net_amount =
+        self.items.reduce(0) {|sum, item| sum + item.net_amount}
     self.gross_amount = net_amount + tax_amount
   end
 

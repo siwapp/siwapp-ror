@@ -1,8 +1,4 @@
 %table.table
-  - unless invoice.discount_amount.zero?
-    %tr
-      %th{scope: "row"} Discount:
-      %td= display_money invoice.discount_amount
   %tr
     %th{scope: "row"} Subtotal:
     %td= display_money invoice.net_amount
