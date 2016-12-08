@@ -68,7 +68,7 @@ feature 'Editing Invoices' do
 
     within :xpath, new_payment_xpath do
       # default amount: what's left to pay. rounded with precision of 2
-      expect(find('input[name*="amount"]').value.to_f).to eq 25.77
+      expect(find('input[name*="amount"]').value.to_f).to eq 25.76
       # default date: today
       expect(find('input[name*="date"]').value).to eq Date.current.iso8601
     end
@@ -85,12 +85,6 @@ feature 'Editing Invoices' do
     FactoryGirl.create(:invoice_unpaid, id: 3)
     visit "/invoices/3/edit"
     # there is a discount row
-    expect(page).to have_selector '#amounts table tr', count: 5
-    # we set every discount to zero
-    all('input[name*="discount"]').each do |element|
-      element.set '0.0'
-     end
-    # now there's no discount row
     expect(page).to have_selector '#amounts table tr', count: 4
   end
 
