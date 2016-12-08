@@ -52,6 +52,10 @@ class Common < ActiveRecord::Base
     taxes
   end
 
+  def tax_amount
+    self.taxes.values.reduce(:+)
+  end
+
   # restore if soft deleted, along with its items
   def back_from_death
     restore! recursive: true
@@ -75,16 +79,12 @@ class Common < ActiveRecord::Base
     precision = get_currency.exponent.to_int
     self.base_amount = 0
     self.discount_amount = 0
-    # self.tax_amount = 0
     items.each do |item|
       self.base_amount += item.base_amount
       self.discount_amount += item.discount_amount
-      # self.tax_amount += item.tax_amount
     end
-    # self.tax_amount = tax_amount.round(precision)
     self.net_amount = (base_amount - discount_amount).round(precision)
-    # self.gross_amount = net_amount + tax_amount
-    self.gross_amount = net_amount
+    self.gross_amount = net_amount + tax_amount
   end
 
   # make sure every soft-deleted item is really destroyed

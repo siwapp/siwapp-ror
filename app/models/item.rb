@@ -28,18 +28,6 @@ class Item < ActiveRecord::Base
     base_amount - discount_amount
   end
 
-  def total_tax_rate
-    tax_percent = 0
-    taxes.each do |tax|
-      tax_percent += tax.value
-    end
-    tax_percent
-  end
-
-  def tax_amount
-    net_amount * total_tax_rate / 100.0
-  end
-
   def to_s
     description? ? description : 'No description'
   end
