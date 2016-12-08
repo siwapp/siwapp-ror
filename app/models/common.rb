@@ -34,8 +34,8 @@ class Common < ActiveRecord::Base
            terms: '%' + terms + '%')
   }
 
+  # A hash with each tax amount rounded
   def taxes
-    precision = get_currency.exponent.to_int
     taxes = {}
     items.each do |item|
       item.taxes.each do |tax|
@@ -48,11 +48,12 @@ class Common < ActiveRecord::Base
     end
     # Round of taxes is made over total of each tax
     taxes.each do |tax_name, tax_amount|
-      taxes[tax_name] = tax_amount.round(precision)
+      taxes[tax_name] = tax_amount.round(currency_precision)
     end
     taxes
   end
 
+  # Total taxes amount added up
   def tax_amount
     self.taxes.values.reduce(0, :+)
   end
@@ -77,14 +78,7 @@ class Common < ActiveRecord::Base
   end
 
   def set_amounts
-    precision = get_currency.exponent.to_int
-    self.base_amount = 0
-    self.discount_amount = 0
-    items.each do |item|
-      self.base_amount += item.base_amount
-      self.discount_amount += item.discount_amount
-    end
-    self.net_amount = (base_amount - discount_amount).round(precision)
+    self.net_amount = self.items.reduce(0) {|sum, item| sum + item.net_amount}
     self.gross_amount = net_amount + tax_amount
   end
 
