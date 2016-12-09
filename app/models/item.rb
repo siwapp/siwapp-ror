@@ -30,7 +30,9 @@ class Item < ActiveRecord::Base
   # Returns a hash where keys are the tax object
   # and values the tax calculated amount
   def taxes_hash
-    taxes.each.inject({}) {|memo, tax| memo.merge({tax => net_amount * tax.value / 100.0}) }
+    taxes.each.inject({}) do |memo, tax|
+      memo.merge({tax => net_amount * tax.value / 100.0})
+    end
   end
 
   def to_jbuilder

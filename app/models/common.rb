@@ -39,9 +39,13 @@ class Common < ActiveRecord::Base
     # Get taxes_hash for each item
     tax_hashes = items.each.map {|item| item.taxes_hash}
     # Sum and merge them
-    taxes = tax_hashes.inject({}) {|memo, el| memo.merge(el){|k, old_v, new_v| old_v + new_v}}
+    taxes = tax_hashes.inject({}) do |memo, el|
+      memo.merge(el){|k, old_v, new_v| old_v + new_v}
+    end
     # Round of taxes is made over total of each tax
-    taxes.each {|tax, amount| taxes[tax] = amount.round(currency_precision)}
+    taxes.each do |tax, amount|
+      taxes[tax] = amount.round(currency_precision)
+    end
   end
 
   def have_items_discount?
