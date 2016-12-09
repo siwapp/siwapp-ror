@@ -36,7 +36,7 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.payments.length).to eq(2)
 
     expect(invoice.net_amount).to eq(123.3)
-    expect(invoice.gross_amount).to eq(125.76)
+    expect(invoice.gross_amount).to eq(125.77)
     expect(invoice.paid_amount).to eq(125.77)
   end
 end
