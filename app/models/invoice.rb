@@ -5,7 +5,6 @@ class Invoice < Common
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 
   # Validation
-  validates :series, presence: true
   validates :issue_date, presence: true
   validates :number, numericality: { only_integer: true,
     allow_nil: true }

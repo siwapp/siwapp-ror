@@ -7,7 +7,6 @@ class RecurringInvoice < Common
   has_many :invoices
 
   # Validation
-  validates :series, presence: true
   validates :name, presence: true
   validates :starting_date, presence: true
   validates :period_type, presence: true

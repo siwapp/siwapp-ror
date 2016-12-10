@@ -4,6 +4,8 @@ class Common < ActiveRecord::Base
 
   extend ModelCsv  # To export to csv file
 
+  # Behaviors
+  acts_as_taggable
   acts_as_paranoid
 
   # Relations
@@ -12,14 +14,13 @@ class Common < ActiveRecord::Base
   belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
   belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
   has_many :items, autosave: true, dependent: :destroy
-
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+
+  # Validations
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
-
-  # Behaviors
-  acts_as_taggable
+  validates :series, presence: true
 
   # Events
   before_save :set_amounts
