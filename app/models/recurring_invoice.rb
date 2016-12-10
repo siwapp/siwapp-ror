@@ -25,7 +25,7 @@ class RecurringInvoice < Common
     "id", "series", "customer_id", "name", "identification",
     "email", "invoicing_address", "shipping_address",
     "contact_person", "terms",
-    "notes", "base_amount", "discount_amount", "net_amount",
+    "notes", "net_amount", "tax_amount",
     "gross_amount", "draft",
     "sent_by_email", "days_to_due", "enabled", "max_occurrences",
     "must_occurrences", "period", "period_type",

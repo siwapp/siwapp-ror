@@ -21,7 +21,7 @@ class Invoice < Common
     "identification", "email",
     "invoicing_address", "shipping_address",
     "contact_person", "terms",
-    "notes", "base_amount", "discount_amount", "net_amount",
+    "notes", "net_amount", "tax_amount",
     "gross_amount", "paid_amount", "draft",
     "paid", "sent_by_email", "number",
     "recurring_invoice_id", "issue_date",
