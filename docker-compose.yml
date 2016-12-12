@@ -1,0 +1,22 @@
+version: '2'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_USER: siwapp
+      MYSQL_PASSWORD: wappis
+      MYSQL_DATABASE: siwapp
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - '3306:3306'
+
+  web:
+    build: .
+    volumes:
+      - .:/app
+    entrypoint: [./entrypoint.sh]
+    command: [rails, server, -b, '0.0.0.0']
+    ports:
+      - '3000:3000'
+    links:
+      - db

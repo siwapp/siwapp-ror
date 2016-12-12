@@ -11,7 +11,7 @@ default: &default
 
 development:
   adapter: mysql2
-  host: 127.0.0.1
+  host: db
   encoding: utf8
   database: siwapp
   username: siwapp
