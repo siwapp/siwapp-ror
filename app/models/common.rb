@@ -4,6 +4,8 @@ class Common < ActiveRecord::Base
 
   extend ModelCsv  # To export to csv file
 
+  # Behaviors
+  acts_as_taggable
   acts_as_paranoid
 
   # Relations
@@ -12,14 +14,13 @@ class Common < ActiveRecord::Base
   belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
   belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
   has_many :items, autosave: true, dependent: :destroy
-
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+
+  # Validations
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
-
-  # Behaviors
-  acts_as_taggable
+  validates :series, presence: true
 
   # Events
   before_save :set_amounts
@@ -34,22 +35,32 @@ class Common < ActiveRecord::Base
            terms: '%' + terms + '%')
   }
 
+  # A hash with each tax amount rounded
   def taxes
-    precision = get_currency.exponent.to_int
-    taxes = {}
+    # Get taxes_hash for each item
+    tax_hashes = items.each.map {|item| item.taxes_hash}
+    # Sum and merge them
+    taxes = tax_hashes.inject({}) do |memo, el|
+      memo.merge(el){|k, old_v, new_v| old_v + new_v}
+    end
+    # Round of taxes is made over total of each tax
+    taxes.each do |tax, amount|
+      taxes[tax] = amount.round(currency_precision)
+    end
+  end
+
+  def have_items_discount?
     items.each do |item|
-      item.taxes.each do |tax|
-        begin
-          taxes[tax.name] += item.net_amount * tax.value / 100.0
-        rescue NoMethodError
-          taxes[tax.name] = item.net_amount * tax.value / 100.0
-        end
+      if item.discount > 0
+        return true
       end
     end
-    taxes.each do |tax_name, tax_amount|
-      taxes[tax_name] = tax_amount.round(precision)
-    end
-    taxes
+    false
+  end
+
+  # Total taxes amount added up
+  def tax_amount
+    self.taxes.values.reduce(0, :+)
   end
 
   # restore if soft deleted, along with its items
@@ -59,30 +70,21 @@ class Common < ActiveRecord::Base
 
   # Returns the invoice template if set, and the default otherwise
   def get_print_template
-    return self.print_template || 
-      Template.find_by(print_default: true) || 
+    return self.print_template ||
+      Template.find_by(print_default: true) ||
       Template.first
   end
 
   # Returns the invoice template if set, and the default otherwise
   def get_email_template
-    return self.email_template || 
-      Template.find_by(email_default: true) || 
+    return self.email_template ||
+      Template.find_by(email_default: true) ||
       Template.first
   end
 
   def set_amounts
-    precision = get_currency.exponent.to_int
-    self.base_amount = 0
-    self.discount_amount = 0
-    self.tax_amount = 0
-    items.each do |item|
-      self.base_amount += item.base_amount
-      self.discount_amount += item.discount_amount
-      self.tax_amount += item.tax_amount
-    end
-    self.tax_amount = tax_amount.round(precision)
-    self.net_amount = (base_amount - discount_amount).round(precision)
+    self.net_amount =
+        items.reduce(0) {|sum, item| sum + item.net_amount}
     self.gross_amount = net_amount + tax_amount
   end
 

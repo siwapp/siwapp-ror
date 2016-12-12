@@ -59,7 +59,6 @@ class CommonsController < ApplicationController
     # For amount totals exclude the Failed invoices
     @gross = results.where(failed: false).sum :gross_amount
     @net = results.where(failed: false).sum :net_amount
-    @tax = results.where(failed: false).sum :tax_amount
     @count = results.count
 
     # series has to be included after totals calculations
@@ -159,7 +158,7 @@ class CommonsController < ApplicationController
   # Calculates the amounts totals
   def amounts
     @common = Invoice.new(amounts_params) # TODO: test
-    @precision = get_currency.exponent.to_int
+    @precision = currency_precision
     @common.set_amounts # they may have changed in the form
     respond_to do |format|
       format.js
@@ -191,7 +190,7 @@ class CommonsController < ApplicationController
     else
       @default_email_template_id = 1
     end
-    
+
     if default_print_template
       @default_print_template_id = default_print_template.id
     else

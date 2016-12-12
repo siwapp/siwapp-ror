@@ -7,7 +7,6 @@ class RecurringInvoice < Common
   has_many :invoices
 
   # Validation
-  validates :series, presence: true
   validates :name, presence: true
   validates :starting_date, presence: true
   validates :period_type, presence: true
@@ -25,8 +24,8 @@ class RecurringInvoice < Common
     "id", "series", "customer_id", "name", "identification",
     "email", "invoicing_address", "shipping_address",
     "contact_person", "terms",
-    "notes", "base_amount", "discount_amount", "net_amount",
-    "gross_amount", "tax_amount", "draft",
+    "notes", "net_amount", "tax_amount",
+    "gross_amount", "draft",
     "sent_by_email", "days_to_due", "enabled", "max_occurrences",
     "must_occurrences", "period", "period_type",
     "starting_date", "finishing_date", "created_at", "updated_at",

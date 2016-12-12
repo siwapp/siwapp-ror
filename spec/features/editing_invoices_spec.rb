@@ -80,18 +80,4 @@ feature 'Editing Invoices' do
     expect(page).to have_no_selector(:xpath, new_payment_xpath)
   end
 
-  scenario 'Removing discounts to an Invoice', js: true, driver: :webkit do
-
-    FactoryGirl.create(:invoice_unpaid, id: 3)
-    visit "/invoices/3/edit"
-    # there is a discount row
-    expect(page).to have_selector '#amounts table tr', count: 5
-    # we set every discount to zero
-    all('input[name*="discount"]').each do |element|
-      element.set '0.0'
-     end
-    # now there's no discount row
-    expect(page).to have_selector '#amounts table tr', count: 4
-  end
-
 end

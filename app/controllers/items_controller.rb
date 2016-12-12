@@ -2,12 +2,15 @@ class ItemsController < ApplicationController
 
 	# GET /items/amount
   #
-  # Calculates the total amount for an item
+  # Calculates the net amount for an item
   def amount
-    currency = get_currency
-    precision = currency.exponent.to_int
-    @amount = ((params[:unitary_cost].to_f * params[:quantity].to_f * 10**precision).floor).to_f / 10**precision
-    
+    item = Item.new(
+      unitary_cost: params[:unitary_cost],
+      quantity: params[:quantity],
+      discount: params[:discount]
+    )
+    @amount = item.net_amount
+
     respond_to do |format|
       format.json
     end

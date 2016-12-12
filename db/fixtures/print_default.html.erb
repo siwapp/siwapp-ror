@@ -288,6 +288,10 @@
     <thead>
       <tr>
         <th>Description</th>
+        <% if @invoice.have_items_discount? %>
+        <th>Price</th>
+        <th>Discount</th>
+        <% end %>
         <th class="total">Total</th>
       </tr>
     </thead>
@@ -295,7 +299,11 @@
       <% @invoice.items.each do |item| %>
         <tr>
           <td><%= item.description %></td>
-          <td class="total"><%= display_money item.base_amount %></td>
+          <% if @invoice.have_items_discount? %>
+          <td><%= display_money item.base_amount %></td>
+          <td><% if item.discount > 0 %><%= item.discount %>%<% end %></td>
+          <% end %>
+          <td class="total"><%= display_money item.net_amount %></td>
         </tr>
       <% end %>
     </tbody>
@@ -315,12 +323,6 @@
     <div class="section">
       <table class="totals" cellspacing="0">
         <tbody>
-          <% if invoice.discount_amount != 0 %>
-            <tr>
-              <th>Discount</th>
-              <td class="total"><%= display_money invoice.discount_amount %></td>
-            </tr>
-          <% end %>
           <tr>
             <th>Subtotal</th>
             <td class="total"><%= display_money invoice.net_amount %></td>

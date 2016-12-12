@@ -4,13 +4,12 @@ class Payment < ActiveRecord::Base
   acts_as_paranoid
   belongs_to :invoice
   validates :date, presence: true
-  
+
   before_save do
-    precision = get_currency.exponent.to_int
-    self.amount = self.amount.round precision
+    self.amount = self.amount.round currency_precision
   end
 
-  after_save do 
+  after_save do
   	invoice.save
   end
 

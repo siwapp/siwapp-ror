@@ -15,8 +15,8 @@ get_amounts = (controller_name, form, callback) ->
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
-get_item_amount = (quantity, unitary_cost, callback) ->
-  url = Routes['items_amount_path']() + "?quantity=#{quantity}&unitary_cost=#{unitary_cost}"
+get_item_amount = (quantity, unitary_cost, discount, callback) ->
+  url = Routes['items_amount_path']() + "?quantity=#{quantity}&unitary_cost=#{unitary_cost}&discount=#{discount}"
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
@@ -65,16 +65,16 @@ jQuery(document).ready ($) ->
     insertionNode = $(this).data('insertion-node')
     nested = $(insertionNode).children('.invoice-row').last().clone()
     nested.find("input").val("")
-  
+
     $(insertionNode).append(nested)
-  
+
   $('[data-role="remove-item"]').on 'click', (e) ->
     e.preventDefault()
     $this = $(this)
     wrapper = $this.data("wrapper-class")
     $(this).parents(".#{wrapper}").remove()
 
-  
+
 
   #
   # Invoice-like Forms
@@ -94,14 +94,12 @@ jQuery(document).ready ($) ->
         item = $(e.target)
         if item.prop 'tagName' == 'TEXTAREA'
           return
-        # Set the base amount of the item = quantity * unitary_cost
-        # Attention: discounts and taxes are not calculated here!!
-        # those are calculated only in the totals.
+        # Set the net amount of the item
         item_row = item.parents('.js-item')
-        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), (data) ->
-          base_amount = data.amount
-          item_row.find('[data-role="base-amount"]').val(base_amount)
-          item_row.find('.js-base-amount').html(base_amount)
+        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), item_row.find('.discount').val(), (data) ->
+          net_amount = data.amount
+          item_row.find('[data-role="net-amount"]').val(net_amount)
+          item_row.find('.js-net-amount').html(net_amount)
 
         # Set total amounts of invoice
         set_amounts(controller_name, form)
