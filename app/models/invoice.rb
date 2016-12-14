@@ -79,7 +79,6 @@ public
   #
   # Returns a string.
   def to_s
-
     label = draft ? '[draft]' : number
     "#{series.value}#{label}"
   end
@@ -109,6 +108,12 @@ public
 
   # Public: Returns the amount that has not been already paid.
   #
+  # A failed invoice means that the payment couldn't be collected and you don't
+  # expect to collect it in the future. A failed invoice must not count in
+  # totals so we return 0 in that case so there's no negative balance due to
+  # this invoice. If you get paid later you must explicitly set failed as false
+  # and then set the invoice as paid.
+  #
   # Returns a double.
   def unpaid_amount
     if failed
@@ -117,7 +122,7 @@ public
     gross_amount - paid_amount
   end
 
-  # Public: Creates the payment to set as paid the invoice.
+  # Public: Creates the payment to mark the invoice as paid.
   #
   def set_paid
     if unpaid_amount > 0 and not paid
