@@ -122,16 +122,22 @@ public
     gross_amount - paid_amount
   end
 
-  # Public: Creates the payment to mark the invoice as paid.
+  # Public: Adds a payment for the remaining unpaid amount and updates the
+  # invoice status.
   #
   def set_paid
     if unpaid_amount > 0 and not paid
-      payment = Payment.create(
-          invoice_id: self.id,
-          date: Date.current,
-          amount: unpaid_amount)
-      self.save
+      payments << Payment.new(date: Date.current, amount: unpaid_amount)
+      check_paid
     end
+  end
+
+  # Public: Adds a payment for the remaining unpaid amount and updates the
+  # invoice status. This method saves the invoice.
+  #
+  def set_paid!
+    set_paid
+    self.save
   end
 
   # Public: Check the payments and update the paid and
@@ -165,6 +171,7 @@ public
     super
     self.check_paid
     paid_amount_will_change!
+    nil
   end
 
   # Sends email to user with the invoice attached
