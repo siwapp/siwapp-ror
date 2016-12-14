@@ -109,13 +109,14 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "sets paid right" do
-    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)])
+    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)],
+                            payments: [Payment.new(amount: 10, date: Date.current)])
     invoice.set_paid
 
     expect(invoice.paid).to be true
     expect(invoice.paid_amount).to eq 50
-    expect(invoice.payments.length).to eq 1
-    expect(invoice.payments[0].amount).to eq 50
+    expect(invoice.payments.length).to eq 2
+    expect(invoice.payments[1].amount).to eq 40
   end
 
 end
