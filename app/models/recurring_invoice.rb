@@ -95,7 +95,7 @@ class RecurringInvoice < Common
     return if starting_date.blank? || finishing_date.blank?
 
     if starting_date > finishing_date
-      errors.add(:finishing_time, "The end date must be greater than the start date.")
+      errors.add(:finishing_date, "The end date must be greater than the start date.")
     end
   end
 

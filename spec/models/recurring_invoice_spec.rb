@@ -1,59 +1,45 @@
 require 'rails_helper'
+require 'siwapp_tests_helper'
 
 RSpec.describe RecurringInvoice, :type => :model do
+
+  def build_recurring_invoice(**kwargs)
+    kwargs[:starting_date] = Date.current() unless kwargs.has_key? :starting_date
+    kwargs[:period_type] = 'month' unless kwargs.has_key? :period_type
+    kwargs[:period] = 1 unless kwargs.has_key? :period
+    build_common_as(RecurringInvoice, **kwargs)
+  end
 
   before do
     Celluloid.shutdown; Celluloid.boot
   end
 
-  it "is invalid without a series" do
-    expect(FactoryGirl.build(:recurring_invoice, series: nil)).not_to be_valid
+  it "is active by default" do
+    r = build_recurring_invoice()
+    expect(r.enabled).to be true
   end
 
-  it "is invalid without a customer name" do
-    expect(FactoryGirl.build(:recurring_invoice, name: nil)).not_to be_valid
+  it "is not valid, if active, without a start date" do
+    r = build_recurring_invoice(starting_date: nil)
+    expect(r).not_to be_valid
   end
 
-  it "is invalid with bad e-mails" do
-    expect(FactoryGirl.build(:recurring_invoice, email: "paquito")).not_to be_valid
-    expect(FactoryGirl.build(:recurring_invoice, email: "paquito@example")).not_to be_valid
-  end
-
-  it "active is invalid without a starting date" do
-    expect(FactoryGirl.build(:recurring_invoice, starting_date: nil)).not_to be_valid
-  end
-
-  for field in [:max_occurrences, :finishing_date]
-    it "active is valid with either max_occurrences or finishing date" do
-      expect(FactoryGirl.build(:recurring_invoice, field =>  nil)
-             ).to be_valid
-    end
-  end
-
-  it "is active per default" do
-    expect(FactoryGirl.build(:recurring_invoice).enabled).to eq true
-  end
-
-
-  it "is represented with its customer name" do
-    expect(FactoryGirl.build(:recurring_invoice).to_s).to eq("Example Customer Name")
-  end
-
-  it "performs totals calculations properly" do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
-
-    expect(recurring_invoice.items.length).to eq(3)
-
-    expect(recurring_invoice.net_amount).to eq(123.3)
-    expect(recurring_invoice.gross_amount).to eq(125.77)
+  it "is not valid with a bad end date" do
+    r = build_recurring_invoice(finishing_date: Date.current - 1)
+    expect(r).not_to be_valid
+    expect(r.errors.messages.has_key? :finishing_date).to be true
   end
 
   it "generates invoices according to max_occurrences" do
-    expect(FactoryGirl.build(:recurring_invoice, starting_date: Date.current << 1).get_pending_invoices.count).to eq 5
+    r = build_recurring_invoice(starting_date: Date.current << 1, max_occurrences: 1)
+    expect(r).to be_valid
+    expect(r.get_pending_invoices.count).to eq 1
   end
 
   it "generates invoices according to finishing_date" do
-    expect(FactoryGirl.build(:recurring_invoice, starting_date: Date.current - 7, max_occurrences: nil).get_pending_invoices.count).to eq 8
+    r = build_recurring_invoice(starting_date: Date.current << 5, finishing_date: Date.current)
+    expect(r).to be_valid
+    expect(r.get_pending_invoices.count).to eq 6
   end
 
 end
