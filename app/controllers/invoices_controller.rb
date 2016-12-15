@@ -99,7 +99,7 @@ class InvoicesController < CommonsController
           flash[:alert] = e.message
         end
       when 'set_paid'
-        invoices.each {|inv| inv.set_paid}
+        invoices.each {|inv| inv.set_paid!}
         flash[:info] = "Successfully set as paid #{ids.length} invoices."
       when 'pdf'
         html = ''
@@ -160,7 +160,7 @@ class InvoicesController < CommonsController
       :shipping_address,
       :terms,
       :notes,
-      
+
       :email_template_id,
       :print_template_id,
 
