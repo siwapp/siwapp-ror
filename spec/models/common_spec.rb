@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'siwapp_tests_helper'
 
 RSpec.describe Common, :type => :model do
 
@@ -14,21 +15,26 @@ RSpec.describe Common, :type => :model do
     item1 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1])
     item2 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1, tax2])
 
-    Common.new(series: Series.new, items: [item1, item2])
+    build_common_as(Common, items: [item1, item2])
   end
 
   it "is not valid without a series" do
-    c = Common.new
+    c = build_common_as(Common, series: nil)
     expect(c).not_to be_valid
     expect(c.errors.messages.has_key? :series).to be true
   end
 
   it "is not valid with bad e-mails" do
-    c = Common.new(series: Series.new)
-    c.email = "paquito"
+    c = build_common_as(Common, email: "paquito")
+
     expect(c).not_to be_valid
+    expect(c.errors.messages.length).to eq 1
+    expect(c.errors.messages.has_key? :email).to be true
+
     c.email = "paquito@example"
+
     expect(c).not_to be_valid
+    expect(c.errors.messages.length).to eq 1
     expect(c.errors.messages.has_key? :email).to be true
   end
 

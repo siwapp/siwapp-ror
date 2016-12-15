@@ -1,14 +1,11 @@
 require 'rails_helper'
+require 'siwapp_tests_helper'
 
 RSpec.describe Invoice, :type => :model do
 
   def build_invoice(**kwargs)
-    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
     kwargs[:issue_date] = Date.current() unless kwargs.has_key? :issue_date
-
-    invoice = Invoice.new(**kwargs)
-    invoice.set_amounts
-    invoice
+    build_common_as(Invoice, **kwargs)
   end
 
   #

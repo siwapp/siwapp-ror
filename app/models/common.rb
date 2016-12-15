@@ -17,10 +17,11 @@ class Common < ActiveRecord::Base
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   # Validations
+  validate :valid_customer_identification
+  validates :series, presence: true
   validates :email,
     format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
-  validates :series, presence: true
 
   # Events
   before_save :set_amounts
@@ -105,6 +106,14 @@ protected
   # Declare scopes for search
   def self.ransackable_scopes(auth_object = nil)
     [:with_terms]
+  end
+
+private
+
+  def valid_customer_identification
+    unless name? or identification?
+      errors.add :base, "Customer name or identification is required."
+    end
   end
 
 end

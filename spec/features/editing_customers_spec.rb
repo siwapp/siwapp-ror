@@ -17,8 +17,8 @@ feature 'Editing Customer' do
   scenario 'can not update badly', :js => true, driver: :webkit do
     fill_in 'Name', with: ''
     click_on 'Save'
-    expect(page).to have_content("Name can't be blank")
-    expect(page).to have_content('error prohibited this customer from being saved')
+    expect(page).to have_content("Name or identification is required.")
+    expect(page).to have_content('1 error prohibited this customer from being saved:')
   end
 
 end

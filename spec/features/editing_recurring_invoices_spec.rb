@@ -17,7 +17,7 @@ feature "Editing Recurring Invoices" do
     fill_in "Starting date", with: Date.current
     fill_in "Finishing date", with: Date.yesterday
     click_on "Save"
-    expect(page).to have_content("Name can't be blank")
-    expect(page).to have_content("Finishing Date must be after Starting Date")
+    expect(page).to have_content("Customer name or identification is required.")
+    expect(page).to have_content("The end date must be greater than the start date.")
   end
 end
