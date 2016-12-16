@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'siwapp_tests_helper'
 
 RSpec.describe Common, :type => :model do
 
@@ -9,23 +8,31 @@ RSpec.describe Common, :type => :model do
     Rails.cache.delete("rails_settings_cached:currency")
   end
 
+  def build_common(**kwargs)
+    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
+
+    common = Common.new(name: "A Customer", identification: "123456789Z", **kwargs)
+    common.set_amounts
+    common
+  end
+
   def new_common
     tax1 = Tax.new(value: 10)
     tax2 = Tax.new(value: 40)
     item1 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1])
     item2 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1, tax2])
 
-    build_common_as(Common, items: [item1, item2])
+    build_common(items: [item1, item2])
   end
 
   it "is not valid without a series" do
-    c = build_common_as(Common, series: nil)
+    c = build_common(series: nil)
     expect(c).not_to be_valid
     expect(c.errors.messages.has_key? :series).to be true
   end
 
   it "is not valid with bad e-mails" do
-    c = build_common_as(Common, email: "paquito")
+    c = build_common(email: "paquito")
 
     expect(c).not_to be_valid
     expect(c.errors.messages.length).to eq 1

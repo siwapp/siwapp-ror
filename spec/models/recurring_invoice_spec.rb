@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'siwapp_tests_helper'
 
 RSpec.describe RecurringInvoice, :type => :model do
 
@@ -7,7 +6,11 @@ RSpec.describe RecurringInvoice, :type => :model do
     kwargs[:starting_date] = Date.current() unless kwargs.has_key? :starting_date
     kwargs[:period_type] = 'month' unless kwargs.has_key? :period_type
     kwargs[:period] = 1 unless kwargs.has_key? :period
-    build_common_as(RecurringInvoice, **kwargs)
+    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
+
+    recurring_invoice = RecurringInvoice.new(name: "A Customer", identification: "123456789Z", **kwargs)
+    recurring_invoice.set_amounts
+    recurring_invoice
   end
 
   before do
