@@ -9,9 +9,11 @@ RSpec.describe Common, :type => :model do
   end
 
   def build_common(**kwargs)
+    kwargs[:name] = "A Customer" unless kwargs.has_key? :name
+    kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
 
-    common = Common.new(name: "A Customer", identification: "123456789Z", **kwargs)
+    common = Common.new(**kwargs)
     common.set_amounts
     common
   end
@@ -29,6 +31,21 @@ RSpec.describe Common, :type => :model do
     c = build_common(series: nil)
     expect(c).not_to be_valid
     expect(c.errors.messages.has_key? :series).to be true
+  end
+
+  it "is not valid with at least a name or an identification" do
+    c = build_common(name: nil, identification: nil)
+    expect(c).not_to be_valid
+  end
+
+  it "is valid with at least a name" do
+    c = build_common(identification: nil)
+    expect(c).to be_valid
+  end
+
+  it "is valid with at least an identification" do
+    c = build_common(name: nil)
+    expect(c).to be_valid
   end
 
   it "is not valid with bad e-mails" do
