@@ -2,8 +2,11 @@ class Payment < ActiveRecord::Base
   include Util
 
   acts_as_paranoid
+
   belongs_to :invoice
+
   validates :date, presence: true
+  validates :amount, presence: true, numericality: true
 
   before_save do
     self.amount = self.amount.round currency_precision
