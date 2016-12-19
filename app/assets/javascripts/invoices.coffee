@@ -1,7 +1,9 @@
 jQuery(document).ready ($) ->
   $('#js-copy-address').on 'click', (e) ->
     e.preventDefault()
-    $('[data-address="shipping"]').val($('[data-address="invoice"]').val())
+    shippingAddress = $('[data-address="shipping"]')
+    shippingAddress.val($('[data-address="invoice"]').val())
+    autosize.update(shippingAddress)
 
   if window.location.pathname == Routes.invoices_path()
     # Chart

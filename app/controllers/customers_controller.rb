@@ -3,7 +3,7 @@ class CustomersController < ApplicationController
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-  before_action :set_tags, only: [:index, :new, :create, :edit, :update]
+  before_action :set_tags, only: [:index, :new, :create, :edit, :update, :destroy]
 
   # GET /customers
   def index
