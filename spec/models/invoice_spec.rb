@@ -65,12 +65,14 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "returns the right status: past due" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)], due_date: Date.current())
+    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)],
+                            due_date: Date.current())
     expect(invoice.get_status()).to eq :past_due
   end
 
   it "returns the right status: paid" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)], payments: [Payment.new(amount: 10)])
+    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)],
+                            payments: [Payment.new(amount: 10, date: Date.current)])
     invoice.check_paid
     expect(invoice.get_status()).to eq :paid
   end
@@ -90,7 +92,7 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.unpaid_amount).to eq 50
 
     # Partially paid
-    invoice.payments << Payment.new(amount: 40)
+    invoice.payments << Payment.new(amount: 40, date: Date.current)
 
     invoice.check_paid
     expect(invoice.paid).to be false
@@ -98,7 +100,7 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.unpaid_amount).to eq 10
 
     # Fully paid
-    invoice.payments << Payment.new(amount: 10)
+    invoice.payments << Payment.new(amount: 10, date: Date.current)
 
     invoice.check_paid
     expect(invoice.paid).to be true
