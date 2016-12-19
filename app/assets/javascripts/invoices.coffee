@@ -1,14 +1,14 @@
-(jQuery document).ready ($) ->
-  ($ '#js-copy-address').on 'click', (e) ->
+jQuery(document).ready ($) ->
+  $('#js-copy-address').on 'click', (e) ->
     e.preventDefault()
-    shippingAddress = $ '[data-address="shipping"]'
-    shippingAddress.val ($ '[data-address="invoice"]').val
-    autosize.update shippingAddress
+    shippingAddress = $('[data-address="shipping"]')
+    shippingAddress.val($('[data-address="invoice"]').val())
+    autosize.update(shippingAddress)
 
   if window.location.pathname == Routes.invoices_path()
     # Chart
     chartDisplayed = false
-    ($ '#js-section-info').on 'shown.bs.collapse', ->
+    $('#js-section-info').on 'shown.bs.collapse', ->
       if not chartDisplayed
         chartDisplayed = true
         $.getJSON Routes.chart_data_invoices_path({format: 'json'}) + window.location.search, (data) ->
