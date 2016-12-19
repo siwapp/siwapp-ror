@@ -33,11 +33,11 @@ class Customer < ActiveRecord::Base
   }
 
   def total
-    invoices.where('draft = :draft', draft: false).sum :gross_amount || 0
+    invoices.where(draft: false, failed: false).sum :gross_amount || 0
   end
 
   def paid
-    invoices.where('draft = :draft', draft: false).sum :paid_amount || 0
+    invoices.where(draft: false, failed: false).sum :paid_amount || 0
   end
 
   def due
