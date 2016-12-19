@@ -8,27 +8,57 @@ RSpec.describe Common, :type => :model do
     Rails.cache.delete("rails_settings_cached:currency")
   end
 
+  def build_common(**kwargs)
+    kwargs[:name] = "A Customer" unless kwargs.has_key? :name
+    kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification
+    kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
+
+    common = Common.new(**kwargs)
+    common.set_amounts
+    common
+  end
+
   def new_common
     tax1 = Tax.new(value: 10)
     tax2 = Tax.new(value: 40)
     item1 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1])
     item2 = Item.new(quantity: 1, unitary_cost: 0.09, taxes: [tax1, tax2])
 
-    Common.new(series: Series.new, items: [item1, item2])
+    build_common(items: [item1, item2])
   end
 
   it "is not valid without a series" do
-    c = Common.new
+    c = build_common(series: nil)
     expect(c).not_to be_valid
     expect(c.errors.messages.has_key? :series).to be true
   end
 
+  it "is not valid with at least a name or an identification" do
+    c = build_common(name: nil, identification: nil)
+    expect(c).not_to be_valid
+  end
+
+  it "is valid with at least a name" do
+    c = build_common(identification: nil)
+    expect(c).to be_valid
+  end
+
+  it "is valid with at least an identification" do
+    c = build_common(name: nil)
+    expect(c).to be_valid
+  end
+
   it "is not valid with bad e-mails" do
-    c = Common.new(series: Series.new)
-    c.email = "paquito"
+    c = build_common(email: "paquito")
+
     expect(c).not_to be_valid
+    expect(c.errors.messages.length).to eq 1
+    expect(c.errors.messages.has_key? :email).to be true
+
     c.email = "paquito@example"
+
     expect(c).not_to be_valid
+    expect(c.errors.messages.length).to eq 1
     expect(c.errors.messages.has_key? :email).to be true
   end
 

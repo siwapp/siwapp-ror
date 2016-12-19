@@ -17,12 +17,13 @@ feature 'Creating Invoices' do
     fill_in 'Issue date', with: Date.current
 
     click_on 'Save'
+
     expect(page).to have_content('Invoice was successfully created.')
-    invoice = Invoice.where(name: 'Test Customer').first
     expect(page.current_path).to eql invoices_path
 
     # Chech that customer is created
-    customer = Customer.where(name: 'Test Customer').first
+    customer = Customer.find_by(name: 'Test Customer')
+    expect(customer).not_to be nil
     expect(customer.email).to eq('pepe@abc.com')
   end
 

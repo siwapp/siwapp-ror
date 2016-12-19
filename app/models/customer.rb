@@ -9,7 +9,7 @@ class Customer < ActiveRecord::Base
   has_many :recurring_invoices
 
   # Validation
-  validates :name, presence: true
+  validate :valid_customer_identification
 
   # Behaviors
   acts_as_taggable
@@ -81,6 +81,12 @@ private
 
   def self.ransackable_scopes(auth_object = nil)
     [:with_terms, :only_active]
+  end
+
+  def valid_customer_identification
+    unless name? or identification?
+      errors.add :base, "Name or identification is required."
+    end
   end
 
 end

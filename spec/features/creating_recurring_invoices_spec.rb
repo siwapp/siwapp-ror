@@ -34,7 +34,7 @@ feature 'Creating Recurring Invoices' do
 
     click_on 'Save'
     expect(page).to have_content("Recurring Invoice has not been created.")
-    expect(page).to have_content("Name can't be blank")
+    expect(page).to have_content("Customer name or identification is required.")
   end
 
 

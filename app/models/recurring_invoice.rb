@@ -7,7 +7,6 @@ class RecurringInvoice < Common
   has_many :invoices
 
   # Validation
-  validates :name, presence: true
   validates :starting_date, presence: true
   validates :period_type, presence: true
   validates :period, presence: true,
@@ -96,7 +95,7 @@ class RecurringInvoice < Common
     return if starting_date.blank? || finishing_date.blank?
 
     if starting_date > finishing_date
-      errors.add(:finishing_time, "Finishing Date must be after Starting Date")
+      errors.add(:finishing_date, "The end date must be greater than the start date.")
     end
   end
 
