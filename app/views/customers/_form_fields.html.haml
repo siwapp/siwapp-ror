@@ -26,8 +26,8 @@
   .col-xs-12.col-md-6.col-xl-3
     .form-group
       = f.label :shipping_address, "Shipping Address"
+      = link_to "Copy Invoicing Address", "#", "id": "js-copy-address", "class": "label-small-link"
       = f.text_area :shipping_address, class: 'form-control autosize', "data-address": "shipping"
-      = link_to "copy invoicing address", "", "id": "js-copy-address"
   - unless f.object_name == 'customer'
     .col-xs-12.col-md-6.col-xl-3
       .form-group
