@@ -31,7 +31,6 @@ class SeriesController < ApplicationController
     respond_to do |format|
       if @series.save
         format.html { redirect_to series_index_url, notice: 'Series was successfully created.' }
-    
       else
         format.html { render :new }
       end
@@ -53,19 +52,10 @@ class SeriesController < ApplicationController
   # POST /series
   # updates default series
   def set_default
-    selected = params["default_series"]
-    current_default = Series.find_by(default: true)
-    if selected
-      new_default = Series.find(id=selected)
-    end
-    if new_default and new_default != current_default
-      Series.update_all("`default` = false")
-      new_default.default = true
-      new_default.save()
-    end
+    Series.where(id: params["default_series"]).update_all(default: true)
+    Series.where.not(id: params["default_series"]).update_all(default: false)
 
     redirect_to(:action => 'index')
-
   end
 
   # DELETE /series/1
