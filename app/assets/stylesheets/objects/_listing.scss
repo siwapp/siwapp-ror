@@ -1,12 +1,13 @@
+.table-select {
+  width: 3rem;
+  text-align: center;
+}
+
 tr[data-href] {
   cursor: pointer;
 }
 
 td, th {
-  &[data-role^="select"] {
-    width: 3rem;
-    text-align: center;
-  }
   .sort_link {
     color: inherit;
   }

@@ -33,7 +33,7 @@
       %table.table.table-hover.table-striped.table-bordered
         %thead
           %tr
-            %th{data: {role: "select-all"}}= check_box_tag "select_all", 1
+            %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
             %th= sort_link(@search, :series_value, "Series")
             %th.no-wrap= sort_link(@search, :name, "Customer")
             %th.no-wrap= sort_link(@search, :period_type, "Frecuency")

@@ -63,18 +63,8 @@ class TaxesController < ApplicationController
   end
 
   def set_default
-    selected = params["default_tax"]
-    selected_taxes = Tax.find(id=selected)
-    unselected_taxes = Tax.where("id not in (?)", selected)
-    selected_taxes.each do |selected_tax|
-      selected_tax.default = true
-      selected_tax.save
-    end
-    unselected_taxes.each do |unselected_tax|
-      unselected_tax.default = false
-      unselected_tax.save
-    end
-
+    Tax.where(id: params["default_tax"]).update_all(default: true)
+    Tax.where.not(id: params["default_tax"]).update_all(default: false)
     redirect_to(:action => 'index')
   end
 

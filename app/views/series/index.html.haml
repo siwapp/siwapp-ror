@@ -5,7 +5,7 @@
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
-        %th{data: {role: "select-all"}} Default
+        %th.table-select Default
         %th Name
         %th Value
         %th First Number
@@ -13,8 +13,7 @@
       %tbody
         - @series.each do |series|
           %tr
-            %td.text-center{data: {role: "select"}}
-              = radio_button_tag 'default_series', series.id, checked=series.default
+            %td.table-select= radio_button_tag 'default_series', series.id, checked=series.default, {"data-role": "select-default"}
             %td= link_to series.name, edit_series_path(series)
             %td= series.value
             %td= series.first_number
