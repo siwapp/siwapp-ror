@@ -65,34 +65,38 @@ jQuery(document).ready ($) ->
     $('.action-buttons').hide()
 
   $(document)
-    # Existing and future table rows with the data-href attribute act as links
+    # Existing and future table rows with the data-href attribute will act as links
     .on 'click', 'tr[data-href]', (e) ->
       e.preventDefault()
       window.document.location = $(this).data("href")
 
-    # let a's do their job
+    # but will let real links do their job
     .on 'click', 'tr[data-href] > td > a', (e) ->
       e.stopPropagation()
 
-    # but avoid redirecting when clicking on a row-selection cell
-    .on 'click', 'tr[data-href] > [data-role|="select"]', (e) ->
+    # and avoid redirecting when clicking on a row-selection cell
+    .on 'click', 'tr[data-href] [data-no-href]', (e) ->
       e.stopPropagation()
 
     # manage row selection
-    .on 'click', '[data-role|="select"] > :checkbox', (e) ->
+    .on 'click', ':checkbox[data-role="select-row"]', (e) ->
       self = $(this)
       table = self.closest 'table'
       checked = self.is ':checked'
-      # Make visible the action buttons
-      $('.action-buttons').show()
+      all_checked = checked
 
-      if self.parent().data('role') == 'select-all'
-        # All row selection checks has the same value as the select all
-        table.find('[data-role="select"] > :checkbox').prop('checked', checked);
-      else
-        select_all = table.find('[data-role="select-all"] > :checkbox')
-        if checked
-          # select-all checkbox depends on the value of the other checkboxes
-          table.find('[data-role="select"] > :checkbox').each () ->
-            checked = checked and $(this).is ':checked'
-        select_all.prop('checked', checked)
+      if checked
+        table.find(':checkbox[data-role="select-row"]').each () ->
+          all_checked = all_checked and $(this).is ':checked'
+
+      table.find(':checkbox[data-role="select-all-rows"]').prop('checked', all_checked)
+      $('.action-buttons').toggle(checked)
+
+    # manage all rows selection
+    .on 'click', ':checkbox[data-role="select-all-rows"]', (e) ->
+      self = $(this)
+      table = self.closest 'table'
+      checked = self.is ':checked'
+
+      table.find(':checkbox[data-role="select-row"]').prop('checked', checked);
+      $('.action-buttons').toggle(checked)

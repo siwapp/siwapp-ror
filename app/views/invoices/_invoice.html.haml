@@ -1,5 +1,5 @@
 %tr{data: {href: invoice_path(invoice), itemid: invoice.id, page_start: invoice_counter.zero?, page: current_page }}
-  %td.text-center{data: {role: "select"}}= check_box_tag "invoice_ids[]", invoice.id
+  %td.table-select{"data-no-href": ""}= check_box_tag "invoice_ids[]", invoice.id, false, {"data-role": "select-row"}
   %td.no-wrap= link_to invoice, invoice
   %td.no-wrap= invoice.name
   %td.no-wrap= invoice.issue_date
