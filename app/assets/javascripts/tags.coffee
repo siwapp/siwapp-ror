@@ -1,5 +1,5 @@
 jQuery(document).ready ($) ->
-  tagging_fields = $ '[data-role="tagging"]'
-  tagging_fields.select2
+  $('[data-role="tagging"]').select2
     tags: true,
     tokenSeparators: [',']
+    closeOnSelect: false
