@@ -4,11 +4,10 @@
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
-        %th{data: {role: "select-all"}} Default
+        %th.table-select Default
         %th Tax Name
       %tbody
         - @taxes.each do |tax|
           %tr
-            %td.text-center{data: {role: "select"}}
-              = check_box_tag('default_tax[]', tax.id, tax.default)
+            %td.table-select= check_box_tag 'default_tax[]', tax.id, tax.default, {"data-role": "select-default"}
             %td= link_to tax.name, edit_tax_path(tax)
