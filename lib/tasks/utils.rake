@@ -10,7 +10,7 @@ namespace :siwapp do
         FactoryGirl.create_list(:customer, 5)
       end
       if Series.count == 0
-        FactoryGirl.create_list(:series_random, 3)
+        FactoryGirl.create_list(:nseries, 3)
       end
       if Tax.count == 0
         FactoryGirl.create(:tax, value: 21, default: true)

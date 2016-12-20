@@ -3,14 +3,14 @@ require 'rails_helper'
 feature 'Creating Invoices' do
 
   before do
-    FactoryGirl.create(:series)
+    FactoryGirl.create(:series, :default)
   end
 
   scenario 'can create an invoice', :js => true, driver: :webkit do
     visit '/invoices'
     first(:link, 'New Invoice').click
     expect(page).to have_css('div.row textarea') # empty item
-    select 'Example Series', from: 'invoice_series_id'
+    select 'A- Series', from: 'invoice_series_id'
 
     fill_in 'Name', with: 'Test Customer'
     fill_in 'Email', with: 'pepe@abc.com'

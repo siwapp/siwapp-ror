@@ -6,7 +6,7 @@ feature 'Editing Invoices' do
     FactoryGirl.create(:template, template: "Test")
     FactoryGirl.create(:invoice)
     visit "/invoices"
-    click_link "ES-1"
+    click_link "A-1"
     click_link "Edit"
 
   end

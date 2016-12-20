@@ -6,7 +6,7 @@ RSpec.describe "Api::V1::Series", type: :request do
     Rails.cache.clear
     FactoryGirl.create :token
     FactoryGirl.create :user
-    @headers = {'Content-Type' => 'application/json', 
+    @headers = {'Content-Type' => 'application/json',
         'Authorization' => 'Token token="123token"'}
     @series = FactoryGirl.create :series
   end
@@ -15,7 +15,7 @@ RSpec.describe "Api::V1::Series", type: :request do
     it 'GET /api/v1/series/:id' do
       get api_v1_series_path(@series), nil, @headers
       expect(response).to be_success
-      expect(json['data']['attributes']['name']).to eql 'Example Series'
+      expect(json['data']['attributes']['name']).to eql 'A- Series'
     end
   end
 
@@ -24,7 +24,7 @@ RSpec.describe "Api::V1::Series", type: :request do
       get api_v1_series_index_path, nil, @headers
       expect(response).to be_success
       expect(json.length).to eql 1
-      expect(json['data'][0]['attributes']['name']).to eql 'Example Series'
+      expect(json['data'][0]['attributes']['name']).to eql 'A- Series'
     end
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::Series", type: :request do
             'name' => 'newSERIES',
             'value' => 33
           }
-          
+
         }
       }
       post api_v1_series_index_path, sr.to_json, @headers
