@@ -10,12 +10,12 @@ default: &default
   timeout: 5000
 
 development:
-  adapter: mysql2
+  adapter: postgresql
   host: db
-  encoding: utf8
+  encoding: unicode
   database: siwapp
-  username: siwapp
-  password: wappis
+  username: postgres
+  password:
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,4 +25,4 @@ test:
   database: db/test.sqlite3
 
 production:
-  adapter: mysql2
+  adapter: postgresql

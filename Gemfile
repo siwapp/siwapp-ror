@@ -68,6 +68,7 @@ gem 'haml'
 gem 'jquery-ui-rails'
 gem 'js-routes'
 gem 'mysql2'
+gem 'pg'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production

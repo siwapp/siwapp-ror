@@ -13,43 +13,46 @@
 
 ActiveRecord::Schema.define(version: 20161208171651) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "commons", force: :cascade do |t|
-    t.integer  "series_id",            limit: 4
-    t.integer  "customer_id",          limit: 4
+    t.integer  "series_id"
+    t.integer  "customer_id"
     t.string   "name",                 limit: 100
     t.string   "identification",       limit: 50
     t.string   "email",                limit: 100
-    t.text     "invoicing_address",    limit: 65535
-    t.text     "shipping_address",     limit: 65535
+    t.text     "invoicing_address"
+    t.text     "shipping_address"
     t.string   "contact_person",       limit: 100
-    t.text     "terms",                limit: 65535
-    t.text     "notes",                limit: 65535
-    t.decimal  "net_amount",                         precision: 53, scale: 15, default: 0.0
-    t.decimal  "gross_amount",                       precision: 53, scale: 15, default: 0.0
-    t.decimal  "paid_amount",                        precision: 53, scale: 15, default: 0.0
+    t.text     "terms"
+    t.text     "notes"
+    t.decimal  "net_amount",                       precision: 53, scale: 15, default: 0.0
+    t.decimal  "gross_amount",                     precision: 53, scale: 15, default: 0.0
+    t.decimal  "paid_amount",                      precision: 53, scale: 15, default: 0.0
     t.string   "type",                 limit: 255
-    t.boolean  "draft",                                                        default: false
-    t.boolean  "paid",                                                         default: false
-    t.boolean  "sent_by_email",                                                default: false
-    t.integer  "number",               limit: 4
-    t.integer  "recurring_invoice_id", limit: 4
+    t.boolean  "draft",                                                      default: false
+    t.boolean  "paid",                                                       default: false
+    t.boolean  "sent_by_email",                                              default: false
+    t.integer  "number"
+    t.integer  "recurring_invoice_id"
     t.date     "issue_date"
     t.date     "due_date"
-    t.integer  "days_to_due",          limit: 3
-    t.boolean  "enabled",                                                      default: true
-    t.integer  "max_occurrences",      limit: 4
-    t.integer  "must_occurrences",     limit: 4
-    t.integer  "period",               limit: 4
+    t.integer  "days_to_due"
+    t.boolean  "enabled",                                                    default: true
+    t.integer  "max_occurrences"
+    t.integer  "must_occurrences"
+    t.integer  "period"
     t.string   "period_type",          limit: 8
     t.date     "starting_date"
     t.date     "finishing_date"
-    t.datetime "created_at",                                                                   null: false
-    t.datetime "updated_at",                                                                   null: false
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
     t.datetime "deleted_at"
-    t.integer  "print_template_id",    limit: 4
-    t.text     "meta_attributes",      limit: 65535
-    t.boolean  "failed",                                                       default: false
-    t.integer  "email_template_id",    limit: 4
+    t.integer  "print_template_id"
+    t.text     "meta_attributes"
+    t.boolean  "failed",                                                     default: false
+    t.integer  "email_template_id"
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -70,11 +73,11 @@ ActiveRecord::Schema.define(version: 20161208171651) do
     t.string   "identification",    limit: 50
     t.string   "email",             limit: 100
     t.string   "contact_person",    limit: 100
-    t.text     "invoicing_address", limit: 65535
-    t.text     "shipping_address",  limit: 65535
+    t.text     "invoicing_address"
+    t.text     "shipping_address"
     t.datetime "deleted_at"
-    t.text     "meta_attributes",   limit: 65535
-    t.boolean  "active",                          default: true
+    t.text     "meta_attributes"
+    t.boolean  "active",                        default: true
   end
 
   add_index "customers", ["deleted_at"], name: "index_customers_on_deleted_at", using: :btree
@@ -84,30 +87,30 @@ ActiveRecord::Schema.define(version: 20161208171651) do
   create_table "items", force: :cascade do |t|
     t.decimal  "quantity",                   precision: 53, scale: 15, default: 1.0, null: false
     t.decimal  "discount",                   precision: 53, scale: 2,  default: 0.0, null: false
-    t.integer  "common_id",    limit: 4
+    t.integer  "common_id"
     t.string   "description",  limit: 20000
     t.decimal  "unitary_cost",               precision: 53, scale: 15, default: 0.0, null: false
-    t.integer  "product_id",   limit: 4
+    t.integer  "product_id"
     t.datetime "deleted_at"
   end
 
   add_index "items", ["common_id"], name: "common_id_idx", using: :btree
   add_index "items", ["deleted_at"], name: "index_items_on_deleted_at", using: :btree
-  add_index "items", ["description"], name: "desc_idx", length: {"description"=>255}, using: :btree
+  add_index "items", ["description"], name: "desc_idx", using: :btree
   add_index "items", ["product_id"], name: "item_product_id_idx", using: :btree
 
   create_table "items_taxes", id: false, force: :cascade do |t|
-    t.integer "item_id", limit: 4, null: false
-    t.integer "tax_id",  limit: 4, null: false
+    t.integer "item_id", null: false
+    t.integer "tax_id",  null: false
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "invoice_id", limit: 8,                               null: false
+    t.integer  "invoice_id", limit: 8,                           null: false
     t.date     "date"
-    t.decimal  "amount",                   precision: 53, scale: 15
-    t.text     "notes",      limit: 65535
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.decimal  "amount",               precision: 53, scale: 15
+    t.text     "notes"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
     t.datetime "deleted_at"
   end
 
@@ -115,11 +118,11 @@ ActiveRecord::Schema.define(version: 20161208171651) do
   add_index "payments", ["invoice_id"], name: "invoice_id_idx", using: :btree
 
   create_table "products", force: :cascade do |t|
-    t.string   "reference",   limit: 100,                                           null: false
-    t.text     "description", limit: 65535
-    t.decimal  "price",                     precision: 53, scale: 15, default: 0.0, null: false
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.string   "reference",   limit: 100,                                         null: false
+    t.text     "description"
+    t.decimal  "price",                   precision: 53, scale: 15, default: 0.0, null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.datetime "deleted_at"
   end
 
@@ -131,15 +134,15 @@ ActiveRecord::Schema.define(version: 20161208171651) do
     t.boolean  "enabled",                  default: true
     t.boolean  "default",                  default: false
     t.datetime "deleted_at"
-    t.integer  "first_number", limit: 4,   default: 1
+    t.integer  "first_number",             default: 1
   end
 
   add_index "series", ["deleted_at"], name: "index_series_on_deleted_at", using: :btree
 
   create_table "settings", force: :cascade do |t|
-    t.string   "var",        limit: 255,   null: false
-    t.text     "value",      limit: 65535
-    t.integer  "thing_id",   limit: 4
+    t.string   "var",        limit: 255, null: false
+    t.text     "value"
+    t.integer  "thing_id"
     t.string   "thing_type", limit: 30
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -148,10 +151,10 @@ ActiveRecord::Schema.define(version: 20161208171651) do
   add_index "settings", ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true, using: :btree
 
   create_table "taggings", force: :cascade do |t|
-    t.integer  "tag_id",        limit: 4
+    t.integer  "tag_id"
     t.string   "taggable_type", limit: 255
-    t.integer  "taggable_id",   limit: 4
-    t.integer  "tagger_id",     limit: 4
+    t.integer  "taggable_id"
+    t.integer  "tagger_id"
     t.string   "tagger_type",   limit: 255
     t.string   "context",       limit: 128
     t.datetime "created_at"
@@ -162,7 +165,7 @@ ActiveRecord::Schema.define(version: 20161208171651) do
 
   create_table "tags", force: :cascade do |t|
     t.string  "name",           limit: 255
-    t.integer "taggings_count", limit: 4,   default: 0
+    t.integer "taggings_count",             default: 0
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
@@ -179,13 +182,13 @@ ActiveRecord::Schema.define(version: 20161208171651) do
 
   create_table "templates", force: :cascade do |t|
     t.string   "name",          limit: 255
-    t.text     "template",      limit: 65535
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.text     "template"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.string   "models",        limit: 200
-    t.boolean  "print_default",               default: false
+    t.boolean  "print_default",             default: false
     t.datetime "deleted_at"
-    t.boolean  "email_default",               default: false
+    t.boolean  "email_default",             default: false
     t.string   "subject",       limit: 200
   end
 
