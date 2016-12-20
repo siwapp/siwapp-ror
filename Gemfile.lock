@@ -157,7 +157,6 @@ GEM
       i18n (>= 0.6.4, <= 0.7.0)
       sixarm_ruby_unaccent (>= 1.1.1, < 2)
     multi_json (1.12.1)
-    mysql2 (0.4.4)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
@@ -312,7 +311,6 @@ DEPENDENCIES
   jquery-ui-rails
   js-routes
   money
-  mysql2
   paranoia (~> 2.0)
   pg
   pry-rails
