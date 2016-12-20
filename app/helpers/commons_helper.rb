@@ -12,7 +12,6 @@ module CommonsHelper
   # Returns the same value received
   def configure_search
     @search = model.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
     @search_filters = false
   end
 
