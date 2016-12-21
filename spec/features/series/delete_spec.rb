@@ -1,23 +1,28 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Deleting series' do
-  scenario 'Delete a series from the listing page', :js => true, driver: :webkit do
-    FactoryGirl.create(:series)
-    visit '/series/1/edit'
-    click_link 'Delete'
-    expect(page).to have_content('Series was successfully destroyed')
-    visit '/series'
-    expect(page).to have_no_content('A- Series')
+feature "Series" do
+
+  background do
+    @series = FactoryGirl.create(:series)
   end
 
-  scenario 'Delete a series with invoices', :js => true, driver: :webkit do
-    invoice = FactoryGirl.create(:invoice)
-    series = FactoryGirl.create(:series)
-    series.commons << invoice
+  scenario "User deletes a series", :js => true, :driver => :webkit do
+    visit "/series/1/edit"
+    click_link "Delete"
 
-    visit '/series/1/edit'
-    click_link 'Delete'
-    visit '/series'
-    expect(page).to have_content('A- Series')
+    expect(page).to have_content("Series was successfully destroyed")
+    expect(page.current_path).to eql(series_index_path)
+    expect(page).to have_no_content("A- Series")
   end
+
+  scenario "User can't delete a series with invoices", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(:invoice, series: @series)
+
+    visit "/series/1/edit"
+    click_link "Delete"
+
+    expect(page).to have_content("Series has invoices and can not be destroyed")
+    expect(page.current_path).to eql(edit_series_path(@series))
+  end
+
 end
