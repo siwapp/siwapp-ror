@@ -1,15 +1,7 @@
 version: '2'
 services:
   db:
-    image: mysql:latest
-    environment:
-      MYSQL_USER: siwapp
-      MYSQL_PASSWORD: wappis
-      MYSQL_DATABASE: siwapp
-      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    ports:
-      - '3306:3306'
-
+    image: postgres
   web:
     build: .
     volumes:
