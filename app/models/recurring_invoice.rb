@@ -52,7 +52,7 @@ class RecurringInvoice < Common
 
       inv.recurring_invoice_id = self.id
       inv.issue_date = next_date
-      inv.due_date = Date.current + days_to_due.days if days_to_due
+      inv.due_date = inv.issue_date + days_to_due.days if days_to_due
       inv.sent_by_email = false
       inv.meta_attributes = meta_attributes
 
