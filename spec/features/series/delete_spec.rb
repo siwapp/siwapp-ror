@@ -10,8 +10,8 @@ feature "Series" do
     visit "/series/1/edit"
     click_link "Delete"
 
-    expect(page).to have_content("Series was successfully destroyed")
     expect(page.current_path).to eql(series_index_path)
+    expect(page).to have_content("Series was successfully destroyed")
     expect(page).to have_no_content("A- Series")
   end
 
@@ -21,8 +21,8 @@ feature "Series" do
     visit "/series/1/edit"
     click_link "Delete"
 
-    expect(page).to have_content("Series has invoices and can not be destroyed")
     expect(page.current_path).to eql(edit_series_path(@series))
+    expect(page).to have_content("Series has invoices and can not be destroyed")
   end
 
 end

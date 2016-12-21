@@ -16,8 +16,8 @@ feature "Series" do
 
     click_on "Save"
 
-    expect(page).to have_content("Series was successfully updated")
     expect(page.current_path).to eql(series_index_path)
+    expect(page).to have_content("Series was successfully updated")
   end
 
   scenario "User can't update a series with invalid data", :js => true, :driver => :webkit do
@@ -27,8 +27,8 @@ feature "Series" do
 
     click_on "Save"
 
+    expect(page.current_path).to eql(series_path(@series))
     expect(page).to have_content("1 error prohibited this series from being saved")
     expect(page).to have_content("Value can't be blank")
-    expect(page.current_path).to eql(series_path(@series))
   end
 end
