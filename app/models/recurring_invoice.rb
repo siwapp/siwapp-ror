@@ -36,7 +36,7 @@ class RecurringInvoice < Common
   end
 
   def next_invoice_date
-    self.invoices.length > 0 ? self.invoices.last.issue_date + period.send(period_type) : starting_date
+    self.invoices.length > 0 ? self.invoices.order(:id).last.issue_date + period.send(period_type) : starting_date
   end
 
   def get_pending_invoices
