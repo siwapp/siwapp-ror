@@ -20,6 +20,6 @@ feature "Series:" do
     click_link "Delete"
 
     expect(page.current_path).to eql(edit_series_path(series))
-    expect(page).to have_content("Series has invoices and can not be destroyed")
+    expect(page).to have_content("can not be destroyed")
   end
 end

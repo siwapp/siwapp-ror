@@ -23,10 +23,7 @@ feature "Taxes:" do
     click_button "Save"
 
     expect(page.current_path).to eql(taxes_path)
-    expect(page).to have_content("3 errors prohibited this tax from being saved")
-    expect(page).to have_content("Name can't be blank")
-    expect(page).to have_content("Value can't be blank")
-    expect(page).to have_content("Value is not a number")
+    expect(page).to have_content("3 errors")
   end
 
 end

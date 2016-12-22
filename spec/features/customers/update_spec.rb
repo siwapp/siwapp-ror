@@ -26,7 +26,6 @@ feature "Customers:" do
     click_on "Save"
 
     expect(page.current_path).to eql(customer_path(customer))
-    expect(page).to have_content("1 error prohibited this customer from being saved:")
-    expect(page).to have_content("Name or identification is required.")
+    expect(page).to have_content("1 error")
   end
 end

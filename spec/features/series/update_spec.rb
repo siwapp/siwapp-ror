@@ -28,7 +28,6 @@ feature "Series:" do
     click_on "Save"
 
     expect(page.current_path).to eql(series_path(series))
-    expect(page).to have_content("1 error prohibited this series from being saved")
-    expect(page).to have_content("Value can't be blank")
+    expect(page).to have_content("1 error")
   end
 end

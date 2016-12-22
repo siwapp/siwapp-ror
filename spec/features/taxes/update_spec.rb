@@ -28,10 +28,9 @@ feature "Taxes:" do
 
     expect(page.current_path).to eql(tax_path(@tax))
     # Webkit only allows numbers for numeric fields so probably the field
-    # couldn't be changed to hold "dieciocho" as its value.
-    expect(page).to have_content("2 errors prohibited this tax from being saved")
-    expect(page).to have_content("Value can't be blank")
-    expect(page).to have_content("Value is not a number")
+    # couldn't be changed to hold "dieciocho" as its value. In that case
+    # we get 2 errors instead of 1.
+    expect(page).to have_content("2 errors")
   end
 
 end
