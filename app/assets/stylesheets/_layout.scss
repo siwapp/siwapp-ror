@@ -40,3 +40,9 @@ input[type="date"].form-control {
 .alert-alert {
   color: red;
 }
+
+.invoice-preview {
+  width: 770px;
+  height: 1090px;
+  border: 2px solid $gray-lighter;
+}
