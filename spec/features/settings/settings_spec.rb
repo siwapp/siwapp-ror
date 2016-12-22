@@ -6,57 +6,6 @@ feature 'Editing Settings' do
     visit "/settings/global"
   end
 
-  feature 'Profile editing' do
-
-    before do
-      visit '/settings/profile'
-    end
-
-    scenario 'Basic profile editing. No password change', :js => true, driver: :webkit do
-      fill_in 'Email', with: 'modified@example.com'
-      fill_in 'Name', with: 'modified Name'
-      click_on 'Save'
-      expect(page).to have_content('User profile successfully saved')
-      user = User.first
-      expect(user.name).to eql 'modified Name'
-      expect(user.email).to eql 'modified@example.com'
-    end
-
-    scenario 'Password updating', :js => true, driver: :webkit do
-      fill_in 'Old Password', with: 'testuser'
-      fill_in 'user_password', with: 'newpassword'
-      fill_in 'New Password Confirmation', with: 'newpassword'
-      click_on 'Save'
-      expect(page).to have_content('User profile successfully saved')
-      user = User.first
-      expect(user.authenticate('newpassword') == user).to be true
-    end
-
-    scenario 'Password  updating validation errors', :js => true, driver: :webkit do
-      # try with bad old password
-      fill_in 'Old Password', with: 'testuser2'
-      fill_in 'user_password', with: 'newpassword'
-      fill_in 'New Password Confirmation', with: 'newpassword'
-      click_on 'Save'
-      expect(page).to have_content("User profile couldn't be updated")
-      user = User.first
-      # password hasn't changed
-      expect(user.authenticate('testuser') == user).to be true
-
-      #try with mismatching passwords
-      fill_in 'Old Password', with: 'testuser'
-      fill_in 'user_password', with: 'newpassword'
-      fill_in 'New Password Confirmation', with: 'newpassword_changed'
-      click_on 'Save'
-      expect(page).to have_content("User profile couldn't be updated")
-      user = User.first
-      # password hasn't changed
-      expect(user.authenticate('testuser') == user).to be true
-
-    end
-
-  end
-
   feature 'Global settings editing' do
 
     before do
