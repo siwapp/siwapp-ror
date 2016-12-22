@@ -2,7 +2,7 @@
 / the 770px width fits well with A4 paper size. TODO: see other options
 .row
   .col-lg-6.col-lg-offset-3
-    %iframe{:height => "1089px", :src => print_invoice_invoice_path(@invoice), :width => "770px"}
+    %iframe.invoice-preview{:src => print_invoice_invoice_path(@invoice)}
 .action-buttons
   = link_to 'Back', :back, class: 'btn btn-secondary'
   = link_to 'PDF', print_invoice_invoice_path(@invoice) + ".pdf", class: 'btn btn-primary'
