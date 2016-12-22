@@ -1,11 +1,9 @@
 require "rails_helper"
 
 feature "Series" do
-  background do
-    @series = FactoryGirl.create(:series)
-  end
-
   scenario "User can update a series", :js => true, :driver => :webkit do
+    FactoryGirl.create(:series)
+
     visit "/series/1/edit"
 
     fill_in "Name", with: "B- Series"
@@ -21,13 +19,15 @@ feature "Series" do
   end
 
   scenario "User can't update a series with invalid data", :js => true, :driver => :webkit do
+    series = FactoryGirl.create(:series)
+
     visit "/series/1/edit"
 
     fill_in "Value", with: ""
 
     click_on "Save"
 
-    expect(page.current_path).to eql(series_path(@series))
+    expect(page.current_path).to eql(series_path(series))
     expect(page).to have_content("1 error prohibited this series from being saved")
     expect(page).to have_content("Value can't be blank")
   end
