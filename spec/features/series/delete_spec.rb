@@ -1,12 +1,9 @@
 require "rails_helper"
 
 feature "Series:" do
-
-  background do
-    @series = FactoryGirl.create(:series)
-  end
-
   scenario "User deletes a series", :js => true, :driver => :webkit do
+    FactoryGirl.create(:series)
+
     visit "/series/1/edit"
     click_link "Delete"
 
@@ -16,13 +13,13 @@ feature "Series:" do
   end
 
   scenario "User can't delete a series with invoices", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice, series: @series)
+    series = FactoryGirl.create(:series)
+    invoice = FactoryGirl.create(:invoice, series: series)
 
     visit "/series/1/edit"
     click_link "Delete"
 
-    expect(page.current_path).to eql(edit_series_path(@series))
+    expect(page.current_path).to eql(edit_series_path(series))
     expect(page).to have_content("Series has invoices and can not be destroyed")
   end
-
 end
