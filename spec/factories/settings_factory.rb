@@ -1,8 +1,6 @@
 FactoryGirl.define do
-  factory :settings do
-    factory :token do
-      var 'api_token'
-      value '123token'
-    end
+  factory :token, class: Settings do
+    var   'api_token'
+    value '123token'
   end
 end

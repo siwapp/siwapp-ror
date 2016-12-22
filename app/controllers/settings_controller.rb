@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
 
-  force_ssl only: [:api_token], unless: :is_development
+  force_ssl only: [:api_token], if: :is_production
 
   # GET /settings/global
   def global
@@ -104,8 +104,8 @@ class SettingsController < ApplicationController
 
   private
 
-  def is_development
-    Rails.env.development?
+  def is_production
+    not (Rails.env.development? || Rails.env.test?)
   end
 
   def profile_params
