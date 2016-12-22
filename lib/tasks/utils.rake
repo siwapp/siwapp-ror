@@ -7,7 +7,7 @@ namespace :siwapp do
     task :invoices, [:number] => :environment do |t, args|
       args.with_defaults(:number => "10")
       if Customer.count == 0
-        FactoryGirl.create_list(:customer, 5)
+        FactoryGirl.create_list(:ncustomer, 5)
       end
       if Series.count == 0
         FactoryGirl.create_list(:nseries, 3)

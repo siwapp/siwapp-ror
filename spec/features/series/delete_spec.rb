@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Series" do
+feature "Series:" do
 
   background do
     @series = FactoryGirl.create(:series)

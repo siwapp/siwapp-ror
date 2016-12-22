@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Series" do
+feature "Series:" do
   scenario "User can update a series", :js => true, :driver => :webkit do
     FactoryGirl.create(:series)
 

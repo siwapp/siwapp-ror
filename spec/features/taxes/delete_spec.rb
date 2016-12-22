@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Taxes" do
+feature "Taxes:" do
 
   scenario "User can delete a a tax", :js => true, :driver => :webkit do
     FactoryGirl.create(:tax)

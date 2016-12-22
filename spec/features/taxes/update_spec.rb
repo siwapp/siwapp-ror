@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Taxes" do
+feature "Taxes:" do
 
   background do
     @tax = FactoryGirl.create(:tax)

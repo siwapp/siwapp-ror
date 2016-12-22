@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Taxes" do
+feature "Taxes:" do
 
   scenario "User can mark a tax as default from the list of taxes", :js => true, :driver => :webkit do
     FactoryGirl.create(:tax, default: true)

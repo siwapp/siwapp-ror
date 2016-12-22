@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Taxes" do
+feature "Taxes:" do
 
   scenario "User can create a tax", :js => true, :driver => :webkit do
     visit "/taxes/new"
