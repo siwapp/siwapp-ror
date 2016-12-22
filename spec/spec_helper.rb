@@ -99,6 +99,5 @@ Capybara.configure do |config|
 end
 
 Capybara::Webkit.configure do |config|
-  config.allow_url("fonts.googleapis.com")
-  config.allow_url("cdnjs.cloudflare.com")
+  config.block_url("fonts.googleapis.com")
 end
