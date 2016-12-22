@@ -6,14 +6,14 @@ feature 'PDF of Invoices' do
     FactoryGirl.create(:invoice)
     FactoryGirl.create(:template)
     visit "/invoices"
-    click_link "ES-1"
+    click_link "A-1"
   end
 
   scenario 'Show of a paid invoice show the iframe', js: true, driver: :webkit do
     expect(page).to have_xpath("//iframe")
     expect(page).to have_link("PDF")
     click_on "PDF"
-    expect(page.response_headers['Content-Disposition']).to eq 'attachment; filename="ES-1.pdf"'
+    expect(page.response_headers['Content-Disposition']).to eq 'attachment; filename="A-1.pdf"'
     expect(page.response_headers['Content-Type']).to eq 'application/pdf'
   end
 

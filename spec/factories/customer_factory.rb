@@ -1,37 +1,21 @@
 FactoryGirl.define do
   factory :customer do
-    customers = [
-      {"name":"Acme, inc.",
-       "id":"A-1234",
-       "email":"info@acme.com"},
-      {"name":"Widget Corp",
-       "id":"B-1234",
-       "email":"info@widgetcorp.com"},
-      {"name":"Warehousing",
-       "id":"C-1234",
-       "email":"info@warehousing.com"},
-      {"name":"Demo Company",
-       "id":"D-1234",
-       "email":"info@democompany.com"},
-      {"name":"Smith and Co.",
-       "id":"E-1234",
-       "email":"info@smithandco.com"}
-    ]
-    sequence :name do |n|
-      if n <= customers.count
-        customers[n-1][:name]
-      end
-    end
-    sequence :identification do |n|
-      if n <= customers.count
-        customers[n-1][:id]
-      end
-    end
-    sequence :email do |n|
-      if n <= customers.count
-        customers[n-1][:email]
-      end
-    end
+    name "Test Customer"
+    identification "12345"
+    email "customer@example.com"
 
+    factory :ncustomer do
+      customers = [
+        "Acme, Inc.",
+        "Widget Corp.",
+        "Warehousing",
+        "Demo Company",
+        "Smith & Co.",
+      ]
+
+      sequence(:name, 0)              { |n| n < customers.length ? customers[n] : "Customer #{n}" }
+      sequence(:identification, "A")  { |n| "1234#{n}" }
+      email                           { "info@#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}.com" }
+    end
   end
 end

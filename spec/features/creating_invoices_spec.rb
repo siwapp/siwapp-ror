@@ -3,14 +3,14 @@ require 'rails_helper'
 feature 'Creating Invoices' do
 
   before do
-    FactoryGirl.create(:series)
+    FactoryGirl.create(:series, :default)
   end
 
   scenario 'can create an invoice', :js => true, driver: :webkit do
     visit '/invoices'
     first(:link, 'New Invoice').click
     expect(page).to have_css('div.row textarea') # empty item
-    select 'Example Series', from: 'invoice_series_id'
+    select 'A- Series', from: 'invoice_series_id'
 
     fill_in 'Name', with: 'Test Customer'
     fill_in 'Email', with: 'pepe@abc.com'
@@ -28,13 +28,15 @@ feature 'Creating Invoices' do
   end
 
   scenario 'autocomplete of customer fields', :js => true, driver: :webkit do
-    FactoryGirl.create_list(:customer, 5)
+    FactoryGirl.create_list(:ncustomer, 5)
+
     visit '/invoices/new'
-    fill_in 'Name', with: 'dem'
-    # click over the ajax result
-    find('li.ui-menu-item').click
+
+    fill_in 'Name', with: 'hou'
+    find('.ui-menu-item', :text => 'Warehousing').click
+
     # and we should have data filled
-    expect(find('#invoice_email').value).to eq 'info@democompany.com'
-    expect(find('#invoice_identification').value).to eq 'D-1234'
+    expect(find_field('invoice_name').value).to eq 'Warehousing'
+    expect(find_field('invoice_email').value).to eq 'info@warehousing.com'
   end
 end

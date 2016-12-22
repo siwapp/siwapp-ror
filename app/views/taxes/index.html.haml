@@ -9,5 +9,5 @@
       %tbody
         - @taxes.each do |tax|
           %tr
-            %td.table-select= check_box_tag 'default_tax[]', tax.id, tax.default, {"data-role": "select-default"}
+            %td.table-select= check_box_tag 'default_tax[]', tax.id, tax.default, {id: "default_tax_#{tax.id}", "data-role": "select-default"}
             %td= link_to tax.name, edit_tax_path(tax)

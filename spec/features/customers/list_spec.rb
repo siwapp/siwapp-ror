@@ -1,0 +1,32 @@
+require "rails_helper"
+
+feature "Customers:" do
+  scenario "User can see a list of customers", :js => true, :driver => :webkit do
+    FactoryGirl.create(:customer)
+    FactoryGirl.create_list(:ncustomer, 2)
+
+    visit "/customers"
+
+    expect(page).to have_content("Test Customer")
+  end
+
+  scenario "User can click on a customer to edit it", :js => true, :driver => :webkit do
+    customer = FactoryGirl.create(:customer)
+
+    visit "/customers"
+    click_link("Test Customer")
+
+    expect(page.current_path).to eql edit_customer_path(customer)
+  end
+
+  scenario "User can access to the list of invoices for a certain customer", :js => true, :driver => :webkit do
+    customer = FactoryGirl.create(:customer)
+    invoice = FactoryGirl.create(:invoice, customer: customer)
+
+    visit "/customers"
+    click_link("See Invoices")
+
+    expect(page.current_path).to eql customer_invoices_path(customer)
+    expect(page).to have_content(invoice.to_s)
+  end
+end
