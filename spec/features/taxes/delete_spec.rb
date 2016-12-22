@@ -1,7 +1,6 @@
 require "rails_helper"
 
 feature "Taxes:" do
-
   scenario "User can delete a a tax", :js => true, :driver => :webkit do
     FactoryGirl.create(:tax)
 
@@ -14,4 +13,7 @@ feature "Taxes:" do
     expect(page).to have_no_content("VAT 21%")
   end
 
+  scenario "User can't delete a tax associated with an item" do
+    # TODO
+  end
 end
