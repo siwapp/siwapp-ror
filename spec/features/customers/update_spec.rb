@@ -1,24 +1,32 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Editing Customer' do
-  before do
-    FactoryGirl.create(:customer, name: "Test Customer")
-    visit "/customers"
-	page.find('td', :text => "Test Customer").click
-  end
+feature "Customers:" do
+  scenario "User can updating a customer", :js => true, :driver => :webkit do
+    FactoryGirl.create(:customer)
 
-  scenario 'updating a Customer', :js => true, driver: :webkit do
-    fill_in 'Name', with: 'NEW Test Customer'
-    click_on 'Save'
+    visit "/customers/1/edit"
+
+    fill_in "Name", with: "Test Customer Fernandez"
+
+    click_on "Save"
+
+    expect(page.current_path).to eql customers_path
     expect(page).to have_content("Customer was successfully updated")
-    expect(page).to have_content("NEW Test Customer")
+    expect(page).to have_content("Test Customer Fernandez")
   end
 
-  scenario 'can not update badly', :js => true, driver: :webkit do
-    fill_in 'Name', with: ''
-    click_on 'Save'
+  scenario "User can't update a customer with invalid data", :js => true, :driver => :webkit do
+    customer = FactoryGirl.create(:customer)
+
+    visit "/customers/1/edit"
+
+    fill_in "Name", with: ""
+    fill_in "VAT ID", with: ""
+
+    click_on "Save"
+
+    expect(page.current_path).to eql(customer_path(customer))
+    expect(page).to have_content("1 error prohibited this customer from being saved:")
     expect(page).to have_content("Name or identification is required.")
-    expect(page).to have_content('1 error prohibited this customer from being saved:')
   end
-
 end

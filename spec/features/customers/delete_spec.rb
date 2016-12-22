@@ -1,13 +1,17 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Deleting Customers' do
-  scenario 'delete a Customer', :js => true, driver: :webkit do
-    FactoryGirl.create(:customer, name: "Test Customer")
-    visit "/customers"
-	page.find('td', :text => "Test Customer").click
+feature "Customers:" do
+  scenario "User can delete a customer", :js => true, :driver => :webkit do
+    FactoryGirl.create(:customer)
 
-    click_link 'Delete'
-    expect(page).to have_content('Customer was successfully destroyed')
-    expect(page).to have_no_content('Test Customer')
+    visit "/customers/1/edit"
+
+    expect(page).to have_content("Test Customer")
+
+    click_link "Delete"
+
+    expect(page.current_path).to eql customers_path
+    expect(page).to have_content("Customer was successfully destroyed.")
+    expect(page).to have_no_content("Test Customer")
   end
 end

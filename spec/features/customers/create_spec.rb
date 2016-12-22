@@ -1,29 +1,26 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Creating Customer' do
+feature "Customers:" do
 
-  before do
-    visit '/customers'
+  scenario "User can create a customer", :js => true, :driver => :webkit do
+    visit "/customers/new"
 
-    first(:link, 'New Customer').click
-  end
+    fill_in "Name", with: "Test Customer"
 
-  scenario 'can create a Customer', :js => true, driver: :webkit do
-    expect(page).to have_content('New Customer')
-
-    fill_in 'Name', with: 'Test Customer'
-
-    click_on 'Save'
-	expect(page).to have_content('Customer was successfully created.')
+    click_on "Save"
 
     expect(page.current_path).to eql customers_path
+    expect(page).to have_content("Customer was successfully created.")
+    expect(page).to have_content("Test Customer")
   end
 
-  scenario 'can not create a Customer without name', :js => true, driver: :webkit do
-    fill_in 'Name', with: ''
-    click_on 'Save'
+  scenario "User can't create a customer without name nor identification", :js => true, :driver => :webkit do
+    visit "/customers/new"
+    click_on "Save"
+
+    expect(page.current_path).to eql customers_path
+    expect(page).to have_content("1 error prohibited this customer from being saved:")
     expect(page).to have_content("Name or identification is required.")
-    expect(page).to have_content('1 error prohibited this customer from being saved:')
   end
 
 end
