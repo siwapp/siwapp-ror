@@ -12,6 +12,6 @@ feature "Customers:" do
 
     expect(page.current_path).to eql customers_path
     expect(page).to have_content("Customer was successfully destroyed.")
-    expect(page).to have_no_content("Test Customer")
+    expect(page).not_to have_content("Test Customer")
   end
 end

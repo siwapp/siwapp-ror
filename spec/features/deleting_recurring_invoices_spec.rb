@@ -6,6 +6,6 @@ feature "Deleting Recurring Invoices" do
     visit "/recurring_invoices/#{recurring_invoice.id}/edit"
     click_link 'Delete'
     expect(page).to have_content("Recurring Invoice was successfully destroyed.")
-    expect(page).to have_no_content("XXX-1")
+    expect(page).not_to have_content("XXX-1")
   end
 end
