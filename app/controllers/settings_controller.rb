@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-
+  before_action :set_hooks_logs, only: [:hooks, :hooks_update]
   force_ssl only: [:api_token], if: :is_production
 
   # GET /settings/global
@@ -80,14 +80,18 @@ class SettingsController < ApplicationController
 
   # GET /settings/hooks
   def hooks
-    @logs = WebhookLog.paginate(page: params[:page]).order(created_at: :desc)
-    @event_invoice_generation_url = Settings.event_invoice_generation_url
+    @hooks_settings = HooksSettings.new
   end
 
   # PUT /settings/hooks
   def hooks_update
-    Settings[:event_invoice_generation_url] = params[:event_invoice_generation_url]
-    redirect_to action: :hooks
+    @hooks_settings = HooksSettings.new hooks_settings_params
+    if @hooks_settings.save_settings
+      redirect_to settings_hooks_path, notice: "Hooks settings successfully saved"
+    else
+      flash.now[:alert] = "Hooks settings couldn't be saved"
+      render 'settings/hooks'
+    end
   end
 
 
@@ -108,16 +112,24 @@ class SettingsController < ApplicationController
     not (Rails.env.development? || Rails.env.test?)
   end
 
+  def set_hooks_logs
+    @logs = WebhookLog.paginate(page: params[:page]).order(created_at: :desc)
+  end
+
   def profile_params
     params.require(:user).permit(:password, :password_confirmation, :name, :email)
   end
 
   def global_settings_params
-    params.require(:global_settings).permit(:company_name, :company_vat_id, :company_address, :company_phone, :company_email, :company_url, :company_logo, :currency, :legal_terms, :days_to_due)
+    params.require(:global_settings).permit(GlobalSettings.keys)
   end
 
   def smtp_settings_params
-    params.require(:smtp_settings).permit(:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject)
+    params.require(:smtp_settings).permit(SmtpSettings.keys)
+  end
+
+  def hooks_settings_params
+    params.require(:hooks_settings).permit(HooksSettings.keys)
   end
 
 end

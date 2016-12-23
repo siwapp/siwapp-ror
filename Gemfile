@@ -74,6 +74,7 @@ gem 'rails_12factor', group: :production
 gem "rails-settings-cached", "~> 0.4.0"
 gem 'ransack'
 gem 'sass'
+gem 'valid_url'
 gem 'wicked_pdf'
 gem 'will_paginate'
 gem 'wkhtmltopdf-binary'

@@ -1,28 +1,13 @@
-class SmtpSettings
-  include ActiveModel::Model
-
-  attr_accessor :host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto, :email_body, :email_subject
+class SmtpSettings < SiwappSettings::Base
+  @@keys = [
+    :host, :port, :domain, :user, :password, :authentication,
+    :enable_starttls_auto, :email_body, :email_subject
+  ]
 
   validates :port, numericality: {only_integer: true, greater_than: 0}, allow_blank: true
   validates :domain, format: {with: /\A((?:[-a-z0-9]+\.)+[a-z]{2,})\z/, message: 'bad format'}, allow_blank: true
   validate :host_is_legal
 
-
-  def save_settings
-    if valid?
-      [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
-        Settings[key] = send key
-      end
-    else
-      return false
-    end
-  end
-
-  def initialize(attributes={})
-    [:host, :port, :domain, :user, :password, :authentication, :enable_starttls_auto].each do |key|
-      send "#{key}=", "#{attributes[key] || Settings[key]}"
-    end
-  end
 
   private
 
