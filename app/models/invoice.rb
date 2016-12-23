@@ -61,15 +61,6 @@ class Invoice < Common
     end
   end
 
-protected
-
-  # Declare scopes for search
-  def self.ransackable_scopes(auth_object = nil)
-    super + [:with_status]
-  end
-
-public
-
   def self.status_collection
     [["Draft", :draft], ["Paid", :paid], ["Pending", :pending],
       ["Past Due", :past_due], ["Failed", :failed]]
@@ -104,7 +95,6 @@ public
       :pending
     end
   end
-
 
   # Public: Returns the amount that has not been already paid.
   #
@@ -191,7 +181,12 @@ public
 
   protected
 
-    # Protected: Decide whether this invoice needs an invoice number. It's true
+    # Declare scopes for search
+    def self.ransackable_scopes(auth_object = nil)
+      super + [:with_status]
+    end
+
+    # Decide whether this invoice needs an invoice number. It's true
     # when the invoice is not a draft and has no invoice number.
     #
     # Returns a boolean.
@@ -199,7 +194,7 @@ public
       !draft and number.nil?
     end
 
-    # Protected: Sets the invoice number:
+    # Sets the invoice number:
     # To sent number (if exists)
     # To maximum + 1 in the series (if exists)
     # To the first_number in the series
@@ -219,7 +214,7 @@ public
       payments.only_deleted.delete_all
     end
 
-    private
+  private
 
     # attributes fitted for serialization
     def serializable_attribute_names
