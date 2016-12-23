@@ -6,7 +6,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
     Rails.cache.clear
     FactoryGirl.create :token
     FactoryGirl.create :user
-    @headers = {'Content-Type' => 'application/json', 
+    @headers = {'Content-Type' => 'application/json',
         'Authorization' => 'Token token="123token"'}
     @customer = FactoryGirl.create(:customer, name: "Test Customer")
     @series = FactoryGirl.create :series
@@ -25,7 +25,7 @@ RSpec.describe "Api::V1::Payments", type: :request do
       # create extra invoice for another customer
 	  alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
       alt_invoice = FactoryGirl.create :invoice, customer: alt_customer
-      print_template = FactoryGirl.create :template, print_default: true, name: "print default", template: ""
+      print_template = FactoryGirl.create :template, print_default: true, name: "print default", template: "invoice"
       get api_v1_customer_invoices_path(@customer), nil, @headers
       expect(response).to be_success
       expect(json['data'].length).to eql 1 # only @invoice, not alt_invoice
