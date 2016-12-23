@@ -26,3 +26,4 @@ test:
 
 production:
   adapter: postgresql
+  encoding: unicode
