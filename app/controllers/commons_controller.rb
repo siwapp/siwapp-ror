@@ -30,7 +30,7 @@ class CommonsController < ApplicationController
   # GET /customers/:customer_id/commons --> filter by customer
   def index
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
-    results = @search.result(distinct: true).order(id: :desc)
+    results = @search.result(distinct: true).order(issue_date: :desc).order(id: :desc)
     # If there is meta param, it's allowed filtering by meta_attributes
     # the format is:
     #   key1:value1,key2:value2
@@ -46,8 +46,7 @@ class CommonsController < ApplicationController
           conditions.push("meta_attributes like '%\"#{condition_list[0]}\":\"#{condition_list[1]}\"%'")
         end
       end
-      results = @search.result(distinct: true)
-        .where(conditions.join(" and "))
+      results = results.where(conditions.join(" and "))
     end
     # filter by customer
     if params[:customer_id]
