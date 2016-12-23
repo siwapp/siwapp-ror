@@ -2,8 +2,6 @@ module SiwappSettings
   class Base
     include ActiveModel::Model
 
-    attr_reader :keys
-
     @@keys = []
 
     def initialize(attributes={})
