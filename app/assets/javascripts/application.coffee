@@ -22,6 +22,7 @@
 #= require c3
 #= require autosize
 #= require behave
+#= require select2
 #
 # Bootstrap 4
 #

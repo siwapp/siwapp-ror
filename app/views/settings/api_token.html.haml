@@ -1,14 +1,13 @@
 %h1 API Token
 
-.row
-  .col-xs-12.col-md-6.col-xl-4
-    Use this token to authenticate your api requests
-.row
-  .col-xs-12.col-md-6.col-xl-4
-    %code.active
-      = @api_token
+- if @api_token
+  %p
+    Use this token to authenticate your api requests:
+    %code.active= @api_token
 
-
-
-.action-buttons
-  = link_to 'Generate token', 'api_token', method: :post, data: { confirm: 'Are you sure? This will invalidate the previous token' }, class: 'btn btn-success pull-xs-right no-margin'
+  .action-buttons
+    = link_to "Generate token", settings_api_token_path, method: :post, "data-confirm": "Are you sure? This will invalidate any existing token!", class: "btn btn-success pull-xs-right no-margin"
+- else
+  %p Use the button below to generate an API token.
+  .action-buttons
+    = link_to "Generate token", settings_api_token_path, method: :post, class: "btn btn-success pull-xs-right no-margin"

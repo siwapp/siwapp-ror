@@ -9,7 +9,7 @@ feature "Series:" do
 
     expect(page.current_path).to eql(series_index_path)
     expect(page).to have_content("Series was successfully destroyed")
-    expect(page).to have_no_content("A- Series")
+    expect(page).not_to have_content("A- Series")
   end
 
   scenario "User can't delete a series with invoices", :js => true, :driver => :webkit do
