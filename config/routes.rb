@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     get 'autocomplete', on: :collection
     get 'chart_data', on: :collection
     get 'send_email', on: :member
-    get 'print_invoice', on: :member
+    get 'print', on: :member
   end
 
   resources :recurring_invoices do

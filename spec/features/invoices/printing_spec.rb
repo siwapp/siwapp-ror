@@ -1,24 +1,31 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'PDF of Invoices' do
-  before do
-    Rails.application.load_seed # loading seeds to get the template
-    FactoryGirl.create(:invoice)
-    FactoryGirl.create(:template)
-    visit "/invoices"
-    click_link "A-1"
+feature "Invoices:" do
+  background do
+    # load templates
+    Rails.application.load_seed
   end
 
-  scenario 'Show of a paid invoice show the iframe', js: true, driver: :webkit do
+  scenario "User will see a preview of a paid invoice inside an iframe an can download a PDF", js: true, driver: :webkit do
+    invoice = FactoryGirl.create(:invoice, :paid)
+
+    visit invoices_path
+    click_link invoice.to_s
+
     expect(page).to have_xpath("//iframe")
-    expect(page).to have_link("PDF")
-    click_on "PDF"
-    expect(page.response_headers['Content-Disposition']).to eq 'attachment; filename="A-1.pdf"'
-    expect(page.response_headers['Content-Type']).to eq 'application/pdf'
+    expect(page).to have_link("Download PDF")
+
+    click_on "Download PDF"
+
+    expect(page.response_headers["Content-Disposition"]).to eq "attachment; filename=\"#{invoice.to_s}.pdf\""
+    expect(page.response_headers["Content-Type"]).to eq "application/pdf"
   end
 
-  scenario 'Template url shows template', js: true, driver: :webkit do
-    visit "/invoices/1/print_invoice"
+  scenario "Template url shows template", js: true, driver: :webkit do
+    invoice = FactoryGirl.create(:invoice, :paid)
+
+    visit print_invoice_path(invoice)
+
     expect(page).to have_content("Billed:")
   end
 end

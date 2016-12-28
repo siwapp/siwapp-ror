@@ -1,83 +1,77 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Editing Invoices' do
+feature "Invoices:" do
+  scenario "User can update an invoice", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(:invoice)
 
-  before do
-    FactoryGirl.create(:template, template: "Test")
-    FactoryGirl.create(:invoice)
-    visit "/invoices"
-    click_link "A-1"
-    click_link "Edit"
+    visit edit_invoice_path(invoice)
+    fill_in "invoice_due_date", with: invoice.issue_date >> 1
+    click_on "Save"
 
+    expect(page).to have_content "successfully updated"
   end
 
-  scenario 'Updating an Invoice', :js => true, driver: :webkit do
-    fill_in 'Name', with: 'Different Name'
-    fill_in 'Email', with: 'different.name@test.com'
-    fill_in 'Due date', with: Date.current + 30
-    click_on 'Save'
-    expect(page).to have_content("Invoice was successfully updated")
+  scenario "User can't update an invoice with invalid data", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(:invoice)
+
+    visit edit_invoice_path(invoice)
+    fill_in "invoice_issue_date", with: ""
+    click_on "Save"
+
+    expect(page.current_path).to eql invoice_path(invoice)
+    expect(page).to have_content "1 error"
   end
 
-  scenario 'Can not update badly', :js => true, driver: :webkit do
-    fill_in 'Name', with: ''
-    fill_in 'Email', with: 'pepe.com'
-    click_on 'Save'
-    expect(page).to have_content('Invoice has not been saved')
-    expect(page).to have_content("Only valid emails")
-  end
+  scenario "User can add a new item to an existing invoice", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(:invoice)
 
-  scenario "Adding an item to an Invoice", js: true, driver: :webkit do
-    default_tax = FactoryGirl.create :tax, default: true, active: true
+    visit edit_invoice_path(invoice)
 
-    FactoryGirl.create :invoice, id: 3
-    visit "/invoices/3/edit"
+    click_on "Add Line"
 
-    # click over "add item"
-    # Done this way due to a weird error in the test. The button was
-    # actually there but capybara can't click it because it says something is
-    # overlapping it.
-    page.execute_script("$('a.add_fields[data-association=item]').click();")
-    # find('a.add_fields[data-association=item]').click
+    within(:xpath, '//*[@id="js-items-table"]/div[2]') do
+      fill_in "Description", with: "Support"
+      fill_in "Quantity", with: "1"
+      fill_in "Price", with: "50"
 
-    # a new item appears
-    new_item_xpath = "//*[@id='js-items-table']/div[4]"
-    expect(page).to have_selector(:xpath, new_item_xpath)
-
-    # Done this way due to a weird error in the test. The checkbox was
-    # actually there but capybara does not find it if it's hidden.
-    within :xpath, new_item_xpath do
-      page.execute_script("$('.action-buttons').hide()");
-      find('.tax-selector').find('.btn-group').find('input').click
-      default_tax_item = find('.select2-selection__rendered').find('li.select2-selection__choice')
-      expect(default_tax_item).to have_content default_tax.name
-      page.execute_script("$('.action-buttons').show()");
-    end
-  end
-
-  scenario 'Adding a payments to an Invoice', js: true, driver: :webkit do
-
-    FactoryGirl.create(:invoice_unpaid, id: 3)
-    visit "/invoices/3/edit"
-
-    # click over "add payment",
-    find('a.add_fields[data-association=payment]').click
-    # a new payment appears ...
-    new_payment_xpath = "//*[@id='js-payments-table']/div[2]"
-    expect(page).to have_selector(:xpath, new_payment_xpath)
-
-    within :xpath, new_payment_xpath do
-      # default amount: what's left to pay. rounded with precision of 2
-      expect(find('input[name*="amount"]').value.to_f).to eq 25.77
-      # default date: today
-      expect(find('input[name*="date"]').value).to eq Date.current.iso8601
+      # Display taxes selector
+      within ".tax-selector" do
+        find(".btn-group").find("input").click
+      end
     end
 
-    # click over "remove payment"
-    find(:xpath, "#{new_payment_xpath}//a[contains(@class, \"remove_fields\")]").click
+    # Select VAT tax
+    within ".select2-dropdown" do
+      within ".select2-results__options" do
+        find(".select2-results__option", :text => "VAT").click
+      end
+    end
 
-    # ... the div is gone
-    expect(page).to have_no_selector(:xpath, new_payment_xpath)
+    expect(page).to have_content "$ 10,660.50"
+
+    click_on "Save"
+
+    expect(page.current_path).to eql invoices_path
+    expect(page).to have_content("successfully updated")
+    expect(page).to have_content "$ 10,660.50"
   end
 
+  scenario "User can add a payment to an invoice", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(:invoice)
+
+    visit edit_invoice_path(invoice)
+
+    click_on "Add Payment"
+
+    within "#js-payments-table" do
+      expect(find_field("Amount").value).to eq "10600"
+    end
+
+    click_on "Save"
+
+    expect(page.current_path).to eql invoices_path
+    expect(page).to have_content "successfully updated"
+    expect(page).to have_content "$ 10,600.00"
+    expect(page).to have_content "paid"
+  end
 end

@@ -2,25 +2,25 @@ require "rails_helper"
 
 feature "Taxes:" do
   scenario "User can delete a a tax", :js => true, :driver => :webkit do
-    FactoryGirl.create(:tax)
+    vat = FactoryGirl.create(:vat)
 
-    visit "/taxes/1/edit"
+    visit edit_tax_path(vat)
 
     click_link "Delete"
 
     expect(page.current_path).to eql taxes_path
     expect(page).to have_content("Tax was successfully deleted")
-    expect(page).not_to have_content("VAT 21%")
+    expect(page).not_to have_content("VAT")
   end
 
   scenario "User can't delete a tax associated with an item" do
     FactoryGirl.create(:invoice)
-    tax = Tax.find_by(value: 21)
+    vat = Tax.find_by(id: 1)
 
-    visit "/taxes/#{tax.id}/edit"
+    visit edit_tax_path(vat)
     click_link "Delete"
 
-    expect(page.current_path).to eql edit_tax_path(tax)
+    expect(page.current_path).to eql edit_tax_path(vat)
     expect(page).to have_content("Can't delete")
   end
 end

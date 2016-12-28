@@ -1,9 +1,16 @@
-require 'rails_helper'
+require "rails_helper"
 
-feature 'Viewing invoices' do
-  scenario 'Listing all invoices' do
-    invoice = FactoryGirl.create(:invoice)
-    visit "/invoices"
-    expect(page).to have_content("A-1")
+feature "Invoices:" do
+  scenario "User can see a list of invoices, most recent first" do
+    FactoryGirl.create(:invoice)
+    FactoryGirl.create(:invoice, :paid)
+
+    visit invoices_path
+
+    within "#js-list-form" do
+      expect(find(:xpath, ".//tbody/tr[1]")).to have_content "A-2"
+      expect(find(:xpath, ".//tbody/tr[1]")).to have_content "paid"
+      expect(find(:xpath, ".//tbody/tr[2]")).to have_content "A-1"
+    end
   end
 end

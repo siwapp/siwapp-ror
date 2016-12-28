@@ -2,12 +2,9 @@ require "rails_helper"
 
 feature "Taxes:" do
 
-  background do
-    @tax = FactoryGirl.create(:tax)
-  end
-
   scenario "User can update a tax", :js => true, :driver => :webkit do
-    visit "/taxes/1/edit"
+    vat = FactoryGirl.create(:vat)
+    visit edit_tax_path(vat)
 
     fill_in "Name", with: "VAT 18%"
     fill_in "Value", with: "18"
@@ -20,13 +17,13 @@ feature "Taxes:" do
   end
 
   scenario "User can't update a tax with invalid data", :js => true, :driver => :webkit do
-    visit "/taxes/1/edit"
+    vat = FactoryGirl.create(:vat)
+    visit edit_tax_path(vat)
 
     fill_in "Value", with: "dieciocho"
-
     click_on "Save"
 
-    expect(page.current_path).to eql(tax_path(@tax))
+    expect(page.current_path).to eql(tax_path(vat))
     # Webkit only allows numbers for numeric fields so probably the field
     # couldn't be changed to hold "dieciocho" as its value. In that case
     # we get 2 errors instead of 1.
