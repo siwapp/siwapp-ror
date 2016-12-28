@@ -11,10 +11,6 @@ RSpec.describe Item, :type => :model do
     Settings.currency = "bhd"
     Rails.cache.delete("rails_settings_cached:currency")
     expect(item.net_amount).to eq 0.076
-
-    # back to normal
-    Settings.currency = "usd"
-    Rails.cache.delete("rails_settings_cached:currency")
   end
 
   it "taxes_hash has net_amount * tax.value / 100.0" do
