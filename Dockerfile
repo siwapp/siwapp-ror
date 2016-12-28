@@ -6,10 +6,11 @@ RUN apt-get update -qq && \
 	apt-get install -y \
 	build-essential \
 	nodejs \
-	libmysqlclient-dev \
+	libpq-dev \
 	libsqlite3-dev \
-	libqt4-dev \
-	libqtwebkit-dev
+	libqt5webkit5-dev \
+	qt5-default \
+	xvfb
 
 # Copy project src to container
 COPY . /app
