@@ -62,7 +62,7 @@ feature "Invoices:" do
     visit edit_invoice_path(invoice)
 
     click_on "Add Payment"
-
+    sleep 1  # weird fix to make it work on docker
     within "#js-payments-table" do
       expect(find_field("Amount").value).to eq "10600"
     end
