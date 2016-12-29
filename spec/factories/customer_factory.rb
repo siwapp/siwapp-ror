@@ -3,19 +3,19 @@ FactoryGirl.define do
     name "Test Customer"
     identification "12345"
     email "customer@example.com"
+  end
 
-    factory :ncustomer do
-      customers = [
-        "Acme, Inc.",
-        "Widget Corp.",
-        "Warehousing",
-        "Demo Company",
-        "Smith & Co.",
-      ]
+  factory :ncustomer, class: Customer do
+    customers = [
+      "Acme, Inc.",
+      "Widget Corp.",
+      "Warehousing",
+      "Demo Company",
+      "Smith & Co.",
+    ]
 
-      sequence(:name, 0)              { |n| n < customers.length ? customers[n] : "Customer #{n}" }
-      sequence(:identification, "A")  { |n| "1234#{n}" }
-      email                           { "info@#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}.com" }
-    end
+    sequence(:name, 0)              { |n| n < customers.length ? customers[n] : "Customer #{n}" }
+    sequence(:identification, "A")  { |n| "1234#{n}" }
+    email                           { "info@#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}.com" }
   end
 end

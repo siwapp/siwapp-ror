@@ -98,17 +98,8 @@ class Invoice < Common
 
   # Public: Returns the amount that has not been already paid.
   #
-  # A failed invoice means that the payment couldn't be collected and you don't
-  # expect to collect it in the future. A failed invoice must not count in
-  # totals so we return 0 in that case so there's no negative balance due to
-  # this invoice. If you get paid later you must explicitly set failed as false
-  # and then set the invoice as paid.
-  #
   # Returns a double.
   def unpaid_amount
-    if failed
-      return 0
-    end
     gross_amount - paid_amount
   end
 

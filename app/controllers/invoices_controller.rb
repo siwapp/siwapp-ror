@@ -66,7 +66,7 @@ class InvoicesController < CommonsController
   end
 
   # Renders a common's template in html and pdf formats
-  def print_invoice
+  def print
     @invoice = Invoice.find(params[:id])
     html = render_to_string :inline => @invoice.get_print_template.template,
       :locals => {:invoice => @invoice, :settings => Settings}

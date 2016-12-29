@@ -56,6 +56,8 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
+    Settings.currency = "usd"
+    Rails.cache.delete("rails_settings_cached:currency")
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
   end

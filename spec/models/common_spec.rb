@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Common, :type => :model do
 
-  after do
-    # Set currency back to normal
-    Settings.currency = "usd"
-    Rails.cache.delete("rails_settings_cached:currency")
-  end
-
   def build_common(**kwargs)
     kwargs[:name] = "A Customer" unless kwargs.has_key? :name
     kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification

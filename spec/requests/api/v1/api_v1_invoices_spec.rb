@@ -1,30 +1,32 @@
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe "Api::V1::Invoices", type: :request do
+RSpec.describe "Api::V1::Invoices:", type: :request do
 
   before do
-    Rails.cache.clear
     FactoryGirl.create :token
     FactoryGirl.create :user
-    @template = FactoryGirl.create :template
-    @headers = {'Content-Type' => 'application/json', 
-        'Authorization' => 'Token token="123token"'}
-    @customer = FactoryGirl.create(:customer, name: "Test Customer")
-    @series = FactoryGirl.create :series
-    @invoice = FactoryGirl.create :invoice, customer: @customer
+
+    @headers = {
+      "Content-Type" => "application/json",
+      "Authorization" => "Token token=\"#{Settings.api_token}\""
+    }
+
+    @template = FactoryGirl.create(:template)
+    @invoice = FactoryGirl.create(:invoice)
+    @vat = Tax.find(1)
   end
 
-  describe 'Invoices show' do
-    
-    it 'GET /api/v1/invoices/:id Show single invoice with details' do
+  describe "Show:" do
+
+    it "GET /api/v1/invoices/:id -- Single invoice with details" do
       get api_v1_invoice_path(@invoice), nil, @headers
       expect(response).to be_success
-      expect(json['data'].length).to eql 5
-    
-      expect(json['data']['links']['self']).to eql api_v1_invoice_path(@invoice)
-      expect(json['data']['links']['customer']).to eql api_v1_customer_path(@customer)
-    # download link
-      expect(json['data']['attributes']['download-link']).to eql api_v1_rendered_template_path(@template, @invoice)
+      expect(json["data"].length).to eql 5
+
+      expect(json["data"]["links"]["self"]).to eql api_v1_invoice_path(@invoice)
+      expect(json["data"]["links"]["customer"]).to eql api_v1_customer_path(@invoice.customer)
+      # download link
+      expect(json["data"]["attributes"]["download-link"]).to eql api_v1_rendered_template_path(@template, @invoice)
     end
   end
 
@@ -34,81 +36,79 @@ RSpec.describe "Api::V1::Invoices", type: :request do
       get api_v1_invoices_path, nil, @headers
 
       expect(response).to be_success
-      expect(json['data'].is_a? Array).to be true
-      expect(json['data'][0]['attributes']['name']).to eql 'Example Customer Name'
+      expect(json["data"].is_a? Array).to be true
+      expect(json["data"][0]["attributes"]["name"]).to eql "Test Customer"
     end
 
-    describe "Paginated invoicies listing" do
+    describe "Paginated invoices listing" do
 
       before do
-        FactoryGirl.create_list :invoice, 30, customer: @customer # 30 more invoices
+        FactoryGirl.create_list :invoice, 30, customer: @invoice.customer # 30 more invoices
       end
 
       it "Display only 20 results per page and return pagination headers" do
         get api_v1_invoices_path, nil, @headers
         expect(response).to be_success
-        expect(json['data'].count).to eql 20
-        expect(response.headers).to have_key 'X-Pagination'
-        pagination_header = JSON.parse response.headers['X-Pagination']
-        expect(pagination_header['total']).to eql 31
-        expect(pagination_header['next_page']).to eql 2
+        expect(json["data"].count).to eql 20
+        expect(response.headers).to have_key "X-Pagination"
+        pagination_header = JSON.parse response.headers["X-Pagination"]
+        expect(pagination_header["total"]).to eql 31
+        expect(pagination_header["next_page"]).to eql 2
       end
 
-      it "'Page' param sets the page" do
+      it "A param sets the page" do
         get api_v1_invoices_path, {page: {number: 2}},  @headers
         expect(response).to be_success
-        expect(json['data'].count).to eql 11
+        expect(json["data"].count).to eql 11
       end
     end
   end
 
   describe "Invoice creation" do
-    
+
     it "basic invoice creation on POST request" do
-      inv = { 
-        'data' => {
-          'attributes' => {
-          'name' => 'newly created',
-          'email' => 'test@email.com',
-          'issue_date' => '2016-06-06',
-          'series_id' => @series.id
+      inv = {
+        "data" => {
+          "attributes" => {
+          "name" => "newly created",
+          "email" => "test@email.com",
+          "issue_date" => "2016-06-06",
+          "series_id" => @invoice.series.id
         }
       }
       }
       post api_v1_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201 # created resource
-      expect(json['data']['attributes']['name']).to eql 'newly created'
-      expect(Invoice.find(json['data']['id']).name).to eql 'newly created'
+      expect(json["data"]["attributes"]["name"]).to eql "newly created"
+      expect(Invoice.find(json["data"]["id"]).name).to eql "newly created"
     end
 
     it "can create invoice along with items and payments" do
-      tax = FactoryGirl.create :tax
-      
       inv = {
-        'data' => {
-          'type' => 'invoices',
-          'attributes' => {
-            'name' => 'newly created',
-            'email' => 'test@email.com',
-            'issue_date' => '2016-06-06',
-            'series_id' => @series.id
+        "data" => {
+          "type" => "invoices",
+          "attributes" => {
+            "name" => "newly created",
+            "email" => "test@email.com",
+            "issue_date" => "2016-06-06",
+            "series_id" => @invoice.series.id
           },
-          'relationships' => {
-            'items' => {
-              'data' => [
-                {'attributes' => {
-                  'description' => 'item 1',
-                  'unitary_cost'=> 3.3,
-                  'quantity' => 2,
-                  'tax_ids' => [tax.id]
+          "relationships" => {
+            "items" => {
+              "data" => [
+                {"attributes" => {
+                  "description" => "item 1",
+                  "unitary_cost"=> 3.3,
+                  "quantity" => 2,
+                  "tax_ids" => [@vat.id]
                   }
                 }]},
-            'payments' => {
-              'data' => [{
-                'attributes' => {
-                  'notes' => 'payment 1',
-                  'amount' => 3.3,
-                  'date' => '2016-02-02'
+            "payments" => {
+              "data" => [{
+                "attributes" => {
+                  "notes" => "payment 1",
+                  "amount" => 3.3,
+                  "date" => "2016-02-02"
                 }
               }]
             }
@@ -118,26 +118,26 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
       post api_v1_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201
-      invoice = Invoice.find(json['data']['id']) 
+      invoice = Invoice.find(json["data"]["id"])
       item = invoice.items[0]
-      expect(item.description).to eql 'item 1'
-      expect(item.taxes[0].name).to eql 'VAT 21%'
+      expect(item.description).to eql "item 1"
+      expect(item.taxes[0].name).to eql "VAT"
       payment = invoice.payments[0]
-      expect(payment.notes).to eql 'payment 1'
+      expect(payment.notes).to eql "payment 1"
       expect(payment.amount).to eql 3.3
 
     end
 
     it "proper invalidation messages" do
       inv = {
-        'data' => {
-          'type' => 'invoices',
-          'attributes' => {
-            'name' => 'bogus',
-            'issue_date' => '2015-05-05',
-            'email' => 'test@bemail.com'
+        "data" => {
+          "type" => "invoices",
+          "attributes" => {
+            "name" => "bogus",
+            "issue_date" => "2015-05-05",
+            "email" => "test@bemail.com"
           }
-          
+
         }
       }
       post api_v1_invoices_path, inv.to_json, @headers
@@ -146,19 +146,19 @@ RSpec.describe "Api::V1::Invoices", type: :request do
 
   end
 
-  describe 'Invoice updating' do
-    
+  describe "Invoice updating" do
+
     it "basic invoice updating" do
-      put api_v1_invoice_path(@invoice), {'data':{'attributes': {'name': 'modified'}}}.to_json, @headers
+      put api_v1_invoice_path(@invoice), {"data":{"attributes": {"name": "modified"}}}.to_json, @headers
       expect(response.status).to eql 200
-      expect(json['data']['attributes']['name']).to eql 'modified'
+      expect(json["data"]["attributes"]["name"]).to eql "modified"
     end
 
   end
 
-  describe 'Invoice deleting' do
+  describe "Invoice deleting" do
 
-    it 'basic invoice deleting' do
+    it "basic invoice deleting" do
       delete api_v1_invoice_path(@invoice), nil, @headers
       expect(response.status).to eql 204 # deleted resoource
       expect(Invoice.find_by_id(@invoice.id)).to be_nil
