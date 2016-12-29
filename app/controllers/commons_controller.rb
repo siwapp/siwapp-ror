@@ -55,9 +55,9 @@ class CommonsController < ApplicationController
       @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
     end
     results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
-    # For amount totals exclude the Failed invoices
-    @gross = results.where(failed: false).sum :gross_amount
-    @net = results.where(failed: false).sum :net_amount
+    
+    @gross = results.sum :gross_amount
+    @net = results.sum :net_amount
     @count = results.count
 
     # series has to be included after totals calculations
