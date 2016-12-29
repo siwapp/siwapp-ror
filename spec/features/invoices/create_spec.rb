@@ -4,6 +4,8 @@ feature "Invoices:" do
 
   scenario "User can create an invoice. A customer is created.", :js => true, :driver => :webkit do
     FactoryGirl.create(:series, :default)
+    FactoryGirl.create(:vat)
+    FactoryGirl.create(:retention)
 
     visit new_invoice_path
 
@@ -24,6 +26,18 @@ feature "Invoices:" do
       fill_in "Description", with: "Work"
       fill_in "Quantity", with: "1"
       fill_in "Price", with: "100"
+
+      # Check that taxes selector works for the default item...
+      within ".tax-selector" do
+        find(".btn-group").find("input").click
+      end
+    end
+
+    # ... by adding VAT
+    within ".select2-dropdown" do
+      within ".select2-results__options" do
+        find(".select2-results__option", :text => "VAT").click
+      end
     end
 
     click_on "Add Line"
@@ -33,15 +47,27 @@ feature "Invoices:" do
       fill_in "Description", with: "Support"
       fill_in "Quantity", with: "1"
       fill_in "Price", with: "50"
+
+      # Check that taxes selector works for the new item
+      within ".tax-selector" do
+        find(".btn-group").find("input").click
+      end
     end
 
-    expect(page).to have_content "$ 150.00"
+    # ... by adding VAT
+    within ".select2-dropdown" do
+      within ".select2-results__options" do
+        find(".select2-results__option", :text => "VAT").click
+      end
+    end
+
+    expect(page).to have_content "$ 181.50"
 
     click_on "Save"
 
     expect(page.current_path).to eql invoices_path
     expect(page).to have_content("Invoice was successfully created.")
-    expect(page).to have_content "$ 150.00"
+    expect(page).to have_content "$ 181.50"
 
     expect(Customer.find_by(email: "test@customer.com", identification: "12345")).not_to be nil
   end
