@@ -5,10 +5,13 @@ feature "Series:" do
     series = FactoryGirl.create(:series)
 
     visit edit_series_path(series)
-    click_link "Delete"
+
+    accept_confirm do
+      click_link "Delete"
+    end
 
     expect(page.current_path).to eql(series_index_path)
-    expect(page).to have_content("Series was successfully destroyed")
+    expect(page).to have_content("successfully destroyed")
     expect(page).not_to have_content("A- Series")
   end
 
@@ -17,7 +20,9 @@ feature "Series:" do
     series = invoice.series
 
     visit edit_series_path(series)
-    click_link "Delete"
+    accept_confirm do
+      click_link "Delete"
+    end
 
     expect(page.current_path).to eql(edit_series_path(series))
     expect(page).to have_content("can not be destroyed")
