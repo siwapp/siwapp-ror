@@ -24,7 +24,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
         conditions.push("meta_attributes like '%\"#{key}\":\"#{value}\"%'")
       end
       results = @search.result(distinct: true)
-        .where(conditions.join(" and "))
+        .where(conditions.join(" and ")).order(issue_date: :desc).order(id: :desc)
     end
     if params[:customer_id]
       results = results.where(customer_id: params[:customer_id])
