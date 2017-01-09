@@ -80,17 +80,11 @@ jQuery(document).ready ($) ->
 
     # manage row selection
     .on 'click', ':checkbox[data-role="select-row"]', (e) ->
-      self = $(this)
-      table = self.closest 'table'
-      checked = self.is ':checked'
-      all_checked = checked
-
-      if checked
-        table.find(':checkbox[data-role="select-row"]').each () ->
-          all_checked = all_checked and $(this).is ':checked'
-
-      table.find(':checkbox[data-role="select-all-rows"]').prop('checked', all_checked)
-      $('.action-buttons').toggle(checked)
+      table = $(this).closest('table')
+      checkboxes = table.find(':checkbox[data-role="select-row"]')
+      checkboxes_checked = checkboxes.filter(':checked')
+      table.find(':checkbox[data-role="select-all-rows"]').prop('checked', checkboxes.length is checkboxes_checked.length)
+      $('.action-buttons').toggle(checkboxes_checked.length > 0)
 
     # manage all rows selection
     .on 'click', ':checkbox[data-role="select-all-rows"]', (e) ->
