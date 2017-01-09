@@ -3,12 +3,14 @@ require "rails_helper"
 feature "Series:" do
 
   scenario "User creates a new series", :js => true, :driver => :webkit do
-    visit "/series/new"
+    visit series_index_path
+    click_on "New Series"
+
+    expect(page.current_path).to eql new_series_path
 
     fill_in "Name", with: "Agro supplies"
     fill_in "Value", with: "AGR"
     fill_in "First number", with: "3"
-
     check "Enabled"
 
     click_on "Save"
@@ -18,7 +20,7 @@ feature "Series:" do
   end
 
   scenario "User can't create a series without a value", :js => true, :driver => :webkit do
-    visit "/series/new"
+    visit new_series_path
     click_on "Save"
 
     expect(page.current_path).to eql(series_index_path)

@@ -64,20 +64,21 @@ RSpec.configure do |config|
 
   # log in before every feature example
   config.before :each, type: :feature do |example|
-    factory_name = example.metadata[:not_logged]
-    return if factory_name
-    user = FactoryGirl.create :user
-    visit '/login'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
-    click_on 'Log in'
+    unless example.metadata[:not_logged]
+      user = FactoryGirl.create :user
+
+      visit login_path
+      fill_in 'session_email', with: user.email
+      fill_in 'session_password', with: user.password
+      click_on 'Log in'
+    end
   end
 
   # generate zauth token before every api request example
   # config.before :each, type: :request do |example|
   #   factory_name = example.metadata[:not_authorized]
   #   return if factory_name
-    
+
   # end
 
   config.after(:each) do

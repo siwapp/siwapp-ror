@@ -6,21 +6,25 @@ feature "Taxes:" do
 
     visit edit_tax_path(vat)
 
-    click_link "Delete"
+    accept_confirm do
+      click_on "Delete"
+    end
 
     expect(page.current_path).to eql taxes_path
-    expect(page).to have_content("Tax was successfully deleted")
-    expect(page).not_to have_content("VAT")
+    expect(page).to have_content "successfully deleted"
+    expect(page).not_to have_content "VAT"
   end
 
-  scenario "User can't delete a tax associated with an item" do
+  scenario "User can't delete a tax associated with an item", :js => true, :driver => :webkit do
     FactoryGirl.create(:invoice)
     vat = Tax.find_by(id: 1)
 
     visit edit_tax_path(vat)
-    click_link "Delete"
+    accept_confirm do
+      click_on "Delete"
+    end
 
     expect(page.current_path).to eql edit_tax_path(vat)
-    expect(page).to have_content("Can't delete")
+    expect(page).to have_content "Can't delete"
   end
 end

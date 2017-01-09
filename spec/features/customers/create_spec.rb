@@ -3,10 +3,12 @@ require "rails_helper"
 feature "Customers:" do
 
   scenario "User can create a customer", :js => true, :driver => :webkit do
-    visit "/customers/new"
+    visit customers_path
+    click_on "New Customer"
+
+    expect(page.current_path).to eql new_customer_path
 
     fill_in "Name", with: "Test Customer"
-
     click_on "Save"
 
     expect(page.current_path).to eql customers_path
@@ -15,7 +17,7 @@ feature "Customers:" do
   end
 
   scenario "User can't create a customer without name nor identification", :js => true, :driver => :webkit do
-    visit "/customers/new"
+    visit new_customer_path
     click_on "Save"
 
     expect(page.current_path).to eql customers_path

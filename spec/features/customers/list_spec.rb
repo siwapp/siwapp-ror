@@ -5,16 +5,17 @@ feature "Customers:" do
     FactoryGirl.create(:customer)
     FactoryGirl.create_list(:ncustomer, 2)
 
-    visit "/customers"
+    first(:link, :text => 'Customers').click
 
-    expect(page).to have_content("Test Customer")
+    expect(page.current_path).to eql customers_path
+    expect(page).to have_content "Test Customer"
   end
 
   scenario "User can click on a customer to edit it", :js => true, :driver => :webkit do
     customer = FactoryGirl.create(:customer)
 
-    visit "/customers"
-    click_link("Test Customer")
+    visit customers_path
+    click_link "Test Customer"
 
     expect(page.current_path).to eql edit_customer_path(customer)
   end
@@ -23,10 +24,10 @@ feature "Customers:" do
     customer = FactoryGirl.create(:customer)
     invoice = FactoryGirl.create(:invoice, customer: customer)
 
-    visit "/customers"
-    click_link("See Invoices")
+    visit customers_path
+    click_link "See Invoices"
 
     expect(page.current_path).to eql customer_invoices_path(customer)
-    expect(page).to have_content(invoice.to_s)
+    expect(page).to have_content invoice.to_s
   end
 end
