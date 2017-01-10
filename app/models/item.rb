@@ -7,7 +7,9 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :taxes
 
-  def Item.find_by_description(term)
+  # Gets items for autocomplete, returning an id, a description and unitary cost
+  # for the specified search term
+  def Item.autocomplete_by_description(term)
     t = arel_table
     q = t
       .project(t[:id].maximum.as("id"), t[:description], t[:unitary_cost])

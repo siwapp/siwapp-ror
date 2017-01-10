@@ -22,7 +22,7 @@ class InvoicesController < CommonsController
   # GET /invoices/autocomplete.json
   # View to get the item autocomplete feature.
   def autocomplete
-    @items = Item.find_by_description(params[:term])
+    @items = Item.autocomplete_by_description(params[:term])
     respond_to do |format|
       format.json
     end
