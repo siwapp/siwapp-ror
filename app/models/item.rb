@@ -7,9 +7,17 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :taxes
 
-  scope :unique_description, -> (term){
-    order(:description).where("description LIKE ?", term).group(:description)
-  }
+  # Gets items for autocomplete, returning an id, a description and unitary cost
+  # for the specified search term
+  def Item.autocomplete_by_description(term)
+    t = arel_table
+    q = t
+      .project(t[:id].maximum.as("id"), t[:description], t[:unitary_cost])
+      .where(t[:description].matches("%#{term}%"))
+      .group(t[:description], t[:unitary_cost])
+      .order(t[:description])
+    find_by_sql(q.to_sql)
+  end
 
   def base_amount
     unitary_cost * quantity
