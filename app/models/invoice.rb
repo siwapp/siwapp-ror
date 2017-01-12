@@ -107,9 +107,12 @@ class Invoice < Common
   # invoice status.
   #
   def set_paid
-    if unpaid_amount > 0 and not paid
+    if not draft and (unpaid_amount > 0 and not paid)
       payments << Payment.new(date: Date.current, amount: unpaid_amount)
       check_paid
+      true
+    else
+      false
     end
   end
 
@@ -117,8 +120,12 @@ class Invoice < Common
   # invoice status. This method saves the invoice.
   #
   def set_paid!
-    set_paid
-    self.save
+    if set_paid
+      self.save
+      true
+    else
+      false
+    end
   end
 
   # Public: Check the payments and update the paid and

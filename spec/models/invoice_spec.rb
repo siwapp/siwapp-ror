@@ -109,14 +109,26 @@ RSpec.describe Invoice, :type => :model do
   end
 
   it "sets paid right" do
-    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)],
-                            payments: [Payment.new(amount: 10, date: Date.current)])
-    invoice.set_paid
+    # A draft invoice can't be paid
+    invoice = build_invoice(items: [Item.new(quantity: 5, unitary_cost: 10)], draft: true)
 
+    expect(invoice.set_paid).to be false
+    expect(invoice.paid).to be false
+
+    # Remove draft switch and add a Payment; should be paid now
+    invoice.payments << Payment.new(amount: 10, date: Date.current)
+    invoice.check_paid
+    invoice.draft = false
+
+    expect(invoice.set_paid).to be true
     expect(invoice.paid).to be true
     expect(invoice.paid_amount).to eq 50
     expect(invoice.payments.length).to eq 2
     expect(invoice.payments[1].amount).to eq 40
+
+    # A paid invoice should not be affected
+    expect(invoice.set_paid).to be false
+    expect(invoice.paid).to be true
   end
 
 end
