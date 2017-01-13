@@ -6,9 +6,52 @@ feature "Invoices:" do
 
     visit edit_invoice_path(invoice)
     fill_in "invoice_due_date", with: invoice.issue_date >> 1
+
+    # Also update the item
+    within(:xpath, '//*[@id="js-items-table"]/div[1]') do
+      fill_in "Description", with: "Support"
+      fill_in "Quantity", with: "1"
+      fill_in "Price", with: "50"
+
+      # Display taxes selector
+      within ".tax-selector" do
+        first(".select2-selection__choice__remove").click
+        first(".select2-selection__choice__remove").click
+      end
+    end
+
+    expect(page).to have_content "$ 50.00"
+
+    # Add some tags
+    tags_selector = find('[data-role="tagging"]+.select2')
+    tags_selector.click
+    within tags_selector do
+      find('input').set "Projects,Web,"
+    end
+
+    # Add some meta
+    within :xpath, '//*[@id="js-meta-table"]/div[1]' do
+      fill_in('key[]', with: 'code')
+      fill_in('value[]', with: 'AREA51')
+    end
+
+    click_on "Add Attribute"
+
+    within :xpath, '//*[@id="js-meta-table"]/div[2]' do
+      fill_in('key[]', with: 'discount')
+      fill_in('value[]', with: '0')
+    end
+
     click_on "Save"
 
     expect(page).to have_content "successfully updated"
+
+    invoice.reload
+
+    expect(invoice.tag_list.length).to eql 2
+    expect(invoice.tag_list).to eq %w(Projects Web)
+    expect(invoice.get_meta("code")).to eq "AREA51"
+    expect(invoice.get_meta("discount")).to eq "0"
   end
 
   scenario "User can't update an invoice with invalid data", :js => true, :driver => :webkit do
@@ -74,4 +117,39 @@ feature "Invoices:" do
     expect(page).to have_content "$ 10,600.00"
     expect(page).to have_content "paid"
   end
+
+  # scenario "User can remove payments and items from an invoice", :js => true, :driver => :webkit do
+  #   invoice = FactoryGirl.create(
+  #     :invoice,
+  #     items: [
+  #       Item.new(quantity: 1, unitary_cost: 10),
+  #       Item.new(quantity: 1, unitary_cost: 10)
+  #     ],
+  #     payments: [
+  #       Payment.new(amount: 10, date: Date.current),
+  #       Payment.new(amount: 10, date: Date.current)
+  #     ]
+  #   )
+  #
+  #   visit edit_invoice_path(invoice)
+  #
+  #   expect(page).to have_content "$ 20.00"
+  #
+  #   within :xpath, '//*[@id="js-items-table"]/div[1]' do
+  #     click_on 'delete'
+  #   end
+  #
+  #   within :xpath, '//*[@id="js-payments-table"]/div[1]' do
+  #     click_on 'delete'
+  #   end
+  #
+  #   expect(page).to have_content "$ 10.00"
+  #
+  #   click_on "Save"
+  #
+  #   expect(page.current_path).to eql invoices_path
+  #   expect(page).to have_content "successfully updated"
+  #   expect(page).to have_content "$ 10.00"
+  #   expect(page).to have_content "paid"
+  # end
 end

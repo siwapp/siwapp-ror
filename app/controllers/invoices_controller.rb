@@ -99,8 +99,10 @@ class InvoicesController < CommonsController
           flash[:alert] = e.message
         end
       when 'set_paid'
-        invoices.each {|inv| inv.set_paid!}
-        flash[:info] = "Successfully set as paid #{ids.length} invoices."
+        total = invoices.inject(0) do |n, inv|
+          inv.set_paid! ? n + 1 : n
+        end
+        flash[:info] = "Successfully set as paid #{total} invoices."
       when 'pdf'
         html = ''
         invoices.each do |inv|

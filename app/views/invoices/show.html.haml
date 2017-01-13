@@ -5,5 +5,6 @@
     %iframe.invoice-preview{:src => print_invoice_path(@invoice)}
 .action-buttons
   = link_to 'Back', :back, class: 'btn btn-secondary'
+  = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
   = link_to 'Download PDF', print_invoice_path(@invoice) + ".pdf", class: 'btn btn-primary'
   = link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-primary'
