@@ -37,9 +37,12 @@ FactoryGirl.define do
 
       # WARNING: DON'T USE FOR TESTS!!!
       factory :demo_invoice do
-        sequence(:issue_date, 0) { |n| Date.current + n }
+        transient do
+          first_day Date.current
+        end
+        sequence(:issue_date, 0) { |n| first_day + n }
         due_date { issue_date + 30 }
-        
+
         association :customer, factory: :demo_customer, strategy: :build
         items { build_list(:item, 1, :invoice_item_demo) }
 

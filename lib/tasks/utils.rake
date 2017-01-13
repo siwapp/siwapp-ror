@@ -6,7 +6,8 @@ namespace :siwapp do
     desc "Create random invoices for testing and development."
     task :invoices, [:number] => :environment do |t, args|
       args.with_defaults(:number => "10")
-      FactoryGirl.create_list(:demo_invoice, args[:number].to_i)
+      n = args[:number].to_i
+      FactoryGirl.create_list(:demo_invoice, n, first_day: Date.current - n)
     end
 
     desc "Create random recurring invoices for testing and development."
