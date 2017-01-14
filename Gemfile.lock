@@ -339,3 +339,9 @@ DEPENDENCIES
   will_paginate
   wisper-celluloid
   wkhtmltopdf-binary
+
+RUBY VERSION
+   ruby 2.2.0p0
+
+BUNDLED WITH
+   1.13.7

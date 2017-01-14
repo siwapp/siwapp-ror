@@ -72,6 +72,7 @@ Rails.application.routes.draw do
       resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email], defaults: { format: :json} do
         get 'send_email', on: :member
         resources :items, :payments, only: [:index, :create]
+        resources :meta_attributes, only: [:index, :update, :destroy], defaults: {format: :json}
       end
       resources :recurring_invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
     end

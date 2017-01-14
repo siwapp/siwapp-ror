@@ -21,6 +21,12 @@ module MetaAttributes
     end
   end
 
+  def delete_meta(key)
+    attr_hash = self.meta
+    attr_hash.delete key
+    set_meta_multi attr_hash
+  end
+
   def set_meta_multi(attr_hash)
     attributes = {}
     attr_hash.each do |key, value|

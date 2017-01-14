@@ -1,7 +1,7 @@
 class Api::V1::CommonsController < Api::V1::BaseController
-  include CommonsHelper
+  include CommonsControllerMixin
   include StiHelper
-  include MetaAttributesController
+  include MetaAttributesControllerMixin
 
   before_action :set_type
   before_action :configure_search, only: [:index]
