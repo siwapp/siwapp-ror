@@ -36,13 +36,13 @@ RSpec.describe RecurringInvoice, :type => :model do
   it "generates invoices according to max_occurrences" do
     r = build_recurring_invoice(starting_date: Date.current << 1, max_occurrences: 1)
     expect(r).to be_valid
-    expect(r.get_pending_invoices.count).to eq 1
+    expect(r.build_pending_invoices.count).to eq 1
   end
 
   it "generates invoices according to finishing_date" do
     r = build_recurring_invoice(starting_date: Date.current << 5, finishing_date: Date.current)
     expect(r).to be_valid
-    expect(r.get_pending_invoices.count).to eq 6
+    expect(r.build_pending_invoices.count).to eq 6
   end
 
 end
