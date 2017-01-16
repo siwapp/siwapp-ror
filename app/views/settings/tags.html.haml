@@ -34,5 +34,5 @@
                 %td.text-center{data: {role: 'select'}}= check_box_tag "tags[#{tag.id}][_delete]", tag.id
 
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Apply Changes

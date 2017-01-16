@@ -1,13 +1,11 @@
 .section-hd
   %h1
-    Invoices
     - if @customer
-      for
-      = @customer
-  %span.counter
-    (
-    = @count
-    found )
+      = "Invoices for #{@customer}"
+    - else
+      Invoices
+    %small.text-muted
+      = "(#{@count} found)"
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
@@ -44,7 +42,7 @@
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'Are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
   = link_to 'Send Email', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'send_email', target: '#js-list-form'}
   = link_to 'Set Paid', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'set_paid', target: '#js-list-form'}

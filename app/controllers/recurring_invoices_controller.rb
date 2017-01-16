@@ -6,6 +6,11 @@ class RecurringInvoicesController < CommonsController
     redirect_to invoices_url
   end
 
+  def index
+    @any_invoices_to_be_built = RecurringInvoice.any_invoices_to_be_built?
+    super
+  end
+
   # DELETE
   # bulk deletes selected elements on list
   def remove

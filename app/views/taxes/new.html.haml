@@ -1,6 +1,6 @@
 %h1 New Tax
 = render 'form'
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Back', :back, class: 'btn btn-secondary'
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form'}} Save

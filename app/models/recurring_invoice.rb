@@ -107,6 +107,15 @@ class RecurringInvoice < Common
     end
   end
 
+  def self.any_invoices_to_be_built?
+    where(:enabled => true).where("starting_date <= ?", Date.current).each do |r_inv|
+      if r_inv.next_occurrences.length > 0
+        return true
+      end
+    end
+    return false
+  end
+
   private
 
   def valid_date_range

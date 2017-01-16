@@ -3,7 +3,7 @@
 
 = render partial: 'form', locals: {is_new: false}
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Delete', @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
 
   = link_to 'Back', :back, class: 'btn btn-secondary'
