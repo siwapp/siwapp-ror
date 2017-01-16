@@ -6,25 +6,14 @@ namespace :siwapp do
     desc "Create random invoices for testing and development."
     task :invoices, [:number] => :environment do |t, args|
       args.with_defaults(:number => "10")
-      if Customer.count == 0
-        FactoryGirl.create_list(:ncustomer, 5)
-      end
-      if Series.count == 0
-        FactoryGirl.create_list(:nseries, 3)
-      end
-      if Tax.count == 0
-        FactoryGirl.create(:tax, value: 21, default: true)
-        FactoryGirl.create(:tax, value: 10)
-        FactoryGirl.create(:tax, value: 4)
-        FactoryGirl.create(:tax_retention)
-      end
-      FactoryGirl.create_list(:invoice_random, args[:number].to_i)
+      n = args[:number].to_i
+      FactoryGirl.create_list(:demo_invoice, n, first_day: Date.current - n)
     end
 
     desc "Create random recurring invoices for testing and development."
     task :recurring_invoices, [:number] => :environment do |t, args|
-      args.with_defaults(:number => "10")
-      FactoryGirl.create_list(:recurring_invoice_random, args[:number].to_i)
+      args.with_defaults(:number => "4")
+      FactoryGirl.create_list(:demo_recurring_invoice, args[:number].to_i)
     end
 
     desc "Create a basic set of series, taxes, invoices and recurring invoices."
