@@ -97,7 +97,7 @@ class RecurringInvoice < Common
 
     invoices.each do |invoice|
       if invoice.save
-        invoice.notify(:invoice_generation)
+        invoice.trigger_event(:invoice_generation)
         begin
           invoice.send_email if invoice.recurring_invoice.sent_by_email
         rescue Exception => e
@@ -125,5 +125,4 @@ class RecurringInvoice < Common
       errors.add(:finishing_date, "The end date must be greater than the start date.")
     end
   end
-
 end

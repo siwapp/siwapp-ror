@@ -101,8 +101,8 @@ class Common < ActiveRecord::Base
                results.meta_attributes_keys)
   end
 
-  # Notifies an event via Wisper
-  def notify(event)
+  # Triggers an event via Wisper
+  def trigger_event(event)
     broadcast(event, self)
   end
 
