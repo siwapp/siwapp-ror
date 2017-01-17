@@ -105,6 +105,8 @@ class RecurringInvoice < Common
         end
       end
     end
+
+    invoices
   end
 
   def self.any_invoices_to_be_built?
