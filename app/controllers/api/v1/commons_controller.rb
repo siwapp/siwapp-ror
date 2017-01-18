@@ -48,8 +48,8 @@ class Api::V1::CommonsController < Api::V1::BaseController
     set_instance instance
     if get_instance.save
       # Check if there is any meta_attribute
-      if params[:data][:attributes][:meta_attributes]
-        instance.set_meta_multi(params[:data][:attributes][:meta_attributes])
+      if params[:data][:meta]
+        instance.set_meta_multi params[:data][:meta]
       end
 
       # TODO(@ecoslado) A cleaner way to create nested objects
@@ -115,10 +115,11 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # PATCH/PUT /commons/1.json
   def update
     instance = get_instance
+
     if params[:data] and instance.update(api_type_params)
-      # Check if there is any meta_attribute
-      if params[:data][:attributes]["meta-attributes"]
-        params[:data][:attributes]["meta-attributes"].each do |key, value|
+      # check for jsonapi compliant meta
+      if params[:data][:meta]
+        params[:data][:meta].each do |key, value|
           instance.set_meta key, value
         end
       end
