@@ -31,7 +31,7 @@ module MetaAttributes
     attributes = {}
     attr_hash.each do |key, value|
       if key != ""
-      	attributes[key] = value
+        attributes[key] = value
       end
     end
     self.meta_attributes = ActiveSupport::JSON.encode(attributes)
