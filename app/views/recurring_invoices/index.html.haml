@@ -1,12 +1,17 @@
 .section-hd
-  %h1 Recurring Invoices
-  - if @customer
-    for
-    =@customer
-  %span.counter
-    (
-    = @count
-    found )
+  %h1
+    - if @customer
+      = "Recurring Invoices for #{@customer}"
+    - else
+      Recurring Invoices
+    %small.text-muted
+      = "(#{@count} found)"
+
+    - if @any_invoices_to_be_built
+      = link_to "Build Pending Invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary m-l-1"
+    - else
+      %span.btn.btn-sm.btn-secondary.m-l-1.disabled Build Pending Invoices
+
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
 #js-section-info.section-summary.collapse
@@ -21,11 +26,6 @@
     %li
       Total Tax
       %span.label.label-default.label-pill.pull-right= display_money @tax
-
-%div
-  = link_to 'Build Pending Invoices', generate_recurring_invoices_path, :method => :post
-  = @get_pendings
-
 
 = form_tag remove_recurring_invoices_path, method: :delete, id: 'js-list-form' do
   %div{data: {role: 'infinite-scroll'}}
@@ -44,5 +44,5 @@
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'Are you sure?', role: 'submit-form', target: '#js-list-form'}

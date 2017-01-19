@@ -46,3 +46,20 @@ input[type="date"].form-control {
   height: 1090px;
   border: 2px solid $gray-lighter;
 }
+
+// To place buttons at the bottom right of the page
+.action-buttons {
+  position: fixed;
+  z-index: 1010;
+  bottom: 1rem;
+  right: 1rem;
+  left: 1rem;
+  text-align: right;
+  margin-bottom: 1rem;
+
+  > {
+    .btn-group, .btn {
+      margin-left: .25rem;
+    }
+  }
+}

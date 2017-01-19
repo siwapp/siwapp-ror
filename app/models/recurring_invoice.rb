@@ -1,8 +1,4 @@
 class RecurringInvoice < Common
-
-  # make this object a publisher
-  include Wisper::Publisher
-
   # Relations
   has_many :invoices
 
@@ -35,58 +31,91 @@ class RecurringInvoice < Common
     "#{name}"
   end
 
+  # Returns the issue date of the next invoice that must be generated
   def next_invoice_date
     self.invoices.length > 0 ? self.invoices.order(:id).last.issue_date + period.send(period_type) : starting_date
   end
 
-  def get_pending_invoices
-    # Returns a list of invoices pending for this RecurringInvoice
-    # how many invoices have been generated so far
+  # Returns the list of issue dates for all pending invoices
+  def next_occurrences
+    result = []
+
     occurrences = Invoice.belonging_to(id).count
-    next_date = next_invoice_date()
-    pending_invoices = []
+    next_date = next_invoice_date
+    max_date = [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min
 
-    while next_date <= [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min and
-        (max_occurrences.nil? or occurrences < max_occurrences) do
-      inv = self.becomes(Invoice).deep_clone include: { items: :taxes}, except: [:period, :period_type, :starting_date, :finishing_date, :max_occurrences]
-
-      inv.recurring_invoice_id = self.id
-      inv.issue_date = next_date
-      inv.due_date = inv.issue_date + days_to_due.days if days_to_due
-      inv.sent_by_email = false
-      inv.meta_attributes = meta_attributes
-
-      inv.items.each do |item|
-        item.description.sub! "$(issue_date)", inv.issue_date.strftime('%Y-%m-%d')
-        item.description.sub! "$(issue_date - period)", (inv.issue_date - period.send(period_type)).strftime('%Y-%m-%d')
-        item.description.sub! "$(issue_date + period)", (inv.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
-       end
-
-      broadcast(:invoice_generation, inv)
-      next_date += period.send period_type
+    while next_date <= max_date and (max_occurrences.nil? or occurrences < max_occurrences) do
+      result.append(next_date)
       occurrences += 1
-      pending_invoices.append inv
+      next_date += period.send period_type
     end
 
-    pending_invoices
+    result
   end
 
-  def self.generate_pending_invoices
-    # Generates and saves all the pending invoices
-    invoices = []  # list of invoices to generate
-    where(:enabled => true).where("starting_date <= ?", Date.current).each \
-        { |r_inv| invoices += r_inv.get_pending_invoices }
+  # Returns a list of (not-yet-saved) pending invoices for this instance.
+  def build_pending_invoices
+    next_occurrences.map do |issue_date|
+      invoice = self.becomes(Invoice).deep_clone(
+        include: {items: :taxes},
+        except: [
+          :period,
+          :period_type,
+          :starting_date,
+          :finishing_date,
+          :max_occurrences
+        ]
+      )
+
+      invoice.recurring_invoice = self
+      # invoice.recurring_invoice_id = id
+      invoice.issue_date = issue_date
+      invoice.due_date = invoice.issue_date + days_to_due.days if days_to_due
+      invoice.sent_by_email = false
+      invoice.meta_attributes = meta_attributes
+
+      invoice.items.each do |item|
+        item.description.sub! "$(issue_date)", invoice.issue_date.strftime('%Y-%m-%d')
+        item.description.sub! "$(issue_date - period)", (invoice.issue_date - period.send(period_type)).strftime('%Y-%m-%d')
+        item.description.sub! "$(issue_date + period)", (invoice.issue_date + period.send(period_type)).strftime('%Y-%m-%d')
+      end
+
+      invoice
+    end
+  end
+
+  # Builds and save ordered (by issue date) all pending invoices for all the
+  # enabled recurring invoices.
+  def self.build_pending_invoices!
+    invoices = []
+
+    where(:enabled => true).where("starting_date <= ?", Date.current).each do |r_inv|
+      invoices += r_inv.build_pending_invoices
+    end
+
     invoices.sort_by!(&:issue_date)
 
-    invoices.each do |inv|
-      if inv.save
-        begin  # silently ignore errors sending emails here
-          inv.send_email if self.find(inv.recurring_invoice_id).sent_by_email
+    invoices.each do |invoice|
+      if invoice.save
+        invoice.trigger_event(:invoice_generation)
+        begin
+          invoice.send_email if invoice.recurring_invoice.sent_by_email
         rescue Exception => e
+          # silently ignore
         end
       end
     end
+
     invoices
+  end
+
+  def self.any_invoices_to_be_built?
+    where(:enabled => true).where("starting_date <= ?", Date.current).each do |r_inv|
+      if r_inv.next_occurrences.length > 0
+        return true
+      end
+    end
+    return false
   end
 
   private
@@ -98,5 +127,4 @@ class RecurringInvoice < Common
       errors.add(:finishing_date, "The end date must be greater than the start date.")
     end
   end
-
 end

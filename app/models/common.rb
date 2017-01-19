@@ -1,4 +1,5 @@
 class Common < ActiveRecord::Base
+  include Wisper::Publisher
   include Util
   include MetaAttributes
 
@@ -98,6 +99,11 @@ class Common < ActiveRecord::Base
   def self.csv(results)
     csv_string(results, self::CSV_FIELDS,
                results.meta_attributes_keys)
+  end
+
+  # Triggers an event via Wisper
+  def trigger_event(event)
+    broadcast(event, self)
   end
 
 

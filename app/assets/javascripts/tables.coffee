@@ -62,7 +62,7 @@ jQuery(document).ready ($) ->
 
   # Hide buttons when we are in invoices and recurring_invoices listing
   if $('#js-list-form').length
-    $('.action-buttons').hide()
+    $('[data-role="action-buttons"]').hide()
 
   $(document)
     # Existing and future table rows with the data-href attribute will act as links
@@ -84,7 +84,7 @@ jQuery(document).ready ($) ->
       checkboxes = table.find(':checkbox[data-role="select-row"]')
       checkboxes_checked = checkboxes.filter(':checked')
       table.find(':checkbox[data-role="select-all-rows"]').prop('checked', checkboxes.length is checkboxes_checked.length)
-      $('.action-buttons').toggle(checkboxes_checked.length > 0)
+      $('[data-role="action-buttons"]').toggle(checkboxes_checked.length > 0)
 
     # manage all rows selection
     .on 'click', ':checkbox[data-role="select-all-rows"]', (e) ->
@@ -93,4 +93,4 @@ jQuery(document).ready ($) ->
       checked = self.is ':checked'
 
       table.find(':checkbox[data-role="select-row"]').prop('checked', checked);
-      $('.action-buttons').toggle(checked)
+      $('[data-role="action-buttons"]').toggle(checked)

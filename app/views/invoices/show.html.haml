@@ -3,7 +3,7 @@
 .row
   .col-lg-6.col-lg-offset-3
     %iframe.invoice-preview{:src => print_invoice_path(@invoice)}
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Back', :back, class: 'btn btn-secondary'
   = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
   = link_to 'Download PDF', print_invoice_path(@invoice) + ".pdf", class: 'btn btn-primary'

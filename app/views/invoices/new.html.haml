@@ -2,6 +2,6 @@
 
 = render partial: 'form', locals: {is_new: true}
 
-.action-buttons
+.action-buttons{"data-role": "action-buttons"}
   = link_to 'Back', :back, class: 'btn btn-secondary'
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save

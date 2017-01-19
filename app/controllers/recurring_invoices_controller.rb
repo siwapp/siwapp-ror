@@ -2,8 +2,13 @@ class RecurringInvoicesController < CommonsController
 
   def generate
     # Generates pending invoices up to today
-    RecurringInvoice.generate_pending_invoices
+    RecurringInvoice.build_pending_invoices!
     redirect_to invoices_url
+  end
+
+  def index
+    @any_invoices_to_be_built = RecurringInvoice.any_invoices_to_be_built?
+    super
   end
 
   # DELETE

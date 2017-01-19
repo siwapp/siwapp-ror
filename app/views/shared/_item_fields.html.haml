@@ -1,41 +1,33 @@
-.invoice-row.js-item
-  = f.hidden_field :id
-  = link_to_remove_association f, {wrapper_class: 'js-item', class: 'destroy-icon'} do
+.invoice-row.invoice-item.js-item
+  .invoice-col.invoice-col--description.form-group
+    = f.label :description
+    = f.text_area :description, class: "form-control", rows: 1, "data-role": "item-description"
+
+  .invoice-col.invoice-col--quantity.form-group
+    = f.label :quantity
+    = f.text_field :quantity, class: "form-control", "data-role": "quantity"
+
+  .invoice-col.invoice-col--amount.form-group
+    = f.label :unitary_cost, 'Price'
+    = f.text_field :unitary_cost, class: "form-control", "data-role": "unitary-cost"
+
+  .invoice-col.invoice-col--discount.form-group
+    = f.label :discount
+    = f.text_field :discount, class: "form-control", "data-role": "discount"
+
+  .invoice-col.invoice-col--taxes.form-group
+    %label
+      Taxes
+      %span{data: {role: 'total'}}
+    = f.collection_select :tax_ids, @taxes, :id, :to_s, is_new ? { selected: @default_taxes_ids} : {}, {class: 'form-control c-select', multiple: true, "data-role": "taxes-selector"}
+
+  .invoice-col.invoice-col--total.form-group
+    = f.label :net_amount, 'Total'
+    %p.form-control-static.js-net-amount= f.object.net_amount
+    = f.hidden_field :net_amount, {data: {role: 'net-amount'}}
+
+  = link_to_remove_association f, {wrapper_class: 'js-item', class: 'destroy-icon hidden-md-down'} do
     %i.material-icons delete
-
-  .row
-    .col-xs-12.col-md-4.col-lg-4
-      .form-group
-        = f.label :description
-        = f.text_area :description, class: "form-control item-description", rows: 1
-
-    .col-xs-12.col-md-4.col-lg-5
-      .row
-        .col-xs-4
-          .form-group
-            = f.label :quantity
-            = f.text_field :quantity, class: 'form-control quantity'
-        .col-xs-4
-          .form-group
-            = f.label :unitary_cost, 'Price'
-            = f.text_field :unitary_cost, class: 'form-control unitary-cost'
-        .col-xs-4
-          .form-group
-            = f.label :discount
-            = f.text_field :discount, class: 'form-control discount'
-
-    .col-xs-12.col-md-4.col-lg-3
-      .row
-        .col-xs-12.col-sm-6
-          .form-group.tax-selector
-            %label
-              Taxes
-              %span{data: {role: 'total'}}
-            .btn-group
-              = f.collection_select :tax_ids, @taxes, :id, :to_s, is_new ? { selected: @default_taxes_ids} : {}, {class: 'form-control c-select taxes-selector', multiple: true}
-
-        .col-xs-12.col-sm-6
-          .form-group.no-margin
-            = f.label :net_amount, 'Total'
-            %p.form-control-static.js-net-amount= f.object.net_amount
-            = f.hidden_field :net_amount, {data: {role: 'net-amount'}}
+  = link_to_remove_association f, {wrapper_class: 'js-item', class: 'btn btn-block btn-danger-outline hidden-lg-up'} do
+    Remove Line
+  = f.hidden_field :id

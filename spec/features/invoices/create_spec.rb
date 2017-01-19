@@ -31,8 +31,8 @@ feature "Invoices:" do
       expect(find_field("Price").value).to eq "10000.0"
 
       # Check that taxes selector works for the default item...
-      within ".tax-selector" do
-        find(".btn-group").find("input").click
+      within ".invoice-col--taxes" do
+        find(".select2").find("input").click
       end
     end
 
@@ -52,8 +52,8 @@ feature "Invoices:" do
       fill_in "Price", with: "50"
 
       # Check that taxes selector works for the new item
-      within ".tax-selector" do
-        find(".btn-group").find("input").click
+      within ".invoice-col--taxes" do
+        find(".select2").find("input").click
       end
     end
 

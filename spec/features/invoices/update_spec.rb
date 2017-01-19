@@ -14,7 +14,7 @@ feature "Invoices:" do
       fill_in "Price", with: "50"
 
       # Display taxes selector
-      within ".tax-selector" do
+      within ".invoice-col--taxes" do
         first(".select2-selection__choice__remove").click
         first(".select2-selection__choice__remove").click
       end
@@ -78,8 +78,8 @@ feature "Invoices:" do
       fill_in "Price", with: "50"
 
       # Display taxes selector
-      within ".tax-selector" do
-        find(".btn-group").find("input").click
+      within ".invoice-col--taxes" do
+        find(".select2").find("input").click
       end
     end
 

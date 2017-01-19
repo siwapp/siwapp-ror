@@ -42,6 +42,8 @@ group :development, :test do
 
   # To start toying with BDD
   gem 'rspec-rails'
+
+  gem 'timecop'
 end
 
 # Access an IRB console on exception pages or by using <%= console %> in views
