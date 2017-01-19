@@ -42,7 +42,7 @@ class RecurringInvoice < Common
 
     occurrences = Invoice.belonging_to(id).count
     next_date = next_invoice_date
-    max_date = [Date.current, finishing_date.blank? ? Date.current + 1.year : finishing_date].min
+    max_date = [Date.current, finishing_date.blank? ? Date.current + 1 : finishing_date].min
 
     while next_date <= max_date and (max_occurrences.nil? or occurrences < max_occurrences) do
       result.append(next_date)
