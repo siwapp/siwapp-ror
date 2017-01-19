@@ -59,22 +59,31 @@ jQuery(document).ready ($) ->
     $(this).closest('nav').find('[data-toggle="collapse"]').not(this).each () ->
       $($(this).data('target')).collapse('hide')
 
+  #
   # DIY Nested Forms: necessary when no model relation
-  $('[data-role="add-item"]').on 'click', (e) ->
+  #
+
+  # Find each "Add X-Thing" button and get the item's template from the last
+  # supposed-to-be-empty item. Configure the event handler so, when clicked,
+  # the button inserts a copy of the template node into the proper container.
+  $('[data-role="add-item"]').each () ->
+    self = $(this)
+
+    insertionNode = self.data("insertion-node")
+    eventData =
+      insertionNode: insertionNode
+      template: $(insertionNode).find('[data-role="new-item"]').last().clone()
+
+    self.on "click", eventData, (e) ->
+      e.preventDefault()
+      e.data.template.clone().appendTo(e.data.insertionNode)
+
+  # Use event delegation to configure X-Thing items so they can be removed when
+  # the proper button is pressed.
+  $('body').on "click", '[data-role="remove-item"]', (e) ->
     e.preventDefault()
-    insertionNode = $(this).data('insertion-node')
-    nested = $(insertionNode).children('.invoice-row').last().clone()
-    nested.find("input").val("")
-
-    $(insertionNode).append(nested)
-
-  $('[data-role="remove-item"]').on 'click', (e) ->
-    e.preventDefault()
-    $this = $(this)
-    wrapper = $this.data("wrapper-class")
-    $(this).parents(".#{wrapper}").remove()
-
-
+    self = $(this)
+    self.closest(".#{self.data("wrapper-class")}").remove()
 
   #
   # Invoice-like Forms
@@ -96,7 +105,10 @@ jQuery(document).ready ($) ->
           return
         # Set the net amount of the item
         item_row = item.parents('.js-item')
-        get_item_amount item_row.find('.quantity').val(), item_row.find('.unitary-cost').val(), item_row.find('.discount').val(), (data) ->
+        quantity = item_row.find('[data-role="quantity"]').val()
+        price = item_row.find('[data-role="unitary-cost"]').val()
+        discount = item_row.find('[data-role="discount"]').val()
+        get_item_amount quantity, price, discount, (data) ->
           net_amount = data.amount
           item_row.find('[data-role="net-amount"]').val(net_amount)
           item_row.find('.js-net-amount').html(net_amount)
@@ -108,7 +120,7 @@ jQuery(document).ready ($) ->
         set_amounts(controller_name, form)
 
     # Find invoice items and init autocomplete
-    form.find(".item-description").each () ->
+    form.find('[data-role="item-description"]').each () ->
       init_invoice_item_autocomplete $(this)
 
     # Set defaults when adding something dynamic to the form with cocoon
@@ -125,8 +137,8 @@ jQuery(document).ready ($) ->
         date_item = item.find 'input[name*=date]'
         date_item.val (new Date).toISOString().substr 0, 10
       else if item.hasClass 'js-item'
-        init_invoice_item_autocomplete item.find('.item-description')
-        item.find('.taxes-selector').trigger('update')
+        init_invoice_item_autocomplete item.find('[data-role="item-description"]')
+        item.find('[data-role="taxes-selector"]').trigger('update')
         autosize item.find('textarea')
 
     # Execute actions when something dynamic is removed from the form
@@ -151,12 +163,12 @@ jQuery(document).ready ($) ->
     }
 
     # Configure Tax Selector behavior
-    $('.taxes-selector').select2()
+    $('[data-role="taxes-selector"]').select2()
     $('#js-items-table').on 'cocoon:after-insert', (e, insertedItem) ->
-      $(insertedItem).find('.taxes-selector').select2()
+      $(insertedItem).find('[data-role="taxes-selector"]').select2()
 
     form
-      .on 'update', '.taxes-selector', () ->
+      .on 'update', '[data-role="taxes-selector"]', () ->
         checked_taxes = $(this).find(':checked')
         label = []
         checked_taxes.each () ->
@@ -165,9 +177,9 @@ jQuery(document).ready ($) ->
         label = if label.length > 0 then label.join(', ') else 'None'
         $(this).find('[data-role="label"]').html(label)
         $(this).find('[data-role="total"]').html(total)
-      .on 'change', '.taxes-selector :checkbox', (e) ->
-        $(this).closest('.taxes-selector').trigger('update')
-      .find('.taxes-selector').trigger('update')
+      .on 'change', '[data-role="taxes-selector"] :checkbox', (e) ->
+        $(this).closest('[data-role="taxes-selector"]').trigger('update')
+      .find('[data-role="taxes-selector"]').trigger('update')
 
   #
   # Action Buttons

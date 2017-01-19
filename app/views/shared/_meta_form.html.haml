@@ -1,31 +1,17 @@
 #js-meta-table.invoice-table
   - instance.meta.each do |key, value|
     .invoice-row.js-meta
-      .row
-        .col-xs-12.col-md-4.col-lg-4
-          .form-group
-            = text_field :key, "", value: key
-
-        .col-xs-12.col-md-4.col-lg-4
-          .form-group
-            = text_field :value, "", value: value
-
-        .col-xs-12.col-md-4.col-lg-4
-          .form-group
-            = link_to raw('<i class="material-icons">delete</i>'), '#', {class: "destroy-icon remove_fields existing", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
-  .invoice-row.js-meta
-    .row
-      .col-xs-12.col-md-4.col-lg-4
-        .form-group
-          = text_field :key, ""
-
-      .col-xs-12.col-md-4.col-lg-4
-        .form-group
-          = text_field :value, ""
-
-      .col-xs-12.col-md-4.col-lg-4
-        .form-group
-          = link_to raw('<i class="material-icons">delete</i>'), '#', {class: "destroy-icon remove_fields existing", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
+      .invoice-col.form-group
+        = text_field :key, "", value: key, class: 'form-control', placeholder: "Key"
+      .invoice-col.invoice-col--description.form-group
+        = text_field :value, "", value: value, class: 'form-control', placeholder: "Value"
+      = link_to raw('<i class="material-icons">delete</i>'), '#', {class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
+  .invoice-row.js-meta{"data-role": "new-item"}
+    .invoice-col.form-group
+      = text_field :key, "", class: 'form-control', placeholder: "Key"
+    .invoice-col.invoice-col--description.form-group
+      = text_field :value, "", class: 'form-control', placeholder: "Value"
+    = link_to raw('<i class="material-icons">delete</i>'), '#', {class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
 
 .invoice-table-actions
   = link_to 'Add Attribute',"#", {class: "btn btn-secondary", "data-insertion-node": "#js-meta-table", "data-role": "add-item"}

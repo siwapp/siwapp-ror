@@ -1,18 +1,16 @@
-.invoice-row.js-payment
-  = f.hidden_field :id
-  = link_to_remove_association f, {wrapper_class: 'js-payment', class: 'destroy-icon'} do
-    %i.material-icons delete
-  .row
+.invoice-row.invoice-payment.js-payment
+  .invoice-col.form-group
+    = f.label :date
+    = f.date_field :date, class: 'form-control'
+  .invoice-col.invoice-col--description.form-group
+    = f.label :notes
+    = f.text_area :notes, class: "form-control", rows: 1
+  .invoice-col.invoice-col--amount.form-group
+    = f.label :amount
+    = f.text_field :amount, class: 'form-control'
 
-    .col-xs-12.col-sm-6.col-md-3
-      .form-group
-        = f.label :date
-        = f.date_field :date, class: 'form-control'
-    .col-xs-12.col-sm-12.col-md-7
-      .form-group
-        = f.label :notes
-        = f.text_area :notes, class: "form-control item-description", rows: 1
-    .col-xs-12.col-sm-6.col-md-2
-      .form-group
-        = f.label :amount
-        = f.text_field :amount, class: 'form-control'
+  = link_to_remove_association f, {wrapper_class: 'js-payment', class: 'destroy-icon hidden-md-down'} do
+    %i.material-icons delete
+  = link_to_remove_association f, {wrapper_class: 'js-payment', class: 'btn btn-block btn-danger-outline hidden-lg-up'} do
+    Remove Payment
+  = f.hidden_field :id
