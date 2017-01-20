@@ -141,6 +141,10 @@ jQuery(document).ready ($) ->
         item.find('[data-role="taxes-selector"]').trigger('update')
         autosize item.find('textarea')
 
+    # UX for taxes-selector labels
+    form.on 'click', '[data-role="taxes-selector-label"]', (e) ->
+      $(this).closest('.js-item').find('.select2-search__field').click()
+
     # Execute actions when something dynamic is removed from the form
     # with cocoon
     form.on 'cocoon:before-remove', (e, item) ->
