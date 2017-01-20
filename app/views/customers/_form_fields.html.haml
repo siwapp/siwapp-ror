@@ -1,39 +1,43 @@
 .row
-  .col-sm-9
-    .form-group
-      = f.label :name
-      = f.text_field :name, class: 'form-control'
-  .col-sm-3
-    .form-group
-      = f.label :identification, "VAT ID"
-      = f.text_field :identification, class: 'form-control'
+  .col-xs-12.col-xl-8
+    .row
+      .col-md-6
+        .form-group
+          = f.label :name
+          = f.text_field :name, class: 'form-control'
+      .col-md-6
+        .form-group
+          = f.label :identification, "VAT ID"
+          = f.text_field :identification, class: 'form-control'
 
-.row
-  .col-sm-6
-    .form-group
-      = f.label :contact_person, "Contact Person"
-      = f.text_field :contact_person, class: 'form-control'
-  .col-sm-6
-    .form-group
-      = f.label :email
-      = f.email_field :email, class: 'form-control'
+    .row
+      .col-md-6
+        .form-group
+          = f.label :contact_person, "Contact Person"
+          = f.text_field :contact_person, class: 'form-control'
+      .col-md-6
+        .form-group
+          = f.label :email
+          = f.email_field :email, class: 'form-control'
 
-.row
-  .col-xs-12.col-md-6.col-xl-3
-    .form-group
-      = f.label :invoicing_address, "Invoicing Address"
-      = f.text_area :invoicing_address, class: 'form-control autosize', "data-address": "invoice"
-  .col-xs-12.col-md-6.col-xl-3
-    .form-group
-      = f.label :shipping_address, "Shipping Address"
-      = link_to "Copy Invoicing Address", "#", "id": "js-copy-address", "class": "label-small-link"
-      = f.text_area :shipping_address, class: 'form-control autosize', "data-address": "shipping"
-  - unless f.object_name == 'customer'
-    .col-xs-12.col-md-6.col-xl-3
-      .form-group
-        = f.label :terms, "Legal Terms and Conditions"
-        = f.text_area :terms, class: 'form-control autosize'
-    .col-xs-12.col-md-6.col-xl-3
-      .form-group
-        = f.label :terms, "Notes"
-        = f.text_area :notes, class: 'form-control autosize'
+    .row
+      .col-md-6
+        .form-group
+          = f.label :invoicing_address, "Invoicing Address"
+          = f.text_area :invoicing_address, class: 'form-control autosize', "data-address": "invoice"
+      .col-md-6
+        .form-group
+          = f.label :shipping_address, "Shipping Address"
+          = link_to "Copy Invoicing Address", "#", "id": "js-copy-address", "class": "label-small-link"
+          = f.text_area :shipping_address, class: 'form-control autosize', "data-address": "shipping"
+
+    - unless f.object_name == 'customer'
+      .row
+        .col-md-6
+          .form-group
+            = f.label :terms, "Legal Terms and Conditions"
+            = f.text_area :terms, class: 'form-control autosize'
+        .col-md-6
+          .form-group
+            = f.label :notes, "Notes"
+            = f.text_area :notes, class: 'form-control autosize'

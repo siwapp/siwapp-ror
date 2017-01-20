@@ -16,7 +16,7 @@
     = f.text_field :discount, class: "form-control", "data-role": "discount"
 
   .invoice-col.invoice-col--taxes.form-group
-    %label
+    %label{"data-role": "taxes-selector-label"}
       Taxes
       %span{data: {role: 'total'}}
     = f.collection_select :tax_ids, @taxes, :id, :to_s, is_new ? { selected: @default_taxes_ids} : {}, {class: 'form-control c-select', multiple: true, "data-role": "taxes-selector"}

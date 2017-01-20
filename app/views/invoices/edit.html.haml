@@ -1,6 +1,3 @@
-%h1
-  = @invoice
-
 = render partial: 'form', locals: { is_new: false }
 
 .action-buttons{"data-role": "action-buttons"}
@@ -21,4 +18,3 @@
   = link_to 'Download PDF', print_invoice_path + '.pdf', class: 'btn btn-primary hidden-sm-down'
 
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
-

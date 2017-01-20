@@ -9,6 +9,21 @@
         - @invoice.errors.full_messages.each do |message|
           %li= message
 
+  .m-b-2
+    %h1.m-b-0
+      - if @invoice.new_record?
+        New Invoice
+      - else
+        = @invoice
+        - if @invoice.failed
+          %small.text-muted (Payment failed)
+
+    - if @invoice.new_record? or @invoice.draft
+      .checkbox
+        %label
+          = f.check_box :draft
+          Save this invoice as draft
+
   %fieldset.m-b-2
     %legend.m-b-1 Customer
     = render partial: 'customers/form_fields', locals: {f: f}
@@ -18,18 +33,17 @@
     %legend.m-b-1 Invoice details
 
     .row
-      .col-xs-12.col-lg-8
+      .col-xs-12.col-xl-8
         .row
           .col-xs-12.col-sm-6
             .form-group
-              = f.label :series
+              = f.label :series_id
               = f.collection_select :series_id, @series, :id, :to_s, is_new ? { selected: @default_series_id} : {}, {multiple: false, class: 'form-control c-select'}
           .col-xs-12.col-sm-6
             .form-group
               = f.label :number
               = f.text_field :number, {class: 'form-control'}
-    .row
-      .col-xs-12.col-lg-8
+
         .row
           .col-xs-12.col-sm-6
             .form-group
@@ -40,8 +54,7 @@
               = f.label :due_date
               - due_date = @days_to_due.days > 0 ? Date.current() + @days_to_due.days : ''
               = f.date_field :due_date,  is_new ? { class: 'form-control', value: due_date} : { class: 'form-control' }
-    .row
-      .col-xs-12.col-lg-8
+
         .row
           .col-xs-12.col-sm-6
             .form-group
@@ -66,7 +79,12 @@
         = link_to_add_association 'Add Payment', f, :payments,    |
           'data-association-insertion-node' => '#js-payments-table', |
           'data-association-insertion-method' => 'append',        |
-          :class => 'btn btn-secondary'                           |
+          :class => 'btn btn-secondary'
+        - if not @invoice.new_record? and not @invoice.draft
+          .checkbox.checkbox-inline
+            %label
+              = f.check_box :failed
+              Payment collection failed
 
   %fieldset.m-b-2
     %legend.m-b-1 Tags
@@ -75,14 +93,3 @@
   %fieldset.m-b-2
     %legend.m-b-1 Meta Attributes
     = render partial: 'shared/meta_form', locals: {f: f, instance: @invoice}
-
-  - if @invoice.new_record? or @invoice.draft
-    .checkbox
-      %label
-        = f.check_box :draft
-        Draft
-  - else
-    .checkbox
-      %label
-        = f.check_box :failed
-        Failed

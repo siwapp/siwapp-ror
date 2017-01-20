@@ -12,43 +12,63 @@
   %fieldset.m-b-2
     %legend.m-b-1 Customer
     = render partial: 'customers/form_fields', locals: {f: f}
-
     = f.hidden_field :customer_id
 
   %fieldset.m-b-2
     %legend.m-b-1 Configuration
 
-    .form-group
-      = f.label :enabled, 'Enabled'
-      = f.check_box :enabled
-    .form-group
-      = f.label :days_to_due
-      = f.number_field :days_to_due, class: 'form-control'
-    .form-group
-      = f.label :starting_date
-      = f.date_field :starting_date, class: 'form-control'
-    .form-group
-      = f.label :finishing_date
-      = f.date_field :finishing_date, class: 'form-control'
-    .form-group
-      = f.label :max_occurrences
-      = f.number_field :max_occurrences, class: 'form-control'
-    .form-group
-      = f.label :period
-      = f.number_field :period, class: 'form-control'
-    .form-group
-      = f.label :period_type
-      = f.select :period_type, RecurringInvoice::PERIOD_TYPES, {}, {class: 'form-control c-select'}
-    .form-group
-      = f.label :sent_by_email, 'Send Email'
-      = f.check_box :sent_by_email
+    .row
+      .col-xs-12.col-xl-8
+        .m-b-2
+          .checkbox
+            %label
+              = f.check_box :enabled
+              Enable this recurring invoice
+          .checkbox
+            %label
+              = f.check_box :sent_by_email
+              Automatically send generated invoices by email
+
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :starting_date
+              = f.date_field :starting_date, class: 'form-control'
+          .col-sm-6
+            .form-group
+              = f.label :finishing_date
+              = f.date_field :finishing_date, class: 'form-control'
+
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :period
+              = f.number_field :period, class: 'form-control'
+          .col-sm-6
+            .form-group
+              = f.label :period_type
+              = f.select :period_type, RecurringInvoice::PERIOD_TYPES, {}, {class: 'form-control c-select'}
+
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :max_occurrences
+              = f.number_field :max_occurrences, class: 'form-control'
 
   %fieldset.m-b-2{"data-changes" => "amount"}
     %legend.m-b-1 Invoice details
+    .row
+      .col-xs-12.col-xl-8
+        .row
+          .col-sm-6
+            .form-group
+              = f.label :series
+              = f.collection_select :series_id, @series, :id, :to_s, {}, {class: 'form-control c-select'}
+          .col-sm-6
+            .form-group
+              = f.label :days_to_due
+              = f.number_field :days_to_due, class: 'form-control'
 
-    .form-group
-      = f.label :series
-      = f.collection_select :series_id, @series, :id, :to_s, {}, {class: 'form-control c-select'}
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice, is_new: is_new}
 
   %fieldset.m-b-2

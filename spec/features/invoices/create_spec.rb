@@ -32,7 +32,7 @@ feature "Invoices:" do
 
       # Check that taxes selector works for the default item...
       within ".invoice-col--taxes" do
-        find(".select2").find("input").click
+        find("label").click
       end
     end
 
@@ -53,7 +53,7 @@ feature "Invoices:" do
 
       # Check that taxes selector works for the new item
       within ".invoice-col--taxes" do
-        find(".select2").find("input").click
+        find("label").click
       end
     end
 
