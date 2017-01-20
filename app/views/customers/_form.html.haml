@@ -8,10 +8,17 @@
         - @customer.errors.full_messages.each do |message|
           %li= message
 
-  %fieldset.m-b-2
-    .form-group
-      = f.label :active, 'Active Customer'
-      = f.check_box :active
+  .m-b-2
+    %h1.m-b-0
+      - if @customer.new_record?
+        New Customer
+      - else
+        = @customer
+    .checkbox
+      %label
+        = f.check_box :active
+        This customer is active
+
     = render partial: 'customers/form_fields', locals: {f: f}
 
   %fieldset.m-b-2
