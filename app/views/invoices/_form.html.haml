@@ -33,7 +33,7 @@
     %legend.m-b-1 Invoice details
 
     .row
-      .col-xs-12.col-lg-8
+      .col-xs-12.col-xl-8
         .row
           .col-xs-12.col-sm-6
             .form-group
@@ -43,8 +43,7 @@
             .form-group
               = f.label :number
               = f.text_field :number, {class: 'form-control'}
-    .row
-      .col-xs-12.col-lg-8
+
         .row
           .col-xs-12.col-sm-6
             .form-group
@@ -55,8 +54,7 @@
               = f.label :due_date
               - due_date = @days_to_due.days > 0 ? Date.current() + @days_to_due.days : ''
               = f.date_field :due_date,  is_new ? { class: 'form-control', value: due_date} : { class: 'form-control' }
-    .row
-      .col-xs-12.col-lg-8
+
         .row
           .col-xs-12.col-sm-6
             .form-group
