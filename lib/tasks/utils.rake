@@ -36,7 +36,32 @@ namespace :siwapp do
       user = User.new(u); user.save!
       puts "user: " + u.to_s
       puts "account created."
-      exit 0
     end
   end
+
+  namespace :demo do
+    desc 'Deletes all data and puts some demo data.'
+    task :setup, [:noinput] => :environment do |t, args|
+      args.with_defaults(:noinput => false)
+      def setup_demo
+        Rake::Task['db:drop'].invoke
+        Rake::Task['db:setup'].invoke
+        Rake::Task['db:seed'].invoke
+        Rake::Task['siwapp:random:all'].invoke
+        Rake::Task['siwapp:user:create'].invoke('demo', 'demo@example.com', 'secret')
+      end
+      if args[:noinput] == "noinput"
+        setup_demo
+      else
+        puts "\n This will remove all data in database. Are you sure? [y/N]"
+        answer = STDIN.gets.chomp
+        if answer == "y"
+          setup_demo
+        else
+          puts "Coward!"
+        end
+      end
+    end
+  end
+
 end
