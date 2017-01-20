@@ -184,6 +184,12 @@
     @include media-breakpoint-up(sm) {
       display: inline-block;
     }
+
+    + .checkbox-inline {
+      display: block;
+      padding-left: 0;
+      margin-top: 1rem;
+    }
   }
 }
 
