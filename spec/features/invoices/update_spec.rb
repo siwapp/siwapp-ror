@@ -79,7 +79,7 @@ feature "Invoices:" do
 
       # Display taxes selector
       within ".invoice-col--taxes" do
-        find(".select2").find("input").click
+        find("label").click
       end
     end
 
