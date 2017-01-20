@@ -7,49 +7,36 @@ Online Invoice Management
 [API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md)
 
 ## Howto Install on Heroku
-First create a new App in your [heroku](http://www.heroku.com) account.
-Create a directory on your local computer and log in to your heroku account:
 
-    $ heroku login
-
-Now clone the siwapp repository:
+First clone the siwapp repository into your computer:
 
     $ git clone git@github.com:siwapp/siwapp.git
     $ cd siwapp
 
-Add a remote repository:
+Create the app in heroku (we suppose in the terminal your are logged
+in heroku). Here we call the app "siwapp-demo", but choose whatever
+you like.
 
-    $ heroku git:remote -a your-app-name
+    $ heroku apps:create siwapp-demo
+    $ heroku apps:create --region eu --buildpack heroku/ruby siwapp-demo
+    $ heroku addons:create heroku-postgresql
+    $ heroku addons:create scheduler:standard
 
-Probably you should remove first the postgresql addon, and then create a mysql:
+Push the code to heroku, and setup database.
 
-    $ heroku addons:destroy heroku-postgresql
-    $ heroku addons:create cleardb:ignite
-    $ heroku config | grep CLEARDB_DATABASE_URL
-
-The last commands gives you the DATABASE_URL, which you should set with the following command.
-Notice you must change mysql to mysql2
-
-    $ heroku config:set DATABASE_URL='mysql2://adffdadf2341:adf4234@us-cdbr-east.cleardb.com/heroku_db?reconnect=true'
-
-Push the code to heroku:
-
-    $ git push heroku master
-
-Setup database:
-
+    $ git push heroku
     $ heroku run rake db:setup
 
-Create an user to log in:
+Finally create an user to be able to login into the app.
 
-    $ heroku run rake siwapp:user:create['myuser','myemail@mydomain.com','mypassword']
+    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret']"
 
-Finally if you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
+If you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
 
-    $ heroku addons:create scheduler:standard
     $ heroku addons:open scheduler
 
 Add a new job, and put "rake siwapp:generate_invoices"
 
 That's it! You can enjoy siwapp now entering on your heroku app url.
 
+    $ heroku apps:open
