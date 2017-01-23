@@ -21,17 +21,11 @@ module MetaAttributes
     end
   end
 
-  def delete_meta(key)
-    attr_hash = self.meta
-    attr_hash.delete key
-    set_meta_multi attr_hash
-  end
-
   def set_meta_multi(attr_hash)
     attributes = {}
     attr_hash.each do |key, value|
       if key != ""
-        attributes[key] = value
+      	attributes[key] = value
       end
     end
     self.meta_attributes = ActiveSupport::JSON.encode(attributes)

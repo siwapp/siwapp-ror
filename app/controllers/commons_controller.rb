@@ -1,7 +1,7 @@
 class CommonsController < ApplicationController
   include StiHelper
-  include CommonsControllerMixin
-  include MetaAttributesControllerMixin
+  include CommonsHelper
+  include MetaAttributesController
 
   before_action :set_type
   before_action :configure_search, only: [:index, :chart_data]

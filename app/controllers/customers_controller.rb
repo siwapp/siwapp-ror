@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  include MetaAttributesControllerMixin
+  include MetaAttributesController
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]

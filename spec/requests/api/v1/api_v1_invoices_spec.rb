@@ -70,23 +70,17 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       inv = {
         "data" => {
           "attributes" => {
-            "name" => "newly created",
-            "email" => "test@email.com",
-            "issue_date" => "2016-06-06",
-            "series_id" => @invoice.series.id
-          },
-          "meta" => {
-            "m1" => "mv1"
-          }
+          "name" => "newly created",
+          "email" => "test@email.com",
+          "issue_date" => "2016-06-06",
+          "series_id" => @invoice.series.id
         }
+      }
       }
       post api_v1_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201 # created resource
       expect(json["data"]["attributes"]["name"]).to eql "newly created"
-      expect(json['data']['meta']['m1']).to eql 'mv1'
-      i = Invoice.find(json['data']['id'])
-      expect(i.name).to eql "newly created"
-      expect(i.get_meta 'm1').to eql 'mv1'
+      expect(Invoice.find(json["data"]["id"]).name).to eql "newly created"
     end
 
     it "can create invoice along with items and payments" do
@@ -155,20 +149,9 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
   describe "Invoice updating" do
 
     it "basic invoice updating" do
-      uhash = {
-        'data': {
-          'attributes': {
-            'name': 'modified'
-          },
-          'meta': {
-            'm1': 'mvvv1'
-          }
-        }
-      }
-      put api_v1_invoice_path(@invoice), uhash.to_json, @headers
+      put api_v1_invoice_path(@invoice), {"data":{"attributes": {"name": "modified"}}}.to_json, @headers
       expect(response.status).to eql 200
       expect(json["data"]["attributes"]["name"]).to eql "modified"
-      expect(Invoice.find(@invoice.id).get_meta('m1')).to eql 'mvvv1'
     end
 
   end

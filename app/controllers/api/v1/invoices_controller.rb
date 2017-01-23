@@ -1,6 +1,6 @@
 class Api::V1::InvoicesController < Api::V1::CommonsController
 
-  include CommonsControllerMixin
+  include CommonsHelper
 
   set_pagination_headers :invoices, only: [:index]
 

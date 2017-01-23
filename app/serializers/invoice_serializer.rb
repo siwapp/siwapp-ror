@@ -2,21 +2,14 @@ class InvoiceSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   #include ActiveModel::Serialization
 
-  attributes :id, :number, :series_id, :issue_date,
+  attributes :id, :number, :series_id, :issue_date, 
     :due_date,  :days_to_due, :number,
-    :customer_id, :identification, :name,
+    :customer_id, :identification, :name, 
     :email, :contact_person, :invoicing_address,
-    :shipping_address, :terms, :notes, :draft,
-    :tag_list, :download_link,
+    :shipping_address, :terms, :notes, :draft, 
+    :tag_list, :meta_attributes, :download_link, 
     :net_amount, :gross_amount, :taxes, :status,
     :sent_by_email
-
-  meta do |serializer|
-    if object.meta_attributes
-      ActiveSupport::JSON.decode(object.meta_attributes)
-    end
-  end
-
   belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id
@@ -32,6 +25,12 @@ class InvoiceSerializer < ActiveModel::Serializer
 
   def status
     object.get_status
+  end
+
+  def meta_attributes
+    if object.meta_attributes
+      return ActiveSupport::JSON.decode(object.meta_attributes)
+    end
   end
 
   def download_link

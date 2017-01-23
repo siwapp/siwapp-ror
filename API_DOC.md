@@ -68,10 +68,6 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
 
             },
 
-            "meta": {
-                "custom_payment": true
-            },
-
             "relationships": {
                 "items": {
                     "data": [
@@ -233,11 +229,6 @@ Content-Type: application/json
             "...": "..."
         },
 
-        "meta": {
-            "issued_by": "John Smith",
-            "non_refundable": true
-        },
-
         "relationships": {
             "items": {
                 "data": [{
@@ -282,7 +273,7 @@ Content-Type: application/json
             "name": "Acme",
             "series_id": "3",
             "...": "..."
-        }
+        }        
     }
 }
 ````

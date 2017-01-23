@@ -1,4 +1,4 @@
-module MetaAttributesControllerMixin
+module MetaAttributesController
 	def set_meta(instance)
 	  attributes = {}
     if params[:key] and params[:value]

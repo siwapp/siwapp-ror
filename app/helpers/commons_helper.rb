@@ -1,4 +1,4 @@
-module CommonsControllerMixin
+module CommonsHelper
 
 
   protected
