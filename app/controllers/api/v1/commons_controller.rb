@@ -121,7 +121,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
       if params[:data][:meta]
         meta = instance.meta
         params[:data][:meta].each do |key, value|
-          value.nil? ? meta.delete(key) : meta[key] = value
+          meta[key] = value
         end
         instance.set_meta_multi meta
       end
