@@ -8,12 +8,14 @@ FactoryGirl.define do
       name "Print Default"
       template "PDF Template"
       print_default true
+      email_default false
     end
 
     factory :email_template do
       name "Email Default"
       template "Email Template"
       email_default true
+      print_default false
     end
   end
 end

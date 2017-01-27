@@ -4,7 +4,12 @@ script: "bin/rake spec"
 sudo: required
 dist: trusty
 
+services:
+  - postgresql
+
 before_install:
+  - psql -c 'create database siwapp_test;' -U postgres
+  - cp config/database.yml.travis config/database.yml
   - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   - export DISPLAY=:99.0

@@ -6,6 +6,8 @@ networks:
 services:
   db:
     image: postgres
+    ports:
+      - '5432:5432'
   web:
     build: .
     image: siwapp/siwapp

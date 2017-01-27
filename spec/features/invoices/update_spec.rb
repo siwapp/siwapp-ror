@@ -49,7 +49,7 @@ feature "Invoices:" do
     invoice.reload
 
     expect(invoice.tag_list.length).to eql 2
-    expect(invoice.tag_list).to eq %w(Projects Web)
+    expect(invoice.tag_list).to eq %w(Web Projects)
     expect(invoice.get_meta("code")).to eq "AREA51"
     expect(invoice.get_meta("discount")).to eq "0"
   end
