@@ -1,10 +1,19 @@
 version: '2'
+networks:
+  front:
+    external:
+      name: doofinder_front
 services:
   db:
     image: postgres
   web:
     build: .
     image: siwapp/siwapp
+    networks:
+      default:
+      front:
+        aliases:
+          - siwapp
     volumes:
       - .:/app
     command: [rails, server, -b, '0.0.0.0']
