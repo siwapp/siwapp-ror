@@ -24,7 +24,7 @@ class Customer < ActiveRecord::Base
 
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
-    where('name LIKE :terms OR email LIKE :terms OR identification LIKE :terms', terms: '%' + terms + '%')
+    where('name ILIKE :terms OR email ILIKE :terms OR identification ILIKE :terms', terms: '%' + terms + '%')
   }
 
   scope :only_active, ->(boolean = true) {

@@ -21,7 +21,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
     if params[:meta]
       conditions = []
       params[:meta].each do |key, value|
-        conditions.push("meta_attributes like '%\"#{key}\":\"#{value}\"%'")
+        conditions.push("meta_attributes ilike '%\"#{key}\":\"#{value}\"%'")
       end
       results = @search.result(distinct: true)
         .where(conditions.join(" and ")).order(issue_date: :desc).order(id: :desc)
