@@ -86,7 +86,7 @@ class CustomersController < ApplicationController
   # GET /customers/autocomplete.json
   # View to get the customer autocomplete feature editing invoices.
   def autocomplete
-    @customers = Customer.order(:name).where("name LIKE ? and active = ?", "%#{params[:term]}%", true)
+    @customers = Customer.order(:name).where("name ILIKE ? and active = ?", "%#{params[:term]}%", true)
     respond_to do |format|
       format.json
     end

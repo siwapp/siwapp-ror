@@ -41,9 +41,9 @@ class CommonsController < ApplicationController
       params[:meta].split(',').each do |condition_string|
         condition_list = condition_string.split ':'
         if condition_list.length == 1
-          conditions.push("meta_attributes like '%#{condition_list[0]}%'")
+          conditions.push("meta_attributes ilike '%#{condition_list[0]}%'")
         elsif condition_list.length == 2
-          conditions.push("meta_attributes like '%\"#{condition_list[0]}\":\"#{condition_list[1]}\"%'")
+          conditions.push("meta_attributes ilike '%\"#{condition_list[0]}\":\"#{condition_list[1]}\"%'")
         end
       end
       results = results.where(conditions.join(" and "))
@@ -55,7 +55,7 @@ class CommonsController < ApplicationController
       @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
     end
     results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
-    
+
     @gross = results.sum :gross_amount
     @net = results.sum :net_amount
     @count = results.count
