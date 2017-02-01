@@ -1,25 +1,29 @@
-version: '2'
 networks:
   front:
     external:
-      name: doofinder_front
+      name: front
 services:
   db:
     image: postgres
     ports:
-      - '5432:5432'
+    - 5432:5432
   web:
     build: .
+    command:
+    - rails
+    - server
+    - -b
+    - 0.0.0.0
+    depends_on:
+      - db
     image: siwapp/siwapp
     networks:
       default:
       front:
         aliases:
-          - siwapp
+        - siwapp
+    ports:
+    - 3000:3000
     volumes:
       - .:/app
-    command: [rails, server, -b, '0.0.0.0']
-    ports:
-      - '3000:3000'
-    depends_on:
-      - db
+version: '2.0'
