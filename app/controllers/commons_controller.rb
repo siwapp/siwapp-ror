@@ -143,7 +143,7 @@ class CommonsController < ApplicationController
       if instance.update(type_params)
         # Redirect to index
         if session[:redirect_to]
-          format.html { redirect_to session[:redirect_to], notice: "#{type_label} was successfully updated." }
+          format.html { redirect_to session.delete(:redirect_to), notice: "#{type_label} was successfully updated." }
         else
           format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
         end

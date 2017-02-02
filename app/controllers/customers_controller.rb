@@ -68,7 +68,7 @@ class CustomersController < ApplicationController
         set_meta @customer
         # Redirect to index
         if session[:redirect_to]
-          format.html { redirect_to session[:redirect_to], notice: "Customer was successfully updated." }
+          format.html { redirect_to session.delete(:redirect_to), notice: "Customer was successfully updated." }
         else
           format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
         end
