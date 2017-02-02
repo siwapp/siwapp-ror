@@ -1,0 +1,16 @@
+.select2-container--bs4 {
+  @extend .form-control;
+  @extend .c-select;
+
+  .select2-selection--single {
+    height: auto;
+
+    .select2-selection__rendered {
+      padding-left: 0;
+    }
+  }
+}
+
+input[type="date"].form-control {
+  max-height: 38px;
+}
