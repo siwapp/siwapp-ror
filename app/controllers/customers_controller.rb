@@ -7,6 +7,8 @@ class CustomersController < ApplicationController
 
   # GET /customers
   def index
+    # To redirect to the index with the current search params
+    session[:redirect_to] = request.original_fullpath
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @search_filters = true
@@ -64,7 +66,12 @@ class CustomersController < ApplicationController
     respond_to do |format|
       if @customer.update(customer_params)
         set_meta @customer
-        format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
+        # Redirect to index
+        if session[:redirect_to]
+          format.html { redirect_to session[:redirect_to], notice: "Customer was successfully updated." }
+        else
+          format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
+        end
       else
         format.html { render :edit }
       end

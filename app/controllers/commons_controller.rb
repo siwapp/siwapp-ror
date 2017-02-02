@@ -29,6 +29,8 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer
   def index
+    # To redirect to the index with the current search params
+    session[:redirect_to] = request.original_fullpath
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true).order(issue_date: :desc).order(id: :desc)
     # If there is meta param, it's allowed filtering by meta_attributes
@@ -140,7 +142,11 @@ class CommonsController < ApplicationController
       set_meta instance
       if instance.update(type_params)
         # Redirect to index
-        format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
+        if session[:redirect_to]
+          format.html { redirect_to session[:redirect_to], notice: "#{type_label} was successfully updated." }
+        else
+          format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
+        end
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }
