@@ -1,4 +1,7 @@
 module ApplicationHelper
+  include StiHelper
+
+  
   def title(*parts)
     unless parts.empty?
       content_for :title do
@@ -23,6 +26,18 @@ module ApplicationHelper
     number_to_currency amount, precision: currency.exponent, unit: currency.symbol,
     separator: currency.separator, delimiter: currency.delimiter, format: format,
     negative_format: "(#{format})"
+  end
+
+  def set_redirect_address(address, type)
+    session[:redirect_to] = {address: address, type: type}
+  end
+
+  def redirect_address(type)
+    if session[:redirect_to] && session[:redirect_to]["type"] == type
+      return session[:redirect_to]["address"] 
+    else
+      return sti_path(type)
+    end
   end
 
 end

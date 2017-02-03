@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   include MetaAttributesControllerMixin
+  include ApplicationHelper
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
@@ -8,7 +9,7 @@ class CustomersController < ApplicationController
   # GET /customers
   def index
     # To redirect to the index with the current search params
-    session[:redirect_to] = request.original_fullpath
+    set_redirect_address(request.original_fullpath, "customers")
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @search_filters = true
@@ -53,7 +54,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to customers_path, notice: 'Customer was successfully created.' }
+        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully created.' }
       else
         format.html { render :new }
       end
@@ -67,11 +68,7 @@ class CustomersController < ApplicationController
       if @customer.update(customer_params)
         set_meta @customer
         # Redirect to index
-        if session[:redirect_to]
-          format.html { redirect_to session.delete(:redirect_to), notice: "Customer was successfully updated." }
-        else
-          format.html { redirect_to customers_path, notice: 'Customer was successfully updated.' }
-        end
+        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully updated.' }
       else
         format.html { render :edit }
       end
@@ -83,7 +80,7 @@ class CustomersController < ApplicationController
   def destroy
     respond_to do |format|
       if @customer.destroy
-        format.html { redirect_to customers_path, notice: 'Customer was successfully destroyed.' }
+        format.html { redirect_to redirect_address("customers"), notice: 'Customer was successfully destroyed.' }
       else
         format.html { render :edit }
       end

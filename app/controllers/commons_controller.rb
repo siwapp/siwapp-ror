@@ -1,5 +1,6 @@
 class CommonsController < ApplicationController
   include StiHelper
+  include ApplicationHelper
   include CommonsControllerMixin
   include MetaAttributesControllerMixin
 
@@ -30,7 +31,7 @@ class CommonsController < ApplicationController
   # GET /customers/:customer_id/commons --> filter by customer
   def index
     # To redirect to the index with the current search params
-    session[:redirect_to] = request.original_fullpath
+    set_redirect_address(request.original_fullpath, @type)
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
     results = @search.result(distinct: true).order(issue_date: :desc).order(id: :desc)
     # If there is meta param, it's allowed filtering by meta_attributes
@@ -115,7 +116,7 @@ class CommonsController < ApplicationController
 
       if get_instance.save
         set_meta get_instance
-        format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully created." }
+        format.html { redirect_to redirect_address(@type), notice: "#{type_label} was successfully created." }
       else
         flash[:alert] = "#{type_label} has not been created."
         format.html { render sti_template(@type, :new) }
@@ -142,11 +143,8 @@ class CommonsController < ApplicationController
       set_meta instance
       if instance.update(type_params)
         # Redirect to index
-        if session[:redirect_to]
-          format.html { redirect_to session.delete(:redirect_to), notice: "#{type_label} was successfully updated." }
-        else
-          format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully updated." }
-        end
+        format.html { redirect_to redirect_address(@type), notice: "#{type_label} was successfully updated." }
+        
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }
@@ -159,7 +157,7 @@ class CommonsController < ApplicationController
   def destroy
     get_instance.destroy
     respond_to do |format|
-      format.html { redirect_to sti_path(@type), notice: "#{type_label} was successfully destroyed." }
+      format.html { redirect_to redirect_address(@type), notice: "#{type_label} was successfully destroyed." }
     end
   end
 
