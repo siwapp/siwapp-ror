@@ -219,3 +219,10 @@ jQuery(document).ready ($) ->
 
   sectionInfo.on 'hide.bs.collapse', (e) ->
     sectionInfoButton.removeClass('toggled')
+
+  #
+  # Search
+  #
+
+  $('[data-role="select-autocomplete"]').select2
+    theme: "bs4"

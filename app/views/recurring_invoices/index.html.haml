@@ -8,9 +8,9 @@
       = "(#{@count} found)"
 
     - if @any_invoices_to_be_built
-      = link_to "Build Pending Invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary m-l-1"
+      = link_to "Build Pending Invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
     - else
-      %span.btn.btn-sm.btn-secondary.m-l-1.disabled Build Pending Invoices
+      %span.btn.btn-sm.btn-secondary.disabled Build Pending Invoices
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
