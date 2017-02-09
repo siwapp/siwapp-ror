@@ -14,7 +14,7 @@ class Common < ActiveRecord::Base
   belongs_to :series
   belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
   belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
-  has_many :items, autosave: true, dependent: :destroy
+  has_many :items, -> {order(id: :asc)}, autosave: true, dependent: :destroy
   accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
 
   # Validations
@@ -25,8 +25,8 @@ class Common < ActiveRecord::Base
              message: "Only valid emails"}, allow_blank: true
 
   # Events
-  before_save :set_amounts
-  after_update :purge_items
+  after_save :purge_items
+  after_save :update_amounts
 
   # Search
   scope :with_terms, ->(terms) {
@@ -85,9 +85,14 @@ class Common < ActiveRecord::Base
   end
 
   def set_amounts
-    self.net_amount =
-        items.reduce(0) {|sum, item| sum + item.net_amount}
+    self.net_amount = items.reduce(0) {|sum, item| sum + item.net_amount}
     self.gross_amount = net_amount + tax_amount
+  end
+
+  def update_amounts
+    set_amounts
+    # Use update_columns to skip more callbacks
+    self.update_columns(net_amount: self.net_amount, gross_amount: self.gross_amount)
   end
 
   # make sure every soft-deleted item is really destroyed

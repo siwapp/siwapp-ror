@@ -118,38 +118,38 @@ feature "Invoices:" do
     expect(page).to have_content "paid"
   end
 
-  # scenario "User can remove payments and items from an invoice", :js => true, :driver => :webkit do
-  #   invoice = FactoryGirl.create(
-  #     :invoice,
-  #     items: [
-  #       Item.new(quantity: 1, unitary_cost: 10),
-  #       Item.new(quantity: 1, unitary_cost: 10)
-  #     ],
-  #     payments: [
-  #       Payment.new(amount: 10, date: Date.current),
-  #       Payment.new(amount: 10, date: Date.current)
-  #     ]
-  #   )
-  #
-  #   visit edit_invoice_path(invoice)
-  #
-  #   expect(page).to have_content "$ 20.00"
-  #
-  #   within :xpath, '//*[@id="js-items-table"]/div[1]' do
-  #     click_on 'delete'
-  #   end
-  #
-  #   within :xpath, '//*[@id="js-payments-table"]/div[1]' do
-  #     click_on 'delete'
-  #   end
-  #
-  #   expect(page).to have_content "$ 10.00"
-  #
-  #   click_on "Save"
-  #
-  #   expect(page.current_path).to eql invoices_path
-  #   expect(page).to have_content "successfully updated"
-  #   expect(page).to have_content "$ 10.00"
-  #   expect(page).to have_content "paid"
-  # end
+  scenario "User can remove payments and items from an invoice", :js => true, :driver => :webkit do
+    invoice = FactoryGirl.create(
+      :invoice,
+      items: [
+        Item.new(quantity: 1, unitary_cost: 20),
+        Item.new(quantity: 1, unitary_cost: 10)
+      ],
+      payments: [
+        Payment.new(amount: 10, date: Date.current),
+        Payment.new(amount: 10, date: Date.current)
+      ]
+    )
+
+    visit edit_invoice_path(invoice)
+
+    expect(page).to have_content "$ 30.00"
+
+    within :xpath, '//*[@id="js-items-table"]/div[1]' do
+      click_on 'delete'
+    end
+
+    within :xpath, '//*[@id="js-payments-table"]/div[1]' do
+      click_on 'delete'
+    end
+
+    expect(page).to have_content "$ 10.00"
+
+    click_on "Save"
+
+    expect(page.current_path).to eql invoices_path
+    expect(page).to have_content "successfully updated"
+    expect(page).to have_content "$ 10.00"
+    expect(page).to have_content "paid"
+  end
 end
