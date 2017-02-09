@@ -12,7 +12,7 @@ class Invoice < Common
 
   # Events
   around_save :ensure_invoice_number, if: :needs_invoice_number
-  after_update :purge_payments
+  after_save :purge_payments
   after_save :update_paid
 
   CSV_FIELDS = [
