@@ -192,7 +192,6 @@ jQuery(document).ready ($) ->
   # Submit Search Form to download CSV files
   $(document).on 'click', '[data-role="csv-form"]', (e) ->
     e.preventDefault()
-    console.log('hey man')
     old_action = $('#js-search-form').attr('action')
     $('#js-search-form').attr('action', "#{old_action}.csv")
     $('#js-search-form').submit()
@@ -204,6 +203,9 @@ jQuery(document).ready ($) ->
     e.preventDefault()
     if $(this).data('action')  # if we have data-action on button, set the action
       $('#bulk_action').val($(this).data('action'))
+    if $(this).data('activateFlag')
+      flagName = $(this).data('activateFlag')
+      $("input[name='#{flagName}']").val('true')
     $($(this).data('target')).submit()
 
   #

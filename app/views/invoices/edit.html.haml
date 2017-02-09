@@ -16,5 +16,5 @@
 
   = link_to 'Send Email', send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
   = link_to 'Download PDF', print_invoice_path + '.pdf', class: 'btn btn-primary hidden-sm-down'
-
+  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {activate_flag: 'stay', role: 'submit-form', target: 'form[data-role="invoice"]'}} Save and continue editing
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save
