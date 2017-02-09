@@ -10,6 +10,7 @@ class Customer < ActiveRecord::Base
 
   # Validation
   validate :valid_customer_identification
+  validates_uniqueness_of :name,  scope: :identification
 
   # Behaviors
   acts_as_taggable
