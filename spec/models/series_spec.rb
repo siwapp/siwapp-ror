@@ -21,4 +21,16 @@ RSpec.describe Series, :type => :model do
     expect(series.destroy).to be false
   end
 
+  it "returns the first number as next_number if there's no invoice for this series" do
+    series = Series.new(value: "A", first_number: 2)
+    expect(series.next_number).to eq 2
+  end
+
+  it "properly returns the next number" do
+    series = Series.new(value: "A", first_number: 2)
+    series.commons << Invoice.new(name: "A Customer", issue_date: Date.current)
+    series.save
+    expect(series.next_number).to eq 3
+  end
+
 end

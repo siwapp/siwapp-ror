@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   post 'test' => 'hooks#test'
 
-  resources :taxes, :series, :templates
+  resources :taxes, :templates
+
+  resources :series do
+    get 'next_number', on: :member, defaults: {format: :json}
+  end
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"

@@ -15,4 +15,13 @@ class Series < ActiveRecord::Base
     return value if name.empty?
     name
   end
+
+  def next_number
+    invoice = commons.where(type: Invoice, draft: false).order(:number).last
+    if invoice
+      invoice.number + 1
+    else
+      first_number
+    end
+  end
 end

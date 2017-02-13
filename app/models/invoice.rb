@@ -11,7 +11,7 @@ class Invoice < Common
   validates_uniqueness_of :number,  scope: :series, conditions: -> { where.not(draft: true) }
 
   # Events
-  around_save :ensure_invoice_number, if: :needs_invoice_number
+  around_save :assign_invoice_number
   after_save :purge_payments
   after_save :update_paid
 
@@ -184,25 +184,16 @@ class Invoice < Common
       super + [:with_status]
     end
 
-    # Decide whether this invoice needs an invoice number. It's true
-    # when the invoice is not a draft and has no invoice number.
-    #
-    # Returns a boolean.
-    def needs_invoice_number
-      !draft and number.nil?
-    end
-
-    # Sets the invoice number:
-    # To sent number (if exists)
-    # To maximum + 1 in the series (if exists)
-    # To the first_number in the series
+    # Assigns a number to the invoice:
+    # - nil, if draft
+    # - already assigned number, if any and not draft
+    # - next_number of the already assigned series
     # Returns nothing.
-    def ensure_invoice_number
-      invoice = Invoice.where(series: series, draft: false).order(:number).last
-      if invoice
-        self.number = invoice.number + 1
-      else
-        self.number = series.first_number
+    def assign_invoice_number
+      if draft
+        self.number = nil
+      elsif self.number.nil?
+        self.number = series.next_number
       end
       yield
     end
