@@ -24,4 +24,8 @@ class Series < ActiveRecord::Base
       first_number
     end
   end
+
+  def self.default_series
+    self.where(enabled: true, default: true).first
+  end
 end

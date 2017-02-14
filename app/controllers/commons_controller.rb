@@ -188,9 +188,11 @@ class CommonsController < ApplicationController
   def set_extra_stuff
     @taxes = Tax.where active: true
     @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
+
     @series = Series.where enabled: true
+    @default_series = Series.default_series
+
     @templates = Template.all
-    @default_series_id = @series.find_all { |s| s.default }.collect{|s| s.id}
     default_email_template = Template.find_by(email_default: true)
     default_print_template = Template.find_by(print_default: true)
 
