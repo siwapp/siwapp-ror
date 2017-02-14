@@ -1,4 +1,4 @@
-= form_for @invoice, data: {role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
+= form_for @invoice, data: {new: is_new || @invoice.draft_was, role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
 
   - if @invoice.errors.any?
     #error_explanation
