@@ -16,7 +16,9 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require './spec/support/helpers' # to access helper methods for rspec
+# Helper methods for RSpec
+require './spec/support/helpers'
+require './spec/support/wait_for_ajax'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
