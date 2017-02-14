@@ -95,16 +95,19 @@ jQuery(document).ready ($) ->
     form = $(this)
     controller_name = form.data('controller')  # REQUIRED!!!
 
-    # If the form is for a new record or is a draft
+    # DOM caching
+    invoice_series = $('#invoice_series_id')
+    invoice_number = $('#invoice_number')
+
+    getNextSeriesNumber = ->
+      $.getJSON Routes.next_number_series_path(invoice_series.val()), (data) ->
+        invoice_number.val(data.value)
+
     if form.data('new') is true
+      # If the form is for a new record or a draft
+
       # DOM caching
       invoice_draft = $('#invoice_draft')
-      invoice_series = $('#invoice_series_id')
-      invoice_number = $('#invoice_number')
-
-      getNextSeriesNumber = ->
-        $.getJSON Routes.next_number_series_path(invoice_series.val()), (data) ->
-          invoice_number.val(data.value)
 
       # Remove invoice number on submit if is a draft
       form.on 'submit', (e) ->
@@ -123,6 +126,15 @@ jQuery(document).ready ($) ->
       # Update invoice number when series change if not a draft
       invoice_series.on 'change', (e) ->
         unless invoice_draft.is ':checked'
+          getNextSeriesNumber()
+    else
+      invoice_series_id_was = parseInt invoice_series.data('series_id_was'), 10
+      invoice_number_was = invoice_number.data 'number_was'
+
+      invoice_series.on 'change', (e) ->
+        if parseInt(invoice_series.val(), 10) == invoice_series_id_was
+          invoice_number.val invoice_number_was
+        else
           getNextSeriesNumber()
 
     autosize form.find('textarea')
