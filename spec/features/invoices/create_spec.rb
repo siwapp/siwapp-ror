@@ -116,4 +116,26 @@ feature "Invoices:" do
 
     expect(page).to have_content "2 errors"
   end
+
+  scenario "User can't set number for a draft", :js => true, :driver => :webkit do
+    FactoryGirl.create(:series, :default)
+
+    visit new_invoice_path
+
+    fill_in "invoice_name", with: "Another Test Customer"
+    fill_in "invoice_identification", with: "54321"
+    fill_in "invoice_email", with: "another@customer.com"
+    fill_in "invoice_invoicing_address", with: "Fake Address"
+
+    check "invoice_draft"
+    expect(find_field("invoice_number").value).to eq ""
+
+    fill_in "invoice_number", with: "10"
+
+    click_on "Save"
+
+    expect(page.current_path).to eql invoices_path
+    expect(page).to have_content("Invoice was successfully created.")
+    expect(page).to have_content "A-[draft]"
+  end
 end
