@@ -30,6 +30,16 @@ RSpec.describe Series, :type => :model do
     series = Series.new(value: "A", first_number: 2)
     series.commons << Invoice.new(name: "A Customer", issue_date: Date.current)
     series.save
+
+    expect(series.next_number).to eq 3
+
+    invoice = FactoryGirl.create(:invoice, series: series)
+
+    expect(invoice.number).to eq 3
+    expect(series.next_number).to eq 4
+
+    invoice.destroy
+
     expect(series.next_number).to eq 3
   end
 

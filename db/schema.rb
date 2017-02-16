@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209101048) do
+ActiveRecord::Schema.define(version: 20170216122053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170209101048) do
   add_index "commons", ["identification"], name: "cstid_idx", using: :btree
   add_index "commons", ["name"], name: "cstnm_idx", using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
+  add_index "commons", ["series_id", "number"], name: "common_unique_number_idx", unique: true, using: :btree
   add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree
   add_index "commons", ["type"], name: "type_and_status_idx", using: :btree

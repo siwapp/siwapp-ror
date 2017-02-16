@@ -33,13 +33,6 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice2.number).to eq 6
   end
 
-  it "retains the same number after saving" do
-    invoice = build_invoice(number: 2)
-    invoice.save
-
-    expect(invoice.number).to eq 2
-  end
-
   it "may have the same number as another invoice from a different series" do
     invoice1 = build_invoice(series: Series.new(value: "A"))
     invoice1.save
@@ -57,6 +50,37 @@ RSpec.describe Invoice, :type => :model do
 
     invoice2 = build_invoice(series: invoice1.series, number: invoice1.number)
     expect(invoice2.save).to be false
+  end
+
+  it "retains the same number after saving" do
+    invoice = build_invoice(number: 2)
+    invoice.save
+
+    expect(invoice.number).to eq 2
+  end
+
+  it "loses the number on deletion" do
+    invoice = build_invoice()
+    invoice.save
+
+    expect(invoice.number).to eq 1
+
+    invoice.destroy
+    invoice.reload
+
+    expect(invoice.deleted?).to be true
+    expect(invoice.number).to be_nil
+  end
+
+  it "can coexist, when deleted, with other deleted invoices in the same series" do
+    invoice1 = build_invoice()
+    expect(invoice1.save).to be true
+
+    invoice2 = build_invoice(series: invoice1.series)
+    expect(invoice2.save).to be true
+
+    expect(invoice1.destroy).not_to be false
+    expect(invoice2.destroy).not_to be false
   end
 
   #
