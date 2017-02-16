@@ -9,6 +9,15 @@ class Common < ActiveRecord::Base
   acts_as_taggable
   acts_as_paranoid
 
+  # This is for invoices but shouldn't affect recurring invoices.
+  # I prefer to have it next to the paranoia declaration.
+  def paranoia_destroy_attributes
+    {
+      deleted_at: current_time_from_proper_timezone,
+      number: nil
+    }
+  end
+
   # Relations
   belongs_to :customer
   belongs_to :series
