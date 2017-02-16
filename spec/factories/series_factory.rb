@@ -12,6 +12,12 @@ FactoryGirl.define do
     end
   end
 
+  factory :b_series, class: Series do
+    name "B- Series"
+    value "B-"
+    first_number 3
+  end
+
   factory :nseries, class: Series do
     sequence(:name, "A")  { |n| "#{n}- Series" }
     sequence(:value, "A") { |n| "#{n}-"        }

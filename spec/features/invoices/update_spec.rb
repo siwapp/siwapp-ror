@@ -2,7 +2,10 @@ require "rails_helper"
 
 feature "Invoices:" do
   scenario "User can update an invoice", :js => true, :driver => :webkit do
+    FactoryGirl.create(:b_series)
     invoice = FactoryGirl.create(:invoice)
+
+    expect(invoice.number).to eq 1
 
     visit edit_invoice_path(invoice)
     fill_in "invoice_due_date", with: invoice.issue_date >> 1
@@ -41,6 +44,17 @@ feature "Invoices:" do
       fill_in('key[]', with: 'discount')
       fill_in('value[]', with: '0')
     end
+
+    # Test that number changes if series changes
+
+    select "B- Series", from: "invoice_series_id"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "3"
+
+    # But it's reverted to the original value if the series is reset
+
+    select "A- Series", from: "invoice_series_id"
+    expect(find_field("invoice_number").value).to eq "1"
 
     click_on "Save"
 
@@ -151,5 +165,44 @@ feature "Invoices:" do
     expect(page).to have_content "successfully updated"
     expect(page).to have_content "$ 10.00"
     expect(page).to have_content "paid"
+  end
+
+  scenario "Number behavior works for existing drafts", :js => true, :driver => :webkit do
+    series = FactoryGirl.create(:b_series)
+    invoice = FactoryGirl.create(:invoice, draft: true)
+
+    expect(invoice.number).to be_nil
+    expect(series.first_number).to eq 3
+
+    visit edit_invoice_path(invoice)
+
+    # Test that number is set if invoice stops being a draft
+    uncheck "invoice_draft"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "1"
+
+    # Test that number is removed if invoice is marked as draft
+    check "invoice_draft"
+    expect(find_field("invoice_number").value).to eq ""
+
+    uncheck "invoice_draft"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "1"
+
+    # Test that number changes if series changes
+
+    select "B- Series", from: "invoice_series_id"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "3"
+
+    click_on "Save"
+
+    expect(page.current_path).to eql invoices_path
+    expect(page).to have_content "B-3"
+    expect(page).not_to have_content "B-[draft]"
+
+    invoice.reload
+    expect(invoice.series.value).to eq "B-"
+    expect(invoice.number).to eq 3
   end
 end

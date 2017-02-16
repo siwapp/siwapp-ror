@@ -3,6 +3,7 @@ require "rails_helper"
 feature "Invoices:" do
 
   scenario "User can create an invoice. A customer is created.", :js => true, :driver => :webkit do
+    FactoryGirl.create(:b_series)
     FactoryGirl.create(:invoice, :paid)
 
     visit new_invoice_path
@@ -15,7 +16,27 @@ feature "Invoices:" do
     click_link "Copy Invoicing Address"
     expect(find_field("invoice_shipping_address").value).to eq "Fake Address"
 
+    # Test that number changes if series changes
+
+    select "B- Series", from: "invoice_series_id"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "3"
+
     select "A- Series", from: "invoice_series_id"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "2"
+
+    # Test that number is removed if invoice is marked as draft
+
+    check "invoice_draft"
+    expect(find_field("invoice_number").value).to eq ""
+
+    # And that number is set if invoice stops being a draft
+
+    uncheck "invoice_draft"
+    wait_for_ajax
+    expect(find_field("invoice_number").value).to eq "2"
+
     fill_in "Issue date", with: Date.current
     fill_in "Due date", with: Date.current >> 1
 
@@ -70,6 +91,7 @@ feature "Invoices:" do
 
     expect(page.current_path).to eql invoices_path
     expect(page).to have_content("Invoice was successfully created.")
+    expect(page).to have_content "A-2"
     expect(page).to have_content "$ 12,160.50"
 
     expect(Customer.find_by(email: "another@customer.com", identification: "54321")).not_to be nil
