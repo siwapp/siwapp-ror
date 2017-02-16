@@ -72,6 +72,17 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.number).to be_nil
   end
 
+  it "can coexist, when deleted, with other deleted invoices in the same series" do
+    invoice1 = build_invoice()
+    expect(invoice1.save).to be true
+
+    invoice2 = build_invoice(series: invoice1.series)
+    expect(invoice2.save).to be true
+
+    expect(invoice1.destroy).not_to be false
+    expect(invoice2.destroy).not_to be false
+  end
+
   #
   # Status
   #
