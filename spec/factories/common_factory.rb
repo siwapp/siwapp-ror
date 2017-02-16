@@ -37,7 +37,7 @@ FactoryGirl.define do
 
       factory :due_invoice do
         transient do
-			first_day Date.current - 30
+          first_day Date.current - 30
         end
         sequence(:issue_date, 0) { |n| first_day + n }
         due_date { issue_date + 1 }

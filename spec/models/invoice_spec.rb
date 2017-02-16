@@ -15,18 +15,29 @@ RSpec.describe Invoice, :type => :model do
   # Invoice Number
   #
 
-  it "no need for an invoice number if it's a draft" do
-    invoice = build_invoice(draft: true)
+  it "has no invoice number if it's a draft" do
+    invoice = build_invoice(draft: true, number: 1)
     invoice.save
 
     expect(invoice.number).to be nil
   end
 
   it "gets an invoice number after saving if it's not a draft" do
-    invoice = build_invoice()
+    series = Series.new(value: "A", first_number: 5)
+    invoice1 = build_invoice(series: series)
+    invoice1.save
+    invoice2 = build_invoice(series: series)
+    invoice2.save
+
+    expect(invoice1.number).to eq 5
+    expect(invoice2.number).to eq 6
+  end
+
+  it "retains the same number after saving" do
+    invoice = build_invoice(number: 2)
     invoice.save
 
-    expect(invoice.number).to eq 1
+    expect(invoice.number).to eq 2
   end
 
   it "may have the same number as another invoice from a different series" do
@@ -38,6 +49,14 @@ RSpec.describe Invoice, :type => :model do
 
     expect(invoice1.number).to eq 1
     expect(invoice2.number).to eq invoice1.number
+  end
+
+  it "can't have the same number as another invoice from the same series" do
+    invoice1 = build_invoice()
+    expect(invoice1.save).to be true
+
+    invoice2 = build_invoice(series: invoice1.series, number: invoice1.number)
+    expect(invoice2.save).to be false
   end
 
   #

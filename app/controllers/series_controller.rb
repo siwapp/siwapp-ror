@@ -1,6 +1,6 @@
 class SeriesController < ApplicationController
   before_action :set_type
-  before_action :set_series, only: [:show, :edit, :update, :destroy]
+  before_action :set_series, only: [:show, :edit, :update, :destroy, :next_number]
 
   # GET /series
   # GET /series.json
@@ -68,6 +68,13 @@ class SeriesController < ApplicationController
 	    flash[:alert] = "Series has invoices and can not be destroyed."
         format.html { redirect_to edit_series_path(@series) }
       end
+    end
+  end
+
+  # GET /series/:id/next_number.json
+  def next_number
+    respond_to do |format|
+      format.json { render json: {value: @series.next_number} }
     end
   end
 
