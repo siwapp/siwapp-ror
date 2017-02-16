@@ -51,6 +51,14 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice2.number).to eq invoice1.number
   end
 
+  it "can't have the same number as another invoice from the same series" do
+    invoice1 = build_invoice()
+    expect(invoice1.save).to be true
+
+    invoice2 = build_invoice(series: invoice1.series, number: invoice1.number)
+    expect(invoice2.save).to be false
+  end
+
   #
   # Status
   #
