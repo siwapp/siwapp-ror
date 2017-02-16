@@ -14,6 +14,7 @@ class Invoice < Common
   around_save :assign_invoice_number
   after_save :purge_payments
   after_save :update_paid
+  before_destroy :remove_invoice_number
 
   CSV_FIELDS = [
     "id", "to_s", "customer_id", "name",
@@ -196,6 +197,10 @@ class Invoice < Common
         self.number = series.next_number
       end
       yield
+    end
+
+    def remove_invoice_number
+      update_column(:number, nil) # no save, no callbacks
     end
 
     # make sure every soft-deleted payment is really deleted
