@@ -53,7 +53,7 @@ ActiveRecord::Schema.define(version: 20170217120023) do
     t.text     "meta_attributes"
     t.boolean  "failed",                                                     default: false
     t.integer  "email_template_id"
-    t.integer  "number_was"
+    t.integer  "deleted_number"
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree
@@ -62,8 +62,8 @@ ActiveRecord::Schema.define(version: 20170217120023) do
   add_index "commons", ["email"], name: "cstml_idx", using: :btree
   add_index "commons", ["identification"], name: "cstid_idx", using: :btree
   add_index "commons", ["name"], name: "cstnm_idx", using: :btree
-  add_index "commons", ["number_was", "series_id"], name: "common_number_was_idx", using: :btree
   add_index "commons", ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id", using: :btree
+  add_index "commons", ["series_id", "deleted_number"], name: "common_deleted_number_idx", using: :btree
   add_index "commons", ["series_id", "number"], name: "common_unique_number_idx", unique: true, using: :btree
   add_index "commons", ["series_id"], name: "series_id_idx", using: :btree
   add_index "commons", ["type"], name: "common_type_idx", using: :btree

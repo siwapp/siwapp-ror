@@ -58,7 +58,7 @@ class Invoice < Common
 
   def paranoia_destroy_attributes
     {
-      number_was: self.number,
+      deleted_number: self.number,
       deleted_at: current_time_from_proper_timezone,
       number: nil
     }
