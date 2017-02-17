@@ -12,10 +12,14 @@
       = f.label :issue_date_lteq, "to: "
       = f.date_field :issue_date_lteq, class: "form-control"
 .row
-  .col-xs-12.col-sm-6.col-lg-6
+  .col-xs-12.col-sm-6.col-lg-3
     .form-group
       = f.label :series_id_eq, "Series:"
       = f.collection_select :series_id_eq, Series.all, :id, :to_s, {include_blank: 'Choose…'}, {class: 'form-control c-select'}
+  .col-xs-12.col-sm-6.col-lg-3
+    .form-group
+      = f.label :number_eq, "Number:"
+      = f.text_field :number_eq, class: "form-control"
   .col-xs-12.col-sm-6.col-lg-6
     .form-group
       = f.label :with_status, "Status:"
