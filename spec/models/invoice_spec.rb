@@ -83,6 +83,18 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice2.destroy).not_to be false
   end
 
+  it "is restored as draft" do
+    invoice = build_invoice()
+    invoice.save
+
+    expect(invoice.destroy).not_to be false
+    expect(invoice.deleted?).to be true
+
+    invoice.restore(recursive: true)
+    expect(invoice.deleted?).to be false
+    expect(invoice.draft).to be true
+  end
+
   #
   # Status
   #

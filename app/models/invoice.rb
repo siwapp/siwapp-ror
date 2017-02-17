@@ -48,6 +48,21 @@ class Invoice < Common
   # Invoices belonging to certain recurring_invoice
   scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
 
+  # acts_as_paranoid behavior
+  def paranoia_restore_attributes
+    {
+      deleted_at: nil,
+      draft: true
+    }
+  end
+
+  def paranoia_destroy_attributes
+    {
+      deleted_at: current_time_from_proper_timezone,
+      number: nil
+    }
+  end
+
   def to_jbuilder
     Jbuilder.new do |json|
       json.(self, *(serializable_attribute_names))
