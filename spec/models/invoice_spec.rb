@@ -83,6 +83,15 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice2.destroy).not_to be false
   end
 
+  it "when deleted stores number_was" do
+    invoice = build_invoice()
+    invoice.save
+    number = invoice.number
+    invoice.destroy
+    invoice.reload
+    expect(invoice.deleted_number).to eq number
+  end
+
   it "is restored as draft" do
     invoice = build_invoice()
     invoice.save
