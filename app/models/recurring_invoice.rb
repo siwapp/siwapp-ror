@@ -27,6 +27,14 @@ class RecurringInvoice < Common
     "print_template_id"
   ]
 
+  # acts_as_paranoid behavior
+  def paranoia_destroy_attributes
+    {
+      deleted_at: current_time_from_proper_timezone,
+      enabled: false
+    }
+  end
+
   def to_s
     "#{name}"
   end

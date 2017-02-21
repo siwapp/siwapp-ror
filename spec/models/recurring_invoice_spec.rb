@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RecurringInvoice, :type => :model do
   # WARNING: In these tests today is Wed, 01 Jun 2016!!!
-  
+
   before do
     Timecop.freeze Date.new(2016, 6, 1)
     Celluloid.shutdown
@@ -108,5 +108,18 @@ RSpec.describe RecurringInvoice, :type => :model do
     expect(invoices[1].issue_date).to eq Date.new(2016, 5, 1)
     expect(invoices[2].issue_date).to eq Date.new(2016, 6, 1)
     expect(invoices[3].issue_date).to eq Date.new(2016, 6, 1)
+  end
+
+  it "is disabled when deleted and remains disabled when restored" do
+    r = build_recurring_invoice()
+    r.save
+    expect(r.enabled).to be true
+
+    expect(r.destroy).not_to be false
+    expect(r.deleted?).to be true
+
+    r.restore(recursive: true)
+    expect(r.deleted?).to be false
+    expect(r.enabled).to be false
   end
 end
