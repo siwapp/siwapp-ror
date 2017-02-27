@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217120023) do
+ActiveRecord::Schema.define(version: 20170223101022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "commons", force: :cascade do |t|
     t.integer  "series_id"
-    t.integer  "customer_id"
+    t.integer  "customer_id",                                                                null: false
     t.string   "name",                 limit: 100
     t.string   "identification",       limit: 50
     t.string   "email",                limit: 100

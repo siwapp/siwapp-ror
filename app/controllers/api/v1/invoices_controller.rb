@@ -28,7 +28,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     begin
       @invoice.send_email
       render json: {"message": "E-mail succesfully sent."}, status: :ok
-      
+
     rescue Exception => e
       render json: {"message": e.message}, status: :error
     end

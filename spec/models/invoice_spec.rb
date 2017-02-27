@@ -6,7 +6,10 @@ RSpec.describe Invoice, :type => :model do
     kwargs[:issue_date] = Date.current() unless kwargs.has_key? :issue_date
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
 
-    invoice = Invoice.new(name: "A Customer", identification: "123456789Z", **kwargs)
+
+    customer = FactoryGirl.create(:ncustomer)
+    invoice = Invoice.new(name: customer.name, identification: customer.identification,
+                          customer: customer, **kwargs)
     invoice.set_amounts
     invoice
   end

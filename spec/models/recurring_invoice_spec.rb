@@ -19,7 +19,10 @@ RSpec.describe RecurringInvoice, :type => :model do
     kwargs[:period] = 1 unless kwargs.has_key? :period
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
 
-    recurring_invoice = RecurringInvoice.new(name: "A Customer", identification: "123456789Z", **kwargs)
+    customer = FactoryGirl.create(:ncustomer)
+    recurring_invoice = RecurringInvoice.new(
+        name: customer.name, identification: customer.identification,
+        customer:customer, **kwargs)
     recurring_invoice.set_amounts
     recurring_invoice
   end
