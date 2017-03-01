@@ -13,7 +13,8 @@ RUN apt-get update -qq && \
 	xvfb
 
 # Copy project src to container
-COPY . /app
+COPY ./Gemfile /app/
+COPY ./Gemfile.lock /app/
 
 # Set /app as workdir
 WORKDIR /app
