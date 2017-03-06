@@ -31,4 +31,16 @@ feature "Invoices:" do
     click_on "Edit"
     expect(page.current_path).to eq edit_invoice_path(@invoice)
   end
+
+  scenario "User can download selected invoices as PDF from the invoices list", :js => true, :driver => :webkit do
+    visit invoices_path
+
+    # byebug
+    find_field('select_all').click
+    click_on "Download PDF"
+	sleep 2
+
+    expect(page.response_headers["Content-Disposition"]).to eq "attachment; filename=\"invoices.pdf\""
+    expect(page.response_headers["Content-Type"]).to eq "application/pdf"
+  end
 end
