@@ -31,10 +31,11 @@ class Common < ActiveRecord::Base
   # Search
   scope :with_terms, ->(terms) {
     return nil if terms.empty?
-    where('name ILIKE :terms OR
+    joins(:items).where('name ILIKE :terms OR
            email ILIKE :terms OR
-           identification ILIKE :terms',
-           terms: '%' + terms + '%')
+           identification ILIKE :terms OR
+           description ILIKE :terms',
+           terms: "%#{terms}%")
   }
 
   # A hash with each tax amount rounded
