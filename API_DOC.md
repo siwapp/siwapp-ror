@@ -1,38 +1,44 @@
-#Siwapp API
+# Siwapp API
 
 - [Authentication](#authentication)
-- [Invoices](#invoices)
+- [Recurring Invoices](#recurring-invoices)
   - [Listing](#listing)
-  - [Searching](#searching)
-  - [Getting all invoices from a customer](#getting-all-invoices-from-a-customer)
   - [Show](#show)
   - [Create](#create)
   - [Update](#update)
   - [Delete](#delete)
-- [Invoice Items](#invoice-items)
+- [Invoices](#invoices)
   - [Listing](#listing-1)
+  - [Searching](#searching)
+  - [Getting all invoices from a customer](#getting-all-invoices-from-a-customer)
   - [Show](#show-1)
   - [Create](#create-1)
   - [Update](#update-1)
   - [Delete](#delete-1)
-- [Invoice Payments](#invoice-payments)
+- [Invoice Items](#invoice-items)
   - [Listing](#listing-2)
   - [Show](#show-2)
   - [Create](#create-2)
   - [Update](#update-2)
   - [Delete](#delete-2)
-- [Taxes](#taxes)
+- [Invoice Payments](#invoice-payments)
   - [Listing](#listing-3)
   - [Show](#show-3)
   - [Create](#create-3)
   - [Update](#update-3)
   - [Delete](#delete-3)
-- [Series](#series)
+- [Taxes](#taxes)
   - [Listing](#listing-4)
   - [Show](#show-4)
   - [Create](#create-4)
   - [Update](#update-4)
   - [Delete](#delete-4)
+- [Series](#series)
+  - [Listing](#listing-5)
+  - [Show](#show-5)
+  - [Create](#create-5)
+  - [Update](#update-5)
+  - [Delete](#delete-5)
 
 ## Authentication
 
@@ -40,6 +46,229 @@
   * Send that token in every api request as the "Authorization" header:
   `Authorization': 'Token token="abc"'`
   * You can only access the siwapp API through `https` protocol
+
+## Recurring Invoices
+
+### Listing
+
+````http
+GET https://siwapp-server.com/api/v1/recurring_invoices HTTP/1.1
+Authorization: Token token="abc"
+````
+
+__Response__
+````http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+{
+  "data": [{
+    "id": "1",
+    "type": "recurring-invoices",
+    "attributes": {
+      "series-id": 1,
+      "customer-id": 1,
+      "identification": "",
+      "name": "ACME",
+      "email": "w.coyote@acme.com",
+      "contact-person": "W. Coyote",
+      "invoicing-address": "27 Second Boulevard.  Sun city - 85351, AR",
+      "shipping-address": null,
+      "terms": null,
+      "notes": null,
+      "enabled": true,
+      "days-to-due": 4,
+      "starting-date": "2017-04-04",
+      "finishing-date": null,
+      "period": 30,
+      "period-type": "day",
+      "max-occurrences": null,
+      "sent-by-email": false,
+      "net-amount": "29.99",
+      "gross-amount": "29.99",
+      "taxes": {},
+      "tag-list": []
+    },
+    "relationships": {
+      "customer": {
+        "data": {
+          "id": "1",
+          "type": "customers"
+        }
+      },
+      "items": {
+        "data": [
+          {
+            "attributes": {
+              "id": 1,
+              "quantity": "1.0",
+              "discount": "0.0",
+              "common-id": 1,
+              "description": "Lorem",
+              "unitary-cost": "29.99",
+              "product-id": null,
+              "deleted-at": null
+            }
+          }
+        ]
+      }
+    },
+    "links": {
+      "self": "/api/v1/recurring_invoices/1",
+      "customer": "/api/v1/customers/1",
+      "items": "/api/v1/recurring_invoices/1/items"
+    }
+  }],
+  "links": {}
+}
+````
+
+### Show
+
+````http
+GET https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
+Authorization: Token token="abc"
+````
+
+__Response__
+````http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+
+{
+  "data": {
+    "id": "1",
+    "type": "recurring-invoices",
+    "attributes": {
+      "series-id": 1,
+      "customer-id": 1,
+      "identification": "",
+      "name": "ACME",
+      "email": "w.coyote@acme.com",
+      "contact-person": "W. Coyote",
+      "invoicing-address": "27 Second Boulevard.  Sun city - 85351, AR",
+      "shipping-address": null,
+      "terms": null,
+      "notes": null,
+      "enabled": true,
+      "days-to-due": 4,
+      "starting-date": "2017-04-04",
+      "finishing-date": null,
+      "period": 30,
+      "period-type": "day",
+      "max-occurrences": null,
+      "sent-by-email": false,
+      "net-amount": "29.99",
+      "gross-amount": "29.99",
+      "taxes": {},
+      "tag-list": []
+    },
+    "relationships": {
+      "customer": {
+        "data": {
+          "id": "1",
+          "type": "customers"
+        }
+      },
+      "items": {
+        "data": [
+          {
+            "attributes": {
+              "id": 1,
+              "quantity": "1.0",
+              "discount": "0.0",
+              "common-id": 1,
+              "description": "Lorem",
+              "unitary-cost": "29.99",
+              "product-id": null,
+              "deleted-at": null
+            }
+          }
+        ]
+      }
+    },
+    "links": {
+      "self": "/api/v1/recurring_invoices/1",
+      "customer": "/api/v1/customers/1",
+      "items": "/api/v1/recurring_invoices/1/items"
+    }
+  }
+}
+````
+
+### Create
+
+````http
+POST https://siwapp-server.com/api/v1/recurrin_invoices HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+{
+  "data": {
+    "attributes": {
+      "contact-person": "W. Coyote",
+      "name": "ACME",
+      "period": 30,
+      "series_id": 1,
+      "invoicing-address": "27 Second Boulevard.  Sun city - 85351, AR",
+      "period_type": "day",
+      "identification": "",
+      "starting_date": "2017-03-31",
+      "email": "w.coyote@acme.com",
+      "days_to_due": 4
+    }
+  },
+  "relationships": {
+    "items": {
+      "data": [{
+        "attributes": {
+          "description": "Lorem",
+          "quantity": 1,
+          "discount": 0,
+          "tax_ids": [1],
+          "unitary_cost": 29.99
+        }
+      }]
+    }
+  }
+}
+````
+
+* You can create invoice with items by declaring them in relationships key.
+
+### Update
+
+````http
+PUT https://siwapp-server.com/api/v1/recurrin_invoices/1 HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+{
+    "data": {
+        "attributes": {
+            "name": "A.C.M.E.",
+            "series_id": "2"
+        }
+    }
+}
+````
+
+* Items and payments must have id to update them
+
+### Delete
+
+```http
+DELETE https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+```
+
+__Response__
+
+```http
+HTTP/1.1 204 NO CONTENT
+Content-Type: application/json; charset=utf-8
+```
 
 ## Invoices
 
@@ -55,7 +284,7 @@ __Response__
 HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1, "previous_page": null, "next_page": null, "out_of_bounds": false}'
-{   
+{
     "data": [
         {
             "id": 1,
@@ -97,7 +326,7 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
             }
         }
 
-    ]   
+    ]
 }
 
 ````
@@ -197,7 +426,7 @@ Content-Type: application/json; charset=UTF-8
                         "date": "2012-09-09",
                         "url": "https://siwapp-server.com/api/v1/payments/17"
                     }
-                }]    
+                }]
             },
             "items": {
                 "data": [{
@@ -224,7 +453,7 @@ POST https://siwapp-server.com/api/v1/invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
-{   
+{
     "data": {
         "attributes": {
             "name": "Acme",
@@ -252,12 +481,12 @@ Content-Type: application/json
             },
 
             "payments": {
-               "data": [{   
+               "data": [{
                     "attributes": {
                          "notes": "payment #1",
                          "amount": 32.1,
                          "date": "2016-02-03"
-                    }        
+                    }
                }]
             }
         }
@@ -523,7 +752,7 @@ Content-Type: application/json
             "notes": "second payment",
             "amount": 33.2,
             "...": "..."
-        }   
+        }
     }
 }
 ````
@@ -537,12 +766,12 @@ PUT https://siwapp-server.com/api/v1/payments/12 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
-{   
+{
     "data": {
         "attributes": {
             "notes": "modified second payment"
         }
-    }  
+    }
 }
 ````
 
@@ -593,7 +822,7 @@ Content-Type: application/json; charset=UTF-8
             },
             "links": {
                  "self": "https://siwapp-server.com/api/v1/taxes/2"
-            }   
+            }
         }
     ]
 }
@@ -627,7 +856,7 @@ Content-Type: application/json; charset=UTF-8
         },
         "links": {
             "self": "https://siwapp-server.com/api/v1/taxes/2"
-        }   
+        }
     }
 }
 ````
@@ -773,7 +1002,7 @@ Content-Type: application/json
             "enabled": true,
             "default": null
         }
-    }  
+    }
 }
 ````
 
