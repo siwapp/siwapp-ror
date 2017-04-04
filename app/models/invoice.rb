@@ -206,12 +206,16 @@ class Invoice < Common
     # - next_number of the already assigned series
     # Returns nothing.
     def assign_invoice_number
-      if draft
-        self.number = nil
-      elsif self.number.nil?
-        self.number = series.next_number
+      Invoice.transaction do
+		# wrap in a transaction to prevent
+		# race conditions
+        if draft
+          self.number = nil
+        elsif self.number.nil?
+          self.number = series.next_number
+        end
+        yield
       end
-      yield
     end
 
     # make sure every soft-deleted payment is really deleted
