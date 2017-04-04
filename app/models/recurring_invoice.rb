@@ -108,7 +108,7 @@ class RecurringInvoice < Common
         invoice.trigger_event(:invoice_generation)
         begin
           invoice.send_email if invoice.recurring_invoice.sent_by_email
-        rescue Exception => e
+        rescue Exception
           # silently ignore
         end
       end
