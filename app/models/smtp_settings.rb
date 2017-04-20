@@ -1,5 +1,5 @@
 class SmtpSettings < SiwappSettings::Base
-  @@keys = [
+  @keys = [
     :host, :port, :domain, :user, :password, :authentication,
     :enable_starttls_auto, :email_body, :email_subject
   ]

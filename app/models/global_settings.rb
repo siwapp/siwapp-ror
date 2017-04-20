@@ -1,5 +1,5 @@
 class GlobalSettings < SiwappSettings::Base
-  @@keys = [
+  @keys = [
     :company_name, :company_vat_id, :company_address, :company_phone,
     :company_url, :company_email, :company_logo, :currency, :legal_terms,
     :days_to_due
