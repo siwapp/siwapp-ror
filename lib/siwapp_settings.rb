@@ -14,7 +14,7 @@ module SiwappSettings
 
     def save_settings
       if valid?
-        @keys.each do |key|
+        self.class.keys.each do |key|
           Settings[key] = send key
         end
         true
@@ -23,8 +23,5 @@ module SiwappSettings
       end
     end
 
-    def self.keys
-      @keys
-    end
   end
 end
