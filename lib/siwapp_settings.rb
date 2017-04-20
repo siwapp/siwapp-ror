@@ -2,10 +2,11 @@ module SiwappSettings
   class Base
     include ActiveModel::Model
 
-    @@keys = []
+    class << self; attr_accessor :keys end
+    @keys = []
 
     def initialize(attributes={})
-      @@keys.each do |key|
+      self.class.keys.each do |key|
         class_eval { attr_accessor key }
         send "#{key}=", attributes[key] || Settings[key]
       end
@@ -13,7 +14,7 @@ module SiwappSettings
 
     def save_settings
       if valid?
-        @@keys.each do |key|
+        @keys.each do |key|
           Settings[key] = send key
         end
         true
@@ -23,7 +24,7 @@ module SiwappSettings
     end
 
     def self.keys
-      @@keys
+      @keys
     end
   end
 end
