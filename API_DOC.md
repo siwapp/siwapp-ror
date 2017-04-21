@@ -339,8 +339,8 @@ X-Pagination: '{"total": "1", "total_pages": 1, "first_page": 1, "last_page": 1,
 It's just like listing, but adding the `q` search parameter with any of these keys:
   * `q[with_terms]=acme+inc` invoices with those terms in either name, email, identification or description in items.
   * `q[customer_id]=3` invoice whose customer has the id=3
-  * `q[issue_date_gte]=2012-01-01` invoice whose issue date is greater or equal than `2012-01-01`
-  * `q[issue_date_lte]=2012-01-01` invoice whose issue date is less or equal than `2012-01-01`
+  * `q[issue_date_gteq]=2012-01-01` invoice whose issue date is greater or equal than `2012-01-01`
+  * `q[issue_date_lteq]=2012-01-01` invoice whose issue date is less or equal than `2012-01-01`
   * `q[series_id]=3` invoices whose series has the id=3
   * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `past_due`
 
