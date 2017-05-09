@@ -1,4 +1,4 @@
-%h1=t("My Account")
+%h1=t("my account")
 
 .row
   .col-xs-12.col-md-6.col-xl-4
@@ -12,20 +12,20 @@
             - @user.errors.full_messages.each do |message|
               %li= message
       .form-group
-        = f.label :name, "#{t("Name")}:"
+        = f.label :name, "#{t("name")}:"
         = f.text_field :name, class: 'form-control'
       .form-group
-        = f.label :email, "#{t("Email")}:"
+        = f.label :email, "#{t("email")}:"
         = f.text_field :email, class: 'form-control'
       .form-group
-        = label_tag :old_password, "#{t("Old")} #{t("Password")}:"
+        = label_tag :old_password, "#{t("old")} #{t("password")}:"
         = password_field_tag :old_password, nil, class: 'form-control'
       .form-group
-        = f.label :password, "#{t("New")} #{t("Password")}:"
+        = f.label :password, "#{t("new")} #{t("password")}:"
         = f.password_field :password, class: 'form-control'
       .form-group
-        = f.label :password_confirmation, "#{t("New")} #{t("Password")} #{t("Confirmation")}:"
+        = f.label :password_confirmation, "#{t("new")} #{t("password")} #{t("confirmation")}:"
         = f.password_field :password_confirmation, class: 'form-control'
 
 .action-buttons{"data-role": "action-buttons"}
-  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("save")

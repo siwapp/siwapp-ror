@@ -1,4 +1,4 @@
-%h1=t("Global Settings")
+%h1=t("global settings")
 
 .row
   .col-xs-12.col-md-6.col-xl-4
@@ -13,37 +13,37 @@
               %li= message
 
       .form-group
-        = f.label :company_name, "#{t("Company")}:"
+        = f.label :company_name, "#{t("company")}:"
         = f.text_field :company_name, class: 'form-control'
       .form-group
-        = f.label :company_vat_id, "#{t("Company")} VAT ID:"
+        = f.label :company_vat_id, "#{t("company")} vat id:"
         = f.text_field :company_vat_id, class: 'form-control'
       .form-group
-        = f.label :company_address, "#{t("Company")} #{t("Address")}:"
+        = f.label :company_address, "#{t("company")} #{t("address")}:"
         = f.text_area :company_address, class: 'form-control autosize', rows: '3'
       .form-group
-        = f.label :company_phone, "#{t("Company")} #{t("Phone")}:"
+        = f.label :company_phone, "#{t("company")} #{t("phone")}:"
         = f.text_field :company_phone, class: 'form-control'
       .form-group
-        = f.label :company_email, "#{t("Company")} #{t("Email")}:"
+        = f.label :company_email, "#{t("company")} #{t("email")}:"
         = f.email_field :company_email, class: 'form-control'
       .form-group
-        = f.label :company_url, "#{t("Company")} #{t("Website")}:"
+        = f.label :company_url, "#{t("company")} #{t("website")}:"
         = f.url_field :company_url, class: 'form-control'
       .form-group
-        = f.label :company_logo, "#{t("Company")} #{t("Logo")}:"
+        = f.label :company_logo, "#{t("company")} #{t("logo")}:"
         = f.url_field :company_logo, class: 'form-control'
       .form-group
-        = f.label :currency, "#{t("Currency")}:"
+        = f.label :currency, "#{t("currency")}:"
         = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
 
       .form-group
-        = f.label :legal_terms, "#{t("Legal Terms")}:"
+        = f.label :legal_terms, "#{t("legal terms")}:"
         = f.text_area :legal_terms, class: 'form-control autosize', rows: '3'
 
       .form-group
-        = f.label :days_to_due, "#{t("Days to due")}:"
+        = f.label :days_to_due, "#{t("days to due")}:"
         = f.number_field :days_to_due, class: 'form-control'
 
 .action-buttons{"data-role": "action-buttons"}
-  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("save")

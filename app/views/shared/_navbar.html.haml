@@ -7,11 +7,11 @@
           %i.material-icons menu
 
         - if @type
-          = link_to "#{t("New")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
+          = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
           = link_to sti_path(@type, 'new'), class: "btn btn-navbar hidden-lg-up pull-xs-right" do
             %i.material-icons add
         - else
-          = link_to t("New Invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
+          = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
           = link_to new_invoice_path, class: "btn btn-navbar hidden-lg-up pull-xs-right" do
             %i.material-icons add
 
@@ -25,40 +25,40 @@
   #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm.siwapp-navbar-menu
     - if current_user
       .siwapp-navbar-scroll
-        %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t("Dashboard")
-        %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path}=t("Invoices")
-        %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path}=t("Recurring Invoices")
-        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("Customers") 
+        %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t("dashboard")
+        %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path}=t("invoices")
+        %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path}=t("recurring invoices")
+        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("customers") 
         .nav-item.dropdown.hidden-sm-down
-          %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t("Account")
+          %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t("account")
           .dropdown-menu.dropdown-menu-right
-            %a.dropdown-item{:href => settings_profile_path}=t("Profile")
+            %a.dropdown-item{:href => settings_profile_path}=t("profile")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_global_path}=t("Global Settings") 
-            %a.dropdown-item{:href => settings_smtp_path}=t("SMTP Settings")
+            %a.dropdown-item{:href => settings_global_path}=t("global settings") 
+            %a.dropdown-item{:href => settings_smtp_path}=t("smtp settings")
             .dropdown-divider
-            %a.dropdown-item{:href => series_index_path}=t("Series")
-            %a.dropdown-item{:href => taxes_path}=t("Taxes")
-            %a.dropdown-item{:href => templates_path}=t("Templates")
-            %a.dropdown-item{href: settings_tags_path}=t("Tags")
+            %a.dropdown-item{:href => series_index_path}=t("series")
+            %a.dropdown-item{:href => taxes_path}=t("taxes")
+            %a.dropdown-item{:href => templates_path}=t("templates")
+            %a.dropdown-item{href: settings_tags_path}=t("tags")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_api_token_path}=t("API Token")
+            %a.dropdown-item{:href => settings_api_token_path}=t("api token")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_hooks_path}=t("Hooks")
+            %a.dropdown-item{:href => settings_hooks_path}=t("hooks")
             .dropdown-divider
-            = link_to t("Log out"), logout_path, method: "delete", class: "dropdown-item"
-        %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}}=t("Account")
+            = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
+        %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}}=t("account")
 
       #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll.hidden-md-up
-        %a.nav-item.nav-link{:href => settings_profile_path}=t("Profile")
-        %a.nav-item.nav-link{:href => settings_global_path}=t("Global Settings") 
-        %a.nav-item.nav-link{:href => settings_smtp_path}=t("SMTP Settings")
-        %a.nav-item.nav-link{:href => series_index_path}=t("Series")
-        %a.nav-item.nav-link{:href => taxes_path}=t("Taxes")
-        %a.nav-item.nav-link{:href => templates_path}=t("Templates")
-        %a.nav-item.nav-link{href: settings_tags_path}=t("Tags")
-        %a.nav-item.nav-link{:href => settings_api_token_path}=t("API Token")
-        = link_to t("Log out"), logout_path, method: "delete", class: "nav-item nav-link"
+        %a.nav-item.nav-link{:href => settings_profile_path}=t("profile")
+        %a.nav-item.nav-link{:href => settings_global_path}=t("global settings") 
+        %a.nav-item.nav-link{:href => settings_smtp_path}=t("smtp settings")
+        %a.nav-item.nav-link{:href => series_index_path}=t("series")
+        %a.nav-item.nav-link{:href => taxes_path}=t("taxes")
+        %a.nav-item.nav-link{:href => templates_path}=t("templates")
+        %a.nav-item.nav-link{href: settings_tags_path}=t("tags")
+        %a.nav-item.nav-link{:href => settings_api_token_path}=t("api token")
+        = link_to t("log out"), logout_path, method: "delete", class: "nav-item nav-link"
 
   - if current_user and @search
     = render 'shared/searchform'

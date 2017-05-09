@@ -4,7 +4,7 @@
     - if @search_filters
       .input-group-btn
         %button.btn.btn-secondary.material-icons{"data-target" => "#js-search-filters", "data-toggle" => "collapse", :type => "button"} expand_more
-    = f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by customer, email or VAT ID'
+    = f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by Customer, Email or VAT ID'
     .input-group-btn
       %button.btn.btn-primary.material-icons{:type => "submit"} search
   - if @search_filters
@@ -13,17 +13,17 @@
 
         = render 'searchform__filters', f: f
 
-        // In order to filter by meta_attributes
+        // in order to filter by meta_attributes
         // we do this out of ransack
         .row
           .col-xs-12.col-md-6
             .form-group
-              = label_tag :tag_list, "Tags"
+              = label_tag :tag_list, "tags"
               = select_tag :tag_list, options_for_select(@tags, params[:tag_list]), {class: 'tags-selector', multiple: true, data: {role: 'tagging'}}
           .col-xs-12.col-md-6
             .form-group
               = label_tag :meta
               = text_field_tag :meta, "", class: "form-control"
 
-        = link_to t("Export to CSV"), '#', class: 'btn btn-primary', data: {role: 'csv-form'}
-        %button.btn.btn-primary.pull-xs-right{type: 'submit'}=t("Search")
+        = link_to t("export to csv"), '#', class: 'btn btn-primary', data: {role: 'csv-form'}
+        %button.btn.btn-primary.pull-xs-right{type: 'submit'}=t("search")

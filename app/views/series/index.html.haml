@@ -1,15 +1,15 @@
-%h1 Series
+%h1=t("series")
 
 = form_tag url_for(:controller => "series", :action => "set_default"), :method => :post, :class => "change_default" do
 
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
-        %th.table-select Default
-        %th Name
-        %th Value
-        %th First Number
-        %th.text-center Enabled
+        %th.table-select=t("default")
+        %th=t("name")
+        %th=t("value")
+        %th=t("first number")
+        %th.text-center=t("enabled")
       %tbody
         - @series.each do |series|
           %tr

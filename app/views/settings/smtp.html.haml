@@ -1,4 +1,4 @@
-%h1=t("SMTP Settings")
+%h1=t("smtp settings")
 
 .row
   .col-xs-12.col-md-6.col-xl-4
@@ -12,36 +12,36 @@
             - @smtp_settings.errors.full_messages.each do |message|
               %li= message
       %fieldset
-        %legend=t("Server")
+        %legend=t("server")
 
         .form-group
-          = f.label :host, "Host:"
+          = f.label :host, "host:"
           = f.text_field :host, class: 'form-control'
         .form-group
-          = f.label :port, "Port:"
+          = f.label :port, "port:"
           = f.text_field :port, class: 'form-control'
         .form-group
-          = f.label :domain, "Domain:"
+          = f.label :domain, "domain:"
           = f.text_field :domain, class: 'form-control'
 
       %fieldset
-        %legend=t("Authentication")
+        %legend=t("authentication")
 
         .form-group
-          = f.label :user, "User:"
+          = f.label :user, "user:"
           = f.email_field :user, class: 'form-control'
         .form-group
-          = f.label :password, "#{t("Password")}:"
+          = f.label :password, "#{t("password")}:"
           = f.text_field :password, class: 'form-control'
         .form-group
-          = f.label :authentication, "#{t("Authentication")}:"
-          = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'
+          = f.label :authentication, "#{t("authentication")}:"
+          = f.select :authentication, [['plain', 'plain'], ['login', 'login'], ['cram md5', 'cram_md5']], {}, class: 'form-control c-select'
         .checkbox
           %label
             = f.check_box :enable_starttls_auto
-            =t("Enable")
-            %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
+            =t("enable")
+            %a{href: 'https://en.wikipedia.org/wiki/opportunistic_tls', target: '_blank'} starttls
 
 
 .action-buttons{"data-role": "action-buttons"}
-  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} save

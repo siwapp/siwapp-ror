@@ -1,13 +1,13 @@
-%h1=t("Customers")
+%h1=t("customers")
 %div{data: {role: 'infinite-scroll'}}
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
         %tr
-          %th.no-wrap=t("Customer Name")
-          %th.no-wrap=t("Identification")
-          %th.text-right=t("Due")
-          %th.text-right=t("Total")
+          %th.no-wrap=t("customer name")
+          %th.no-wrap=t("identification")
+          %th.text-right=t("due")
+          %th.text-right=t("total")
           %th.text-right
       %tbody{data: {role: 'infinite-content'}}
         - @customers.each_with_index do |customer, i|
