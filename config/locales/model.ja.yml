@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    errors:
+      models:
+        series:
+          attributes:
+            value:
+              blank: "が空欄です"
+        invoice:
+          attributes:
+            series:
+              blank: "が空欄です"
+  shared:
+    navbar:
+      Account: "アカウント"

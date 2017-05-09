@@ -30,7 +30,7 @@
         %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path} Recurring Invoices
         %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path} Customers
         .nav-item.dropdown.hidden-sm-down
-          %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"} Account
+          %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t(".Account")
           .dropdown-menu.dropdown-menu-right
             %a.dropdown-item{:href => settings_profile_path} Profile
             .dropdown-divider
