@@ -1,6 +1,7 @@
 ja:
   account: "設定"
   address: "住所"
+  add line: "行を追加"
   api token: "APIトークン"
   apply changes: "変更を適用"
   apply to new items by default: "新規項目に自動的に適用する"
@@ -17,6 +18,7 @@ ja:
   days to due: "期限までの日数"
   default: "規定"
   delete: "削除"
+  details: "詳細"
   due: "期限"
   email: "eメール"
   enable: "有効化"
@@ -29,6 +31,7 @@ ja:
   global settings: "全体設定"
   hooks: "フック"
   identification: "ID"
+  invoice: "請求書"
   invoices: "請求書"
   legal terms: "規約"
   log out: "ログアウト"
@@ -42,11 +45,12 @@ ja:
   old: "旧"
   password: "パスワード"
   past due invoices: "期限切れの請求書"
-  pending: "未確定"
+  pending: "未入金"
   phone: "電話番号"
   profile: "個人設定"
   recurring invoices: "定期請求書"
   save: "保存"
+  save as draft: "下書きとして保存"
   search: "検索"
   send email: "メール送信"
   sent: "送信済"
@@ -82,6 +86,22 @@ ja:
       tax: "課税"
       template: "テンプレート"
     attributes:
+      invoice:
+        name: "名前"
+        email: "Eメール"
+        identification: "VAT ID"
+        contact_person: "担当者"
+        invoicing_address: "住所（請求先）"
+        shipping_address: "住所（郵送先）"
+        terms: "規約"
+        notes: "備考"
+        series_id: "請求種別"
+        number: "番号"
+        issue_date: "請求日"
+        due_date: "お支払い期限"
+        email_template_id: "Eメール用テンプレート"
+        print_template_id: "PDF用テンプレート"
+        tag_list: "タグ一覧"
       series:
         name: "名前"
         value: "請求書接頭語句"
@@ -93,6 +113,13 @@ ja:
         name: "名前"
         template: "テンプレート"
         subject: "件名"
+      item:
+        description: "品番・品名"
+        quantity: "数量"
+        unitary_cost: "単価"
+        discount: "割引"
+        net_amount: "金額"
+        
     errors:
       models:
         series:

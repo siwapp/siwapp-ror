@@ -12,7 +12,7 @@
   .m-b-2
     %h1.m-b-0
       - if @invoice.new_record?
-        New Invoice
+        =t("new invoice")
       - else
         = @invoice
         - if @invoice.failed
@@ -22,15 +22,15 @@
       .checkbox
         %label
           = f.check_box :draft
-          Save this invoice as draft
+          =t("save as draft")
 
   %fieldset.m-b-2
-    %legend.m-b-1 Customer
+    %legend.m-b-1=t("customer")
     = render partial: 'customers/form_fields', locals: {f: f}
     = f.hidden_field :customer_id
 
   %fieldset.m-b-2{"data-changes" => "amount"}
-    %legend.m-b-1 Invoice details
+    %legend.m-b-1="#{t("invoice")} #{t("details")}"
 
     .row
       .col-xs-12.col-xl-8
@@ -93,7 +93,7 @@
               Payment collection failed
 
   %fieldset.m-b-2
-    %legend.m-b-1 Tags
+    %legend.m-b-1=t("tags")
     = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
 
   %fieldset.m-b-2
