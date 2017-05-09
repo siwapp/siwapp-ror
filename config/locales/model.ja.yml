@@ -14,7 +14,7 @@ ja:
   dashboard: "ダッシュボード"
   date: "日付"
   days to due: "期限までの日数"
-  default: "default"
+  default: "規定"
   delete: "削除"
   due: "期限"
   email: "eメール"
@@ -76,6 +76,10 @@ ja:
       tax:
         name: "税名称"
         value: "値"
+      template:
+        name: "名前"
+        template: "テンプレート"
+        subject: "件名"
     errors:
       models:
         series:

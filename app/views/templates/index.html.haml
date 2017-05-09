@@ -1,13 +1,13 @@
-%h1 Templates
+%h1=t("templates")
 
 = form_tag url_for({:controller => "templates", :action => "set_default"}), :method => :post, :class => "change_default"  do
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
         %tr
-          %th.table-select Default Email
-          %th.table-select Default PDF
-          %th Name
+          %th.table-select="#{t("default")}#{t("email")}"
+          %th.table-select="#{t("default")} PDF" 
+          %th=t("name")
       %tbody
         - @templates.each do |template|
           %tr
