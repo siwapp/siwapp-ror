@@ -3,9 +3,9 @@
     - if @customer
       = "Recurring Invoices for #{@customer}"
     - else
-      Recurring Invoices
+      =t("Recurring Invoices")
     %small.text-muted
-      = "(#{@count} found)"
+      = "(#{@count} #{t("found")})"
 
     - if @any_invoices_to_be_built
       = link_to "Build Pending Invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
@@ -34,12 +34,12 @@
         %thead
           %tr
             %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-            %th= sort_link(@search, :series_value, "Series")
-            %th.no-wrap= sort_link(@search, :name, "Customer")
-            %th.no-wrap= sort_link(@search, :period_type, "Frecuency")
-            %th.text-center= sort_link(@search, :enabled, "Enabled")
-            %th.text-center= sort_link(@search, :sent_by_email, "Send Email")
-            %th.text-right= sort_link(@search, :gross_amount, "Total")
+            %th= sort_link(@search, :series_value, t("Series"))
+            %th.no-wrap= sort_link(@search, :name, t("Customer"))
+            %th.no-wrap= sort_link(@search, :period_type, t("Frecuency"))
+            %th.text-center= sort_link(@search, :enabled, t("Enabled"))
+            %th.text-center= sort_link(@search, :sent_by_email, t("Send Email"))
+            %th.text-right= sort_link(@search, :gross_amount, t("Total"))
         %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices, current_page: @recurring_invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner

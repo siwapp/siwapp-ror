@@ -3,9 +3,9 @@
     - if @customer
       = "Invoices for #{@customer}"
     - else
-      Invoices
+      =t("Invoices")
     %small.text-muted
-      = "(#{@count} found)"
+      = "(#{@count} #{t("found")})"
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
@@ -30,13 +30,13 @@
         %thead
           %tr
             %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-            %th.no-wrap= sort_link(@search, :number, "Number")
-            %th.no-wrap= sort_link(@search, :name, "Customer Name")
-            %th.no-wrap= sort_link(@search, :issue_date, "Date")
-            %th.text-center= sort_link(@search, :sent_by_email, "Sent")
-            %th.text-center= sort_link(@search, :status, "Status")
-            %th.text-right Pending
-            %th.text-right= sort_link(@search, :gross_amount, "Total")
+            %th.no-wrap= sort_link(@search, :number, t("Number"))
+            %th.no-wrap= sort_link(@search, :name, t("Customer Name"))
+            %th.no-wrap= sort_link(@search, :issue_date, t("Date"))
+            %th.text-center= sort_link(@search, :sent_by_email, t("Sent"))
+            %th.text-center= sort_link(@search, :status, t("Status"))
+            %th.text-right=t("Pending")
+            %th.text-right= sort_link(@search, :gross_amount, t("Total"))
         %tbody{data: {role: 'infinite-content'}}
           = render @invoices, current_page: @invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}

@@ -1,6 +1,6 @@
 #js-dashboard-chart.chart-height-sm
 
-%h1 Past Due Invoices
+%h1=t("Past Due Invoices")
 
 %div{data: {role: 'infinite-scroll'}}
   .table-responsive
@@ -8,12 +8,12 @@
       %thead
         %tr
           %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-          %th.no-wrap Number
-          %th.no-wrap Customer Name
-          %th.no-wrap Date
-          %th.text-center Sent
-          %th.text-center Status
-          %th.text-right Pending
-          %th.text-right Total
+          %th.no-wra=t("Number")
+          %th.no-wra=t("Customer Name")
+          %th.no-wrap=t("Date")
+          %th.text-center=t("Sent")
+          %th.text-center=t("Status")
+          %th.text-right=t("Pending")
+          %th.text-right=t("Total")
       %tbody{data: {role: 'infinite-content'}}
         = render @objects, current_page: @objects.current_page

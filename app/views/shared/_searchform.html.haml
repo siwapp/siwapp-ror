@@ -25,5 +25,5 @@
               = label_tag :meta
               = text_field_tag :meta, "", class: "form-control"
 
-        = link_to 'Export to CSV', '#', class: 'btn btn-primary', data: {role: 'csv-form'}
-        %button.btn.btn-primary.pull-xs-right{type: 'submit'} Search
+        = link_to t("Export to CSV"), '#', class: 'btn btn-primary', data: {role: 'csv-form'}
+        %button.btn.btn-primary.pull-xs-right{type: 'submit'}=t("Search")

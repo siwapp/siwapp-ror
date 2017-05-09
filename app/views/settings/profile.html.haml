@@ -1,4 +1,4 @@
-%h1 My Account
+%h1=t("My Account")
 
 .row
   .col-xs-12.col-md-6.col-xl-4
@@ -12,19 +12,19 @@
             - @user.errors.full_messages.each do |message|
               %li= message
       .form-group
-        = f.label :name, "Name:"
+        = f.label :name, "#{t("Name")}:"
         = f.text_field :name, class: 'form-control'
       .form-group
-        = f.label :email, "Email:"
+        = f.label :email, "#{t("Email")}:"
         = f.text_field :email, class: 'form-control'
       .form-group
-        = label_tag :old_password, "Old Password:"
+        = label_tag :old_password, "#{t("Old")} #{t("Password")}:"
         = password_field_tag :old_password, nil, class: 'form-control'
       .form-group
-        = f.label :password, "New Password:"
+        = f.label :password, "#{t("New")} #{t("Password")}:"
         = f.password_field :password, class: 'form-control'
       .form-group
-        = f.label :password_confirmation, "New Password Confirmation:"
+        = f.label :password_confirmation, "#{t("New")} #{t("Password")} #{t("Confirmation")}:"
         = f.password_field :password_confirmation, class: 'form-control'
 
 .action-buttons{"data-role": "action-buttons"}

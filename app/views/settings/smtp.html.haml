@@ -1,4 +1,4 @@
-%h1 SMTP Settings
+%h1=t("SMTP Settings")
 
 .row
   .col-xs-12.col-md-6.col-xl-4
@@ -12,7 +12,7 @@
             - @smtp_settings.errors.full_messages.each do |message|
               %li= message
       %fieldset
-        %legend Server
+        %legend=t("Server")
 
         .form-group
           = f.label :host, "Host:"
@@ -25,21 +25,21 @@
           = f.text_field :domain, class: 'form-control'
 
       %fieldset
-        %legend Authentication
+        %legend=t("Authentication")
 
         .form-group
           = f.label :user, "User:"
           = f.email_field :user, class: 'form-control'
         .form-group
-          = f.label :password, "Password:"
+          = f.label :password, "#{t("Password")}:"
           = f.text_field :password, class: 'form-control'
         .form-group
-          = f.label :authentication, "Authentication:"
+          = f.label :authentication, "#{t("Authentication")}:"
           = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'
         .checkbox
           %label
             = f.check_box :enable_starttls_auto
-            Enable
+            =t("Enable")
             %a{href: 'https://en.wikipedia.org/wiki/Opportunistic_TLS', target: '_blank'} StartTLS
 
 
