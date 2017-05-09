@@ -2,6 +2,7 @@ ja:
   account: "設定"
   address: "住所"
   add line: "行を追加"
+  add payment: "支払いを追加"
   api token: "APIトークン"
   apply changes: "変更を適用"
   apply to new items by default: "新規項目に自動的に適用する"
@@ -9,6 +10,7 @@ ja:
   back: "戻る"
   company: "会社"
   confirmation: "確認"
+  configuration: "設定"
   currency: "通貨"
   customer name: "取引先名"
   customer: "取引先"
@@ -16,6 +18,7 @@ ja:
   dashboard: "ダッシュボード"
   date: "日付"
   days to due: "期限までの日数"
+  download pdf: "PDFをダウンロード"
   default: "規定"
   delete: "削除"
   details: "詳細"
@@ -51,11 +54,15 @@ ja:
   recurring invoices: "定期請求書"
   save: "保存"
   save as draft: "下書きとして保存"
+  save and continue: "保存して編集を続ける"
+  select template for e-mail: "Eメール用テンプレートを選択"
+  select template to print: "印刷用テンプレートを選択"
   search: "検索"
   send email: "メール送信"
   sent: "送信済"
   series: "請求種別"
   server: "サーバ"
+  subtotal: "小計"
   smtp settings: "SMTP設定"
   status: "状態"
   tag: "タグ"
@@ -75,6 +82,11 @@ ja:
       authenticate api token: "このトークンをAPIリクエストを認証するために使用してください:"
     hooks:
       url to post: "請求書が自動発行された際にPOSTするURL："
+      
+  payments: "支払い"
+  
+  form_fields:
+    copy invoicing address: "請求先住所を使用"
       
   activerecord: &activerecord
     models:
@@ -102,6 +114,11 @@ ja:
         email_template_id: "Eメール用テンプレート"
         print_template_id: "PDF用テンプレート"
         tag_list: "タグ一覧"
+      payment:
+        invoice: "請求"
+        date: "日付"
+        notes: "備考"
+        amount: "数量"
       series:
         name: "名前"
         value: "請求書接頭語句"

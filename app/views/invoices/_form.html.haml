@@ -65,24 +65,24 @@
           .col-xs-12.col-sm-6
             .form-group
               = f.label :email_template_id
-              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: "Select template for e-mail"}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: t("select template for e-mail")}, {multiple: false, class: 'form-control c-select'}
           .col-xs-12.col-sm-6
             .form-group
               = f.label :print_template_id
-              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: "Select template to print."}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {multiple: false, class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 
   - unless @invoice.new_record?
     %fieldset.m-b-2{data: {changes: 'amount'}}
-      %legend.m-b-1 Payments
+      %legend.m-b-1=t("payments")
 
       #js-payments-table.invoice-table
         = f.fields_for :payments, include_id: false  do |payment_form|
           = render partial: 'payment_fields', locals: {f: payment_form}
 
       .invoice-table-actions
-        = link_to_add_association 'Add Payment', f, :payments,    |
+        = link_to_add_association t("add payment"), f, :payments,    |
           'data-association-insertion-node' => '#js-payments-table', |
           'data-association-insertion-method' => 'append',        |
           :class => 'btn btn-secondary'
