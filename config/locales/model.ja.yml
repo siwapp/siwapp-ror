@@ -2,6 +2,7 @@ ja:
   account: "設定"
   address: "住所"
   api token: "APIトークン"
+  apply changes: "変更を適用"
   apply to new items by default: "新規項目に自動的に適用する"
   authentication: "認証"
   back: "戻る"
@@ -24,6 +25,7 @@ ja:
   first number: "開始数値"
   found: "件"
   frecuency: "頻度"
+  generate: "生成"
   global settings: "全体設定"
   hooks: "フック"
   identification: "ID"
@@ -32,6 +34,7 @@ ja:
   log out: "ログアウト"
   logo: "ロゴ"
   my account: "個人設定"
+  my: "私の"
   name: "名前"
   new invoice: "新規請求書"
   new: "新規"
@@ -51,23 +54,33 @@ ja:
   server: "サーバ"
   smtp settings: "SMTP設定"
   status: "状態"
+  tag: "タグ"
   tags: "タグ"
+  tax name: "税名称"
   tax: "税"
   taxes: "課税設定"
-  tax name: "税名称"
   templates: "テンプレート"
   total: "合計"
+  token: "トークン"
   value: "値"
   website: "ウェブサイト"
   
+  settings:
+    api_token:
+      press api token: "APIトークンを生成するには、下のボタンを押してください。"
+      authenticate api token: "このトークンをAPIリクエストを認証するために使用してください:"
+    hooks:
+      url to post: "請求書が自動発行された際にPOSTするURL："
+      
   activerecord: &activerecord
     models:
       customer: "取引先"
       invoice: "請求書"
       recurring_invoice: "定期請求書"
-      tax: "課税"
       series: "請求種別"
       settings: "設定"
+      tax: "課税"
+      template: "テンプレート"
     attributes:
       series:
         name: "名前"
