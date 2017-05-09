@@ -19,46 +19,46 @@
           %button.btn.btn-navbar.navbar-toggler.pull-xs-right.hidden-xl-up{type: "button", data: {target: "#js-search-form", toggle: "collapse"}}
             %i.material-icons search
 
-    %a.navbar-brand{:href => "/"}
+    %a.navbar-brand{:href => root_path}
       = image_tag("logo.svg", alt: "siwapp")
 
   #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm.siwapp-navbar-menu
     - if current_user
       .siwapp-navbar-scroll
-        %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => "/"} Dashboard
-        %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path} Invoices
-        %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path} Recurring Invoices
-        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path} Customers
+        %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t(".Dashboard")
+        %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path}=t(".Invoices")
+        %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path}=t(".Recurring Invoices")
+        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t(".Customers") 
         .nav-item.dropdown.hidden-sm-down
           %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t(".Account")
           .dropdown-menu.dropdown-menu-right
-            %a.dropdown-item{:href => settings_profile_path} Profile
+            %a.dropdown-item{:href => settings_profile_path}=t(".Profile")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_global_path} Global Settings
-            %a.dropdown-item{:href => settings_smtp_path} SMTP Settings
+            %a.dropdown-item{:href => settings_global_path}=t(".Global Settings") 
+            %a.dropdown-item{:href => settings_smtp_path}=t(".SMTP Settings")
             .dropdown-divider
-            %a.dropdown-item{:href => series_index_path} Series
-            %a.dropdown-item{:href => taxes_path} Taxes
-            %a.dropdown-item{:href => templates_path} Templates
-            %a.dropdown-item{href: settings_tags_path} Tags
+            %a.dropdown-item{:href => series_index_path}=t(".Series")
+            %a.dropdown-item{:href => taxes_path}=t(".Taxes")
+            %a.dropdown-item{:href => templates_path}=t(".Templates")
+            %a.dropdown-item{href: settings_tags_path}=t(".Tags")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_api_token_path} API Token
+            %a.dropdown-item{:href => settings_api_token_path}=t(".API Token")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_hooks_path} Hooks
+            %a.dropdown-item{:href => settings_hooks_path}=t(".Hooks")
             .dropdown-divider
-            = link_to 'Log out', logout_path, method: "delete", class: "dropdown-item"
-        %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}} Account
+            = link_to t(".Log out"), logout_path, method: "delete", class: "dropdown-item"
+        %a{href: "#js-settings-menu", class: "nav-item nav-link dropdown-toggle hidden-md-up #{active_link('settings')}", data: {toggle: "collapse", target: "#js-settings-menu"}}=t(".Account")
 
       #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll.hidden-md-up
-        %a.nav-item.nav-link{:href => settings_profile_path} Profile
-        %a.nav-item.nav-link{:href => settings_global_path} Global Settings
-        %a.nav-item.nav-link{:href => settings_smtp_path} SMTP Settings
-        %a.nav-item.nav-link{:href => series_index_path} Series
-        %a.nav-item.nav-link{:href => taxes_path} Taxes
-        %a.nav-item.nav-link{:href => templates_path} Templates
-        %a.nav-item.nav-link{href: settings_tags_path} Tags
-        %a.nav-item.nav-link{:href => settings_api_token_path} API Token
-        = link_to 'Log out', logout_path, method: "delete", class: "nav-item nav-link"
+        %a.nav-item.nav-link{:href => settings_profile_path}=t(".Profile")
+        %a.nav-item.nav-link{:href => settings_global_path}=t(".Global Settings") 
+        %a.nav-item.nav-link{:href => settings_smtp_path}=t(".SMTP Settings")
+        %a.nav-item.nav-link{:href => series_index_path}=t(".Series")
+        %a.nav-item.nav-link{:href => taxes_path}=t(".Taxes")
+        %a.nav-item.nav-link{:href => templates_path}=t(".Templates")
+        %a.nav-item.nav-link{href: settings_tags_path}=t(".Tags")
+        %a.nav-item.nav-link{:href => settings_api_token_path}=t(".API Token")
+        = link_to t(".Log out"), logout_path, method: "delete", class: "nav-item nav-link"
 
   - if current_user and @search
     = render 'shared/searchform'

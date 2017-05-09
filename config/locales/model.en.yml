@@ -1,4 +1,18 @@
 en:
   shared:
     navbar:
+      Dashboard: "Dashboard"
+      Invoices: "Invoices"
+      Recurring Invoices: "Recurring Invoices"
+      Customers: "Customers"
       Account: "Account"
+      Profile: "Profile"
+      Global Settings: "Global Settings"
+      SMTP Settings: "SMTP Settings"
+      Series: "Series"
+      Taxes: "Taxes"
+      Templates: "Templates"
+      Tags: "Tags"
+      API Token: "API Token"
+      Hooks: "Hooks"
+      Log out: "Log out"

@@ -1,4 +1,21 @@
 ja:
+  shared:
+    navbar:
+      Dashboard: "ダッシュボード"
+      Invoices: "請求書"
+      Recurring Invoices: "定期請求書"
+      Customers: "取引先"
+      Account: "設定"
+      Profile: "個人設定"
+      Global Settings: "全体設定"
+      SMTP Settings: "SMTP設定"
+      Series: "請求種別"
+      Taxes: "課税設定"
+      Templates: "テンプレート"
+      Tags: "タグ"
+      API Token: "APIトークン"
+      Hooks: "フック"
+      Log out: "ログアウト"
   activerecord:
     errors:
       models:
@@ -10,6 +27,3 @@ ja:
           attributes:
             series:
               blank: "が空欄です"
-  shared:
-    navbar:
-      Account: "アカウント"
