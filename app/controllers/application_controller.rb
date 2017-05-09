@@ -8,16 +8,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
   # available in views
   helper_method :get_currency
-  
-  before_action :set_locale
- 
-  def set_locale
-    I18n.locale = params[:locale] || I18n.default_locale
-  end
-  
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
 
   # Public: return a list of tags  already saved for a certain types
   #

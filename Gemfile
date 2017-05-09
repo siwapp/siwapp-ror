@@ -91,3 +91,5 @@ gem "paranoia", "~> 2.0"
 gem 'wisper-celluloid'
 ## to make http POST requests
 gem "http"
+# for translation
+gem 'route_translator'
