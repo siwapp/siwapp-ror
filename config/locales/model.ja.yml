@@ -1,8 +1,10 @@
 ja:
   account: "設定"
   address: "住所"
-  api token: "apiトークン"
+  api token: "APIトークン"
+  apply to new items by default: "新規項目に自動的に適用する"
   authentication: "認証"
+  back: "戻る"
   company: "会社"
   confirmation: "確認"
   currency: "通貨"
@@ -13,6 +15,7 @@ ja:
   date: "日付"
   days to due: "期限までの日数"
   default: "default"
+  delete: "削除"
   due: "期限"
   email: "eメール"
   enable: "有効化"
@@ -49,13 +52,30 @@ ja:
   smtp settings: "SMTP設定"
   status: "状態"
   tags: "タグ"
+  tax: "税"
   taxes: "課税設定"
+  tax name: "税名称"
   templates: "テンプレート"
   total: "合計"
   value: "値"
   website: "ウェブサイト"
   
-  activerecord:
+  activerecord: &activerecord
+    models:
+      customer: "取引先"
+      invoice: "請求書"
+      recurring_invoice: "定期請求書"
+      tax: "課税"
+      series: "請求種別"
+      settings: "設定"
+    attributes:
+      series:
+        name: "名前"
+        value: "請求書接頭語句"
+        first_number: "開始数値"
+      tax:
+        name: "税名称"
+        value: "値"
     errors:
       models:
         series:
