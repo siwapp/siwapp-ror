@@ -11,7 +11,7 @@ default: &default
 
 development:
   adapter: postgresql
-  host: localhost
+  host: <%= ENV['RAILS_DATABASE_HOST'] || 'db' %>
   encoding: unicode
   database: siwapp
   username: postgres
@@ -21,7 +21,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host: localhost
+  host: <%= ENV['RAILS_DATABASE_HOST'] || 'db' %>
   database: siwapp_test
   username: postgres
 

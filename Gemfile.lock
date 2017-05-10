@@ -102,6 +102,10 @@ GEM
     diff-lcs (1.2.5)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubis (2.7.0)
     execjs (2.7.0)
     factory_girl (4.7.0)
@@ -311,6 +315,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
   deep_cloneable (~> 2.1.1)
+  dotenv-rails
   factory_girl_rails
   faker
   fastclick-rails
