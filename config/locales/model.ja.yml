@@ -139,6 +139,8 @@ ja:
         starting_date: "開始日"
         tag_list: "タグ一覧"
         terms: "お支払いについて"
+      customer:
+        identification: "VAT ID"
       payment:
         amount: "数量"
         date: "日付"

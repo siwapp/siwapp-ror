@@ -101,6 +101,10 @@ en:
         identification: "VAT ID"
         terms: "Legal Terms and Conditions"
         tag_list: "Tags"
+      recurring_invoice:
+        identification: "VAT ID"
+      customer:
+        identification: "VAT ID"
       item:
         unitary_cost: "Price"
         net_amount: "Total"
