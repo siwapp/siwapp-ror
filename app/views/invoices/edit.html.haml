@@ -12,9 +12,9 @@
     .dropdown-menu.dropdown-menu-right
       %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}}=t("send email")
       - if @template_url
-        = link_to t("download pdf"), print_invoice_path + '.pdf', class: 'dropdown-item'
+        = link_to t("download pdf"), print_invoice_path(:format=>:pdf), class: 'dropdown-item'
 
   = link_to t("send email"), send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
-  = link_to t("download pdf"), print_invoice_path + '.pdf', class: 'btn btn-primary hidden-sm-down'
+  = link_to t("download pdf"), print_invoice_path(:format=>:pdf) , class: 'btn btn-primary hidden-sm-down'
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {activate_flag: 'stay', role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save and continue")
   %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save")

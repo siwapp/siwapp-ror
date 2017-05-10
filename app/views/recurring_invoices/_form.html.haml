@@ -23,11 +23,11 @@
           .checkbox
             %label
               = f.check_box :enabled
-              Enable this recurring invoice
+              =t(".enable_invoice")
           .checkbox
             %label
               = f.check_box :sent_by_email
-              Automatically send generated invoices by email
+              =t(".auto_send")
 
         .row
           .col-sm-6

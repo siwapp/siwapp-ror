@@ -1,7 +1,7 @@
 ja:
   account: "設定"
   add line: "行を追加"
-  add payment: "支払いを追加"
+  add payment: "入金履歴を追加"
   address: "住所"
   api token: "APIトークン"
   apply changes: "変更を適用"
@@ -24,6 +24,7 @@ ja:
   details: "詳細"
   download pdf: "PDFをダウンロード"
   due: "期限"
+  edit: "編集"
   email: "eメール"
   enable: "有効化"
   enabled: "有効"
@@ -37,7 +38,7 @@ ja:
   identification: "ID"
   invoice: "請求書"
   invoices: "請求書"
-  legal terms: "規約"
+  legal terms: "お支払いについて"
   log out: "ログアウト"
   logo: "ロゴ"
   my account: "個人設定"
@@ -49,6 +50,7 @@ ja:
   old: "旧"
   password: "パスワード"
   past due invoices: "期限切れの請求書"
+  payment collection failed: "代金回収に失敗"
   pending: "未入金"
   phone: "電話番号"
   profile: "個人設定"
@@ -83,12 +85,14 @@ ja:
       authenticate api token: "このトークンをAPIリクエストを認証するために使用してください:"
     hooks:
       url to post: "請求書が自動発行された際にPOSTするURL："
-      
   payments: "支払い"
-  
+  recurring_invoices:
+    form:
+      auto_send: "請求書生成時にメールを自動送信する"
+      enable_invoice: "この定期請求書を有効にする"
   form_fields:
     copy invoicing address: "請求先住所を使用"
-      
+    
   activerecord: &activerecord
     models:
       customer: "取引先"
@@ -100,30 +104,50 @@ ja:
       template: "テンプレート"
     attributes:
       invoice:
-        name: "名前"
-        email: "Eメール"
-        identification: "VAT ID"
         contact_person: "担当者"
-        invoicing_address: "住所（請求先）"
-        shipping_address: "住所（郵送先）"
-        terms: "規約"
-        notes: "備考"
-        series_id: "分類"
-        number: "番号"
-        issue_date: "請求日"
         due_date: "お支払い期限"
         email_template_id: "Eメール用テンプレート"
-        print_template_id: "PDF用テンプレート"
-        tag_list: "タグ一覧"
-      payment:
-        invoice: "請求"
-        date: "日付"
+        email: "Eメール"
+        identification: "VAT ID"
+        invoicing_address: "住所（請求先）"
+        issue_date: "請求日"
+        name: "名前"
         notes: "備考"
+        number: "番号"
+        print_template_id: "PDF用テンプレート"
+        series_id: "分類"
+        shipping_address: "住所（郵送先）"
+        tag_list: "タグ一覧"
+        terms: "お支払いについて"
+      recurring_invoice:
+        contact_person: "担当者"
+        days_to_due: "支払期限（日数）"
+        email: "Eメール"
+        finishing_date: "終了日"
+        identification: "VAT ID"
+        invoicing_address: "住所（請求先）"
+        issue_date: "請求日"
+        max_occurrences: "max occurrences"
+        name: "名前"
+        notes: "備考"
+        number: "番号"
+        period_type: "繰り返しの単位"
+        period: "繰り返す頻度"
+        series_id: "分類"
+        series: "分類"
+        shipping_address: "住所（郵送先）"
+        starting_date: "開始日"
+        tag_list: "タグ一覧"
+        terms: "お支払いについて"
+      payment:
         amount: "数量"
+        date: "日付"
+        invoice: "請求"
+        notes: "備考"
       series:
+        first_number: "通し番号の初期値"
         name: "名前"
         value: "分類コード"
-        first_number: "通し番号の初期値"
       tax:
         name: "税名称"
         value: "値"
