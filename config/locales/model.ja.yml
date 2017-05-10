@@ -19,7 +19,7 @@ ja:
   dashboard: "ダッシュボード"
   date: "日付"
   days to due: "期限までの日数"
-  default: "規定"
+  default: "初期値"
   delete: "削除"
   details: "詳細"
   download pdf: "PDFをダウンロード"
