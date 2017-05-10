@@ -10,7 +10,7 @@
     - if @any_invoices_to_be_built
       = link_to "build pending invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
     - else
-      %span.btn.btn-sm.btn-secondary.disabled build pending invoices
+      %span.btn.btn-sm.btn-secondary.disabled=t(".build pending invoices")
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
@@ -45,4 +45,4 @@
       .spinner
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to 'delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', target: '#js-list-form'}
+  = link_to t("delete"), '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', target: '#js-list-form'}

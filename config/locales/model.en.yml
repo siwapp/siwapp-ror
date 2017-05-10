@@ -3,7 +3,7 @@ en:
   add line: "Add Line"
   add payment: "Add Payment"
   address: "Address"
-  api token: "API token"
+  api token: "API Token"
   apply changes: "Apply Changes"
   apply to new items by default: "Apply to new items by default"
   authentication: "Authentication"
@@ -63,9 +63,10 @@ en:
   select template to print: "Select Template to Print"
   send email: "Send Email"
   sent: "Sent"
+  set paid: "Set Paid"
   series: "Series"
   server: "Server"
-  smtp settings: "SMTP settings"
+  smtp settings: "SMTP Settings"
   status: "Status"
   subtotal: "Subtotal"
   tag: "Tag"
@@ -88,6 +89,8 @@ en:
       
   payments: "Payments"
   recurring_invoices:
+    index:
+      build pending invoices: "Build Pending Invoices"
     form:
       auto_send: "Automatically send generated invoices by email"
       enable_invoice: "Enable this recurring invoice"

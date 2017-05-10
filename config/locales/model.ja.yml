@@ -63,6 +63,7 @@ ja:
   select template to print: "印刷用テンプレートを選択"
   send email: "メール送信"
   sent: "送信済"
+  set paid: "支払済にする"
   series: "分類"
   server: "サーバ"
   smtp settings: "SMTP設定"
@@ -87,6 +88,8 @@ ja:
       url to post: "請求書が自動発行された際にPOSTするURL："
   payments: "支払い"
   recurring_invoices:
+    index:
+      build pending invoices: "支払待の請求書を作る"
     form:
       auto_send: "請求書生成時にメールを自動送信する"
       enable_invoice: "この定期請求書を有効にする"

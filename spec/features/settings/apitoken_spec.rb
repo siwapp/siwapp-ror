@@ -14,7 +14,7 @@ feature "Settings:" do
     expect(page).to have_content "Use the button below to generate an API token."
     expect(page).not_to have_css "code.active"
 
-    click_on "Generate token"
+    click_on "Generate Token"
 
     expect(page.current_path).to eql settings_api_token_path
     expect(Settings[:api_token]).not_to be_nil
@@ -29,7 +29,7 @@ feature "Settings:" do
     expect(page).to have_content "123token"
 
     accept_confirm do
-      click_link("Generate token")
+      click_link("Generate Token")
     end
 
     expect(page.current_path).to eql settings_api_token_path
