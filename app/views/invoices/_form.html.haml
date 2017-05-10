@@ -12,7 +12,7 @@
   .m-b-2
     %h1.m-b-0
       - if @invoice.new_record?
-        New Invoice
+        =t("new invoice")
       - else
         = @invoice
         - if @invoice.failed
@@ -22,15 +22,15 @@
       .checkbox
         %label
           = f.check_box :draft
-          Save this invoice as draft
+          =t("save as draft")
 
   %fieldset.m-b-2
-    %legend.m-b-1 Customer
+    %legend.m-b-1=t("customer")
     = render partial: 'customers/form_fields', locals: {f: f}
     = f.hidden_field :customer_id
 
   %fieldset.m-b-2{"data-changes" => "amount"}
-    %legend.m-b-1 Invoice details
+    %legend.m-b-1="#{t("invoice")} #{t("details")}"
 
     .row
       .col-xs-12.col-xl-8
@@ -65,24 +65,24 @@
           .col-xs-12.col-sm-6
             .form-group
               = f.label :email_template_id
-              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: "Select template for e-mail"}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: t("select template for e-mail")}, {multiple: false, class: 'form-control c-select'}
           .col-xs-12.col-sm-6
             .form-group
               = f.label :print_template_id
-              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: "Select template to print."}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {multiple: false, class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
 
   - unless @invoice.new_record?
     %fieldset.m-b-2{data: {changes: 'amount'}}
-      %legend.m-b-1 Payments
+      %legend.m-b-1=t("payments")
 
       #js-payments-table.invoice-table
         = f.fields_for :payments, include_id: false  do |payment_form|
           = render partial: 'payment_fields', locals: {f: payment_form}
 
       .invoice-table-actions
-        = link_to_add_association 'Add Payment', f, :payments,    |
+        = link_to_add_association t("add payment"), f, :payments,    |
           'data-association-insertion-node' => '#js-payments-table', |
           'data-association-insertion-method' => 'append',        |
           :class => 'btn btn-secondary'
@@ -90,10 +90,10 @@
           .checkbox.checkbox-inline
             %label
               = f.check_box :failed
-              Payment collection failed
+              =t("payment collection failed")
 
   %fieldset.m-b-2
-    %legend.m-b-1 Tags
+    %legend.m-b-1=t("tags")
     = render partial: 'shared/tagging_field', locals: {f: f, instance: @invoice}
 
   %fieldset.m-b-2

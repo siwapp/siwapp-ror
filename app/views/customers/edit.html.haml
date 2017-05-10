@@ -1,6 +1,6 @@
 = render 'form'
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to 'Delete', @customer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
-  = link_to 'Back', :back, class: 'btn btn-secondary'
-  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form'}} Save
+  = link_to t("delete"), @customer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
+  = link_to t("back"), :back, class: 'btn btn-secondary'
+  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("save")

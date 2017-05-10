@@ -1,16 +1,16 @@
 .section-hd
   %h1
     - if @customer
-      = "Recurring Invoices for #{@customer}"
+      = "recurring invoices for #{@customer}"
     - else
-      Recurring Invoices
+      =t("recurring invoices")
     %small.text-muted
-      = "(#{@count} found)"
+      = "(#{@count} #{t("found")})"
 
     - if @any_invoices_to_be_built
-      = link_to "Build Pending Invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
+      = link_to "build pending invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
     - else
-      %span.btn.btn-sm.btn-secondary.disabled Build Pending Invoices
+      %span.btn.btn-sm.btn-secondary.disabled build pending invoices
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
@@ -18,13 +18,13 @@
   #js-invoices-chart.chart-height-sm
   %ul.list-group.list-unstyled
     %li
-      Total Gross
+      total gross
       %span.label.label-default.label-pill.pull-right= display_money @gross
     %li
-      Total Net
+      total net
       %span.label.label-default.label-pill.pull-right= display_money @net
     %li
-      Total Tax
+      total tax
       %span.label.label-default.label-pill.pull-right= display_money @tax
 
 = form_tag remove_recurring_invoices_path, method: :delete, id: 'js-list-form' do
@@ -34,15 +34,15 @@
         %thead
           %tr
             %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-            %th= sort_link(@search, :series_value, "Series")
-            %th.no-wrap= sort_link(@search, :name, "Customer")
-            %th.no-wrap= sort_link(@search, :period_type, "Frecuency")
-            %th.text-center= sort_link(@search, :enabled, "Enabled")
-            %th.text-center= sort_link(@search, :sent_by_email, "Send Email")
-            %th.text-right= sort_link(@search, :gross_amount, "Total")
+            %th= sort_link(@search, :series_value, t("series"))
+            %th.no-wrap= sort_link(@search, :name, t("customer"))
+            %th.no-wrap= sort_link(@search, :period_type, t("frecuency"))
+            %th.text-center= sort_link(@search, :enabled, t("enabled"))
+            %th.text-center= sort_link(@search, :sent_by_email, t("send email"))
+            %th.text-right= sort_link(@search, :gross_amount, t("total"))
         %tbody{data: {role: 'infinite-content'}}= render @recurring_invoices, current_page: @recurring_invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to 'Delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'Are you sure?', role: 'submit-form', target: '#js-list-form'}
+  = link_to 'delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', target: '#js-list-form'}

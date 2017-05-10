@@ -1,13 +1,13 @@
-%h1 API Token
+%h1=t("api token")
 
 - if @api_token
   %p
-    Use this token to authenticate your api requests:
+    =t(".authenticate api token")
     %code.active= @api_token
 
   .action-buttons{"data-role": "action-buttons"}
-    = link_to "Generate token", settings_api_token_path, method: :post, "data-confirm": "Are you sure? This will invalidate any existing token!", class: "btn btn-success pull-xs-right no-margin"
+    = link_to "#{t("generate")} #{t("token")}", settings_api_token_path, method: :post, "data-confirm": "Are you sure? This will invalidate any existing token!", class: "btn btn-success pull-xs-right no-margin"
 - else
-  %p Use the button below to generate an API token.
+  %p=t(".press api token")
   .action-buttons{"data-role": "action-buttons"}
-    = link_to "Generate token", settings_api_token_path, method: :post, class: "btn btn-success pull-xs-right no-margin"
+    = link_to "#{t("generate")} #{t("token")}", settings_api_token_path, method: :post, class: "btn btn-success pull-xs-right no-margin"

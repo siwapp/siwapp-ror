@@ -1,6 +1,6 @@
 #js-dashboard-chart.chart-height-sm
 
-%h1 Past Due Invoices
+%h1=t("past due invoices")
 
 %div{data: {role: 'infinite-scroll'}}
   .table-responsive
@@ -8,12 +8,17 @@
       %thead
         %tr
           %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-          %th.no-wrap Number
-          %th.no-wrap Customer Name
-          %th.no-wrap Date
-          %th.text-center Sent
-          %th.text-center Status
-          %th.text-right Pending
-          %th.text-right Total
+          %th.no-wra=t("number")
+          %th.no-wra=t("customer name")
+          %th.no-wrap=t("date")
+          %th.text-center=t("sent")
+          %th.text-center=t("status")
+          %th.text-right=t("pending")
+          %th.text-right=t("total")
       %tbody{data: {role: 'infinite-content'}}
         = render @objects, current_page: @objects.current_page
+
+%p
+="#{t("available language")}:"
+- I18n.available_locales.reject{|l| l == I18n.locale}.each do |locale|
+  = link_to(locale, i18n_url_for(params.merge(locale: locale)))

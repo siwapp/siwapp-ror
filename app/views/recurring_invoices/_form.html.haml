@@ -10,12 +10,12 @@
           %li= message
 
   %fieldset.m-b-2
-    %legend.m-b-1 Customer
+    %legend.m-b-1=t("customer")
     = render partial: 'customers/form_fields', locals: {f: f}
     = f.hidden_field :customer_id
 
   %fieldset.m-b-2
-    %legend.m-b-1 Configuration
+    %legend.m-b-1=t("configuration")
 
     .row
       .col-xs-12.col-xl-8
@@ -23,11 +23,11 @@
           .checkbox
             %label
               = f.check_box :enabled
-              Enable this recurring invoice
+              =t(".enable_invoice")
           .checkbox
             %label
               = f.check_box :sent_by_email
-              Automatically send generated invoices by email
+              =t(".auto_send")
 
         .row
           .col-sm-6
@@ -56,7 +56,7 @@
               = f.number_field :max_occurrences, class: 'form-control'
 
   %fieldset.m-b-2{"data-changes" => "amount"}
-    %legend.m-b-1 Invoice details
+    %legend.m-b-1="#{t("invoice")} #{t("details")}"
     .row
       .col-xs-12.col-xl-8
         .row
@@ -72,7 +72,7 @@
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice, is_new: is_new}
 
   %fieldset.m-b-2
-    %legend.m-b-1 Tags
+    %legend.m-b-1=t("tags")
     = render partial: 'shared/tagging_field', locals: {f: f, instance: @recurring_invoice}
 
   %fieldset.m-b-2
