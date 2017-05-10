@@ -17,3 +17,8 @@
           %th.text-right=t("total")
       %tbody{data: {role: 'infinite-content'}}
         = render @objects, current_page: @objects.current_page
+
+%p
+="#{t("available language")}:"
+- I18n.available_locales.reject{|l| l == I18n.locale}.each do |locale|
+  = link_to(locale, i18n_url_for(params.merge(locale: locale)))
