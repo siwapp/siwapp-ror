@@ -3,7 +3,13 @@ ja:
   activerecord:
     attributes:
       customer:
+        contact_person:    担当者
+        email:             Eメール
         identification:    VAT ID
+        invoicing_address: 住所（請求先）
+        name:              名前
+        shipping_address:  住所（郵送先）
+        tag_list:          タグ一覧
       invoice:
         contact_person:    担当者
         due_date:          お支払い期限
