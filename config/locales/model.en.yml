@@ -1,113 +1,109 @@
 en:
-  account: "Account"
-  add line: "Add Line"
-  add payment: "Add Payment"
-  address: "Address"
-  api token: "API Token"
-  apply changes: "Apply Changes"
-  apply to new items by default: "Apply to new items by default"
-  authentication: "Authentication"
-  available language: "Available Language"
-  back: "Back"
-  company: "Company"
-  configuration: "Configuration"
-  confirmation: "Confirmation"
-  currency: "Currency"
-  customer name: "Customer name"
-  customer: "Customer"
-  customers: "Customers"
-  dashboard: "Dashboard"
-  date: "Date"
-  days to due: "Days to due"
-  default: "Default"
-  delete: "Delete"
-  details: "Details"
-  download pdf: "Download PDF"
-  due: "Due"
-  edit: "Edit"
-  email: "Email"
-  enable: "Enable"
-  enabled: "Enabled"
-  export to csv: "Export to csv"
-  first number: "First number"
-  found: "Found"
-  frecuency: "Frecuency"
-  generate: "Generate"
-  global settings: "Global Settings"
-  hooks: "Hooks"
-  identification: "Identification"
-  invoice: "Invoice"
-  invoices: "Invoices"
-  legal terms: "Legal terms"
-  log out: "Log out"
-  logo: "Logo"
-  my account: "My Account"
-  my: "My"
-  name: "Name"
-  new invoice: "New invoice"
-  new: "New"
-  number: "Number"
-  old: "Old"
-  password: "Password"
-  past due invoices: "Past due invoices"
-  payment collection failed: "Payment collection failed"
-  pending: "Pending"
-  phone: "Phone"
-  profile: "Profile"
-  recurring invoices: "Recurring invoices"
-  save and continue: "Save and continue editing"
-  save as draft: "Save as draft"
-  save: "Save"
-  search: "Search"
-  select template for e-mail: "Select Template for E-mail"
-  select template to print: "Select Template to Print"
-  send email: "Send Email"
-  sent: "Sent"
-  set paid: "Set Paid"
-  series: "Series"
-  server: "Server"
-  smtp settings: "SMTP Settings"
-  status: "Status"
-  subtotal: "Subtotal"
-  tag: "Tag"
-  tags: "Tags"
-  tax name: "Tax Name"
-  tax: "Tax"
-  taxes: "Taxes"
-  templates: "Templates"
-  token: "Token"
-  total: "Total"
-  value: "Value"
-  website: "Website"
-  
+  account:               Account
+  activerecord:
+    attributes:
+      customer:
+        identification:  VAT ID
+      invoice:
+        identification:  VAT ID
+        tag_list:        Tags
+        terms:           Legal Terms and Conditions
+      item:
+        net_amount:      Total
+        unitary_cost:    Price
+      recurring_invoice:
+        identification:  VAT ID
+  add line:              Add Line
+  add payment:           Add Payment
+  address:               Address
+  api token:             API Token
+  apply changes:         Apply Changes
+  apply to new items by default: Apply to new items by default
+  authentication:        Authentication
+  available language:    Available Language
+  back:                  Back
+  company:               Company
+  configuration:         Configuration
+  confirmation:          Confirmation
+  currency:              Currency
+  customer:              Customer
+  customer name:         Customer name
+  customers:             Customers
+  dashboard:             Dashboard
+  date:                  Date
+  days to due:           Days to due
+  default:               Default
+  delete:                Delete
+  details:               Details
+  download pdf:          Download PDF
+  due:                   Due
+  edit:                  Edit
+  email:                 Email
+  enable:                Enable
+  enabled:               Enabled
+  export to csv:         Export to csv
+  first number:          First number
+  form_fields:
+    copy invoicing address: Copy Invoicing Address
+  found:                 Found
+  frecuency:             Frecuency
+  generate:              Generate
+  global settings:       Global Settings
+  hooks:                 Hooks
+  identification:        Identification
+  invoice:               Invoice
+  invoices:              Invoices
+  legal terms:           Legal terms
+  log out:               Log out
+  logo:                  Logo
+  my:                    My
+  my account:            My Account
+  name:                  Name
+  new:                   New
+  new invoice:           New invoice
+  number:                Number
+  old:                   Old
+  password:              Password
+  past due invoices:     Past due invoices
+  payment collection failed: Payment collection failed
+  payments:              Payments
+  pending:               Pending
+  phone:                 Phone
+  profile:               Profile
+  recurring invoices:    Recurring invoices
+  recurring_invoices:
+    form:
+      auto_send:         Automatically send generated invoices by email
+      enable_invoice:    Enable this recurring invoice
+    index:
+      build pending invoices: Build Pending Invoices
+  save:                  Save
+  save and continue:     Save and continue editing
+  save as draft:         Save as draft
+  search:                Search
+  select template for e-mail: Select Template for E-mail
+  select template to print: Select Template to Print
+  send email:            Send Email
+  sent:                  Sent
+  series:                Series
+  server:                Server
+  set paid:              Set Paid
   settings:
     api_token:
-      press api token: "Use the button below to generate an API token."
-      authenticate api token: "Use this token to authenticate your API requests:"
+      authenticate api token: 'Use this token to authenticate your API requests:'
+      press api token:   Use the button below to generate an API token.
     hooks:
-      url to post: "URL TO POST TO WHEN AN INVOICE IS GENERATED BY A RECURRING INVOICE:"
-      
-  payments: "Payments"
-  recurring_invoices:
-    index:
-      build pending invoices: "Build Pending Invoices"
-    form:
-      auto_send: "Automatically send generated invoices by email"
-      enable_invoice: "Enable this recurring invoice"
-
-  form_fields:
-    copy invoicing address: "Copy Invoicing Address"
-  
-  activerecord: &activerecord
-    attributes:
-      invoice:
-        identification: "VAT ID"
-        terms: "Legal Terms and Conditions"
-        tag_list: "Tags"
-      recurring_invoice:
-        identification: "VAT ID"
-      customer:
-        identification: "VAT ID"
-      item:
-        unitary_cost: "Price"
-        net_amount: "Total"
+      url to post:       'URL TO POST TO WHEN AN INVOICE IS GENERATED BY A RECURRING INVOICE:'
+  smtp settings:         SMTP Settings
+  status:                Status
+  subtotal:              Subtotal
+  tag:                   Tag
+  tags:                  Tags
+  tax:                   Tax
+  tax name:              Tax Name
+  taxes:                 Taxes
+  templates:             Templates
+  token:                 Token
+  total:                 Total
+  value:                 Value
+  website:               Website

@@ -1,179 +1,176 @@
 ja:
-  account: "設定"
-  add line: "行を追加"
-  add payment: "入金履歴を追加"
-  address: "住所"
-  api token: "APIトークン"
-  apply changes: "変更を適用"
-  apply to new items by default: "自動的に新規項目へ適用する"
-  authentication: "認証"
-  available language: "切替可能な言語"
-  back: "戻る"
-  company: "会社"
-  configuration: "設定"
-  confirmation: "確認"
-  currency: "通貨"
-  customer name: "取引先名"
-  customer: "取引先"
-  customers: "取引先"
-  dashboard: "ダッシュボード"
-  date: "日付"
-  days to due: "期限までの日数"
-  default: "初期値"
-  delete: "削除"
-  details: "詳細"
-  download pdf: "PDFをダウンロード"
-  due: "期限"
-  edit: "編集"
-  email: "eメール"
-  enable: "有効化"
-  enabled: "有効"
-  export to csv: "csv出力"
-  first number: "開始数値"
-  found: "件"
-  frecuency: "頻度"
-  generate: "生成"
-  global settings: "全体設定"
-  hooks: "フック"
-  identification: "ID"
-  invoice: "請求書"
-  invoices: "請求書"
-  legal terms: "お支払いについて"
-  log out: "ログアウト"
-  logo: "ロゴ"
-  my account: "個人設定"
-  my: "私の"
-  name: "名前"
-  new invoice: "新規請求書"
-  new: "新規"
-  number: "番号"
-  old: "旧"
-  password: "パスワード"
-  past due invoices: "期限切れの請求書"
-  payment collection failed: "代金回収に失敗"
-  pending: "未入金"
-  phone: "電話番号"
-  profile: "個人設定"
-  recurring invoices: "定期請求書"
-  save and continue: "保存して編集を続ける"
-  save as draft: "下書きとして保存"
-  save: "保存"
-  search: "検索"
-  select template for e-mail: "Eメール用テンプレートを選択"
-  select template to print: "印刷用テンプレートを選択"
-  send email: "メール送信"
-  sent: "送信済"
-  set paid: "支払済にする"
-  series: "分類"
-  server: "サーバ"
-  smtp settings: "SMTP設定"
-  status: "状態"
-  subtotal: "小計"
-  tag: "タグ"
-  tags: "タグ"
-  tax name: "税名称"
-  tax: "税"
-  taxes: "課税設定"
-  templates: "テンプレート"
-  token: "トークン"
-  total: "合計"
-  value: "値"
-  website: "ウェブサイト"
-  
-  settings:
-    api_token:
-      press api token: "APIトークンを生成するには、下のボタンを押してください。"
-      authenticate api token: "このトークンをAPIリクエストを認証するために使用してください:"
-    hooks:
-      url to post: "請求書が自動発行された際にPOSTするURL："
-  payments: "支払い"
-  recurring_invoices:
-    index:
-      build pending invoices: "支払待の請求書を作る"
-    form:
-      auto_send: "請求書生成時にメールを自動送信する"
-      enable_invoice: "この定期請求書を有効にする"
-  form_fields:
-    copy invoicing address: "請求先住所を使用"
-    
-  activerecord: &activerecord
-    models:
-      customer: "取引先"
-      invoice: "請求書"
-      recurring_invoice: "定期請求書"
-      series: "分類"
-      settings: "設定"
-      tax: "課税"
-      template: "テンプレート"
+  account:                 設定
+  activerecord:
     attributes:
-      invoice:
-        contact_person: "担当者"
-        due_date: "お支払い期限"
-        email_template_id: "Eメール用テンプレート"
-        email: "Eメール"
-        identification: "VAT ID"
-        invoicing_address: "住所（請求先）"
-        issue_date: "請求日"
-        name: "名前"
-        notes: "備考"
-        number: "番号"
-        print_template_id: "PDF用テンプレート"
-        series_id: "分類"
-        shipping_address: "住所（郵送先）"
-        tag_list: "タグ一覧"
-        terms: "お支払いについて"
-      recurring_invoice:
-        contact_person: "担当者"
-        days_to_due: "支払期限（日数）"
-        email: "Eメール"
-        finishing_date: "終了日"
-        identification: "VAT ID"
-        invoicing_address: "住所（請求先）"
-        issue_date: "請求日"
-        max_occurrences: "max occurrences"
-        name: "名前"
-        notes: "備考"
-        number: "番号"
-        period_type: "繰り返しの単位"
-        period: "繰り返す頻度"
-        series_id: "分類"
-        series: "分類"
-        shipping_address: "住所（郵送先）"
-        starting_date: "開始日"
-        tag_list: "タグ一覧"
-        terms: "お支払いについて"
       customer:
-        identification: "VAT ID"
-      payment:
-        amount: "数量"
-        date: "日付"
-        invoice: "請求"
-        notes: "備考"
-      series:
-        first_number: "通し番号の初期値"
-        name: "名前"
-        value: "分類コード"
-      tax:
-        name: "税名称"
-        value: "値"
-      template:
-        name: "名前"
-        template: "テンプレート"
-        subject: "件名"
+        identification:    VAT ID
+      invoice:
+        contact_person:    担当者
+        due_date:          お支払い期限
+        email:             Eメール
+        email_template_id: Eメール用テンプレート
+        identification:    VAT ID
+        invoicing_address: 住所（請求先）
+        issue_date:        請求日
+        name:              名前
+        notes:             備考
+        number:            番号
+        print_template_id: PDF用テンプレート
+        series_id:         分類
+        shipping_address:  住所（郵送先）
+        tag_list:          タグ一覧
+        terms:             お支払いについて
       item:
-        description: "品番・品名"
-        quantity: "数量"
-        unitary_cost: "単価"
-        discount: "割引"
-        net_amount: "金額"
-        
+        description:       品番・品名
+        discount:          割引
+        net_amount:        金額
+        quantity:          数量
+        unitary_cost:      単価
+      payment:
+        amount:            数量
+        date:              日付
+        invoice:           請求
+        notes:             備考
+      recurring_invoice:
+        contact_person:    担当者
+        days_to_due:       支払期限（日数）
+        email:             Eメール
+        finishing_date:    終了日
+        identification:    VAT ID
+        invoicing_address: 住所（請求先）
+        issue_date:        請求日
+        max_occurrences:   max occurrences
+        name:              名前
+        notes:             備考
+        number:            番号
+        period:            繰り返す頻度
+        period_type:       繰り返しの単位
+        series:            分類
+        series_id:         分類
+        shipping_address:  住所（郵送先）
+        starting_date:     開始日
+        tag_list:          タグ一覧
+        terms:             お支払いについて
+      series:
+        first_number:      通し番号の初期値
+        name:              名前
+        value:             分類コード
+      tax:
+        name:              税名称
+        value:             値
+      template:
+        name:              名前
+        subject:           件名
+        template:          テンプレート
     errors:
       models:
-        series:
-          attributes:
-            value:
-              blank: "が空欄です"
         invoice:
           attributes:
             series:
-              blank: "が空欄です"
+              blank:       が空欄です
+        series:
+          attributes:
+            value:
+              blank:       が空欄です
+    models:
+      customer:            取引先
+      invoice:             請求書
+      recurring_invoice:   定期請求書
+      series:              分類
+      settings:            設定
+      tax:                 課税
+      template:            テンプレート
+  add line:                行を追加
+  add payment:             入金履歴を追加
+  address:                 住所
+  api token:               APIトークン
+  apply changes:           変更を適用
+  apply to new items by default: 自動的に新規項目へ適用する
+  authentication:          認証
+  available language:      切替可能な言語
+  back:                    戻る
+  company:                 会社
+  configuration:           設定
+  confirmation:            確認
+  currency:                通貨
+  customer:                取引先
+  customer name:           取引先名
+  customers:               取引先
+  dashboard:               ダッシュボード
+  date:                    日付
+  days to due:             期限までの日数
+  default:                 初期値
+  delete:                  削除
+  details:                 詳細
+  download pdf:            PDFをダウンロード
+  due:                     期限
+  edit:                    編集
+  email:                   eメール
+  enable:                  有効化
+  enabled:                 有効
+  export to csv:           csv出力
+  first number:            開始数値
+  form_fields:
+    copy invoicing address: 請求先住所を使用
+  found:                   件
+  frecuency:               頻度
+  generate:                生成
+  global settings:         全体設定
+  hooks:                   フック
+  identification:          ID
+  invoice:                 請求書
+  invoices:                請求書
+  legal terms:             お支払いについて
+  log out:                 ログアウト
+  logo:                    ロゴ
+  my:                      私の
+  my account:              個人設定
+  name:                    名前
+  new:                     新規
+  new invoice:             新規請求書
+  number:                  番号
+  old:                     旧
+  password:                パスワード
+  past due invoices:       期限切れの請求書
+  payment collection failed: 代金回収に失敗
+  payments:                支払い
+  pending:                 未入金
+  phone:                   電話番号
+  profile:                 個人設定
+  recurring invoices:      定期請求書
+  recurring_invoices:
+    form:
+      auto_send:           請求書生成時にメールを自動送信する
+      enable_invoice:      この定期請求書を有効にする
+    index:
+      build pending invoices: 支払待の請求書を作る
+  save:                    保存
+  save and continue:       保存して編集を続ける
+  save as draft:           下書きとして保存
+  search:                  検索
+  select template for e-mail: Eメール用テンプレートを選択
+  select template to print: 印刷用テンプレートを選択
+  send email:              メール送信
+  sent:                    送信済
+  series:                  分類
+  server:                  サーバ
+  set paid:                支払済にする
+  settings:
+    api_token:
+      authenticate api token: 'このトークンをAPIリクエストを認証するために使用してください:'
+      press api token:     APIトークンを生成するには、下のボタンを押してください。
+    hooks:
+      url to post:         '請求書が自動発行された際にPOSTするURL:'
+  smtp settings:           SMTP設定
+  status:                  状態
+  subtotal:                小計
+  tag:                     タグ
+  tags:                    タグ
+  tax:                     税
+  tax name:                税名称
+  taxes:                   課税設定
+  templates:               テンプレート
+  token:                   トークン
+  total:                   合計
+  value:                   値
+  website:                 ウェブサイト
