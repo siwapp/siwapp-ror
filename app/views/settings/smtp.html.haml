@@ -35,7 +35,7 @@
           = f.text_field :password, class: 'form-control'
         .form-group
           = f.label :authentication, "#{t("authentication")}:"
-          = f.select :authentication, [['plain', 'plain'], ['login', 'login'], ['cram md5', 'cram_md5']], {}, class: 'form-control c-select'
+          = f.select :authentication, [['Plain', 'plain'], ['Login', 'login'], ['CRAM md5', 'cram_md5']], {}, class: 'form-control c-select'
         .checkbox
           %label
             = f.check_box :enable_starttls_auto
