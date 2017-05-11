@@ -1,15 +1,15 @@
-%h1 My Tags
+%h1="#{t("my")}#{t("tags")}"
 
 .row
   = form_tag settings_tags_path, method: :put, id: 'tag-settings' do
     .col-xs-5.col-md-2.col-xl-3
       .table-responsive
-        %h2 Invoices tags
+        %h2="#{t("invoices")}#{t("tags")}"
         %table.table.table-hover.table-stripped.table-bordered
           %thead
             %tr
-              %th.no-wrap Tag Name
-              %th.no-wrap Delete?
+              %th.no-wrap="#{t("tag")}#{t("name")}"
+              %th.no-wrap="#{t("delete")}?"
           %tbody
             - @common_tags.each do |tag|
               %tr
@@ -19,12 +19,12 @@
                 %td.text-center{data: {role: 'select'}}= check_box_tag "tags[#{tag.id}][_delete]", tag.id
     .col-xs-5.col-md-2.col-xl-3
       .table-responsive
-        %h2 Customer tags
+        %h2="#{t("customer")}#{t("tags")}"
         %table.table.table-hover.table-stripped.table-bordered
           %thead
             %tr
-              %th.no-wrap Tag Name
-              %th.no-wrap Delete?
+              %th.no-wrap="#{t("tag")}#{t("name")}"
+              %th.no-wrap="#{t("delete")}?"
           %tbody
             - @customer_tags.each do |tag|
               %tr
@@ -35,4 +35,4 @@
 
 
 .action-buttons{"data-role": "action-buttons"}
-  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}} Apply Changes
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("apply changes")

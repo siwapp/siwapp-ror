@@ -1,6 +1,11 @@
 class SettingsController < ApplicationController
   before_action :set_hooks_logs, only: [:hooks, :hooks_update]
   force_ssl only: [:api_token], if: :is_production
+  
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
+  end
+    
 
   # GET /settings/global
   def global

@@ -1,11 +1,11 @@
 .section-hd
   %h1
     - if @customer
-      = "Invoices for #{@customer}"
+      = "invoices for #{@customer}"
     - else
-      Invoices
+      =t("invoices")
     %small.text-muted
-      = "(#{@count} found)"
+      = "(#{@count} #{t("found")})"
 
   %button#js-section-info-button.btn.dropdown-toggle.section-hd__action{type: "button", data: {toggle: "collapse", target: "#js-section-info"}}= display_money @gross
 
@@ -13,13 +13,13 @@
   #js-invoices-chart.chart-height-sm
   %ul.list-group.list-unstyled
     %li
-      Total Gross
+      total gross
       %span.label.label-default.label-pill.pull-right= display_money @gross
     %li
-      Total Net
+      total net
       %span.label.label-default.label-pill.pull-right= display_money @net
     %li
-      Total Tax
+      total tax
       %span.label.label-default.label-pill.pull-right= display_money @tax
 
 = form_tag bulk_invoices_path, method: :post, id: 'js-list-form' do
@@ -30,20 +30,20 @@
         %thead
           %tr
             %th.table-select= check_box_tag "select_all", 1, false, {"data-role": "select-all-rows"}
-            %th.no-wrap= sort_link(@search, :number, "Number")
-            %th.no-wrap= sort_link(@search, :name, "Customer Name")
-            %th.no-wrap= sort_link(@search, :issue_date, "Date")
-            %th.text-center= sort_link(@search, :sent_by_email, "Sent")
-            %th.text-center= sort_link(@search, :status, "Status")
-            %th.text-right Pending
-            %th.text-right= sort_link(@search, :gross_amount, "Total")
+            %th.no-wrap= sort_link(@search, :number, t("number"))
+            %th.no-wrap= sort_link(@search, :name, t("customer name"))
+            %th.no-wrap= sort_link(@search, :issue_date, t("date"))
+            %th.text-center= sort_link(@search, :sent_by_email, t("sent"))
+            %th.text-center= sort_link(@search, :status, t("status"))
+            %th.text-right=t("pending")
+            %th.text-right= sort_link(@search, :gross_amount, t("total"))
         %tbody{data: {role: 'infinite-content'}}
           = render @invoices, current_page: @invoices.current_page
     .content-loading.hide{data: {role: 'infinite-status'}}
       .spinner
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to 'Delete', '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'Are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
-  = link_to 'Send Email', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'send_email', target: '#js-list-form'}
-  = link_to 'Set Paid', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'set_paid', target: '#js-list-form'}
-  = link_to 'Download PDF', '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'pdf', target: '#js-list-form'}
+  = link_to t("delete"), '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', action: 'delete', target: '#js-list-form'}
+  = link_to t("send email"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'send_email', target: '#js-list-form'}
+  = link_to t("set paid"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'set_paid', target: '#js-list-form'}
+  = link_to t("download pdf"), '#', class: 'btn btn-primary', data: {role: 'submit-form', action: 'pdf', target: '#js-list-form'}

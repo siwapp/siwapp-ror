@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  
   # CSRF attacks: raise an exception.
   protect_from_forgery with: :exception
 

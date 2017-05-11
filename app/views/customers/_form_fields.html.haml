@@ -7,13 +7,13 @@
           = f.text_field :name, class: 'form-control'
       .col-md-6
         .form-group
-          = f.label :identification, "VAT ID"
+          = f.label :identification
           = f.text_field :identification, class: 'form-control'
 
     .row
       .col-md-6
         .form-group
-          = f.label :contact_person, "Contact Person"
+          = f.label :contact_person
           = f.text_field :contact_person, class: 'form-control'
       .col-md-6
         .form-group
@@ -23,21 +23,21 @@
     .row
       .col-md-6
         .form-group
-          = f.label :invoicing_address, "Invoicing Address"
+          = f.label :invoicing_address
           = f.text_area :invoicing_address, class: 'form-control autosize', "data-address": "invoice"
       .col-md-6
         .form-group
-          = f.label :shipping_address, "Shipping Address"
-          = link_to "Copy Invoicing Address", "#", "id": "js-copy-address", "class": "label-small-link"
+          = f.label :shipping_address
+          = link_to t("form_fields.copy invoicing address"), "#", "id": "js-copy-address", "class": "label-small-link"
           = f.text_area :shipping_address, class: 'form-control autosize', "data-address": "shipping"
 
     - unless f.object_name == 'customer'
       .row
         .col-md-6
           .form-group
-            = f.label :terms, "Legal Terms and Conditions"
+            = f.label :terms
             = f.text_area :terms, class: 'form-control autosize'
         .col-md-6
           .form-group
-            = f.label :notes, "Notes"
+            = f.label :notes
             = f.text_area :notes, class: 'form-control autosize'

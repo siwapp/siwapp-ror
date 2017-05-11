@@ -1,11 +1,11 @@
-%h1 Taxes
+%h1=t("taxes")
 
 = form_tag url_for(:controller => "taxes", :action => "set_default"), :method => :post, :class => "change_default" do
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
-        %th.table-select Default
-        %th Tax Name
+        %th.table-select.text-nowrap=t("default")
+        %th=t("tax name")
       %tbody
         - @taxes.each do |tax|
           %tr
