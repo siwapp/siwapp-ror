@@ -8,7 +8,7 @@
       = "(#{@count} #{t("found")})"
 
     - if @any_invoices_to_be_built
-      = link_to "build pending invoices", generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
+      = link_to t(".build pending invoices"), generate_recurring_invoices_path, :method => :post, class: "btn btn-sm btn-primary"
     - else
       %span.btn.btn-sm.btn-secondary.disabled=t(".build pending invoices")
 

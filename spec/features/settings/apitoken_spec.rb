@@ -18,7 +18,7 @@ feature "Settings:" do
 
     expect(page.current_path).to eql settings_api_token_path
     expect(Settings[:api_token]).not_to be_nil
-    expect(page).to have_content "Use this token to authenticate your api requests:"
+    expect(page).to have_content "Use this token to authenticate your API requests:"
     expect(find("code.active").text).to eq Settings[:api_token]
   end
 
