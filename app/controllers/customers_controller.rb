@@ -1,6 +1,10 @@
 class CustomersController < ApplicationController
   include MetaAttributesControllerMixin
-  include ApplicationHelper
+  include ApplicationHelper 
+  
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
+  end
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]

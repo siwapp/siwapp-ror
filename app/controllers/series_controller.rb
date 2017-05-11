@@ -1,6 +1,10 @@
 class SeriesController < ApplicationController
   before_action :set_type
   before_action :set_series, only: [:show, :edit, :update, :destroy, :next_number]
+  
+  def default_url_options(options = {})
+    { locale: I18n.locale }.merge options
+  end
 
   # GET /series
   # GET /series.json

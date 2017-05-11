@@ -1,9 +1,5 @@
 class ApplicationController < ActionController::Base
   
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
-  
   # CSRF attacks: raise an exception.
   protect_from_forgery with: :exception
 
