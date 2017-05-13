@@ -1,6 +1,5 @@
 module CommonsControllerMixin
 
-
   protected
 
   # Protected: configures search

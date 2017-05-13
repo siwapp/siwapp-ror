@@ -7,6 +7,9 @@ class Api::V1::BaseController < ApplicationController
 
   rescue_from Exception, with: :render_error # any error? go to handler!
 
+  def default_url_options(options = {})
+    options
+  end
 
   protected
 

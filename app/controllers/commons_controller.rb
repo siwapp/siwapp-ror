@@ -29,6 +29,7 @@ class CommonsController < ApplicationController
   # GET /commons
   # GET /customers/:customer_id/commons --> filter by customer
   def index
+    @tags = tags_for('Common')
     # To redirect to the index with the current search params
     set_redirect_address(request.original_fullpath, @type)
     # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
@@ -174,12 +175,6 @@ class CommonsController < ApplicationController
     end
   end
 
-  protected
-
-  def configure_search
-    super
-    @tags = tags_for('Common')
-  end
 
   private
 

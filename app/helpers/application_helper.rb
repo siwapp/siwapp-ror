@@ -1,7 +1,7 @@
 module ApplicationHelper
   include StiHelper
 
-  
+
   def title(*parts)
     unless parts.empty?
       content_for :title do
@@ -34,12 +34,12 @@ module ApplicationHelper
 
   def redirect_address(type)
     if session[:redirect_to] && session[:redirect_to]["type"] == type
-      return session[:redirect_to]["address"] 
+      session[:redirect_to]["address"]
     else
-      return sti_path(type)
+      sti_path(type)
     end
   end
-  
+
   def i18n_url_for(options)
     if options[:locale] == I18n.default_locale
       options[:locale] = nil
