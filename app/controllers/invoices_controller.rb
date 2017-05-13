@@ -1,8 +1,5 @@
 class InvoicesController < CommonsController
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
-
+  
   def show
     # Show the template in an iframe
     respond_to do |format|

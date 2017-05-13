@@ -93,4 +93,4 @@ gem 'wisper-celluloid'
 gem "http"
 # for translation
 gem 'route_translator'
-gem 'dotenv-rails'
+gem 'dotenv-rails', groups: [:development, :test]

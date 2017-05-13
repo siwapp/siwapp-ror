@@ -1,10 +1,5 @@
 class RecurringInvoicesController < CommonsController
 
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
-
-
   def generate
     # Generates pending invoices up to today
     RecurringInvoice.build_pending_invoices!
