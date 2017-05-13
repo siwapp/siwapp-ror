@@ -181,26 +181,12 @@ class CommonsController < ApplicationController
   # Private: sets taxes and series for some actions
   def set_extra_stuff
     @taxes = Tax.where active: true
-    @default_taxes_ids = @taxes.find_all { |t| t.default }.collect{|t| t.id }
+    @default_taxes = @taxes.where(default: true)
 
     @series = Series.where enabled: true
     @default_series = Series.default_series
-
     @templates = Template.all
-    default_email_template = Template.find_by(email_default: true)
-    default_print_template = Template.find_by(print_default: true)
 
-    if default_email_template
-      @default_email_template_id = default_email_template.id
-    else
-      @default_email_template_id = 1
-    end
-
-    if default_print_template
-      @default_print_template_id = default_print_template.id
-    else
-      @default_print_template_id = 1
-    end
     @days_to_due = Integer Settings.days_to_due
     @tags = tags_for('Common')
   end
