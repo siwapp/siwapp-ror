@@ -8,8 +8,6 @@ class Api::V1::BaseController < ApplicationController
   rescue_from Exception, with: :render_error # any error? go to handler!
 
 
-
-
   protected
 
   # handle errors

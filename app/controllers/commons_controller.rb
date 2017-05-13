@@ -1,5 +1,4 @@
 class CommonsController < ApplicationController
-  include StiHelper
   include ApplicationHelper
   include CommonsControllerMixin
   include MetaAttributesControllerMixin
