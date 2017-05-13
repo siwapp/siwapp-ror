@@ -131,11 +131,6 @@ class InvoicesController < CommonsController
 
   protected
 
-  def configure_search
-    super
-    @search_filters = true
-  end
-
   def set_listing(instances)
     @invoices = instances
   end

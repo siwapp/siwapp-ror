@@ -6,13 +6,10 @@ module CommonsControllerMixin
   # Protected: configures search
   #
   # Sets @search to be used with search_form_for.
-  # Set @search_filters to true in children controllers to load the
-  # advanced search filters partial located at views/<controller>/.
   #
   # Returns the same value received
   def configure_search
     @search = model.ransack(params[:q])
-    @search_filters = false
   end
 
   # Protected: set an instance variable for a list of items of the current model
