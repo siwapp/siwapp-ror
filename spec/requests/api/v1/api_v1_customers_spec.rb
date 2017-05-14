@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Api::V1::Payments", type: :request do
+RSpec.describe "Customers", type: :request do
 
   before do
     FactoryGirl.create :token
