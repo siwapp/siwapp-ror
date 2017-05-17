@@ -344,6 +344,9 @@ It's just like listing, but adding the `q` search parameter with any of these ke
   * `q[series_id]=3` invoices whose series has the id=3
   * `q[with_status]=paid` invoices whose status is `paid` can also be `draft`, `pending` or `past_due`
 
+Search for meta attributes can be done with:
+  * `meta[key]=value`
+
 If you wanted to search for invoices named 'acme' whose status is 'paid', you would do a GET request to
 
 `https://siwapp-server.com/api/v1/invoices?q[with_status]=paid&q[with_terms]=acme`

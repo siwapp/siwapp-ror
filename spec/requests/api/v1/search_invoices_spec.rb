@@ -62,14 +62,8 @@ RSpec.describe "Invoices Search", type: :request do
    end
 
    describe "searches right by meta_attributes wiht meta param" do
-     it "gets the right one with just the key" do
-      get api_v1_invoices_path, {meta: "mykey"}, @headers
-      expect(response.body).to match '"Pete"'
-      expect(response.body).not_to match '"Test Customer"'
-     end
-
      it "gets the right one with key:value" do
-      get api_v1_invoices_path, {meta: "mykey:myvalue"}, @headers
+      get api_v1_invoices_path, {meta: {mykey: "myvalue"}}, @headers
       expect(response.body).to match '"Pete"'
       expect(response.body).not_to match '"Test Customer"'
      end
