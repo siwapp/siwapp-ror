@@ -236,7 +236,10 @@ jQuery(document).ready ($) ->
   $(document).on 'click', '[data-role="csv-form"]', (e) ->
     e.preventDefault()
     old_action = $('#js-search-form').attr('action')
-    $('#js-search-form').attr('action', "#{old_action}.csv")
+    # To download csv you must split by the querystring
+    new_action = old_action.split("?")[0]
+    $('#js-search-form').attr('action', "#{new_action}.csv")
+    
     $('#js-search-form').submit()
     # back to normal action
     $('#js-search-form').attr('action', "#{old_action}")
