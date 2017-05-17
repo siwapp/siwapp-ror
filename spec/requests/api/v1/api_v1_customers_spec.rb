@@ -24,7 +24,7 @@ RSpec.describe "Customers", type: :request do
 
     it "GET /api/v1/customers/:id/invoices shows filtered invoices" do
       # create extra invoice for another customer
-	  alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
+      alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
       alt_invoice = FactoryGirl.create :invoice, customer: alt_customer
       print_template = FactoryGirl.create :template, print_default: true, name: "print default", template: "invoice"
       get api_v1_customer_invoices_path(@invoice.customer), nil, @headers
