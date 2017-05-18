@@ -30,15 +30,14 @@ class CommonsController < ApplicationController
   # GET /customers/:customer_id/commons --> filter by customer
   def index
     @tags = tags_for('Common')
+
     # To redirect to the index with the current search params
     set_redirect_address(request.original_fullpath, @type)
-    # TODO: check https://github.com/activerecord-hackery/ransack/issues/164
-    results = @search.result(distinct: true).order(issue_date: :desc).order(id: :desc)
+
     # If there is meta param, it's allowed filtering by meta_attributes
     # the format is:
     #   key1:value1,key2:value2
     #   key1, ... (if you only search for invoices having key1 no matter value)
-    # TODO: I think this below should be on the model
     if params[:meta]
       conditions = []
       params[:meta].split(',').each do |condition_string|
@@ -49,29 +48,15 @@ class CommonsController < ApplicationController
           conditions.push("meta_attributes ilike '%\"#{condition_list[0]}\":\"#{condition_list[1]}\"%'")
         end
       end
-      results = results.where(conditions.join(" and "))
+      @results = @results.where(conditions.join(" and "))
     end
-    # filter by customer
-    if params[:customer_id]
-      results = results.where customer_id: params[:customer_id]
-      @customer = Customer.find params[:customer_id]
-      @search_url = send "customer_#{@type.underscore.downcase.pluralize}_path", params[:customer_id]
-    end
-    results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
-
-    @gross = results.sum :gross_amount
-    @net = results.sum :net_amount
-    @count = results.count
-
-    # series has to be included after totals calculations
-    results = results.includes :series
-
-    set_listing results.paginate(page: params[:page], per_page: 20)
+    
+    set_listing @results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
       format.html { render sti_template(@type, action_name), layout: 'infinite-scrolling' }
       format.csv do
-        csv_string = model.csv results
+        csv_string = model.csv @results
         send_data csv_string,
           :type => "text/plain",
           :filename => "#{@type.underscore.downcase.pluralize}.csv",
