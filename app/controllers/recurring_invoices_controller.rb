@@ -1,9 +1,4 @@
 class RecurringInvoicesController < CommonsController
-  
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
-  
 
   def generate
     # Generates pending invoices up to today
@@ -54,11 +49,6 @@ class RecurringInvoicesController < CommonsController
 
 
   protected
-
-  def configure_search
-    super
-    @search_filters = true
-  end
 
   def set_listing(instances)
     @recurring_invoices = instances

@@ -1,10 +1,6 @@
 class TemplatesController < ApplicationController
   before_action :set_type
   before_action :set_template, only: [:show, :edit, :update, :destroy]
-  
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
 
   # GET /templates
   # GET /templates.json

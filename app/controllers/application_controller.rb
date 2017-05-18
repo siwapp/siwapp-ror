@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  
+
   # CSRF attacks: raise an exception.
   protect_from_forgery with: :exception
 
@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
   # available in views
   helper_method :get_currency
+
+
+
+  def default_url_options(options = {})
+    {locale: I18n.locale}.merge options
+  end
 
   # Public: return a list of tags  already saved for a certain types
   #

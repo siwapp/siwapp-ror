@@ -75,7 +75,7 @@ gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
 gem "rails-settings-cached", "~> 0.4.0"
-gem 'ransack'
+gem 'ransack', "~> 1.8.2"
 gem 'sass'
 gem 'valid_url'
 gem 'wicked_pdf'
@@ -93,4 +93,4 @@ gem 'wisper-celluloid'
 gem "http"
 # for translation
 gem 'route_translator'
-gem 'dotenv-rails'
+gem 'dotenv-rails', groups: [:development, :test]

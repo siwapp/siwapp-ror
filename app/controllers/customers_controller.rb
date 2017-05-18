@@ -1,10 +1,6 @@
 class CustomersController < ApplicationController
   include MetaAttributesControllerMixin
-  include ApplicationHelper 
-  
-  def default_url_options(options = {})
-    { locale: I18n.locale }.merge options
-  end
+  include ApplicationHelper
 
   before_action :set_type
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
@@ -16,7 +12,6 @@ class CustomersController < ApplicationController
     set_redirect_address(request.original_fullpath, "customers")
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @search_filters = true
     @customers = @search.result(distinct: true)
     @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 

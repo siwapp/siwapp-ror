@@ -16,21 +16,16 @@ class Api::V1::CommonsController < Api::V1::BaseController
   # GET /api/v1/commons
   # GET /api/v1/customers/customer_id/commons  --> for API
   def index
-    results = @search.result(distinct: true).order(issue_date: :desc).order(id: :desc)
     # meta attributes filtering
     if params[:meta]
       conditions = []
       params[:meta].each do |key, value|
         conditions.push("meta_attributes ilike '%\"#{key}\":\"#{value}\"%'")
       end
-      results = @search.result(distinct: true)
-        .where(conditions.join(" and ")).order(issue_date: :desc).order(id: :desc)
+      @results = @results.where(conditions.join(" and "))
     end
-    if params[:customer_id]
-      results = results.where(customer_id: params[:customer_id])
-    end
-    results = results.tagged_with(params[:tag_list].split(/\s*,\s*/)) if params[:tag_list].present?
-    results = results.includes :series
+
+    # Pagination
     if params[:page]
       page_number = params[:page][:number] || 1
       page_size = params[:page][:size] || 20
@@ -38,9 +33,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
       page_number = 1
       page_size = 20
     end
-
-    results.paginate(page: page_number, per_page: page_size)
-    set_listing results.paginate(page: page_number, per_page: page_size)
+    set_listing @results.paginate(page: page_number, per_page: page_size)
   end
 
   def create

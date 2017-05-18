@@ -1,18 +1,35 @@
 module CommonsControllerMixin
 
-
   protected
 
   # Protected: configures search
   #
   # Sets @search to be used with search_form_for.
-  # Set @search_filters to true in children controllers to load the
-  # advanced search filters partial located at views/<controller>/.
   #
   # Returns the same value received
   def configure_search
     @search = model.ransack(params[:q])
-    @search_filters = false
+
+    @results = @search.result(distinct: true)\
+      .order(issue_date: :desc).order(id: :desc)
+
+    if params[:tag_list].present?
+      @results = @results.tagged_with(params[:tag_list].split(/\s*,\s*/))
+    end
+
+    # filter by customer
+    if params[:customer_id]
+      @results = @results.where customer_id: params[:customer_id]
+      @customer = Customer.find params[:customer_id]
+    end
+
+    @gross = @results.sum :gross_amount
+    @net = @results.sum :net_amount
+    @count = @results.count
+
+    # series has to be included after totals calculations
+    @results = @results.includes :series
+
   end
 
   # Protected: set an instance variable for a list of items of the current model

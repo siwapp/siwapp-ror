@@ -19,7 +19,7 @@
     %label{"data-role": "taxes-selector-label"}
       =t("taxes")
       %span{data: {role: 'total'}}
-    = f.collection_select :tax_ids, @taxes, :id, :to_s, is_new ? { selected: @default_taxes_ids} : {}, {class: 'form-control c-select', multiple: true, "data-role": "taxes-selector"}
+    = f.collection_select :tax_ids, @taxes, :id, :to_s, is_new ? { selected: @default_taxes.map(&:id)} : {}, {class: 'form-control c-select', multiple: true, "data-role": "taxes-selector"}
 
   .invoice-col.invoice-col--total.form-group
     = f.label :net_amount
