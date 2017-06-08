@@ -14,14 +14,14 @@ module ApplicationHelper
   def active_link(link)
     link.split(',').each do |value|
       if value.strip == params[:controller]
-        return "active"
+        "active"
       end
     end
-    return ""
+    ""
   end
 
-  def display_money(amount)
-    currency = get_currency
+  def display_money(amount, currency=Settings.currency)
+    currency = Money::Currency.find currency
     format = currency.symbol_first? ? "%u %n" : "%n %u"
     number_to_currency amount, precision: currency.exponent, unit: currency.symbol,
     separator: currency.separator, delimiter: currency.delimiter, format: format,

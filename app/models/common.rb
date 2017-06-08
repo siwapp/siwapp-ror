@@ -1,6 +1,5 @@
 class Common < ActiveRecord::Base
   include Wisper::Publisher
-  include Util
   include MetaAttributes
 
   extend ModelCsv  # To export to csv file
@@ -110,6 +109,14 @@ class Common < ActiveRecord::Base
   # Triggers an event via Wisper
   def trigger_event(event)
     broadcast(event, self)
+  end
+
+  def get_currency
+    Money::Currency.find currency
+  end
+
+  def currency_precision
+    get_currency.exponent
   end
 
 

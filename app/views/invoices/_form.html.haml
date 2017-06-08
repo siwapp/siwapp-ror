@@ -35,20 +35,24 @@
     .row
       .col-xs-12.col-xl-8
         .row
-          .col-xs-12.col-sm-6
+          .col-xs-12.col-sm-4
             .form-group
               = f.label :series_id
               - if is_new and @default_series
                 = f.collection_select :series_id, @series, :id, :to_s, {selected: @default_series.id}, {multiple: false, class: 'form-control c-select'}
               - else
                 = f.collection_select :series_id, @series, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
-          .col-xs-12.col-sm-6
+          .col-xs-12.col-sm-4
             .form-group
               = f.label :number
               - if is_new and @default_series
                 = f.text_field :number, {class: 'form-control', value: @default_series.next_number}
               - else
                 = f.text_field :number, {class: 'form-control', 'data-number_was': @invoice.number_was}
+          .col-xs-12.col-sm-4
+            .form-group
+              = f.label :currency
+              = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
 
         .row
           .col-xs-12.col-sm-6

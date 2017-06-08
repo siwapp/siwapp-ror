@@ -1,10 +1,7 @@
 class InvoiceMailer < ApplicationMailer
   add_template_helper TemplatesHelper
   add_template_helper ApplicationHelper
-  
-  include Util
-  helper_method :get_currency
-  
+
   def email_invoice(invoice)
     @invoice = invoice
 
@@ -28,7 +25,7 @@ class InvoiceMailer < ApplicationMailer
     email_body = render_to_string :inline => body_template,
       :locals => {:invoice => @invoice, :settings => Settings}
     attachments["#{@invoice}.pdf"] = @invoice.pdf(pdf_html)
-    
+
     # Sending the email
     mail(
       from: Settings.company_email,
