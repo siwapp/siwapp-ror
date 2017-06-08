@@ -26,6 +26,7 @@ class Common < ActiveRecord::Base
   # Events
   after_save :purge_items
   after_save :update_amounts
+  after_initialize :init
 
   # Search
   scope :with_terms, ->(terms) {
@@ -36,6 +37,13 @@ class Common < ActiveRecord::Base
            description ILIKE :terms',
            terms: "%#{terms}%")
   }
+
+  def init
+    self.terms = Settings.legal_terms
+    self.currency = Settings.currency
+    self.items.new
+    self.items[0].common = self
+  end
 
   # A hash with each tax amount rounded
   def taxes
