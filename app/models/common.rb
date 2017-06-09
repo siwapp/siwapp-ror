@@ -42,7 +42,6 @@ class Common < ActiveRecord::Base
     unless self.id
       self.terms = Settings.legal_terms
       self.currency = Settings.currency
-      # self.items << Item.new(common: self)
     end
   end
 
