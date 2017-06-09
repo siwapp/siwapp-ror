@@ -75,7 +75,7 @@
               = f.label :print_template_id
               = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {multiple: false, class: 'form-control c-select'}
 
-    = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @invoice, is_new: is_new}
+    = render partial: 'shared/item_form', locals: {f: f, invoice: @invoice, is_new: is_new}
 
   - unless @invoice.new_record?
     %fieldset.m-b-2{data: {changes: 'amount'}}

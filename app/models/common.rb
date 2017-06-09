@@ -39,10 +39,11 @@ class Common < ActiveRecord::Base
   }
 
   def init
-    self.terms = Settings.legal_terms
-    self.currency = Settings.currency
-    self.items.new
-    self.items[0].common = self
+    unless self.id
+      self.terms = Settings.legal_terms
+      self.currency = Settings.currency
+      # self.items << Item.new(common: self)
+    end
   end
 
   # A hash with each tax amount rounded

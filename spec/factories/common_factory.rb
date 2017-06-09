@@ -3,6 +3,7 @@ FactoryGirl.define do
     name "Test Customer"
     identification "12345"
     email "customer@example.com"
+    currency "usd"
 
     after :build do |common|
       common.series = common.series || Series.find_by(default: true) || create(:series, :default)
@@ -69,6 +70,7 @@ FactoryGirl.define do
       period_type "month"
       period 1
       days_to_due 30
+      currency "usd"
 
       # WARNING: DON'T USE FOR TESTS!!!
       factory :demo_recurring_invoice do
