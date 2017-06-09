@@ -279,7 +279,7 @@
       <%= invoice.get_status.upcase %>
     </div>
     <div class="amount">
-      <%= display_money invoice.gross_amount %>
+      <%= display_money invoice.gross_amount, invoice.currency %>
       <span class="amount__currency"><%= settings.currency.upcase %></span>
     </div>
   </div>
@@ -300,10 +300,10 @@
         <tr>
           <td><%= item.description %></td>
           <% if @invoice.have_items_discount? %>
-          <td><%= display_money item.base_amount %></td>
+          <td><%= display_money item.base_amount, @invoice.currency %></td>
           <td><% if item.discount > 0 %><%= item.discount %>%<% end %></td>
           <% end %>
-          <td class="total"><%= display_money item.net_amount %></td>
+          <td class="total"><%= display_money item.net_amount, @invoice.currency %></td>
         </tr>
       <% end %>
     </tbody>
@@ -325,17 +325,17 @@
         <tbody>
           <tr>
             <th>Subtotal</th>
-            <td class="total"><%= display_money invoice.net_amount %></td>
+            <td class="total"><%= display_money invoice.net_amount, invoice.currency %></td>
           </tr>
           <% invoice.taxes.each do |tax, value| %>
             <tr>
               <th><%= tax %></th>
-              <td class="total"><%= display_money value %></td>
+              <td class="total"><%= display_money value, invoice.currency %></td>
             </tr>
           <% end %>
           <tr class="grand-total">
             <th>Total</th>
-            <td class="total"><%= display_money invoice.gross_amount %></td>
+            <td class="total"><%= display_money invoice.gross_amount, invoice.currency %></td>
           </tr>
         </tbody>
       </table>

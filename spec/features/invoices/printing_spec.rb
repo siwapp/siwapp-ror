@@ -35,7 +35,6 @@ feature "Invoices:" do
   scenario "User can download selected invoices as PDF from the invoices list", :js => true, :driver => :webkit do
     visit invoices_path
 
-    # byebug
     find_field('select_all').click
     click_on "Download PDF"
 	sleep 2

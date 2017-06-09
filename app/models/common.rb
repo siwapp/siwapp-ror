@@ -40,8 +40,8 @@ class Common < ActiveRecord::Base
 
   def init
     unless self.id
-      self.terms = Settings.legal_terms
-      self.currency = Settings.currency
+      self.terms ||= Settings.legal_terms
+      self.currency ||= Settings.currency
     end
   end
 
