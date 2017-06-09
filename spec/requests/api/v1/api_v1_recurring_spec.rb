@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Api::V1::Invoices:", type: :request do
+RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   before do
     FactoryGirl.create :token
@@ -11,28 +11,26 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @template = FactoryGirl.create(:template)
-    @invoice = FactoryGirl.create(:invoice)
+    @recurring = FactoryGirl.create(:recurring_invoice)
     @vat = Tax.find(1)
   end
 
   describe "Show:" do
-    it "GET /api/v1/invoices/:id -- Single invoice with details" do
-      get api_v1_invoice_path(@invoice), nil, @headers
+    it "GET /api/v1/recurring_invoices/:id -- Single recurring with details" do
+      get api_v1_recurring_invoice_path(@recurring), nil, @headers
       expect(response).to be_success
       expect(json["data"].length).to eql 5
 
-      expect(json["data"]["links"]["self"]).to eql api_v1_invoice_path(@invoice)
-      expect(json["data"]["links"]["customer"]).to eql api_v1_customer_path(@invoice.customer)
-      # download link
-      expect(json["data"]["attributes"]["download-link"]).to eql api_v1_rendered_template_path(@template, @invoice)
+      expect(json["data"]["links"]["self"]).to eql \
+        api_v1_recurring_invoice_path(@recurring)
+      expect(json["data"]["links"]["customer"]).to eql \
+        api_v1_customer_path(@recurring.customer)
     end
   end
 
-  describe "Invoices Listing" do
-    it "GET /api/v1/invoices Standard listing works ok" do
-
-      get api_v1_invoices_path, nil, @headers
+  describe "Recurring Invoices Listing" do
+    it "GET /api/v1/recurring_invoices Standard listing works ok" do
+      get api_v1_recurring_invoices_path, nil, @headers
 
       expect(response).to be_success
       expect(json["data"].is_a? Array).to be true
@@ -42,28 +40,29 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
     describe "Paginated invoices listing" do
 
       before do
-        FactoryGirl.create_list :invoice, 30, customer: @invoice.customer # 30 more invoices
+        FactoryGirl.create_list :recurring_invoice, 30,
+          customer: @recurring.customer # 30 more invoices
       end
 
       it "Display only 20 results per page and return pagination headers" do
-        get api_v1_invoices_path, nil, @headers
+        get api_v1_recurring_invoices_path, nil, @headers
         expect(response).to be_success
         expect(json["data"].count).to eql 20
-        expect(response.headers).to have_key "X-Pagination"
-        pagination_header = JSON.parse response.headers["X-Pagination"]
-        expect(pagination_header["total"]).to eql 31
-        expect(pagination_header["next_page"]).to eql 2
+        # expect(response.headers).to have_key "X-Pagination"
+        # pagination_header = JSON.parse response.headers["X-Pagination"]
+        # expect(pagination_header["total"]).to eql 31
+        # expect(pagination_header["next_page"]).to eql 2
       end
 
       it "A param sets the page" do
-        get api_v1_invoices_path, {page: {number: 2}},  @headers
+        get api_v1_recurring_invoices_path, {page: {number: 2}},  @headers
         expect(response).to be_success
         expect(json["data"].count).to eql 11
       end
     end
   end
 
-  describe "Invoice creation" do
+  describe "Recurring Invoice creation" do
 
     it "basic invoice creation on POST request" do
       inv = {
@@ -71,8 +70,11 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
           "attributes" => {
             "name" => "newly created",
             "email" => "test@email.com",
-            "issue_date" => "2016-06-06",
-            "series_id" => @invoice.series.id,
+            "starting_date" => "2016-06-06",
+            "days_to_due" => "30",
+            "period" => "1",
+            "period_type" => "monthly",
+            "series_id" => @recurring.series.id,
             "currency" => "eur"
           },
           "meta" => {
@@ -80,24 +82,28 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
           }
         }
       }
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201 # created resource
       expect(json["data"]["attributes"]["name"]).to eql "newly created"
       expect(json['data']['meta']['m1']).to eql 'mv1'
       expect(json["data"]["attributes"]["currency"]).to eql "eur"
-      i = Invoice.find(json['data']['id'])
+      i = RecurringInvoice.find(json['data']['id'])
       expect(i.name).to eql "newly created"
       expect(i.get_meta 'm1').to eql 'mv1'
     end
 
-    it "can create invoice along with items and payments" do
+    it "can create recurring invoice along with items and payments" do
       inv = {
         "data" => {
           "attributes" => {
             "name" => "newly created",
             "email" => "test@email.com",
-            "issue_date" => "2016-06-06",
-            "series_id" => @invoice.series.id
+            "starting_date" => "2016-06-06",
+            "days_to_due" => "30",
+            "period" => "1",
+            "period_type" => "monthly",
+            "series_id" => @recurring.series.id,
+            "currency" => "eur"
           },
           "relationships" => {
             "items" => {
@@ -108,30 +114,19 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
                   "quantity" => 2,
                   "tax_ids" => [@vat.id]
                   }
-                }]},
-            "payments" => {
-              "data" => [{
-                "attributes" => {
-                  "notes" => "payment 1",
-                  "amount" => 3.3,
-                  "date" => "2016-02-02"
                 }
-              }]
+              ]
             }
           }
         }
       }
 
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 201
-      invoice = Invoice.find(json["data"]["id"])
+      invoice = RecurringInvoice.find(json["data"]["id"])
       item = invoice.items[0]
       expect(item.description).to eql "item 1"
       expect(item.taxes[0].name).to eql "VAT"
-      payment = invoice.payments[0]
-      expect(payment.notes).to eql "payment 1"
-      expect(payment.amount).to eql 3.3
-
     end
 
     it "proper invalidation messages" do
@@ -139,21 +134,20 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
         "data" => {
           "attributes" => {
             "name" => "bogus",
-            "issue_date" => "2015-05-05",
+            "period" => "1",
             "email" => "test@bemail.com"
           }
 
         }
       }
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, inv.to_json, @headers
       expect(response.status).to eql 422 # unprocessable entity
     end
 
   end
 
-  describe "Invoice updating" do
-
-    it "basic invoice updating" do
+  describe "Recurring Invoice updating" do
+    it "basic recurring invoice updating" do
       uhash = {
         'data': {
           'attributes': {
@@ -164,22 +158,19 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
           }
         }
       }
-      put api_v1_invoice_path(@invoice), uhash.to_json, @headers
+      put api_v1_recurring_invoice_path(@recurring), uhash.to_json, @headers
       expect(response.status).to eql 200
       expect(json["data"]["attributes"]["name"]).to eql "modified"
-      expect(Invoice.find(@invoice.id).get_meta('m1')).to eql 'mvvv1'
+      expect(RecurringInvoice.find(@recurring.id).get_meta('m1')).to eql 'mvvv1'
     end
-
   end
 
-  describe "Invoice deleting" do
-
-    it "basic invoice deleting" do
-      delete api_v1_invoice_path(@invoice), nil, @headers
+  describe "Recurring Invoice deleting" do
+    it "basic recurring invoice deleting" do
+      delete api_v1_recurring_invoice_path(@recurring), nil, @headers
       expect(response.status).to eql 204 # deleted resoource
-      expect(Invoice.find_by_id(@invoice.id)).to be_nil
+      expect(RecurringInvoice.find_by_id(@recurring.id)).to be_nil
     end
   end
-
 
 end

@@ -199,7 +199,7 @@ Content-Type: application/json; charset=UTF-8
 ### Create
 
 ````http
-POST https://siwapp-server.com/api/v1/recurrin_invoices HTTP/1.1
+POST https://siwapp-server.com/api/v1/recurring_invoices HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
