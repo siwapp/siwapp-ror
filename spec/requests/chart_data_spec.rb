@@ -10,7 +10,7 @@ RSpec.describe "Get chart data", type: :request do
         {email: "testuser@example.org", password: "testuser"}
   end
 
-  describe "searches right with terms" do
+  describe "invoices chart data" do
     it "being 'test'" do
       get chart_data_invoices_path, format: :json
       expect(response).to have_http_status(:success)

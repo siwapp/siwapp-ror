@@ -44,6 +44,18 @@ class Common < ActiveRecord::Base
            terms: "%#{terms}%")
   }
 
+  CSV_FIELDS = [
+    "id", "customer_id", "name",
+    "identification", "email",
+    "invoicing_address", "shipping_address",
+    "contact_person", "terms",
+    "notes", "currency",
+    "net_amount", "tax_amount", "gross_amount",
+    "draft", "sent_by_email",
+    "created_at", "updated_at",
+    "print_template_id"
+  ]
+
   def init
     begin
       # Set defaults
