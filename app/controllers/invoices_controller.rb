@@ -1,16 +1,12 @@
 class InvoicesController < CommonsController
 
   def show
-    # Show the template in an iframe
-    respond_to do |format|
-      format.json { render json: @invoice }
-      format.html do
-        # Redirect to edit if invoice not closed
-        if @invoice.get_status != :paid
-          redirect_to action: :edit
-        end
-        format.html
-      end
+    # Shows the template in an iframe
+    if @invoice.get_status != :paid
+      # Redirect to edit if invoice not closed
+      redirect_to action: :edit
+    else
+      render
     end
   end
 
@@ -136,39 +132,15 @@ class InvoicesController < CommonsController
   end
 
   def invoice_params
-    [
+    common_params + [
       :number,
-      :series_id,
-      :currency,
       :issue_date,
       :due_date,
-      :days_to_due,
-
-      :customer_id,
-      :identification,
-      :name,
-      :email,
-      :contact_person,
-      :invoicing_address,
-      :shipping_address,
-      :terms,
-      :notes,
 
       :email_template_id,
       :print_template_id,
 
-      :draft,
       :failed,
-
-      items_attributes: [
-        :id,
-        :description,
-        :quantity,
-        :unitary_cost,
-        :discount,
-        {:tax_ids => []},
-        :_destroy
-      ],
 
       payments_attributes: [
         :id,
@@ -176,9 +148,7 @@ class InvoicesController < CommonsController
         :amount,
         :notes,
         :_destroy
-      ],
-
-      tag_list: []
+      ]
     ]
   end
 end

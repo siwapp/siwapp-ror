@@ -63,41 +63,15 @@ class RecurringInvoicesController < CommonsController
   end
 
   def recurring_invoice_params
-    [
-      :series_id,
-      :currency,
-
-      :customer_id,
-      :identification,
-      :name,
-      :email,
-      :contact_person,
-      :invoicing_address,
-      :shipping_address,
-      :terms,
-      :notes,
-
+    common_params + [
       :enabled,
       :days_to_due,
-      :draft,
       :starting_date,
       :finishing_date,
       :period,
       :period_type,
       :max_occurrences,
-      :sent_by_email,
-
-      items_attributes: [
-        :id,
-        :description,
-        :quantity,
-        :unitary_cost,
-        :discount,
-        {:tax_ids => []},
-        :_destroy
-      ],
-
-      tag_list: []
+      :sent_by_email
     ]
   end
 

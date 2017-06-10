@@ -192,4 +192,35 @@ class CommonsController < ApplicationController
     )
   end
 
+  def common_params
+    [
+      :series_id,
+      :currency,
+
+      :customer_id,
+      :identification,
+      :name,
+      :email,
+      :contact_person,
+      :invoicing_address,
+      :shipping_address,
+      :terms,
+      :notes,
+      :draft,
+
+      items_attributes: [
+        :id,
+        :description,
+        :quantity,
+        :unitary_cost,
+        :discount,
+        {:tax_ids => []},
+        :_destroy
+      ],
+
+      tag_list: []
+    ]
+  end
+
+
 end
