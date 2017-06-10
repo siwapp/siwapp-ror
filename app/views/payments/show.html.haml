@@ -9,7 +9,7 @@
     = @payment.invoice
   %li
     %b Amount:
-    = display_money @payment.amount
+    = display_money @payment.amount, @payment.invoice.currency
 = link_to 'Edit', edit_payment_path(@payment)
 |
 \#{link_to t("back"), :back}

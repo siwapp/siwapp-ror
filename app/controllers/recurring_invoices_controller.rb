@@ -65,6 +65,7 @@ class RecurringInvoicesController < CommonsController
   def recurring_invoice_params
     [
       :series_id,
+      :currency,
 
       :customer_id,
       :identification,

@@ -1,11 +1,11 @@
 %table.table
   %tr
     %th{scope: "row"} #{t("subtotal")}:
-    %td= display_money invoice.net_amount
+    %td= display_money invoice.net_amount, invoice.currency
   - invoice.taxes.each do |tax, value|
     %tr
       %th{scope: "row"}= tax.name
-      %td= display_money value
+      %td= display_money value, invoice.currency
   %tr.amounts-total
     %th{scope: "row"} #{t("total")}:
-    %td= display_money invoice.gross_amount
+    %td= display_money invoice.gross_amount, invoice.currency

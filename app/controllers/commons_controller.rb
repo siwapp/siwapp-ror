@@ -50,7 +50,7 @@ class CommonsController < ApplicationController
       end
       @results = @results.where(conditions.join(" and "))
     end
-    
+
     set_listing @results.paginate(page: params[:page], per_page: 20)
 
     respond_to do |format|
@@ -68,9 +68,8 @@ class CommonsController < ApplicationController
   # GET /commons/new
   def new
     instance = model.new
-    instance.items.new
-    # default legal terms
-    instance.terms = Settings.legal_terms
+    # put an empty item
+    instance.items << Item.new(common: instance)
     set_instance instance
     render sti_template(@type, action_name)
   end
@@ -152,7 +151,7 @@ class CommonsController < ApplicationController
   # Calculates the amounts totals
   def amounts
     @common = Invoice.new(amounts_params) # TODO: test
-    @precision = currency_precision
+    @precision = @common.currency_precision
     @common.set_amounts # they may have changed in the form
     respond_to do |format|
       format.js

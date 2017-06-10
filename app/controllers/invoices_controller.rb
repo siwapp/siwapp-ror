@@ -1,5 +1,5 @@
 class InvoicesController < CommonsController
-  
+
   def show
     # Show the template in an iframe
     respond_to do |format|
@@ -12,11 +12,6 @@ class InvoicesController < CommonsController
         format.html
       end
     end
-  end
-
-  def edit
-    @templates = Template.all
-    render
   end
 
   # GET /invoices/autocomplete.json
@@ -144,6 +139,7 @@ class InvoicesController < CommonsController
     [
       :number,
       :series_id,
+      :currency,
       :issue_date,
       :due_date,
       :days_to_due,

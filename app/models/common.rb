@@ -1,6 +1,5 @@
 class Common < ActiveRecord::Base
   include Wisper::Publisher
-  include Util
   include MetaAttributes
 
   extend ModelCsv  # To export to csv file
@@ -12,10 +11,16 @@ class Common < ActiveRecord::Base
   # Relations
   belongs_to :customer
   belongs_to :series
-  belongs_to :print_template, :class_name => 'Template', :foreign_key => 'print_template_id'
-  belongs_to :email_template, :class_name => 'Template', :foreign_key => 'email_template_id'
+  belongs_to :print_template,
+    :class_name => 'Template',
+    :foreign_key => 'print_template_id'
+  belongs_to :email_template,
+    :class_name => 'Template',
+    :foreign_key => 'email_template_id'
   has_many :items, -> {order(id: :asc)}, autosave: true, dependent: :destroy
-  accepts_nested_attributes_for :items, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :items,
+    :reject_if => :all_blank,
+    :allow_destroy => true
 
   # Validations
   validate :valid_customer_identification
@@ -27,6 +32,7 @@ class Common < ActiveRecord::Base
   # Events
   after_save :purge_items
   after_save :update_amounts
+  after_initialize :init
 
   # Search
   scope :with_terms, ->(terms) {
@@ -37,6 +43,31 @@ class Common < ActiveRecord::Base
            description ILIKE :terms',
            terms: "%#{terms}%")
   }
+
+  CSV_FIELDS = [
+    "id", "customer_id", "name",
+    "identification", "email",
+    "invoicing_address", "shipping_address",
+    "contact_person", "terms",
+    "notes", "currency",
+    "net_amount", "tax_amount", "gross_amount",
+    "draft", "sent_by_email",
+    "created_at", "updated_at",
+    "print_template_id"
+  ]
+
+  def init
+    begin
+      # Set defaults
+      unless self.id
+        self.terms ||= Settings.legal_terms
+        self.currency ||= Settings.currency
+      end
+    # Using scope.select also triggers this init method
+    # so we have to deal with this exception
+    rescue ActiveModel::MissingAttributeError
+    end
+  end
 
   # A hash with each tax amount rounded
   def taxes
@@ -103,8 +134,7 @@ class Common < ActiveRecord::Base
 
   # returns a string with a csv format
   def self.csv(results)
-    csv_string(results, self::CSV_FIELDS,
-               results.meta_attributes_keys)
+    csv_string(results, self::CSV_FIELDS, results.meta_attributes_keys)
   end
 
   # Triggers an event via Wisper
@@ -112,6 +142,13 @@ class Common < ActiveRecord::Base
     broadcast(event, self)
   end
 
+  def get_currency
+    Money::Currency.find currency
+  end
+
+  def currency_precision
+    get_currency.exponent
+  end
 
 protected
 

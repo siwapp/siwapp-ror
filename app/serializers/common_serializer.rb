@@ -1,5 +1,6 @@
 class CommonSerializer < ActiveModel::Serializer
-  attributes :id, :number, :series_id, :issue_date, :due_date,  :days_to_due,
+  attributes :id, :number, :series_id, :currency,
+      :issue_date, :due_date,  :days_to_due,
       :invoice_number,
       :customer_id,
       :identification,

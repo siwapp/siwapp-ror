@@ -2,8 +2,8 @@ class InvoiceSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   #include ActiveModel::Serialization
 
-  attributes :id, :number, :series_id, :issue_date,
-    :due_date,  :days_to_due, :number,
+  attributes :id, :number, :series_id, :currency,
+    :issue_date, :due_date,  :days_to_due, :number,
     :customer_id, :identification, :name,
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft,

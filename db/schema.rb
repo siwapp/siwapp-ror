@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223101022) do
+ActiveRecord::Schema.define(version: 20170608155530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20170223101022) do
     t.boolean  "failed",                                                     default: false
     t.integer  "email_template_id"
     t.integer  "deleted_number"
+    t.string   "currency",             limit: 3
   end
 
   add_index "commons", ["contact_person"], name: "cntct_idx", using: :btree

@@ -4,13 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include SessionsHelper
-  include Util
   # demand authentification everywhere
   before_action :authenticate
-  # available in views
-  helper_method :get_currency
-
-
 
   def default_url_options(options = {})
     {locale: I18n.locale}.merge options

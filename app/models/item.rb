@@ -1,5 +1,4 @@
 class Item < ActiveRecord::Base
-  include Util
 
   acts_as_paranoid
   belongs_to :common
@@ -28,7 +27,11 @@ class Item < ActiveRecord::Base
   end
 
   def net_amount
-    (base_amount - discount_amount).round(currency_precision)
+    if common
+      (base_amount - discount_amount).round(common.currency_precision)
+    else
+      base_amount - discount_amount
+    end
   end
 
   def to_s

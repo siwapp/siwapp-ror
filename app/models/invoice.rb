@@ -15,18 +15,8 @@ class Invoice < Common
   after_save :purge_payments
   after_save :update_paid
 
-  CSV_FIELDS = [
-    "id", "to_s", "customer_id", "name",
-    "identification", "email",
-    "invoicing_address", "shipping_address",
-    "contact_person", "terms",
-    "notes", "net_amount", "tax_amount",
-    "gross_amount", "paid_amount", "draft",
-    "paid", "sent_by_email", "number",
-    "recurring_invoice_id", "issue_date",
-    "due_date", "created_at", "updated_at",
-    "print_template_id", "failed"
-  ]
+  CSV_FIELDS = Common::CSV_FIELDS + ["to_s", "paid_amount", "paid", "number",
+    "recurring_invoice_id", "issue_date", "due_date", "failed"]
 
   scope :with_status, ->(status) {
     return nil if status.empty?
@@ -227,6 +217,6 @@ class Invoice < Common
 
     # attributes fitted for serialization
     def serializable_attribute_names
-      [:id, :name, :identification, :email, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
+      [:id, :name, :identification, :email, :currency, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
     end
 end

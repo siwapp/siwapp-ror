@@ -1,7 +1,7 @@
 class RecurringInvoiceSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :series_id,
+  attributes :id, :series_id, :currency,
     :customer_id, :identification, :name,
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes,

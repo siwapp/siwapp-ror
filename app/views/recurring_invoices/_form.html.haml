@@ -58,16 +58,20 @@
   %fieldset.m-b-2{"data-changes" => "amount"}
     %legend.m-b-1="#{t("invoice")} #{t("details")}"
     .row
-      .col-xs-12.col-xl-8
+      .col-xs-12.col-xl-12
         .row
-          .col-sm-6
+          .col-sm-4
             .form-group
               = f.label :series
               = f.collection_select :series_id, @series, :id, :to_s, {}, {class: 'form-control c-select'}
-          .col-sm-6
+          .col-sm-4
             .form-group
               = f.label :days_to_due
               = f.number_field :days_to_due, class: 'form-control'
+          .col-sm-4
+            .form-group
+              = f.label :currency
+              = f.collection_select :currency, Money::Currency.all, :id, :iso_code, {}, {class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, items: :items, invoice: @recurring_invoice, is_new: is_new}
 

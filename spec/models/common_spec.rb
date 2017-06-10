@@ -7,7 +7,7 @@ RSpec.describe Common, :type => :model do
     kwargs[:identification] = "123456789Z" unless kwargs.has_key? :identification
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
 
-    common = Common.new(**kwargs)
+    common = Common.new(**kwargs, currency: "usd")
     common.set_amounts
     common
   end
@@ -61,8 +61,7 @@ RSpec.describe Common, :type => :model do
     expect(c.tax_amount).to eq 0.06
 
     # BHD Bahrain Dinar has 3 decimals
-    Settings.currency = "bhd"
-    Rails.cache.delete("rails_settings_cached:currency")
+    c.currency = "bhd"
     expect(c.tax_amount).to eq 0.054
   end
 
@@ -73,8 +72,7 @@ RSpec.describe Common, :type => :model do
     expect(c.net_amount).to eq 0.18
 
     # BHD Bahrain Dinar has 3 decimals
-    Settings.currency = "bhd"
-    Rails.cache.delete("rails_settings_cached:currency")
+    c.currency = "bhd"
     c.set_amounts
     expect(c.gross_amount).to eq 0.234
     expect(c.net_amount).to eq 0.18
