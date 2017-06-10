@@ -48,10 +48,10 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
         get api_v1_recurring_invoices_path, nil, @headers
         expect(response).to be_success
         expect(json["data"].count).to eql 20
-        # expect(response.headers).to have_key "X-Pagination"
-        # pagination_header = JSON.parse response.headers["X-Pagination"]
-        # expect(pagination_header["total"]).to eql 31
-        # expect(pagination_header["next_page"]).to eql 2
+        expect(response.headers).to have_key "X-Pagination"
+        pagination_header = JSON.parse response.headers["X-Pagination"]
+        expect(pagination_header["total"]).to eql 31
+        expect(pagination_header["next_page"]).to eql 2
       end
 
       it "A param sets the page" do
