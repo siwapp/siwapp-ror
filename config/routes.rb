@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   post 'test' => 'hooks#test'
 
-  resources :taxes, :templates
+  resources :taxes, :templates, :series
 
   get "invoices/amounts"
   get "recurring_invoices/amounts"
