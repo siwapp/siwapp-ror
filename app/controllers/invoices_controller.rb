@@ -10,6 +10,14 @@ class InvoicesController < CommonsController
     end
   end
 
+  # GET /invoices/new
+  def new
+    @invoice = Invoice.new
+    # put an empty item
+    @invoice.items << Item.new(common: @invoice)
+    render
+  end
+
   # GET /invoices/autocomplete.json
   # View to get the item autocomplete feature.
   def autocomplete

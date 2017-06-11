@@ -61,8 +61,6 @@ class Common < ActiveRecord::Base
       # Set defaults
       unless self.id
         self.series ||= Series.default
-        self.issue_date ||= Date.current()
-        self.due_date ||= self.issue_date + Settings.days_to_due.days
         self.terms ||= Settings.legal_terms
         self.currency ||= Settings.currency
       end

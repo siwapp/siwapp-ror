@@ -11,6 +11,14 @@ class RecurringInvoicesController < CommonsController
     super
   end
 
+  # GET /recurring_invoices/new
+  def new
+    @recurring_invoice = RecurringInvoice.new
+    # put an empty item
+    @recurring_invoice.items << Item.new(common: @recurring_invoice)
+    render
+  end
+
   # DELETE
   # bulk deletes selected elements on list
   def remove

@@ -65,15 +65,6 @@ class CommonsController < ApplicationController
     end
   end
 
-  # GET /commons/new
-  def new
-    instance = model.new
-    # put an empty item
-    instance.items << Item.new(common: instance)
-    set_instance instance
-    render sti_template(@type, action_name)
-  end
-
   # POST /commons
   # POST /commons.json
   def create
