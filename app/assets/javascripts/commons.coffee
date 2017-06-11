@@ -99,43 +99,17 @@ jQuery(document).ready ($) ->
     invoice_series = $('#invoice_series_id')
     invoice_number = $('#invoice_number')
 
-    getNextSeriesNumber = ->
-      $.getJSON Routes.next_number_series_path(invoice_series.val()), (data) ->
-        invoice_number.val(data.value)
-
-    if form.data('new') is true
-      # If the form is for a new record or a draft
-
-      # DOM caching
-      invoice_draft = $('#invoice_draft')
-
-      # Remove invoice number on submit if is a draft
-      form.on 'submit', (e) ->
-        if invoice_draft.is ':checked'
-          invoice_number.val('')
-
-      # If draft status changes
-      invoice_draft.on 'change', (e) ->
-        if invoice_draft.is ':checked'
-          # Remove invoice number if is a draft
-          invoice_number.val('')
-        else
-          # Get next invoice number in other case
-          getNextSeriesNumber()
-
-      # Update invoice number when series change if not a draft
-      invoice_series.on 'change', (e) ->
-        unless invoice_draft.is ':checked'
-          getNextSeriesNumber()
-    else
-      invoice_series_id_was = parseInt invoice_series.data('series_id_was'), 10
-      invoice_number_was = invoice_number.data 'number_was'
+    if form.data('new') is false
+      # If the form is for editing an existing invoice
 
       invoice_series.on 'change', (e) ->
-        if parseInt(invoice_series.val(), 10) == invoice_series_id_was
-          invoice_number.val invoice_number_was
+        if parseInt(invoice_series.val(), 10) ==
+            parseInt(invoice_series.data('series_id_was'), 10)
+          invoice_number.val(invoice_number.data 'number_was')
+          invoice_number.parent().show()
         else
-          getNextSeriesNumber()
+          invoice_number.val ''
+          invoice_number.parent().hide()
 
     autosize form.find('textarea')
 
@@ -239,7 +213,7 @@ jQuery(document).ready ($) ->
     # To download csv you must split by the querystring
     new_action = old_action.split("?")[0]
     $('#js-search-form').attr('action', "#{new_action}.csv")
-    
+
     $('#js-search-form').submit()
     # back to normal action
     $('#js-search-form').attr('action', "#{old_action}")

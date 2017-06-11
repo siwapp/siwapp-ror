@@ -10,10 +10,6 @@ Rails.application.routes.draw do
 
   resources :taxes, :templates
 
-  resources :series do
-    get 'next_number', on: :member, defaults: {format: :json}
-  end
-
   get "invoices/amounts"
   get "recurring_invoices/amounts"
   get "items/amount"
@@ -82,11 +78,11 @@ Rails.application.routes.draw do
       end
     end
   end
-  
+
   localized do
     resources :invoices, :recurring_invoices, :customers, :settings
   end
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

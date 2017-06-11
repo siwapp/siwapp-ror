@@ -45,11 +45,11 @@ feature "Invoices:" do
       fill_in('value[]', with: '0')
     end
 
-    # Test that number changes if series changes
+    # Test that number dissappears if series changes
 
     select "B- Series", from: "invoice_series_id"
     wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "3"
+    expect(page).not_to have_field "invoice_number"
 
     # But it's reverted to the original value if the series is reset
 
@@ -167,42 +167,4 @@ feature "Invoices:" do
     expect(page).to have_content "paid"
   end
 
-  scenario "Number behavior works for existing drafts", :js => true, :driver => :webkit do
-    series = FactoryGirl.create(:b_series)
-    invoice = FactoryGirl.create(:invoice, draft: true)
-
-    expect(invoice.number).to be_nil
-    expect(series.first_number).to eq 3
-
-    visit edit_invoice_path(invoice)
-
-    # Test that number is set if invoice stops being a draft
-    uncheck "invoice_draft"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "1"
-
-    # Test that number is removed if invoice is marked as draft
-    check "invoice_draft"
-    expect(find_field("invoice_number").value).to eq ""
-
-    uncheck "invoice_draft"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "1"
-
-    # Test that number changes if series changes
-
-    select "B- Series", from: "invoice_series_id"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "3"
-
-    click_on "Save"
-
-    expect(page.current_path).to eql invoices_path
-    expect(page).to have_content "B-3"
-    expect(page).not_to have_content "B-[draft]"
-
-    invoice.reload
-    expect(invoice.series.value).to eq "B-"
-    expect(invoice.number).to eq 3
-  end
 end

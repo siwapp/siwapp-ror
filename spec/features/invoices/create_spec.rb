@@ -16,27 +16,6 @@ feature "Invoices:" do
     click_link "Copy Invoicing Address"
     expect(find_field("invoice_shipping_address").value).to eq "Fake Address"
 
-    # Test that number changes if series changes
-
-    select "B- Series", from: "invoice_series_id"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "3"
-
-    select "A- Series", from: "invoice_series_id"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "2"
-
-    # Test that number is removed if invoice is marked as draft
-
-    check "invoice_draft"
-    expect(find_field("invoice_number").value).to eq ""
-
-    # And that number is set if invoice stops being a draft
-
-    uncheck "invoice_draft"
-    wait_for_ajax
-    expect(find_field("invoice_number").value).to eq "2"
-
     fill_in "Issue date", with: Date.current
     fill_in "Due date", with: Date.current >> 1
 
@@ -117,7 +96,7 @@ feature "Invoices:" do
     expect(page).to have_content "2 errors"
   end
 
-  scenario "User can't set number for a draft", :js => true, :driver => :webkit do
+  scenario "Saving a draft", :js => true, :driver => :webkit do
     FactoryGirl.create(:series, :default)
 
     visit new_invoice_path
@@ -128,9 +107,6 @@ feature "Invoices:" do
     fill_in "invoice_invoicing_address", with: "Fake Address"
 
     check "invoice_draft"
-    expect(find_field("invoice_number").value).to eq ""
-
-    fill_in "invoice_number", with: "10"
 
     click_on "Save"
 
