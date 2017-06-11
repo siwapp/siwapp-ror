@@ -60,8 +60,11 @@ class Common < ActiveRecord::Base
     begin
       # Set defaults
       unless self.id
-        self.series ||= Series.default_series
-        self.number ||= self.series.next_number
+        self.series ||= Series.default
+        begin
+          self.number ||= self.series.next_number
+        rescue NoMethodError
+        end
         self.issue_date ||= Date.current()
         self.due_date ||= self.issue_date + (Integer Settings.days_to_due).days
         self.terms ||= Settings.legal_terms

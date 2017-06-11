@@ -51,12 +51,12 @@ RSpec.describe Series, :type => :model do
     Series.create(value: "A")
     Series.create(value: "B", default: true)
 
-    expect(Series.default_series).not_to be nil
-    expect(Series.default_series.value).to eq "B"
+    expect(Series.default).not_to be nil
+    expect(Series.default.value).to eq "B"
   end
 
   it "returns nil if no default series" do
-    expect(Series.default_series).to be nil
+    expect(Series.default).to be nil
   end
 
 end

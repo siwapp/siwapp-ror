@@ -25,7 +25,11 @@ class Series < ActiveRecord::Base
     end
   end
 
-  def self.default_series
+  def self.default
     self.where(enabled: true, default: true).first
+  end
+
+  def self.enabled
+    self.where(enabled: true)
   end
 end

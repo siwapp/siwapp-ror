@@ -21,6 +21,14 @@ class Tax < ActiveRecord::Base
     name
   end
 
+  def self.default
+    self.where(active: true, default: true)
+  end
+
+  def self.enabled
+    self.where(active: true)
+  end
+
   def to_jbuilder
     Jbuilder.new do |json|
       json.(self, *(attribute_names - ["deleted_at"]))

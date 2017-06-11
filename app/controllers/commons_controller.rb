@@ -162,14 +162,9 @@ class CommonsController < ApplicationController
 
   private
 
-  # Private: sets taxes and series for some actions
+  # Private: sets templates and tags for some actions
   def set_extra_stuff
-    @taxes = Tax.where active: true
-    @default_taxes = @taxes.where(default: true)
-
-    @series = Series.where enabled: true
     @templates = Template.all
-
     @tags = tags_for('Common')
   end
 

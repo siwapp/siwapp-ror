@@ -7,4 +7,8 @@ class Template < ActiveRecord::Base
   def to_s
     name
   end
+
+  def self.get_all
+    self.where()
+  end
 end

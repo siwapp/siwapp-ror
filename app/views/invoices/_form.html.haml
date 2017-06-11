@@ -1,4 +1,4 @@
-= form_for @invoice, data: {new: is_new || @invoice.draft_was, role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
+= form_for @invoice, data: {new: @invoice.new_record? || @invoice.draft_was, role: 'invoice', controller: controller_name, model: controller_name.classify.underscore}, html: {class: 'invoice'} do |f|
 
   - if @invoice.errors.any?
     #error_explanation
@@ -38,7 +38,7 @@
           .col-xs-12.col-sm-4
             .form-group
               = f.label :series_id
-              = f.collection_select :series_id, @series, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
+              = f.collection_select :series_id, Series.enabled, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
           .col-xs-12.col-sm-4
             .form-group
               = f.label :number
@@ -68,7 +68,7 @@
               = f.label :print_template_id
               = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {class: 'form-control c-select'}
 
-    = render partial: 'shared/item_form', locals: {f: f, invoice: @invoice, is_new: is_new}
+    = render partial: 'shared/item_form', locals: {f: f, invoice: @invoice}
 
   - unless @invoice.new_record?
     %fieldset.m-b-2{data: {changes: 'amount'}}
