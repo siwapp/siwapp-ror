@@ -8,7 +8,4 @@ class Template < ActiveRecord::Base
     name
   end
 
-  def self.get_all
-    self.where()
-  end
 end

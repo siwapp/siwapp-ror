@@ -121,12 +121,7 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.get_status()).to eq :failed
   end
 
-  it "returns the right status: pending (1/2)" do
-    invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)])
-    expect(invoice.get_status()).to eq :pending
-  end
-
-  it "returns the right status: pending (2/2)" do
+  it "returns the right status: pending" do
     invoice = build_invoice(items: [Item.new(quantity: 1, unitary_cost: 10)], due_date: Date.current() + 1)
     expect(invoice.get_status()).to eq :pending
   end

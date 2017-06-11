@@ -39,10 +39,11 @@
             .form-group
               = f.label :series_id
               = f.collection_select :series_id, Series.enabled, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
-          .col-xs-12.col-sm-4
-            .form-group
-              = f.label :number
-              = f.text_field :number, {class: 'form-control', 'data-number_was': @invoice.number_was}
+          - if not @invoice.new_record? and not @invoice.draft
+            .col-xs-12.col-sm-4
+              .form-group
+                = f.label :number
+                = f.text_field :number, {class: 'form-control', 'data-number_was': @invoice.number_was}
           .col-xs-12.col-sm-4
             .form-group
               = f.label :currency

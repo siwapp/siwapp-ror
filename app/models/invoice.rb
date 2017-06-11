@@ -196,9 +196,8 @@ class Invoice < Common
     # - next_number of the already assigned series
     # Returns nothing.
     def assign_invoice_number
+  		# wrap in a transaction to prevent race conditions
       Invoice.transaction do
-		# wrap in a transaction to prevent
-		# race conditions
         if draft
           self.number = nil
         elsif self.number.nil?
