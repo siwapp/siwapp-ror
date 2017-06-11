@@ -6,7 +6,6 @@ set_amounts = (controller_name, form) ->
   $.get url, ->
     return
 
-
 # Function to get amounts json and do anything with them via callback
 # Receives a controller name as string, and a form object to serialize
 # retrieves amounts in a json
@@ -19,7 +18,6 @@ get_item_amount = (quantity, unitary_cost, discount, callback) ->
   url = Routes['items_amount_path']() + "?quantity=#{quantity}&unitary_cost=#{unitary_cost}&discount=#{discount}"
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
-
 
 # Retrieves the common part of the id of all fields in a cocoon formset row
 get_id_prefix = (input_field) ->
@@ -118,7 +116,7 @@ jQuery(document).ready ($) ->
       # When an item changes, update form amounts
       .on 'change input', '.js-item', (e) ->
         item = $(e.target)
-        if item.prop 'tagName' == 'TEXTAREA'
+        if item.prop('tagName') == 'TEXTAREA'
           return
         # Set the net amount of the item
         item_row = item.parents('.js-item')
