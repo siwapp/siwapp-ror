@@ -86,119 +86,116 @@ jQuery(document).ready ($) ->
   #
   # Invoice-like Forms
   #
-  # TODO(@carlosescri): This is always only one form
 
-  # Find forms that behave like an invoice:
-  $('form[data-role="invoice"]').each ->
-    form = $(this)
-    controller_name = form.data('controller')  # REQUIRED!!!
+  form = $('form[data-role="invoice"]')
+  controller_name = form.data('controller')  # REQUIRED!!!
 
-    # DOM caching
-    invoice_series = $('#invoice_series_id')
-    invoice_number = $('#invoice_number')
+  # DOM caching
+  invoice_series = $('#invoice_series_id')
+  invoice_number = $('#invoice_number')
 
-    if form.data('new') is false
-      # If the form is for editing an existing invoice
+  if form.data('new') is false
+    # If the form is for editing an existing invoice
 
-      invoice_series.on 'change', (e) ->
-        if parseInt(invoice_series.val(), 10) ==
-            parseInt(invoice_series.data('series_id_was'), 10)
-          invoice_number.val(invoice_number.data 'number_was')
-          invoice_number.parent().show()
-        else
-          invoice_number.val ''
-          invoice_number.parent().hide()
+    invoice_series.on 'change', (e) ->
+      if parseInt(invoice_series.val(), 10) ==
+          parseInt(invoice_series.data('series_id_was'), 10)
+        invoice_number.val(invoice_number.data 'number_was')
+        invoice_number.parent().show()
+      else
+        invoice_number.val ''
+        invoice_number.parent().hide()
 
-    autosize form.find('textarea')
+  autosize form.find('textarea')
 
-    # Find sections that change the amounts of the invoice-like form
-    form.find('[data-changes="amount"]')
-      # When an item changes, update form amounts
-      .on 'change input', '.js-item', (e) ->
-        item = $(e.target)
-        if item.prop('tagName') == 'TEXTAREA'
-          return
-        # Set the net amount of the item
-        item_row = item.parents('.js-item')
-        quantity = item_row.find('[data-role="quantity"]').val()
-        price = item_row.find('[data-role="unitary-cost"]').val()
-        discount = item_row.find('[data-role="discount"]').val()
-        get_item_amount quantity, price, discount, (data) ->
-          net_amount = data.amount
-          item_row.find('[data-role="net-amount"]').val(net_amount)
-          item_row.find('.js-net-amount').html(net_amount)
+  # Find sections that change the amounts of the invoice-like form
+  form.find('[data-changes="amount"]')
+    # When an item changes, update form amounts
+    .on 'change input', '.js-item', (e) ->
+      item = $(e.target)
+      if item.prop('tagName') == 'TEXTAREA'
+        return
+      # Set the net amount of the item
+      item_row = item.parents('.js-item')
+      quantity = item_row.find('[data-role="quantity"]').val()
+      price = item_row.find('[data-role="unitary-cost"]').val()
+      discount = item_row.find('[data-role="discount"]').val()
+      get_item_amount quantity, price, discount, (data) ->
+        net_amount = data.amount
+        item_row.find('[data-role="net-amount"]').val(net_amount)
+        item_row.find('.js-net-amount').html(net_amount)
 
-        # Set total amounts of invoice
-        set_amounts(controller_name, form)
-      # When an item is removed, update form amounts
-      .on 'cocoon:after-remove', (e, item) ->
-        set_amounts(controller_name, form)
+      # Set total amounts of invoice
+      set_amounts(controller_name, form)
+    # When an item is removed, update form amounts
+    .on 'cocoon:after-remove', (e, item) ->
+      set_amounts(controller_name, form)
 
-    # Find invoice items and init autocomplete
-    form.find('[data-role="item-description"]').each () ->
-      init_invoice_item_autocomplete $(this)
+  # Find invoice items and init autocomplete
+  form.find('[data-role="item-description"]').each () ->
+    init_invoice_item_autocomplete $(this)
 
-    # Set defaults when adding something dynamic to the form with cocoon
-    form.on 'cocoon:after-insert', (e, item) ->
-      if item.hasClass 'js-payment'
-        # default amount is what's unpaid
-        amount_item = item.find 'input[name*=amount]'
-        get_amounts controller_name, form, (data) ->
-          amount = data.gross_amount - data.paid_amount
-          amount = if amount > 0 then amount else 0
-          amount_item.val Math.round(amount*10**data.precision)/10**data.precision
-          return
-        # default date is today
-        date_item = item.find 'input[name*=date]'
-        date_item.val (new Date).toISOString().substr 0, 10
-      else if item.hasClass 'js-item'
-        init_invoice_item_autocomplete item.find('[data-role="item-description"]')
-        item.find('[data-role="taxes-selector"]').trigger('update')
-        autosize item.find('textarea')
+  # Set defaults when adding something dynamic to the form with cocoon
+  form.on 'cocoon:after-insert', (e, item) ->
+    if item.hasClass 'js-payment'
+      # default amount is what's unpaid
+      amount_item = item.find 'input[name*=amount]'
+      get_amounts controller_name, form, (data) ->
+        amount = data.gross_amount - data.paid_amount
+        amount = if amount > 0 then amount else 0
+        amount_item.val Math.round(amount*10**data.precision)/10**data.precision
+        return
+      # default date is today
+      date_item = item.find 'input[name*=date]'
+      date_item.val (new Date).toISOString().substr 0, 10
+    else if item.hasClass 'js-item'
+      init_invoice_item_autocomplete item.find('[data-role="item-description"]')
+      item.find('[data-role="taxes-selector"]').trigger('update')
+      autosize item.find('textarea')
 
-    # UX for taxes-selector labels
-    form.on 'click', '[data-role="taxes-selector-label"]', (e) ->
-      $(this).closest('.js-item').find('.select2-search__field').click()
+  # UX for taxes-selector labels
+  form.on 'click', '[data-role="taxes-selector-label"]', (e) ->
+    $(this).closest('.js-item').find('.select2-search__field').click()
 
-    # Execute actions when something dynamic is removed from the form
-    # with cocoon
-    form.on 'cocoon:before-remove', (e, item) ->
-      if item.hasClass 'js-item'
-        destroy_invoice_item_autocomplete item
+  # Execute actions when something dynamic is removed from the form
+  # with cocoon
+  form.on 'cocoon:before-remove', (e, item) ->
+    if item.hasClass 'js-item'
+      destroy_invoice_item_autocomplete item
 
-    # Set the autocomplete for customer selection
-    model = form.data('model')
-    $("##{model}_name").autocomplete {
-      source: '/customers/autocomplete.json',
-      select: (event, ui) ->
-        # Once the customer is selected autofill fields:
-        $("##{model}_customer_id").val ui.item.id
-        $("##{model}_identification").val ui.item.identification
-        $("##{model}_email").val ui.item.email
-        $("##{model}_contact_person").val ui.item.contact_person
-        $("##{model}_invoicing_address").val ui.item.invoicing_address
-        $("##{model}_shipping_address").val ui.item.shipping_address
-        autosize.update $('textarea.autosize')
-    }
+  # Set the autocomplete for customer selection
+  model = form.data('model')
+  $("##{model}_name").autocomplete {
+    source: '/customers/autocomplete.json',
+    select: (event, ui) ->
+      # Once the customer is selected autofill fields:
+      $("##{model}_customer_id").val ui.item.id
+      $("##{model}_identification").val ui.item.identification
+      $("##{model}_email").val ui.item.email
+      $("##{model}_contact_person").val ui.item.contact_person
+      $("##{model}_invoicing_address").val ui.item.invoicing_address
+      $("##{model}_shipping_address").val ui.item.shipping_address
+      autosize.update $('textarea.autosize')
+  }
 
-    # Configure Tax Selector behavior
-    $('[data-role="taxes-selector"]').select2()
-    $('#js-items-table').on 'cocoon:after-insert', (e, insertedItem) ->
-      $(insertedItem).find('[data-role="taxes-selector"]').select2()
+  # Configure Tax Selector behavior
+  $('[data-role="taxes-selector"]').select2()
+  $('#js-items-table').on 'cocoon:after-insert', (e, insertedItem) ->
+    $(insertedItem).find('[data-role="taxes-selector"]').select2()
 
-    form
-      .on 'update', '[data-role="taxes-selector"]', () ->
-        checked_taxes = $(this).find(':checked')
-        label = []
-        checked_taxes.each () ->
-          label.push $(this).closest('.checkbox').text().trim()
-        total = if label.length > 1 then ('(' + label.length + ')') else ''
-        label = if label.length > 0 then label.join(', ') else 'None'
-        $(this).find('[data-role="label"]').html(label)
-        $(this).find('[data-role="total"]').html(total)
-      .on 'change', '[data-role="taxes-selector"] :checkbox', (e) ->
-        $(this).closest('[data-role="taxes-selector"]').trigger('update')
-      .find('[data-role="taxes-selector"]').trigger('update')
+  form
+    .on 'update', '[data-role="taxes-selector"]', () ->
+      checked_taxes = $(this).find(':checked')
+      label = []
+      checked_taxes.each () ->
+        label.push $(this).closest('.checkbox').text().trim()
+      total = if label.length > 1 then ('(' + label.length + ')') else ''
+      label = if label.length > 0 then label.join(', ') else 'None'
+      $(this).find('[data-role="label"]').html(label)
+      $(this).find('[data-role="total"]').html(total)
+    .on 'change', '[data-role="taxes-selector"] :checkbox', (e) ->
+      $(this).closest('[data-role="taxes-selector"]').trigger('update')
+    .find('[data-role="taxes-selector"]').trigger('update')
 
   #
   # Action Buttons
