@@ -168,10 +168,8 @@ class CommonsController < ApplicationController
     @default_taxes = @taxes.where(default: true)
 
     @series = Series.where enabled: true
-    @default_series = Series.default_series
     @templates = Template.all
 
-    @days_to_due = Integer Settings.days_to_due
     @tags = tags_for('Common')
   end
 

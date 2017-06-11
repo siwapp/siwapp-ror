@@ -38,17 +38,11 @@
           .col-xs-12.col-sm-4
             .form-group
               = f.label :series_id
-              - if is_new and @default_series
-                = f.collection_select :series_id, @series, :id, :to_s, {selected: @default_series.id}, {multiple: false, class: 'form-control c-select'}
-              - else
-                = f.collection_select :series_id, @series, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
+              = f.collection_select :series_id, @series, :id, :to_s, {}, {multiple: false, class: 'form-control c-select', 'data-series_id_was': @invoice.series_id_was}
           .col-xs-12.col-sm-4
             .form-group
               = f.label :number
-              - if is_new and @default_series
-                = f.text_field :number, {class: 'form-control', value: @default_series.next_number}
-              - else
-                = f.text_field :number, {class: 'form-control', 'data-number_was': @invoice.number_was}
+              = f.text_field :number, {class: 'form-control', 'data-number_was': @invoice.number_was}
           .col-xs-12.col-sm-4
             .form-group
               = f.label :currency
@@ -58,22 +52,21 @@
           .col-xs-12.col-sm-6
             .form-group
               = f.label :issue_date
-              = f.date_field :issue_date,  is_new ? { class: 'form-control', value: Date.current() } : { class: 'form-control' }
+              = f.date_field :issue_date, {class: 'form-control'}
           .col-xs-12.col-sm-6
             .form-group
               = f.label :due_date
-              - due_date = @days_to_due.days > 0 ? Date.current() + @days_to_due.days : ''
-              = f.date_field :due_date,  is_new ? { class: 'form-control', value: due_date} : { class: 'form-control' }
+              = f.date_field :due_date, {class: 'form-control'}
 
         .row
           .col-xs-12.col-sm-6
             .form-group
               = f.label :email_template_id
-              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: t("select template for e-mail")}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :email_template_id, @templates, :id, :to_s, {include_blank: t("select template for e-mail")}, {class: 'form-control c-select'}
           .col-xs-12.col-sm-6
             .form-group
               = f.label :print_template_id
-              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {multiple: false, class: 'form-control c-select'}
+              = f.collection_select :print_template_id, @templates, :id, :to_s, {include_blank: t("select template to print")}, {class: 'form-control c-select'}
 
     = render partial: 'shared/item_form', locals: {f: f, invoice: @invoice, is_new: is_new}
 
