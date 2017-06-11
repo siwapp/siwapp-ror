@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
   after_initialize :init
 
   def init
-    unless self.id
+    if not self.id and self.taxes.length == 0
       self.taxes << Tax.default
     end
   end

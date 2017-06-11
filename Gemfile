@@ -63,7 +63,6 @@ gem 'autoprefixer-rails', '>= 5.0.0.1'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 # to add items dinamically
 gem 'cocoon', '~>1.2.6'
-gem 'deep_cloneable', '~> 2.1.1'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'fastclick-rails'
