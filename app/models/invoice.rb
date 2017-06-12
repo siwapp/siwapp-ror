@@ -45,7 +45,7 @@ class Invoice < Common
       # Set defaults
       unless self.id
         self.issue_date ||= Date.current()
-        self.due_date ||= self.issue_date + Settings.days_to_due.days
+        self.due_date ||= self.issue_date + Integer(Settings.days_to_due).days
       end
     # Using scope.select also triggers this init method
     # so we have to deal with this exception
