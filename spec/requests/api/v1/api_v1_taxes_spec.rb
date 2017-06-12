@@ -27,7 +27,6 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
       get api_v1_taxes_path, nil, @headers
       expect(response).to be_success
       expect(json["data"].length).to eql 2
-      expect(json["data"][1]["attributes"]["name"]).to eql "RETENTION"
     end
   end
 
@@ -35,7 +34,6 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
     it "POST /api/v1/taxes" do
       tx = {
         "data" => {
-          "type" => "taxes",
           "attributes" => {
             "name" => "newTAX",
             "value" => 33
