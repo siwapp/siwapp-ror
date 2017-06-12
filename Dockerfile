@@ -7,7 +7,6 @@ RUN apt-get update -qq && \
 	build-essential \
 	nodejs \
 	libpq-dev \
-	libsqlite3-dev \
 	libqt5webkit5-dev \
 	qt5-default \
 	xvfb
