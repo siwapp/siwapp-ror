@@ -8,18 +8,9 @@ class TaxesController < ApplicationController
     @taxes = Tax.all
   end
 
-  # GET /taxes/1
-  # GET /taxes/1.json
-  def show
-  end
-
   # GET /taxes/new
   def new
     @tax = Tax.new
-  end
-
-  # GET /taxes/1/edit
-  def edit
   end
 
   # POST /taxes
@@ -68,7 +59,9 @@ class TaxesController < ApplicationController
     redirect_to(:action => 'index')
   end
 
-
+  def get_defaults
+    render json: Tax.where(active: true, default: true)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

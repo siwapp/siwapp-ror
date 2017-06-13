@@ -15,7 +15,14 @@ get_amounts = (controller_name, form, callback) ->
     return callback data
 
 get_item_amount = (quantity, unitary_cost, discount, callback) ->
-  url = Routes['items_amount_path']() + "?quantity=#{quantity}&unitary_cost=#{unitary_cost}&discount=#{discount}"
+  url = Routes['items_amount_path']() + \
+    "?quantity=#{quantity}&unitary_cost=#{unitary_cost}&discount=#{discount}"
+  $.ajax url: url, dataType: 'json', success: (data) ->
+    return callback data
+
+# Gets a json with the default taxes
+get_defaults_taxes = (callback) ->
+  url = Routes['taxes_get_defaults_path']()
   $.ajax url: url, dataType: 'json', success: (data) ->
     return callback data
 
@@ -24,7 +31,6 @@ get_id_prefix = (input_field) ->
   id_prefix = input_field.attr('id')
   id_prefix = id_prefix.substring(0, id_prefix.lastIndexOf('_'))
   id_prefix
-
 
 # Function to initialize autocomplete behavior on invoice-like items
 # on load and when a new item is inserted.
@@ -150,7 +156,12 @@ jQuery(document).ready ($) ->
       date_item.val (new Date).toISOString().substr 0, 10
     else if item.hasClass 'js-item'
       init_invoice_item_autocomplete item.find('[data-role="item-description"]')
-      item.find('[data-role="taxes-selector"]').trigger('update')
+      tax_selector = item.find('[data-role="taxes-selector"]')
+      tax_selector.trigger('update')
+      # Set default tax values
+      get_defaults_taxes (data) ->
+        new_val = (tax.id for tax in data.data)
+        tax_selector.val(new_val).trigger('change.select2')
       autosize item.find('textarea')
 
   # UX for taxes-selector labels

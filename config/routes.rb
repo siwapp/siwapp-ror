@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
   post 'test' => 'hooks#test'
+  
+  get  'taxes/get_defaults', to: 'taxes#get_defaults'
 
   resources :taxes, :templates, :series
 
