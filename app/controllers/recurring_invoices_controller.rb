@@ -15,7 +15,8 @@ class RecurringInvoicesController < CommonsController
   def new
     @recurring_invoice = RecurringInvoice.new
     # put an empty item
-    @recurring_invoice.items << Item.new(common: @recurring_invoice)
+    @recurring_invoice.items << Item.new(common: @recurring_invoice,
+      taxes: Tax.default)
     render
   end
 

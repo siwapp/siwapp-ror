@@ -14,7 +14,7 @@ class InvoicesController < CommonsController
   def new
     @invoice = Invoice.new
     # put an empty item
-    @invoice.items << Item.new(common: @invoice)
+    @invoice.items << Item.new(common: @invoice, taxes: Tax.default)
     render
   end
 
