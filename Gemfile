@@ -7,9 +7,9 @@ gem 'rails', '4.2.6'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -17,23 +17,14 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'sdoc', group: :doc
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem 'bcrypt'
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -55,15 +46,12 @@ group :test do
   gem 'database_cleaner'
 end
 
-# installed 4.0.2.2 version because an issue:
-# https://github.com/ai/autoprefixer-rails/issues/47
-gem 'active_model_serializers', '0.10.2'
+gem 'active_model_serializers'
 gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
-gem 'autoprefixer-rails', '>= 5.0.0.1'
+gem 'autoprefixer-rails'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 # to add items dinamically
-gem 'cocoon', '~>1.2.6'
-gem 'deep_cloneable', '~> 2.1.1'
+gem 'cocoon'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'fastclick-rails'
@@ -74,8 +62,8 @@ gem 'pg'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
-gem "rails-settings-cached", "~> 0.4.0"
-gem 'ransack', "~> 1.8.2"
+gem "rails-settings-cached"
+gem 'ransack'
 gem 'sass'
 gem 'valid_url'
 gem 'wicked_pdf'
@@ -84,7 +72,7 @@ gem 'wkhtmltopdf-binary'
 # money!
 gem 'money'
 # to prevent records from being actually deleted
-gem "paranoia", "~> 2.0"
+gem "paranoia"
 # to have a pub/sub mechanism
 #gem 'wisper', '2.0.0.rc1'
 # to allow async jobs in wisper.

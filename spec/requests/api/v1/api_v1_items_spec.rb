@@ -19,11 +19,6 @@ RSpec.describe "Api::V1::Items:", type: :request do
     it "GET /api/v1/items/:id -- Single item with details" do
       get api_v1_item_path(@item), nil, @headers
       expect(response).to be_success
-      # invoice reference
-   #   expect(json["data"]["relationships"]["invoice"]["links"]["related"]).to eql api_v1_invoice_url(@invoice)
-      # taxes
-   #   expect(json["data"]["relationships"]["taxes"]["data"][0]["attributes"]["name"]).to eql "VAT 21%"
-   #   expect(json["data"]["relationships"]["taxes"]["data"][0]["attributes"]["links"]["related"]).to eql api_v1_tax_url(@item.taxes[0])
     end
   end
 
@@ -33,7 +28,7 @@ RSpec.describe "Api::V1::Items:", type: :request do
       expect(response).to be_success
       expect(json["data"].length).to eql 1 # 3 items
       expect(json["data"][0]["relationships"]["invoice"]).to be_nil
-      expect(json["data"][0]["relationships"]["taxes"]).to eql({"data" => [{"id"=>"1", "type"=>"taxes"}, {"id"=>"2", "type"=>"taxes"}]})
+      expect(json["data"][0]["relationships"]["taxes"]["data"].length).to eql 2
     end
   end
 

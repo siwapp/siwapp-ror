@@ -60,6 +60,7 @@ class Common < ActiveRecord::Base
     begin
       # Set defaults
       unless self.id
+        self.series ||= Series.default
         self.terms ||= Settings.legal_terms
         self.currency ||= Settings.currency
       end

@@ -15,6 +15,8 @@ class Invoice < Common
   after_save :purge_payments
   after_save :update_paid
 
+  after_initialize :init
+
   CSV_FIELDS = Common::CSV_FIELDS + ["to_s", "paid_amount", "paid", "number",
     "recurring_invoice_id", "issue_date", "due_date", "failed"]
 
@@ -37,6 +39,20 @@ class Invoice < Common
 
   # Invoices belonging to certain recurring_invoice
   scope :belonging_to, -> (r_id) {where recurring_invoice_id: r_id}
+
+  def init
+    begin
+      # Set defaults
+      unless self.id
+        self.issue_date ||= Date.current()
+        self.due_date ||= self.issue_date + Integer(Settings.days_to_due).days
+      end
+    # Using scope.select also triggers this init method
+    # so we have to deal with this exception
+    rescue ActiveModel::MissingAttributeError
+    end
+    super
+  end
 
   # acts_as_paranoid behavior
   def paranoia_restore_attributes
@@ -196,9 +212,8 @@ class Invoice < Common
     # - next_number of the already assigned series
     # Returns nothing.
     def assign_invoice_number
+  		# wrap in a transaction to prevent race conditions
       Invoice.transaction do
-		# wrap in a transaction to prevent
-		# race conditions
         if draft
           self.number = nil
         elsif self.number.nil?

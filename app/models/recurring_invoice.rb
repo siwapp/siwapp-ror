@@ -56,19 +56,24 @@ class RecurringInvoice < Common
   # Returns a list of (not-yet-saved) pending invoices for this instance.
   def build_pending_invoices
     next_occurrences.map do |issue_date|
-      invoice = self.becomes(Invoice).deep_clone(
-        include: {items: :taxes},
-        except: [
-          :period,
-          :period_type,
-          :starting_date,
-          :finishing_date,
-          :max_occurrences
-        ]
-      )
+      invoice = self.becomes(Invoice).dup
+      
+      invoice.period = nil
+      invoice.period_type = nil
+      invoice.starting_date = nil
+      invoice.finishing_date = nil
+      invoice.max_occurrences = nil
+
+      self.items.each do |item|
+        nitem = Item.new(item.attributes)
+        nitem.id = nil
+        item.taxes.each do |tax|
+          nitem.taxes << tax
+        end
+        invoice.items << nitem
+      end
 
       invoice.recurring_invoice = self
-      # invoice.recurring_invoice_id = id
       invoice.issue_date = issue_date
       invoice.due_date = invoice.issue_date + days_to_due.days if days_to_due
       invoice.sent_by_email = false

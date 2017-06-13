@@ -138,7 +138,6 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       inv = {
         "data" => {
           "attributes" => {
-            "name" => "bogus",
             "issue_date" => "2015-05-05",
             "email" => "test@bemail.com"
           }

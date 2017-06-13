@@ -65,15 +65,6 @@ class CommonsController < ApplicationController
     end
   end
 
-  # GET /commons/new
-  def new
-    instance = model.new
-    # put an empty item
-    instance.items << Item.new(common: instance)
-    set_instance instance
-    render sti_template(@type, action_name)
-  end
-
   # POST /commons
   # POST /commons.json
   def create
@@ -162,16 +153,9 @@ class CommonsController < ApplicationController
 
   private
 
-  # Private: sets taxes and series for some actions
+  # Private: sets templates and tags for some actions
   def set_extra_stuff
-    @taxes = Tax.where active: true
-    @default_taxes = @taxes.where(default: true)
-
-    @series = Series.where enabled: true
-    @default_series = Series.default_series
     @templates = Template.all
-
-    @days_to_due = Integer Settings.days_to_due
     @tags = tags_for('Common')
   end
 
@@ -191,5 +175,36 @@ class CommonsController < ApplicationController
       ]
     )
   end
+
+  def common_params
+    [
+      :series_id,
+      :currency,
+
+      :customer_id,
+      :identification,
+      :name,
+      :email,
+      :contact_person,
+      :invoicing_address,
+      :shipping_address,
+      :terms,
+      :notes,
+      :draft,
+
+      items_attributes: [
+        :id,
+        :description,
+        :quantity,
+        :unitary_cost,
+        :discount,
+        {:tax_ids => []},
+        :_destroy
+      ],
+
+      tag_list: []
+    ]
+  end
+
 
 end

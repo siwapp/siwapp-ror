@@ -6,6 +6,14 @@ class Item < ActiveRecord::Base
 
   accepts_nested_attributes_for :taxes
 
+  after_initialize :init
+
+  def init
+    if not self.id and self.taxes.length == 0
+      self.taxes << Tax.default
+    end
+  end
+
   # Gets items for autocomplete, returning an id, a description and unitary cost
   # for the specified search term
   def Item.autocomplete_by_description(term)
