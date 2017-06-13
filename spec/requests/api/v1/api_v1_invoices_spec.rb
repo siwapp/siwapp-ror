@@ -127,6 +127,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       invoice = Invoice.find(json["data"]["id"])
       item = invoice.items[0]
       expect(item.description).to eql "item 1"
+      expect(item.taxes.length).to eql 1
       expect(item.taxes[0].name).to eql "VAT"
       payment = invoice.payments[0]
       expect(payment.notes).to eql "payment 1"
