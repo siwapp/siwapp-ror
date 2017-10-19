@@ -6,24 +6,25 @@
 #
 default: &default
   adapter: postgresql
-  pool: 5
   timeout: 5000
+  schema_search_path: public
+  host: <%= ENV['POSTGRES_HOST'] || ENV['RAILS_DATABASE_HOST'] || 'db' %>
+  port: <%= ENV['POSTGRES_PORT'] || ENV['RAILS_DATABASE_PORT'] || 5432 %>
+  username: <%= ENV['POSTGRES_USERNAME'] || ENV['RAILS_DATABASE_USERNAME'] || 'postgresql' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || ''%>
+  pool: <%= (ENV['DB_CONNECTION_POOL_SIZE'] || "5").to_i %>
 
 development:
   adapter: postgresql
-  host: <%= ENV['RAILS_DATABASE_HOST'] || 'db' %>
   encoding: unicode
   database: siwapp
-  username: postgres
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  host: <%= ENV['RAILS_DATABASE_HOST'] || 'db' %>
   database: siwapp_test
-  username: postgres
 
 production:
   adapter: postgresql
