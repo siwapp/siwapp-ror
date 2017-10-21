@@ -7,16 +7,16 @@
 default: &default
   adapter: postgresql
   timeout: 5000
-  schema_search_path: public
   host: <%= ENV['POSTGRES_HOST'] || ENV['RAILS_DATABASE_HOST'] || 'db' %>
   port: <%= ENV['POSTGRES_PORT'] || ENV['RAILS_DATABASE_PORT'] || 5432 %>
-  username: <%= ENV['POSTGRES_USERNAME'] || ENV['RAILS_DATABASE_USERNAME'] || 'postgresql' %>
+  username: <%= ENV['POSTGRES_USERNAME'] || ENV['RAILS_DATABASE_USERNAME'] || 'postgres' %>
   password: <%= ENV['POSTGRES_PASSWORD'] || ENV['RAILS_DATABASE_PASSWORD'] || ''%>
   pool: <%= (ENV['DB_CONNECTION_POOL_SIZE'] || "5").to_i %>
+  encoding: unicode
 
 development:
+  <<: *default
   adapter: postgresql
-  encoding: unicode
   database: siwapp
 
 # Warning: The database defined as "test" will be erased and
