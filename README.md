@@ -29,7 +29,7 @@ Push the code to heroku, and setup database.
 
 Finally create an user to be able to login into the app.
 
-    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret']"
+    $ heroku run "rake siwapp:user:create['demo','demo@example.com','secret_password']"
 
 If you want the recurring invoices to be generated automatically, you have to setup the heroku scheduler addon:
 
