@@ -180,3 +180,6 @@ ja:
   total:                   合計
   value:                   値
   website:                 ウェブサイト
+  host:                    ホスト
+  port:                    ポート
+  domain:                  ドメイン
