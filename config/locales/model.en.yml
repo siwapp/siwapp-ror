@@ -107,3 +107,6 @@ en:
   total:                 Total
   value:                 Value
   website:               Website
+  host:                  host
+  port:                  port
+  domain:                domain

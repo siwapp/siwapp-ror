@@ -15,13 +15,13 @@
         %legend=t("server")
 
         .form-group
-          = f.label :host, "host:"
+          = f.label :host, "#{t("host")}:"
           = f.text_field :host, class: 'form-control'
         .form-group
-          = f.label :port, "port:"
+          = f.label :port, "#{t("port")}:"
           = f.text_field :port, class: 'form-control'
         .form-group
-          = f.label :domain, "domain:"
+          = f.label :domain, "#{t("domain")}:"
           = f.text_field :domain, class: 'form-control'
 
       %fieldset
