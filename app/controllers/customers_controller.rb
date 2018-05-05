@@ -22,11 +22,12 @@ class CustomersController < ApplicationController
         render :index, layout: 'infinite-scrolling'
       end
       format.csv do
-        csv_string = Customer.csv(@customers)
-        send_data csv_string,
-          :type => "text/plain",
-          :filename => "customers.csv",
-          :disposition => "attachment"
+        headers["X-Accel-Buffering"] = "no"
+        headers["Cache-Control"] = "no-cache"
+        headers["Content-Type"] = "text/csv; charset=utf-8"
+        headers["Content-Disposition"] =
+           %(attachment; filename="customers.csv")
+        self.response_body = Customer.csv @customers
       end
     end
   end

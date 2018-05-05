@@ -1,19 +1,20 @@
 require 'csv'
 
 module ModelCsv
-  # Generates a csv in a string
-  def csv_string(results, fields, meta_attributes_keys)
-    csv_string = CSV.generate do |csv|
-      # put the header of the csv
-      csv << fields + meta_attributes_keys
-      # iterate over results
+
+  # Enumerator that generates csv lines
+  def csv_stream(results, fields, meta_attributes_keys)
+    Enumerator.new do |y|
+      # header line
+      y << CSV.generate_line(fields + meta_attributes_keys)
+      # items
       results.each do |i|
-        meta_attributes_values = meta_attributes_keys.map do |key|
-          i.meta[key]
-        end
-        csv <<
+        meta_attributes_values = meta_attributes_keys.map {|key| i.meta[key]}
+        y << CSV.generate_line(
           fields.map {|field| i.send(field)} + meta_attributes_values
+        )
       end
     end
   end
+
 end
