@@ -389,8 +389,6 @@ Content-Type: application/json; charset=UTF-8
             "contact_person": "John doe",
             "terms": "...",
             "notes": "...",
-            "base_amount":"3554.3",
-            "discount_amount": "233",
             "net_amount": "3000",
             "gross_amount": "5422",
             "paid_amount": "234",
