@@ -1,7 +1,5 @@
 class Api::V1::InvoicesController < Api::V1::CommonsController
 
-  include CommonsControllerMixin
-
   set_pagination_headers :invoices, only: [:index]
 
   # Renders invoice template in pdf

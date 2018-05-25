@@ -1,5 +1,4 @@
 class Api::V1::RecurringInvoicesController < Api::V1::CommonsController
-  include CommonsControllerMixin
 
   set_pagination_headers :recurring_invoices, only: [:index]
 
