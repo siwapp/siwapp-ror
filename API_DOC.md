@@ -15,6 +15,7 @@
   - [Create](#create-1)
   - [Update](#update-1)
   - [Delete](#delete-1)
+  - [Send email](#send-email)
 - [Invoice Items](#invoice-items)
   - [Listing](#listing-2)
   - [Show](#show-2)
@@ -239,7 +240,7 @@ Content-Type: application/json
 ### Update
 
 ````http
-PUT https://siwapp-server.com/api/v1/recurrin_invoices/1 HTTP/1.1
+PUT https://siwapp-server.com/api/v1/recurring_invoices/1 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
 
@@ -523,7 +524,7 @@ Content-Type: application/json
 
 ### Delete
 
-````http
+```http
 DELETE https://siwapp-server.com/api/v1/invoices/3 HTTP/1.1
 Authorization: Token token="abc"
 Content-Type: application/json
@@ -534,6 +535,23 @@ __Response__
 HTTP/1.1 204 NO CONTENT
 Content-Type: application/json; charset=utf-8
 ```
+
+### Send email
+
+```http
+GET https://siwapp-server.com/api/v1/invoices/3/send_email HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+
+__Response__
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+
+{"message":"E-mail succesfully sent."}
+```
+
 
 ## Invoice Items
 
