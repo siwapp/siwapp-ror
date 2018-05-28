@@ -173,4 +173,11 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
     end
   end
 
+  describe "Generate invoices endpoint" do
+    it "generates correctly the invoice" do
+      get api_v1_recurring_invoices_path + "/generate_invoices", nil, @headers
+      expect(Invoice.belonging_to(@recurring.id).length).to eql 1
+    end
+  end
+
 end

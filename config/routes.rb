@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy',  as: :logout
 
   post 'test' => 'hooks#test'
-  
+
   get  'taxes/get_defaults', to: 'taxes#get_defaults'
 
   resources :taxes, :templates, :series
@@ -75,6 +75,8 @@ Rails.application.routes.draw do
         get 'send_email', on: :member
         resources :items, :payments, only: [:index, :create]
       end
+
+      get 'recurring_invoices/generate_invoices', to: 'recurring_invoices#generate_invoices'
       resources :recurring_invoices, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :items, only: [:index, :create]
       end

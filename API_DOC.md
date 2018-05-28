@@ -7,6 +7,7 @@
   - [Create](#create)
   - [Update](#update)
   - [Delete](#delete)
+  - [Generate invoices](#generate-invoices)
 - [Invoices](#invoices)
   - [Listing](#listing-1)
   - [Searching](#searching)
@@ -269,6 +270,37 @@ __Response__
 ```http
 HTTP/1.1 204 NO CONTENT
 Content-Type: application/json; charset=utf-8
+```
+
+### Generate invoices
+
+Generates all the invoices up to now from the recurring invoices.
+It returns the list of invoices created.
+
+```http
+GET https://siwapp-server.com/api/v1/recurring_invoices/generate_invoices HTTP/1.1
+Authorization: Token token="abc"
+Content-Type: application/json
+```
+
+__Response__
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+{
+    "data": [
+        {
+            "id": 1,
+            "type": "invoices",
+            "attributes": {
+                "name": "Acme",
+                ...
+            }
+        },
+        ...
+    ]
+}
 ```
 
 ## Invoices
