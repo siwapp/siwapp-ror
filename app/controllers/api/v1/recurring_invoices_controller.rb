@@ -7,4 +7,9 @@ class Api::V1::RecurringInvoicesController < Api::V1::CommonsController
     render json: @recurring_invoices
   end
 
+  def generate_invoices
+    @invoices = RecurringInvoice.build_pending_invoices!
+    render json: @invoices
+  end
+
 end
