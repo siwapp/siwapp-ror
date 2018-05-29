@@ -9,7 +9,7 @@ class RecurringInvoiceSerializer < ActiveModel::Serializer
     :finishing_date, :period, :period_type,
     :max_occurrences, :sent_by_email,
     :net_amount, :gross_amount, :taxes,
-    :tag_list
+    :tag_list, :meta
 
   meta do |serializer|
     if object.meta_attributes

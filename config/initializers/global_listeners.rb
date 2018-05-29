@@ -2,9 +2,10 @@ class SiwappHooks
   def invoice_generation(inv)
     unless Settings.event_invoice_generation_url.blank?
       begin
+        invoice_json = InvoiceSerializer.new(inv).to_json
         response = HTTP.post(
-                   Settings.event_invoice_generation_url,
-                   :json => JSON.parse(inv.to_jbuilder.target!)
+                     Settings.event_invoice_generation_url,
+                     :json => JSON.parse(invoice_json)
                    )
         if response.code / 100 == 2
           WebhookLog.create level: 'info', message: "Invoice #{inv} successfully posted", event: :invoice_generation

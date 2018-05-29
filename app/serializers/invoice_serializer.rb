@@ -7,7 +7,7 @@ class InvoiceSerializer < ActiveModel::Serializer
     :customer_id, :identification, :name,
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft,
-    :tag_list, :download_link,
+    :tag_list, :download_link, :meta,
     :net_amount, :gross_amount, :taxes, :status,
     :sent_by_email
 
