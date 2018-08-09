@@ -1,0 +1,15 @@
+{
+  "name": "siwapp",
+  "description": "Online Invoice Management",
+  "keywords": [
+    "dokku",
+    "rails",
+    "siwapp"
+  ],
+  "scripts": {
+    "dokku": {
+      "predeploy": "bundle exec rake db:setup",
+      "postdeploy": "bundle exec rake db:migrate"
+    }
+  }
+}
