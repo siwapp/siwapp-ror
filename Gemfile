@@ -59,7 +59,7 @@ gem 'fastclick-rails'
 gem 'haml'
 gem 'jquery-ui-rails'
 gem 'js-routes'
-gem 'pg'
+gem 'pg', '~> 0.21'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production

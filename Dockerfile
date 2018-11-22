@@ -9,7 +9,8 @@ RUN apt-get update -qq && \
 	libpq-dev \
 	libqt5webkit5-dev \
 	qt5-default \
-	xvfb
+	xvfb && \
+    gem install bundler
 
 # Copy project src to container
 COPY ./Gemfile /app/
