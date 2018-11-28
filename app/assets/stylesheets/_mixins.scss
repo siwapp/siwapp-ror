@@ -3,5 +3,5 @@
 }
 
 @function rem($number) {
-  @return strip-units($number / $font-size-root);
+  @return strip-units($number / $font-size-base);
 }
