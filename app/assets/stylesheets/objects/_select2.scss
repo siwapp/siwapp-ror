@@ -1,7 +1,5 @@
 .select2-container--bs4 {
   @extend .form-control;
-  @extend .c-select;
-
   .select2-selection--single {
     height: auto;
 
