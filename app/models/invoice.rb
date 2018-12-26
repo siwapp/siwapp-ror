@@ -232,6 +232,6 @@ class Invoice < Common
 
     # attributes fitted for serialization
     def serializable_attribute_names
-      [:id, :name, :identification, :email, :currency, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :base_amount, :discount_amount, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
+      [:id, :name, :identification, :email, :currency, :invoicing_address, :shipping_address, :contact_person, :terms, :notes, :net_amount, :gross_amount, :paid_amount, :issue_date, :due_date, :days_to_due]
     end
 end
