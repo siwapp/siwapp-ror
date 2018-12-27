@@ -31,9 +31,9 @@ class Invoice < Common
     when :paid
       where(draft: false, failed: false, paid: true)
     when :pending
-      where(draft: false, failed: false, paid: false).where("due_date >= ?", Date.current)
+      where(draft: false, failed: false, paid: false).where("due_date > ?", Date.current)
     when :past_due
-      where(draft: false, failed: false, paid: false).where("due_date < ?", Date.current)
+      where(draft: false, failed: false, paid: false).where("due_date <= ?", Date.current)
     end
   }
 
