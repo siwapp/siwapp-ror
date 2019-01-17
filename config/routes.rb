@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get 'invoices/print_template/:id/invoice/:invoice_id', to: 'commons#print_template', as: :rendered_template
+      get 'stats', to: 'invoices#stats'
       resources :taxes, :series, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering
@@ -71,7 +72,7 @@ Rails.application.routes.draw do
         resources :taxes, only: [:index], defaults: { format: :json}
       end
 
-      resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email], defaults: { format: :json} do
+      resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email, :stats], defaults: { format: :json} do
         get 'send_email', on: :member
         resources :items, :payments, only: [:index, :create]
       end
