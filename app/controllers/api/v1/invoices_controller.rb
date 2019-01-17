@@ -45,15 +45,11 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     scope = scope.order("date")
 
     # build all keys
-    @date_totals = {}
+    @date_totals = Hash.new({})
 
     scope.each do |inv|
       value = {inv.currency.downcase => {"total" => inv.total, "count" => inv.count}}
-      if @date_totals.has_key?(inv.date)
-        @date_totals[inv.date] = @date_totals[inv.date].merge(value)
-      else
-        @date_totals[inv.date] = value
-      end
+      @date_totals[inv.date] = @date_totals[inv.date].merge(value)
     end
 
     render json: @date_totals, status: :ok
