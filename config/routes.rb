@@ -72,7 +72,7 @@ Rails.application.routes.draw do
         resources :taxes, only: [:index], defaults: { format: :json}
       end
 
-      resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email, :stats], defaults: { format: :json} do
+      resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email], defaults: { format: :json} do
         get 'send_email', on: :member
         resources :items, :payments, only: [:index, :create]
       end
