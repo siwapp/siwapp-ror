@@ -33,9 +33,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   end
 
   def stats
-    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
-    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
-    currency = (params[:q].nil? or params[:q][:currency].nil?) ? '' : params[:q][:currency].downcase
+    date_from, date_to, currency = get_stats_filter_values params
 
     scope = Invoice.where(draft: false, failed: false).\
       where("issue_date >= :date_from AND issue_date <= :date_to",
@@ -73,4 +71,15 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   def invoice_params
     res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
+
+  private
+
+  def get_stats_filter_values params
+    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
+    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
+    currency = (params[:q].nil? or params[:q][:currency].nil?) ? '' : params[:q][:currency].downcase
+
+    return date_from, date_to, currency
+  end
+
 end
