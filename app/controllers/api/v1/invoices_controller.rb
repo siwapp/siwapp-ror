@@ -33,7 +33,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   end
 
   def stats
-    date_from, date_to = get_stats_filter_values params
+    date_from, date_to = get_stats_dates_values params
     currency = (params[:q].nil? or params[:q][:currency].nil?) ? '' : params[:q][:currency].downcase
 
     scope = Invoice.where(draft: false, failed: false).\
