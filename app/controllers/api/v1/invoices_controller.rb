@@ -47,7 +47,7 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     @date_totals = Hash.new({})
 
     scope.each do |inv|
-      value = {inv.currency.downcase => {"total" => inv.total, "count" => inv.count}}
+      value = {inv.currency.downcase => {"total" => inv.total.to_f, "count" => inv.count}}
       @date_totals[inv.date] = @date_totals[inv.date].merge(value)
     end
 
