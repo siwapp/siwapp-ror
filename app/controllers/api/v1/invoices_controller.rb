@@ -32,6 +32,28 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
     end
   end
 
+  def stats
+    date_from, date_to = get_stats_dates_values params
+    currency = (params[:q].nil? or params[:q][:currency].nil?) ? '' : params[:q][:currency].downcase
+
+    scope = Invoice.where(draft: false, failed: false).\
+      where("issue_date >= :date_from AND issue_date <= :date_to",
+            {date_from: date_from, date_to: date_to})
+    scope = scope.where("currency like :currency", {currency: currency}) if !currency.empty?
+    scope = scope.select("to_char(issue_date, 'YYYY-MM') as date, currency, sum(gross_amount) as total, count(id) as count").group('date, currency')
+    scope = scope.order("date")
+
+    # build all keys
+    @date_totals = Hash.new({})
+
+    scope.each do |inv|
+      value = {inv.currency.downcase => {"total" => inv.total.to_f, "count" => inv.count}}
+      @date_totals[inv.date] = @date_totals[inv.date].merge(value)
+    end
+
+    render json: @date_totals, status: :ok
+  end
+
   protected
 
   def set_instance instance
@@ -50,4 +72,14 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
   def invoice_params
     res = ActiveModelSerializers::Deserialization.jsonapi_parse(params, {})
   end
+
+  private
+
+  def get_stats_dates_values params
+    date_from = (params[:q].nil? or params[:q][:issue_date_gteq].nil?) ? Date.current.beginning_of_year : Date.parse(params[:q][:issue_date_gteq])
+    date_to = (params[:q].nil? or params[:q][:issue_date_lteq].nil?) ? Date.current : Date.parse(params[:q][:issue_date_lteq])
+
+    return date_from, date_to
+  end
+
 end
