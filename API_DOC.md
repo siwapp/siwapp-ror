@@ -41,6 +41,8 @@
   - [Create](#create-5)
   - [Update](#update-5)
   - [Delete](#delete-5)
+- [Stats](#stats)
+  - [Get](#get)
 
 ## Authentication
 
@@ -1092,3 +1094,37 @@ __Response__
 HTTP/1.1 204 NO CONTENT
 Content-Type: application/json; charset=utf-8
 ```
+
+## Stats
+### Get
+Get invoices aggregates stats. This method returns a monthly accumulated invoice gross amount by currency. 
+By default, this stats returns from the first day of the current year for all currencies to today.
+
+You can filter by date and currency with the next keys:
+  * `q[issue_date_gteq]=2012-01-01` invoicing stats from issue date is greater or equal than `2012-01-01`
+  * `q[issue_date_lteq]=2012-01-01` invoicing stats to issue date is less or equal than `2012-01-01`
+  * `q[currency]=usd` invoicing stats whose currency is `usd`
+
+
+````http
+GET https://siwapp-server.com/api/v1/stats HTTP/1.1
+Authorization: Token token="abc"
+````
+
+__Response__
+````http
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=UTF-8
+{
+  "2018-01": {
+    "usd": {
+      "total": "1234.56",
+      "count": 10
+    },
+    "eur": {
+      "total": "789.01",
+      "count": 8
+    }
+  }
+}
+````
