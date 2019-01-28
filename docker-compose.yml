@@ -7,6 +7,8 @@ services:
     image: postgres:9.6-alpine
     ports:
     - 5432:5432
+    volumes:
+    - data_volume:/var/lib/postgresql/data
   web:
     build: .
     command:
@@ -27,3 +29,5 @@ services:
     volumes:
       - .:/app
 version: '2.0'
+volumes:
+  data_volume: {}

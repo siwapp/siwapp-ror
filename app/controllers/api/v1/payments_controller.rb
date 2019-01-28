@@ -36,8 +36,9 @@ class Api::V1::PaymentsController < Api::V1::BaseController
 
   def destroy
     @payment = Payment.find params[:id]
+    @invoice = @payment.invoice
     @payment.destroy
-    
+    @invoice.save
     render json: {"message": "content deleted"}, status: :no_content
     
   end
