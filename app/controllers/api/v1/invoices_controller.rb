@@ -40,14 +40,14 @@ class Api::V1::InvoicesController < Api::V1::CommonsController
       where("issue_date >= :date_from AND issue_date <= :date_to",
             {date_from: date_from, date_to: date_to})
     scope = scope.where("currency like :currency", {currency: currency}) if !currency.empty?
-    scope = scope.select("to_char(issue_date, 'YYYY-MM') as date, currency, sum(gross_amount) as total, count(id) as count").group('date, currency')
+    scope = scope.select("to_char(issue_date, 'YYYY-MM') as date, currency, sum(gross_amount) as total_gross, sum(net_amount) as total_net, count(id) as count").group('date, currency')
     scope = scope.order("date")
 
     # build all keys
     @date_totals = Hash.new({})
 
     scope.each do |inv|
-      value = {inv.currency.downcase => {"total" => inv.total.to_f, "count" => inv.count}}
+      value = {inv.currency.downcase => {"total_gross" => inv.total_gross.to_f, "total_net" => inv.total_net.to_f, "count" => inv.count}}
       @date_totals[inv.date] = @date_totals[inv.date].merge(value)
     end
 
