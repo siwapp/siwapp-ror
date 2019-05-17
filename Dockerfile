@@ -1,4 +1,4 @@
-FROM ruby:2.4.1-slim
+FROM ruby:2.4.5-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -9,7 +9,8 @@ RUN apt-get update -qq && \
 	libpq-dev \
 	libqt5webkit5-dev \
 	qt5-default \
-	xvfb
+	xvfb \
+    libssl1.0-dev
 
 # Copy project src to container
 COPY ./Gemfile /app/
