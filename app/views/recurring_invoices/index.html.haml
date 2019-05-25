@@ -19,13 +19,13 @@
   %ul.list-group.list-unstyled
     %li
       total gross
-      %span.label.label-default.label-pill.pull-right= display_money @gross
+      %span.label.label-default.label-pill.float-right= display_money @gross
     %li
       total net
-      %span.label.label-default.label-pill.pull-right= display_money @net
+      %span.label.label-default.label-pill.float-right= display_money @net
     %li
       total tax
-      %span.label.label-default.label-pill.pull-right= display_money @tax
+      %span.label.label-default.label-pill.float-right= display_money @tax
 
 = form_tag remove_recurring_invoices_path, method: :delete, id: 'js-list-form' do
   %div{data: {role: 'infinite-scroll'}}
@@ -45,4 +45,4 @@
       .spinner
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to t("delete"), '#', class: 'btn btn-danger pull-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', target: '#js-list-form'}
+  = link_to t("delete"), '#', class: 'btn btn-danger float-xs-left', data: {confirm: 'are you sure?', role: 'submit-form', target: '#js-list-form'}

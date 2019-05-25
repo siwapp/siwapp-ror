@@ -1,26 +1,25 @@
 %nav.navbar.navbar-fixed-top.navbar-light.bg-faded.siwapp-navbar
 
   #js-navbar.nav.siwapp-navbar-brand
+    %a.navbar-brand{:href => root_path}
+      = image_tag("logo.svg", alt: "siwapp")
     - if current_user
-      .pull-xs-right
-        %button.btn.btn-navbar.navbar-toggler.hidden-md-up.pull-xs-right{type: "button", data: {target: "#js-main-menu", toggle: "collapse"}}
+      .float-xs-right
+        %button.btn.btn-navbar.navbar-toggler.hidden-md-up.float-xs-right{type: "button", data: {target: "#js-main-menu", toggle: "collapse"}}
           %i.material-icons menu
 
         - if @type
-          = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
-          = link_to sti_path(@type, 'new'), class: "btn btn-navbar hidden-lg-up pull-xs-right" do
+          = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary hidden-md-down float-sm-right m-l-1"
+          = link_to sti_path(@type, 'new'), class: "btn btn-navbar hidden-lg-up float-xs-right" do
             %i.material-icons add
         - else
-          = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
-          = link_to new_invoice_path, class: "btn btn-navbar hidden-lg-up pull-xs-right" do
+          = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down float-sm-right m-l-1"
+          = link_to new_invoice_path, class: "btn btn-navbar hidden-lg-up float-xs-right" do
             %i.material-icons add
 
         - if @search
-          %button.btn.btn-navbar.navbar-toggler.pull-xs-right.hidden-xl-up{type: "button", data: {target: "#js-search-form", toggle: "collapse"}}
+          %button.btn.btn-navbar.navbar-toggler.float-xs-right.hidden-xl-up{type: "button", data: {target: "#js-search-form", toggle: "collapse"}}
             %i.material-icons search
-
-    %a.navbar-brand{:href => root_path}
-      = image_tag("logo.svg", alt: "siwapp")
 
   #js-main-menu.collapse.nav.navbar-nav.navbar-toggleable-sm.siwapp-navbar-menu
     - if current_user
