@@ -1,4 +1,4 @@
-= search_form_for @search, html: {class: "collapse nav navbar-nav navbar-toggleable-lg siwapp-search-form", id: "js-search-form"} do |f|
+= search_form_for @search, html: {class: "nav navbar-nav siwapp-search-form", id: "js-search-form"} do |f|
 
   .input-group.siwapp-input-search
     .input-group-btn
@@ -7,7 +7,7 @@
     .input-group-btn
       %button.btn.btn-primary.material-icons{:type => "submit"} search
   .siwapp-search-filters
-    #js-search-filters.collapse.siwapp-search-filters__content
+    #js-search-filters.collapse.siwapp-search-filters__content.bg-light
 
       = render 'searchform__filters', f: f
 

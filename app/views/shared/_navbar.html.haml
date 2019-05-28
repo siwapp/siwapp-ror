@@ -3,6 +3,9 @@
   %a.navbar-brand{:href => root_path}
     = image_tag("logo.svg", alt: "siwapp")
 
+  - if current_user and @search
+    = render 'shared/searchform'
+
   - if current_user
     .siwapp-navbar-scroll
       %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t("dashboard")
@@ -11,7 +14,7 @@
       %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("customers") 
       .nav-item.dropdown
         %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t("account")
-        .dropdown-menu.dropdown-menu-right
+        .dropdown-menu
           %a.dropdown-item{:href => settings_profile_path}=t("profile")
           .dropdown-divider
           %a.dropdown-item{:href => settings_global_path}=t("global settings") 
@@ -28,15 +31,10 @@
           .dropdown-divider
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
+
   #js-navbar.nav.siwapp-navbar-brand
     - if current_user
-
       - if @type
-        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-sm-right m-l-1"
+        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-right m-l-1"
       - else
-        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down float-sm-right m-l-1"
-        = link_to new_invoice_path, class: "btn btn-navbar hidden-lg-up float-xs-right" do
-          %i.material-icons add
-
-  - if current_user and @search
-    = render 'shared/searchform'
+        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary float-right m-l-1"

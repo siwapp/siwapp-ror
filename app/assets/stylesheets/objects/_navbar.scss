@@ -11,15 +11,9 @@
 //
 
 .siwapp-navbar {
-  width: 100%;
   border-bottom: 1px solid $generic-border-color;
 
-  .btn-navbar {
-    color: $body-color;
-    padding: 0.375rem 0.4rem;
-  }
-
-  .navbar-brand {
+	.navbar-brand {
     display: inline-block;
     width: 7rem;
     padding-top: .5rem;
@@ -30,141 +24,48 @@
       height: 1.75rem;
     }
   }
-
-  // scss-lint:disable ImportantRule
-  // Custom override for
-  .navbar-toggleable {
-    &-lg {
-      @include media-breakpoint-up(xl) {
-        display: block !important;
-      }
-    }
-  }
-  // scss-lint:enable ImportantRule
-
-  @include media-breakpoint-up(md) {
-    .nav-item {
-      line-height: 3.375rem;
-      margin-top: -.5rem;
-      margin-bottom: -.5rem;
-    }
-
-    // Links hover & dropdown active
-    .nav-link,
-    .nav-item.dropdown {
-      transition: all 0.29s ease-in-out 0s;
-
-      &:hover,
-      &.open {
-        background-color: lighten($generic-border-color, 5%);
-      }
-    }
-
-    .nav-link {
-      padding: 0 .75rem;
-
-      & + .nav-link,
-      & + .nav-item {
-        margin-left: 0;
-      }
-
-      &.active {
-        position: relative;
-
-        &::before {
-          content: "";
-          display: block;
-          position: absolute;
-          bottom: 0;
-          left: .75rem;
-          right: .75rem;
-          height: 4px;
-          background-color: $generic-border-color;
-        }
-      }
-
-      &.dropdown-toggle::after {
-        margin-right: 0;
-        margin-left: .5rem;
-      }
-
-      &.dropdown-toggle::before {
-        right: 1.5rem;
-      }
-    }
-  }
 }
 
-@include media-breakpoint-down(lg) {
-  .siwapp-navbar-scroll {
-    @include clearfix;
-  }
-}
 
-@include media-breakpoint-down(sm) {
-  .siwapp-navbar-brand,
-  .siwapp-navbar-scroll {
-    @include clearfix;
-    clear: both;
-  }
-  .siwapp-navbar-menu {
-    padding-top: 0.5rem;
-  }
-  .siwapp-navbar-scroll {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-    .nav-item {
-      display: inline-block;
-      float: none;
-      &:last-child {
-        margin-right: 1rem;
-      }
-    }
-    .active {
-      border-bottom: 0;
-      padding-bottom: 0;
-    }
-  }
-}
-
-//
-// Search Form
-//
-
-.siwapp-input-search {
-  @include media-breakpoint-up(xl) {
-    padding-left: 1rem;
-  }
-}
-
-.siwapp-search-form {
-  @include media-breakpoint-down(lg) {
-    @include clearfix();
-    clear: both;
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding: .5rem 1rem 0 .5rem;
-    margin-top: .5rem;
-    border-top: 1px solid $generic-border-color;
-  }
-}
-
-.siwapp-search-filters {
+.siwapp-navbar-brand,
+.siwapp-navbar-scroll {
   @include clearfix;
   clear: both;
 }
+.siwapp-navbar-menu {
+  padding-top: 0.5rem;
+}
+.siwapp-navbar-scroll {
+  margin-left: -1rem;
+  margin-right: -1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  .nav-item {
+    display: inline-block;
+    float: none;
+    &:last-child {
+      margin-right: 1rem;
+    }
+  }
+  .active {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+////
+//// Search Form
+////
+
+.siwapp-search-filters {
+  position: absolute;
+	background: white;
+  top: 4rem;
+}
 
 .siwapp-search-filters__content {
-  margin: .5rem -1rem 0;
   padding: 1rem;
-  background: white;
-  border: 1px solid $gray-lighter;
-  border-left-width: 0;
-  border-right-width: 0;
+  border: 1px solid $generic-border-color;
 }
