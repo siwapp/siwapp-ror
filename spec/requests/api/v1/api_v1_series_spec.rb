@@ -4,11 +4,11 @@ RSpec.describe "Api::V1::Series", type: :request do
 
   before do
     Rails.cache.clear
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
     @headers = {'Content-Type' => 'application/json',
         'Authorization' => 'Token token="123token"'}
-    @series = FactoryGirl.create :series
+    @series = FactoryBot.create :series
   end
 
   describe 'Series show' do

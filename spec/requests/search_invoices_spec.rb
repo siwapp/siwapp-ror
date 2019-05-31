@@ -5,9 +5,9 @@ RSpec.describe "Search Invoices", type: :request do
   before do
     Rails.application.load_seed
 
-    FactoryGirl.create(:user)
-    FactoryGirl.create(:invoice)
-    FactoryGirl.create(:invoice,
+    FactoryBot.create(:user)
+    FactoryBot.create(:invoice)
+    FactoryBot.create(:invoice,
         name: "Pete",
         issue_date: "2016-01-06",
         meta_attributes: '{"mykey":"myvalue"}')

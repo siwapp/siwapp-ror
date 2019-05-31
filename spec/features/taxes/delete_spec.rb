@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Taxes:" do
   scenario "User can delete a a tax", :js => true, :driver => :webkit do
-    vat = FactoryGirl.create(:vat)
+    vat = FactoryBot.create(:vat)
 
     visit edit_tax_path(vat)
 
@@ -16,7 +16,7 @@ feature "Taxes:" do
   end
 
   scenario "User can't delete a tax associated with an item", :js => true, :driver => :webkit do
-    FactoryGirl.create(:invoice)
+    FactoryBot.create(:invoice)
     vat = Tax.find_by(id: 1)
 
     visit edit_tax_path(vat)

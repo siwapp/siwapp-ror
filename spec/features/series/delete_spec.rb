@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Series:" do
   scenario "User deletes a series", :js => true, :driver => :webkit do
-    series = FactoryGirl.create(:series)
+    series = FactoryBot.create(:series)
 
     visit edit_series_path(series)
 
@@ -16,7 +16,7 @@ feature "Series:" do
   end
 
   scenario "User can't delete a series with invoices", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
     series = invoice.series
 
     visit edit_series_path(series)

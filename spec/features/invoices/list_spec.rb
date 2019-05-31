@@ -4,9 +4,9 @@ feature "Invoices:" do
   background do
     Rails.application.load_seed
 
-    @unpaid_invoice = FactoryGirl.create(:invoice)              # 3
-    @paid_invoice = FactoryGirl.create(:invoice, :paid)         # 2
-    @draft_invoice = FactoryGirl.create(:invoice, draft: true)  # 1
+    @unpaid_invoice = FactoryBot.create(:invoice)              # 3
+    @paid_invoice = FactoryBot.create(:invoice, :paid)         # 2
+    @draft_invoice = FactoryBot.create(:invoice, draft: true)  # 1
   end
 
   scenario "User can see a list of invoices, most recent first", :js => true, :driver => :webkit do

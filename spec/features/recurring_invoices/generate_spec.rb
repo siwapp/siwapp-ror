@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Recurring Invoices:" do
   scenario "User can generate pending invoices on demand", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
 
     visit recurring_invoices_path
     click_link "Build Pending Invoices"

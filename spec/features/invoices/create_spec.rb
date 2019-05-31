@@ -3,8 +3,8 @@ require "rails_helper"
 feature "Invoices:" do
 
   scenario "User can create an invoice. A customer is created.", :js => true, :driver => :webkit do
-    FactoryGirl.create(:b_series)
-    FactoryGirl.create(:invoice, :paid)
+    FactoryBot.create(:b_series)
+    FactoryBot.create(:invoice, :paid)
 
     visit new_invoice_path
 
@@ -77,7 +77,7 @@ feature "Invoices:" do
   end
 
   scenario "User can choose an existing customer via autocomplete", :js => true, :driver => :webkit do
-    FactoryGirl.create_list(:ncustomer, 5)
+    FactoryBot.create_list(:ncustomer, 5)
 
     visit new_invoice_path
 
@@ -97,7 +97,7 @@ feature "Invoices:" do
   end
 
   scenario "Saving a draft", :js => true, :driver => :webkit do
-    FactoryGirl.create(:series, :default)
+    FactoryBot.create(:series, :default)
 
     visit new_invoice_path
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Recurring Invoices:" do
   scenario "User can update a recurring invoice", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
 
     visit edit_recurring_invoice_path(recurring_invoice)
     fill_in "recurring_invoice_days_to_due", with: "20"
@@ -12,7 +12,7 @@ feature "Recurring Invoices:" do
   end
 
   scenario "User can't update a recurring invoice with invalid data", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
 
     visit edit_recurring_invoice_path(recurring_invoice)
     fill_in "recurring_invoice_period", with: ""
@@ -23,7 +23,7 @@ feature "Recurring Invoices:" do
   end
 
   scenario "User can add a new item to an existing recurring invoice", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
     visit edit_recurring_invoice_path(recurring_invoice)
     click_on "Add Line"
 

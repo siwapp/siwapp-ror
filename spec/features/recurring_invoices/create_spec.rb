@@ -3,9 +3,9 @@ require "rails_helper"
 feature "Recurring Invoices:" do
 
   scenario "User can create a recurring invoice. A Customer is created.", :js => true, :driver => :webkit do
-    FactoryGirl.create(:series, :default)
-    FactoryGirl.create(:vat)
-    FactoryGirl.create(:retention)
+    FactoryBot.create(:series, :default)
+    FactoryBot.create(:vat)
+    FactoryBot.create(:retention)
 
     visit new_recurring_invoice_path
 

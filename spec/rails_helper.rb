@@ -65,7 +65,7 @@ RSpec.configure do |config|
   # log in before every feature example
   config.before :each, type: :feature do |example|
     unless example.metadata[:not_logged]
-      user = FactoryGirl.create :user
+      user = FactoryBot.create :user
 
       visit login_path
       fill_in 'session_email', with: user.email

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Invoices:" do
   scenario "User can delete an invoice", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
     accept_confirm do
@@ -14,7 +14,7 @@ feature "Invoices:" do
   end
 
   scenario "User can cancel deletion of an invoice", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
     dismiss_confirm do

@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Payments:", type: :request do
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @invoice = FactoryGirl.create(:invoice, :paid)
+    @invoice = FactoryBot.create(:invoice, :paid)
     @payment = @invoice.payments.first
   end
 
@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
 
   describe "Payment creation" do
     it "POST /api/v1/invoices/:invoice_id/payments" do
-      invoice = FactoryGirl.create(:invoice)
+      invoice = FactoryBot.create(:invoice)
 
       payment = {
         "data"=> {

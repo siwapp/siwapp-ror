@@ -3,15 +3,15 @@ require "rails_helper"
 RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @recurring = FactoryGirl.create(:recurring_invoice)
+    @recurring = FactoryBot.create(:recurring_invoice)
     @vat = Tax.find(1)
   end
 
@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
     describe "Paginated invoices listing" do
 
       before do
-        FactoryGirl.create_list :recurring_invoice, 30,
+        FactoryBot.create_list :recurring_invoice, 30,
           customer: @recurring.customer # 30 more invoices
       end
 

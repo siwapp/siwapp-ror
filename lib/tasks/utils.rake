@@ -11,14 +11,14 @@ namespace :siwapp do
       n = args[:number].to_i
       n_due = args[:due].to_i
 
-	  FactoryGirl.create_list(:due_invoice, n_due, first_day: Date.current - n - n_due)
-      FactoryGirl.create_list(:demo_invoice, n, first_day: Date.current - n)
+	  FactoryBot.create_list(:due_invoice, n_due, first_day: Date.current - n - n_due)
+      FactoryBot.create_list(:demo_invoice, n, first_day: Date.current - n)
     end
 
     desc "Create random recurring invoices for testing and development."
     task :recurring_invoices, [:number] => :environment do |t, args|
       args.with_defaults(:number => "4")
-      FactoryGirl.create_list(:demo_recurring_invoice, args[:number].to_i)
+      FactoryBot.create_list(:demo_recurring_invoice, args[:number].to_i)
     end
 
     desc "Create a basic set of series, taxes, invoices and recurring invoices."

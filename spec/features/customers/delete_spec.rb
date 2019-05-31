@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Customers:" do
   scenario "User can delete a customer", :js => true, :driver => :webkit do
-    customer = FactoryGirl.create(:customer)
+    customer = FactoryBot.create(:customer)
 
     visit edit_customer_path(customer)
 
@@ -18,7 +18,7 @@ feature "Customers:" do
   end
 
   scenario "User can delete a customer without pending invoices", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice, :paid)
+    invoice = FactoryBot.create(:invoice, :paid)
 
     visit edit_customer_path(invoice.customer)
 
@@ -32,7 +32,7 @@ feature "Customers:" do
   end
 
   scenario "User can't delete a customer with pending invoices", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_customer_path(invoice.customer)
 

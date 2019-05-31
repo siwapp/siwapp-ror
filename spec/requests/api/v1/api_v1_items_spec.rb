@@ -2,15 +2,15 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Items:", type: :request do
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @invoice = FactoryGirl.create(:invoice, :paid)
+    @invoice = FactoryBot.create(:invoice, :paid)
     @item = @invoice.items[0]
     @taxes = Tax.all
   end

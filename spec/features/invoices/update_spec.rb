@@ -2,8 +2,8 @@ require "rails_helper"
 
 feature "Invoices:" do
   scenario "User can update an invoice", :js => true, :driver => :webkit do
-    FactoryGirl.create(:b_series)
-    invoice = FactoryGirl.create(:invoice)
+    FactoryBot.create(:b_series)
+    invoice = FactoryBot.create(:invoice)
 
     expect(invoice.number).to eq 1
 
@@ -69,7 +69,7 @@ feature "Invoices:" do
   end
 
   scenario "User can't update an invoice with invalid data", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
     fill_in "invoice_issue_date", with: ""
@@ -80,7 +80,7 @@ feature "Invoices:" do
   end
 
   scenario "User can add a new item to an existing invoice", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
 
@@ -114,7 +114,7 @@ feature "Invoices:" do
   end
 
   scenario "User can add a payment to an invoice", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(:invoice)
+    invoice = FactoryBot.create(:invoice)
 
     visit edit_invoice_path(invoice)
 
@@ -133,7 +133,7 @@ feature "Invoices:" do
   end
 
   scenario "User can remove payments and items from an invoice", :js => true, :driver => :webkit do
-    invoice = FactoryGirl.create(
+    invoice = FactoryBot.create(
       :invoice,
       items: [
         Item.new(quantity: 1, unitary_cost: 20),

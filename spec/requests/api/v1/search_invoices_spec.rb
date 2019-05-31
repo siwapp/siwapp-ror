@@ -3,21 +3,21 @@ require "rails_helper"
 RSpec.describe "Invoices Search", type: :request do
 
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    FactoryGirl.create(:invoice)
-    FactoryGirl.create(:invoice,
+    FactoryBot.create(:invoice)
+    FactoryBot.create(:invoice,
         name: "Pete",
         issue_date: "2016-01-06",
         meta_attributes: '{"mykey":"myvalue"}')
 
-    FactoryGirl.create(:template)
+    FactoryBot.create(:template)
   end
 
   describe "searches right with terms" do

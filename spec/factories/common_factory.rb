@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :common do
-    name "Test Customer"
-    identification "12345"
-    email "customer@example.com"
-    currency "usd"
+    name { "Test Customer" }
+    identification { "12345" }
+    email { "customer@example.com" }
+    currency { "usd" }
 
     after :build do |common|
       common.series = common.series || Series.find_by(default: true) || create(:series, :default)
@@ -38,7 +38,7 @@ FactoryGirl.define do
 
       factory :due_invoice do
         transient do
-          first_day Date.current - 30
+          first_day { Date.current - 30 }
         end
         sequence(:issue_date, 0) { |n| first_day + n }
         due_date { issue_date + 1 }
@@ -49,7 +49,7 @@ FactoryGirl.define do
       # WARNING: DON'T USE FOR TESTS!!!
       factory :demo_invoice do
         transient do
-          first_day Date.current
+          first_day { Date.current }
         end
         sequence(:issue_date, 0) { |n| first_day + n }
         due_date { issue_date + 30 }
@@ -67,10 +67,10 @@ FactoryGirl.define do
 
     factory :recurring_invoice, class: RecurringInvoice do
       starting_date { Date.current }
-      period_type "month"
-      period 1
-      days_to_due 30
-      currency "usd"
+      period_type { "month" }
+      period { 1 }
+      days_to_due { 30 }
+      currency { "usd" }
 
       # WARNING: DON'T USE FOR TESTS!!!
       factory :demo_recurring_invoice do

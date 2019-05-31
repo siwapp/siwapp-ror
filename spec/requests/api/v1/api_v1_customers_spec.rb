@@ -3,15 +3,15 @@ require "rails_helper"
 RSpec.describe "Customers", type: :request do
 
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @invoice = FactoryGirl.create(:invoice, :paid)
+    @invoice = FactoryBot.create(:invoice, :paid)
   end
 
   describe "Customers show" do
@@ -24,9 +24,9 @@ RSpec.describe "Customers", type: :request do
 
     it "GET /api/v1/customers/:id/invoices shows filtered invoices" do
       # create extra invoice for another customer
-      alt_customer = FactoryGirl.create(:customer, name: "Alt Customer")
-      alt_invoice = FactoryGirl.create :invoice, customer: alt_customer
-      print_template = FactoryGirl.create :template, print_default: true, name: "print default", template: "invoice"
+      alt_customer = FactoryBot.create(:customer, name: "Alt Customer")
+      alt_invoice = FactoryBot.create :invoice, customer: alt_customer
+      print_template = FactoryBot.create :template, print_default: true, name: "print default", template: "invoice"
       get api_v1_customer_invoices_path(@invoice.customer), nil, @headers
       expect(response).to be_success
       expect(json["data"].length).to eql 1 # only @invoice, not alt_invoice

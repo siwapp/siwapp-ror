@@ -2,8 +2,8 @@ require "rails_helper"
 
 feature "Taxes:" do
   scenario "User can mark a tax as default from the list of taxes", :js => true, :driver => :webkit do
-    FactoryGirl.create(:vat, default: true)
-    FactoryGirl.create(:retention)
+    FactoryBot.create(:vat, default: true)
+    FactoryBot.create(:retention)
 
     click_on "Account"
     click_on "Taxes"

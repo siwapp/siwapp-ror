@@ -23,7 +23,7 @@ feature "Settings:" do
   end
 
   scenario "User with an API token can replace it by a new one", :js => true, :driver => :webkit do
-    FactoryGirl.create :token
+    FactoryBot.create :token
 
     visit settings_api_token_path
     expect(page).to have_content "123token"

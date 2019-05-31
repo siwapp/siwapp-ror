@@ -3,16 +3,16 @@ require "rails_helper"
 RSpec.describe "Api::V1::Invoices:", type: :request do
 
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @template = FactoryGirl.create(:template)
-    @invoice = FactoryGirl.create(:invoice)
+    @template = FactoryBot.create(:template)
+    @invoice = FactoryBot.create(:invoice)
     @vat = Tax.find(1)
   end
 
@@ -42,7 +42,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
     describe "Paginated invoices listing" do
 
       before do
-        FactoryGirl.create_list :invoice, 30, customer: @invoice.customer # 30 more invoices
+        FactoryBot.create_list :invoice, 30, customer: @invoice.customer # 30 more invoices
       end
 
       it "Display only 20 results per page and return pagination headers" do

@@ -3,8 +3,8 @@ require "rails_helper"
 RSpec.describe "Get chart data", type: :request do
 
   before do
-    FactoryGirl.create(:user)
-    FactoryGirl.create_list(:invoice, 10)
+    FactoryBot.create(:user)
+    FactoryBot.create_list(:invoice, 10)
 
     post "/login", :session =>
         {email: "testuser@example.org", password: "testuser"}

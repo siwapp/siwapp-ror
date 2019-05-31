@@ -56,7 +56,7 @@ gem 'bootsnap'
 gem 'bootstrap'
 # to add items dinamically
 gem 'cocoon'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'faker'
 gem 'fastclick-rails'
 gem 'haml'

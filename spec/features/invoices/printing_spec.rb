@@ -4,7 +4,7 @@ feature "Invoices:" do
   background do
     Rails.application.load_seed
 
-    @invoice = FactoryGirl.create(:invoice, :paid)
+    @invoice = FactoryBot.create(:invoice, :paid)
   end
 
   scenario "User will see a preview of a paid invoice inside an iframe an can download a PDF", js: true, driver: :webkit do

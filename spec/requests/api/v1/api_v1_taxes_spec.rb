@@ -2,16 +2,16 @@ require "rails_helper"
 
 RSpec.describe "Api::V1::Taxes:", type: :request do
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @vat = FactoryGirl.create :vat
-    @retention = FactoryGirl.create :retention
+    @vat = FactoryBot.create :vat
+    @retention = FactoryBot.create :retention
   end
 
   describe "Taxes show" do
