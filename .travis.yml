@@ -1,6 +1,6 @@
 language: ruby
-rvm: 2.4.1
-script: "bin/rake spec"
+rvm: 2.5.3
+script: "bin/rspec"
 sudo: required
 dist: trusty
 
