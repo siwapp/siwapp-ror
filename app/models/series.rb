@@ -17,7 +17,7 @@ class Series < ActiveRecord::Base
   end
 
   def next_number
-    invoice = commons.where.not(number: nil).where(type: Invoice, draft: false).order(:number).last
+    invoice = commons.where.not(number: nil).where(type: 'Invoice', draft: false).order(:number).last
     if invoice
       invoice.number + 1
     else

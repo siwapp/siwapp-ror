@@ -1,6 +1,6 @@
 class Invoice < Common
   # Relations
-  belongs_to :recurring_invoice
+  belongs_to :recurring_invoice, optional: true
   has_many :payments, dependent: :destroy
   accepts_nested_attributes_for :payments, :reject_if => :all_blank, :allow_destroy => true
 

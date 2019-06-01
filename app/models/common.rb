@@ -13,10 +13,12 @@ class Common < ActiveRecord::Base
   belongs_to :series
   belongs_to :print_template,
     :class_name => 'Template',
-    :foreign_key => 'print_template_id'
+    :foreign_key => 'print_template_id',
+    optional: true
   belongs_to :email_template,
     :class_name => 'Template',
-    :foreign_key => 'email_template_id'
+    :foreign_key => 'email_template_id',
+    optional: true
   has_many :items, -> {order(id: :asc)}, autosave: true, dependent: :destroy
   accepts_nested_attributes_for :items,
     :reject_if => :all_blank,
