@@ -9,7 +9,7 @@ class Common < ActiveRecord::Base
   acts_as_paranoid
 
   # Relations
-  belongs_to :customer
+  belongs_to :customer, optional: true
   belongs_to :series
   belongs_to :print_template,
     :class_name => 'Template',
