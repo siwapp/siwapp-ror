@@ -55,16 +55,6 @@ GEM
       sass (>= 3.4.19)
     builder (3.2.3)
     byebug (9.0.5)
-    capybara (2.7.1)
-      addressable
-      mime-types (>= 1.16)
-      nokogiri (>= 1.3.3)
-      rack (>= 1.0.0)
-      rack-test (>= 0.5.4)
-      xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     celluloid (0.17.3)
       celluloid-essentials
       celluloid-extras
@@ -304,8 +294,6 @@ GEM
       celluloid
       wisper
     wkhtmltopdf-binary (0.12.3)
-    xpath (2.0.0)
-      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -317,7 +305,6 @@ DEPENDENCIES
   bcrypt
   bootstrap (~> 4.0.0.alpha3)
   byebug
-  capybara-webkit
   cocoon
   coffee-rails
   database_cleaner
@@ -358,7 +345,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.4.1p111
+   ruby 2.4.5p335
 
 BUNDLED WITH
    1.16.1
