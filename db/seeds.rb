@@ -16,7 +16,7 @@ Settings.company_email = ""
 Settings.company_url = ""
 Settings.company_logo = ""
 Settings.legal_terms = ""
-Settings.currency = "usd"
+Settings.currency = "brl"
 
 Template.create(name: "Print Default",
                 template: File.read(Rails.root.join('db', 'fixtures', 'print_default.html.erb')).strip(),
