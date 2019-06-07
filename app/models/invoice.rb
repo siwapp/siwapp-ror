@@ -84,8 +84,8 @@ class Invoice < Common
   end
 
   def self.status_collection
-    [["Draft", :draft], ["Paid", :paid], ["Pending", :pending],
-      ["Past Due", :past_due], ["Failed", :failed]]
+    [[I18n.t("invoice_status.draft"), :draft], [I18n.t("invoice_status.paid"), :paid], [I18n.t("invoice_status.pending"), :pending],
+      [I18n.t("invoice_status.past_due"), :past_due], [I18n.t("invoice_status.failed"), :failed]]
   end
 
   # Public: Get a string representation of this object

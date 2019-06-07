@@ -1,27 +1,27 @@
 .row
   .col-xs-12.col-lg-6
     .form-group
-      = f.label :customer_id_eq, "Customer:"
-      = f.collection_select :customer_id_eq, Customer.all, :id, :to_s, {include_blank: 'Choose…'}, {class: 'form-control c-select', 'data-role': 'select-autocomplete', style: 'width: 100%;'}
+      = f.label :customer_id_eq, "#{t('customer')}:"
+      = f.collection_select :customer_id_eq, Customer.all, :id, :to_s, {include_blank: t('choose')}, {class: 'form-control c-select', 'data-role': 'select-autocomplete', style: 'width: 100%;'}
   .col-xs-12.col-lg-6
     .form-group
       = f.label :series_id_eq, "Series:"
-      = f.collection_select :series_id_eq, Series.all, "id", "name", {include_blank: 'Choose…'}, {class: 'form-control c-select'}
+      = f.collection_select :series_id_eq, Series.all, "id", "name", {include_blank: t('choose')}, {class: 'form-control c-select'}
 .row
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :starting_date_gteq, "Starting Date from: "
+      = f.label :starting_date_gteq, "#{t('issue_date_from')}: "
       = f.date_field :starting_date_gteq, class: "form-control"
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :starting_date_lteq, "to: "
+      = f.label :starting_date_lteq, "#{t("to")}:"
       = f.date_field :starting_date_lteq, class: "form-control"
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :finishing_date_gteq, "Finishing Date from: "
+      = f.label :finishing_date_gteq, "#{t('finishing_date_from')}: "
       = f.date_field :finishing_date_gteq, class: "form-control"
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :finishing_date_lteq, "to: "
+      = f.label :finishing_date_lteq,  "#{t("to")}: "
       = f.date_field :finishing_date_lteq, class: "form-control"
 

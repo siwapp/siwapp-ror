@@ -3,7 +3,7 @@
   .input-group.siwapp-input-search
     .input-group-btn
       %button.btn.btn-secondary.material-icons{"data-target" => "#js-search-filters", "data-toggle" => "collapse", :type => "button"} expand_more
-    = f.text_field :with_terms, class: 'form-control', placeholder: 'Search...', title: 'Search by Customer, Email or VAT ID'
+    = f.text_field :with_terms, class: 'form-control', placeholder: 'Buscar...', title: t("search_title")
     .input-group-btn
       %button.btn.btn-primary.material-icons{:type => "submit"} search
   .siwapp-search-filters

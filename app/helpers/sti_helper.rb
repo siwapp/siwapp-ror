@@ -55,6 +55,6 @@ module StiHelper
 
   # Returns a "humanized" version of the current type name
   def current_type_name
-    current_type.constantize.model_name.human.titleize
+    I18n.t(current_type.constantize.model_name.human.downcase.tr(" ","_"))
   end
 end

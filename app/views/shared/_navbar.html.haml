@@ -11,7 +11,7 @@
           = link_to sti_path(@type, 'new'), class: "btn btn-navbar hidden-lg-up pull-xs-right" do
             %i.material-icons add
         - else
-          = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
+          = link_to t("new_invoice"), new_invoice_path, class: "btn btn-primary hidden-md-down pull-sm-right m-l-1"
           = link_to new_invoice_path, class: "btn btn-navbar hidden-lg-up pull-xs-right" do
             %i.material-icons add
 
@@ -27,14 +27,14 @@
       .siwapp-navbar-scroll
         %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t("dashboard")
         %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path}=t("invoices")
-        %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path}=t("recurring invoices")
-        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("customers") 
+        %a{:class => "nav-item nav-link #{active_link('recurring_invoices_title')}", :href => recurring_invoices_path}=t("recurring_invoices_title")
+        %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("customers")
         .nav-item.dropdown.hidden-sm-down
           %a{:class => "nav-link dropdown-toggle #{active_link('settings, series, taxes, templates')}", "data-toggle" => "dropdown", :href => "#"}=t("account")
           .dropdown-menu.dropdown-menu-right
             %a.dropdown-item{:href => settings_profile_path}=t("profile")
             .dropdown-divider
-            %a.dropdown-item{:href => settings_global_path}=t("global settings") 
+            %a.dropdown-item{:href => settings_global_path}=t("global settings")
             %a.dropdown-item{:href => settings_smtp_path}=t("smtp settings")
             .dropdown-divider
             %a.dropdown-item{:href => series_index_path}=t("series")
@@ -51,7 +51,7 @@
 
       #js-settings-menu.collapse.nav.navbar-nav.siwapp-navbar-scroll.hidden-md-up
         %a.nav-item.nav-link{:href => settings_profile_path}=t("profile")
-        %a.nav-item.nav-link{:href => settings_global_path}=t("global settings") 
+        %a.nav-item.nav-link{:href => settings_global_path}=t("global settings")
         %a.nav-item.nav-link{:href => settings_smtp_path}=t("smtp settings")
         %a.nav-item.nav-link{:href => series_index_path}=t("series")
         %a.nav-item.nav-link{:href => taxes_path}=t("taxes")

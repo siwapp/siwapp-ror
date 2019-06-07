@@ -104,9 +104,20 @@ en:
   taxes:                 Taxes
   templates:             Templates
   token:                 Token
+  issue_date_from:       "Issue date from"
+  finishing_date_from:   "Finishing date from"
   total:                 Total
   value:                 Value
   website:               Website
   host:                  host
   port:                  port
   domain:                domain
+  choose:                'Choose…'
+  invoice_status:
+    draft:              'Draft'
+    paid:               'Paid'
+    pending:            'Pending'
+    past_due:           'Past Due'
+    failed:             'Failed'
+  recurring_invoice:    'Recurring invoice'
+  show_only_actives_users: "Show only active users"

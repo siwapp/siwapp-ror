@@ -1,21 +1,21 @@
 .row
   .col-xs-12.col-lg-6
     .form-group
-      = f.label :customer_id_eq, "Customer:"
-      = f.collection_select :customer_id_eq, Customer.all, :id, :to_s, {include_blank: 'Choose…'}, {class: 'form-control c-select', 'data-role': 'select-autocomplete', style: 'width: 100%;'}
+      = f.label :customer_id_eq, "#{t('customer')}:"
+      = f.collection_select :customer_id_eq, Customer.all, :id, :to_s, {include_blank: t('choose')}, {class: 'form-control c-select', 'data-role': 'select-autocomplete', style: 'width: 100%;'}
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :issue_date_gteq, "Issue Date from: "
+      = f.label :issue_date_gteq, "#{t('issue_date_from')}: "
       = f.date_field :issue_date_gteq, class: "form-control"
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
-      = f.label :issue_date_lteq, "to: "
+      = f.label :issue_date_lteq, "#{t("to")}:"
       = f.date_field :issue_date_lteq, class: "form-control"
 .row
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
       = f.label :series_id_eq, "Series:"
-      = f.collection_select :series_id_eq, Series.all, :id, :to_s, {include_blank: 'Choose…'}, {class: 'form-control c-select'}
+      = f.collection_select :series_id_eq, Series.all, :id, :to_s, {include_blank: t('choose')}, {class: 'form-control c-select'}
   .col-xs-12.col-sm-6.col-lg-3
     .form-group
       = f.label :number_eq, "Number:"
@@ -23,4 +23,4 @@
   .col-xs-12.col-sm-6.col-lg-6
     .form-group
       = f.label :with_status, "Status:"
-      = f.select :with_status, Invoice::status_collection, {include_blank: 'Choose…'}, {class: 'form-control c-select'}
+      = f.select :with_status, Invoice::status_collection, {include_blank: t('choose')}, {class: 'form-control c-select'}

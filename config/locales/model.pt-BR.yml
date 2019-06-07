@@ -60,7 +60,7 @@ pt-BR:
   my account:            Minha conta
   name:                  Nome
   new:                   Nova
-  new invoice:           Nova fatura
+  new_invoice:           "Nova fatura"
   number:                "Número"
   old:                   Antiga
   password:              Senha
@@ -70,7 +70,7 @@ pt-BR:
   pending:               Pendentes
   phone:                 Telefone
   profile:               Perfil
-  recurring invoices:    "Faturas recorrents"
+  recurring_invoices_title:    "Faturas recorrentes"
   recurring_invoices:
     form:
       auto_send:         "Automaticamente enviar faturas geradas "
@@ -88,6 +88,7 @@ pt-BR:
   series:                Series
   server:                Server
   set paid:              "Marcar como pago"
+  search_title:          'Procurar por cliente, email ou CPF'
   settings:
     api_token:
       authenticate api token: 'Use this token to authenticate your API requests:'
@@ -104,9 +105,21 @@ pt-BR:
   taxes:                 "Impostos"
   templates:             "Modelos"
   token:                 Token
+  to:                     até
+  issue_date_from:       "Data de emissão a partir"
+  finishing_date_from:   "Data de término a partir"
   total:                 Total
   value:                 Valor
   website:               Website
   host:                  host
   port:                  port
   domain:                domain
+  choose:                "Escolher…"
+  invoice_status:
+    draft:              'Rascunho'
+    paid:               'Paga'
+    pending:            'Pendente'
+    past_due:           'Atrasada'
+    failed:             'Falha'
+  recurring_invoice:    'Fatura recorrente'
+  show_only_actives_users: "Mostrar apenas usuários ativos"
