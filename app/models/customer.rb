@@ -74,9 +74,8 @@ private
   def check_invoices
     if self.total > self.paid
       errors[:base] << "This customer can't be deleted because it has unpaid invoices"
-      return false
+      throw(:abort)
     end
-    true
   end
 
   def self.ransackable_scopes(auth_object = nil)
