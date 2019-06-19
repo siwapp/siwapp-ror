@@ -84,7 +84,7 @@ feature "Invoices:" do
 
     visit edit_invoice_path(invoice)
 
-    click_on "Add Line"
+    find('.add_fields', text: 'Add Line').trigger('click')
 
     within(:xpath, '//*[@id="js-items-table"]/div[2]') do
       fill_in "Description", with: "Support"
@@ -93,7 +93,7 @@ feature "Invoices:" do
 
       # Display taxes selector
       within ".invoice-col--taxes" do
-        find("label").click
+        find("label").trigger('click')
       end
     end
 

@@ -24,7 +24,7 @@ feature "Invoices:" do
       fill_in "Description", with: "Invoicing"
     end
 
-    find(".ui-menu-item", :text => "Invoicing App Development - $ 10,000").click
+    find(".ui-menu-item", :text => "Invoicing App Development - $ 10,000").trigger('click')
 
     within(:xpath, '//*[@id="js-items-table"]/div[1]') do
       expect(find_field("Quantity").value).to eq "1.0"
@@ -32,14 +32,14 @@ feature "Invoices:" do
 
       # Check that taxes selector works for the default item...
       within ".invoice-col--taxes" do
-        find("label").click
+        find("label").trigger('click')
       end
     end
 
     # ... by adding VAT
     within ".select2-dropdown" do
       within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").click
+        find(".select2-results__option", :text => "VAT").trigger('click')
       end
     end
 
@@ -60,7 +60,7 @@ feature "Invoices:" do
     # ... by adding VAT
     within ".select2-dropdown" do
       within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").click
+        find(".select2-results__option", :text => "VAT").trigger('click')
       end
     end
 
@@ -93,7 +93,7 @@ feature "Invoices:" do
     visit new_invoice_path
     click_on "Save"
 
-    expect(page).to have_content "2 errors"
+    expect(page).to have_content "3 errors"
   end
 
   scenario "Saving a draft", :js => true, :driver => :webkit do
