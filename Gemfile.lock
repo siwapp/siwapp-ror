@@ -64,13 +64,13 @@ GEM
       sass (>= 3.5.2)
     builder (3.2.3)
     byebug (10.0.2)
-    capybara (3.11.1)
+    capybara (3.24.0)
       addressable
       mini_mime (>= 0.1.3)
       nokogiri (~> 1.8)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
-      regexp_parser (~> 1.2)
+      regexp_parser (~> 1.5)
       xpath (~> 3.2)
     capybara-webkit (1.15.1)
       capybara (>= 2.3, < 4.0)
@@ -154,7 +154,7 @@ GEM
     js-routes (1.4.4)
       railties (>= 3.2)
       sprockets-rails
-    json (2.1.0)
+    json (2.2.0)
     jsonapi-renderer (0.2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -234,7 +234,7 @@ GEM
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
     rdoc (6.0.4)
-    regexp_parser (1.3.0)
+    regexp_parser (1.5.1)
     route_translator (5.6.4)
       actionpack (>= 5.0.0.1, < 6)
       activesupport (>= 5.0.0.1, < 6)
@@ -374,4 +374,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.17.1
+   1.17.3
