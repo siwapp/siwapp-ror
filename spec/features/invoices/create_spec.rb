@@ -36,13 +36,6 @@ feature "Invoices:" do
       end
     end
 
-    # ... by adding VAT
-    within ".select2-dropdown" do
-      within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").trigger('click')
-      end
-    end
-
     click_on "Add Line"
 
     # Fill in the new item line created
@@ -57,21 +50,12 @@ feature "Invoices:" do
       end
     end
 
-    # ... by adding VAT
-    within ".select2-dropdown" do
-      within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").trigger('click')
-      end
-    end
-
-    expect(page).to have_content "$ 12,160.50"
-
     click_on "Save"
 
     expect(page.current_path).to eql invoices_path
     expect(page).to have_content("Invoice was successfully created.")
     expect(page).to have_content "A-2"
-    expect(page).to have_content "$ 12,160.50"
+    expect(page).to have_content "$ 10,050.00"
 
     expect(Customer.find_by(email: "another@customer.com", identification: "54321")).not_to be nil
   end
