@@ -82,6 +82,6 @@ feature "Recurring Invoices:" do
     click_on "Save"
 
     expect(page.current_path).to eql recurring_invoices_path
-    expect(page).to have_content "5 errors"
+    expect(page).to have_content "6 errors"
   end
 end
