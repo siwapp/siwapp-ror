@@ -56,6 +56,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  Capybara.javascript_driver = :webkit
+
   # Configuration of database_cleaner
   # see https://github.com/DatabaseCleaner/database_cleaner
   # and https://github.com/jnicklas/capybara#transactions-and-database-setup
