@@ -14,8 +14,8 @@ RUN	apt-get install -y \
 	libpq-dev \
 	libqt5webkit5-dev \
 	qt5-default \
+	git \
 	xvfb && \
-	git && \
     gem install bundler
 
 # Copy project src to container

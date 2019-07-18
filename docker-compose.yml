@@ -22,4 +22,6 @@ services:
       - 3000:3000
     volumes:
       - .:/app
+    stdin_open: true
+    tty: true
 version: '3'
