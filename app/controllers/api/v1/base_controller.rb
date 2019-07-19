@@ -33,7 +33,7 @@ class Api::V1::BaseController < ApplicationController
   # add pagination headers
   # see http://www.metabates.com/2012/02/22/adding-pagination-to-an-api/
   def self.set_pagination_headers(name, options = {})
-    after_filter(options) do |controller|
+    after_action(options) do |controller|
       results = instance_variable_get("@#{name}")
       headers["X-Pagination"] = {
         total: results.total_entries,
