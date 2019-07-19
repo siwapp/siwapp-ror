@@ -16,8 +16,8 @@ RSpec.describe "Api::V1::Payments:", type: :request do
 
   describe "Payments show" do
     it "GET /api/v1/payments/:id show single payment with details" do
-      get api_v1_payment_path(@payment), nil, @headers
-      expect(response).to be_success
+      get api_v1_payment_path(@payment), headers: @headers
+      expect(response).to be_successful
       # invoice reference
      # expect(json["data"]["relationships"]["invoice"]["data"]["links"]["related"]).to eql api_v1_invoice_url(@invoice)
       expect(json["data"]["attributes"]["amount"]).to eql "10600.0"
@@ -26,8 +26,8 @@ RSpec.describe "Api::V1::Payments:", type: :request do
 
   describe "Payments listing" do
     it "GET /api/v1/invoices/:invoice_id/payments" do
-      get api_v1_invoice_payments_path(@invoice), nil, @headers
-      expect(response).to be_success
+      get api_v1_invoice_payments_path(@invoice), headers: @headers
+      expect(response).to be_successful
       expect(json["data"].length).to eql 1
       # no invoice reference
       expect(json["data"][0]["relationships"]).to be_nil
@@ -49,7 +49,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
         }
       }
 
-      post api_v1_invoice_payments_path(invoice), payment.to_json, @headers
+      post api_v1_invoice_payments_path(invoice), params: payment.to_json, headers: @headers
 
       expect(response).to have_http_status :created
       expect(json["data"]["attributes"]["notes"]).to eql "new notes"
@@ -71,8 +71,8 @@ RSpec.describe "Api::V1::Payments:", type: :request do
           }
         }
       }
-      put api_v1_payment_url(@payment), mod.to_json, @headers
-      expect(response).to be_success
+      put api_v1_payment_url(@payment), params: mod.to_json, headers: @headers
+      expect(response).to be_successful
       # notes modified
       expect(json["data"]["attributes"]["notes"]).to eql "modified NOTES"
       # date not
@@ -84,7 +84,7 @@ RSpec.describe "Api::V1::Payments:", type: :request do
 
   describe "payment deletion" do
     it "DELETE /api/v1/payments/:id" do
-      delete api_v1_payment_path(@payment), nil, @headers
+      delete api_v1_payment_path(@payment), headers: @headers
       expect(response).to have_http_status :no_content
       expect(Payment.find_by_id(@payment.id)).to be_nil
     end

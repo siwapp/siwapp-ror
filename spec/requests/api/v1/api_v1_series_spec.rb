@@ -13,16 +13,16 @@ RSpec.describe "Api::V1::Series", type: :request do
 
   describe 'Series show' do
     it 'GET /api/v1/series/:id' do
-      get api_v1_series_path(@series), nil, @headers
-      expect(response).to be_success
+      get api_v1_series_path(@series), headers: @headers
+      expect(response).to be_successful
       expect(json['data']['attributes']['name']).to eql 'A- Series'
     end
   end
 
   describe 'Series listing' do
     it 'GET /api/v1/series' do
-      get api_v1_series_index_path, nil, @headers
-      expect(response).to be_success
+      get api_v1_series_index_path, headers: @headers
+      expect(response).to be_successful
       expect(json.length).to eql 1
       expect(json['data'][0]['attributes']['name']).to eql 'A- Series'
     end
@@ -39,8 +39,8 @@ RSpec.describe "Api::V1::Series", type: :request do
 
         }
       }
-      post api_v1_series_index_path, sr.to_json, @headers
-      expect(response).to be_success
+      post api_v1_series_index_path, params: sr.to_json, headers: @headers
+      expect(response).to be_successful
       expect(json['data']['attributes']['name']).to eql 'newSERIES'
       # in db, too
       expect(Series.find(json['data']['id']).name).to eql 'newSERIES'
@@ -59,8 +59,8 @@ RSpec.describe "Api::V1::Series", type: :request do
           }
         }
       }
-      put api_v1_series_url(@series), mod.to_json, @headers
-      expect(response).to be_success
+      put api_v1_series_url(@series), params: mod.to_json, headers: @headers
+      expect(response).to be_successful
       # name modified
       expect(json['data']['attributes']['name']).to eql 'modS'
       # in db, too
@@ -70,7 +70,7 @@ RSpec.describe "Api::V1::Series", type: :request do
 
   describe 'Series deletion' do
     it 'DELETE /api/v1/series/:id' do
-      delete api_v1_series_path(@series), nil, @headers
+      delete api_v1_series_path(@series), headers: @headers
       expect(response).to have_http_status :no_content
       expect(Series.find_by_id(@series.id)).to be_nil
     end

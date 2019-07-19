@@ -16,16 +16,16 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
 
   describe "Taxes show" do
     it "GET /api/v1/taxes/:id" do
-      get api_v1_tax_path(@vat), nil, @headers
-      expect(response).to be_success
+      get api_v1_tax_path(@vat), headers: @headers
+      expect(response).to be_successful
       expect(json["data"]["attributes"]["name"]).to eql "VAT"
     end
   end
 
   describe "Taxes listing" do
     it "GET /api/v1/taxes" do
-      get api_v1_taxes_path, nil, @headers
-      expect(response).to be_success
+      get api_v1_taxes_path, headers: @headers
+      expect(response).to be_successful
       expect(json["data"].length).to eql 2
     end
   end
@@ -40,8 +40,8 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
           }
         }
       }
-      post api_v1_taxes_path, tx.to_json, @headers
-      expect(response).to be_success
+      post api_v1_taxes_path, params: tx.to_json, headers: @headers
+      expect(response).to be_successful
       expect(json["data"]["attributes"]["name"]).to eql "newTAX"
       # in db, too
       expect(Tax.find(json["data"]["id"]).name).to eql "newTAX"
@@ -60,8 +60,8 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
           }
         }
       }
-      put api_v1_tax_url(@vat), mod.to_json, @headers
-      expect(response).to be_success
+      put api_v1_tax_url(@vat), params: mod.to_json, headers: @headers
+      expect(response).to be_successful
       # name modified
       expect(json["data"]["attributes"]["name"]).to eql "modTAX"
       # in db, too
@@ -71,7 +71,7 @@ RSpec.describe "Api::V1::Taxes:", type: :request do
 
   describe "Tax deletion" do
     it "DELETE /api/v1/taxes/:id" do
-      delete api_v1_tax_path(@vat), nil, @headers
+      delete api_v1_tax_path(@vat), headers: @headers
       expect(response).to have_http_status :no_content
       expect(Tax.find_by_id(@vat.id)).to be_nil
     end

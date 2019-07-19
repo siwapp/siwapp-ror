@@ -18,8 +18,8 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
 
   describe "Show:" do
     it "GET /api/v1/invoices/:id -- Single invoice with details" do
-      get api_v1_invoice_path(@invoice), nil, @headers
-      expect(response).to be_success
+      get api_v1_invoice_path(@invoice), headers: @headers
+      expect(response).to be_successful
       expect(json["data"].length).to eql 5
 
       expect(json["data"]["links"]["self"]).to eql api_v1_invoice_path(@invoice)
@@ -32,9 +32,9 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
   describe "Invoices Listing" do
     it "GET /api/v1/invoices Standard listing works ok" do
 
-      get api_v1_invoices_path, nil, @headers
+      get api_v1_invoices_path, headers: @headers
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(json["data"].is_a? Array).to be true
       expect(json["data"][0]["attributes"]["name"]).to eql "Test Customer"
     end
@@ -46,8 +46,8 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       end
 
       it "Display only 20 results per page and return pagination headers" do
-        get api_v1_invoices_path, nil, @headers
-        expect(response).to be_success
+        get api_v1_invoices_path, headers: @headers
+        expect(response).to be_successful
         expect(json["data"].count).to eql 20
         expect(response.headers).to have_key "X-Pagination"
         pagination_header = JSON.parse response.headers["X-Pagination"]
@@ -56,8 +56,8 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
       end
 
       it "A param sets the page" do
-        get api_v1_invoices_path, {page: {number: 2}},  @headers
-        expect(response).to be_success
+        get api_v1_invoices_path, params: {page: {number: 2}}, headers: @headers
+        expect(response).to be_successful
         expect(json["data"].count).to eql 11
       end
     end
@@ -80,7 +80,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
           }
         }
       }
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 201 # created resource
       expect(json["data"]["attributes"]["name"]).to eql "newly created"
       expect(json['data']['meta']['m1']).to eql 'mv1'
@@ -122,7 +122,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
         }
       }
 
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 201
       invoice = Invoice.find(json["data"]["id"])
       item = invoice.items[0]
@@ -145,7 +145,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
 
         }
       }
-      post api_v1_invoices_path, inv.to_json, @headers
+      post api_v1_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 422 # unprocessable entity
     end
 
@@ -164,7 +164,7 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
           }
         }
       }
-      put api_v1_invoice_path(@invoice), uhash.to_json, @headers
+      put api_v1_invoice_path(@invoice), params: uhash.to_json, headers: @headers
       expect(response.status).to eql 200
       expect(json["data"]["attributes"]["name"]).to eql "modified"
       expect(Invoice.find(@invoice.id).get_meta('m1')).to eql 'mvvv1'
@@ -175,11 +175,10 @@ RSpec.describe "Api::V1::Invoices:", type: :request do
   describe "Invoice deleting" do
 
     it "basic invoice deleting" do
-      delete api_v1_invoice_path(@invoice), nil, @headers
+      delete api_v1_invoice_path(@invoice), headers: @headers
       expect(response.status).to eql 204 # deleted resoource
       expect(Invoice.find_by_id(@invoice.id)).to be_nil
     end
   end
-
 
 end
