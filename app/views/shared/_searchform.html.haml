@@ -14,14 +14,16 @@
       // in order to filter by meta_attributes
       // we do this out of ransack
       .row
-        .col-xs-12.col-md-6
+        .col-6
           .form-group
             = label_tag :tag_list, "tags"
             = select_tag :tag_list, options_for_select(@tags, params[:tag_list]), {class: 'tags-selector', multiple: true, data: {role: 'tagging'}}
-        .col-xs-12.col-md-6
+        .col-6
           .form-group
             = label_tag :meta
             = text_field_tag :meta, "", class: "form-control"
 
-      = link_to t("export to csv"), '#', class: 'btn btn-primary', data: {role: 'csv-form'}
-      %button.btn.btn-primary.float-xs-right{type: 'submit'}=t("search")
+      .row.justify-content-end
+        .col-6.text-right
+          = link_to t("export to csv"), '#', class: 'btn btn-primary', data: {role: 'csv-form'}
+          %button.btn.btn-primary.float-xs-right{type: 'submit'}=t("search")
