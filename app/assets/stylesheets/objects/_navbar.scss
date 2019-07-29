@@ -28,9 +28,6 @@
   @include clearfix;
   clear: both;
 }
-.siwapp-navbar-menu {
-  padding-top: 0.5rem;
-}
 .siwapp-navbar-scroll {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -54,6 +51,14 @@
 ////
 //// Search Form
 ////
+
+.siwapp-input-search {
+  border: 1px solid $generic-border-color;
+  border-radius: 0.25rem;
+  .form-control {
+    border: none;
+  }
+}
 
 .siwapp-search-filters {
   position: absolute;
