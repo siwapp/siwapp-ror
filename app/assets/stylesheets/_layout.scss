@@ -1,6 +1,5 @@
 body {
-  padding: 0;
-  padding-bottom: 5.375rem;
+  padding: 5rem 0;
 
   @include media-breakpoint-up(md) {
     &.nav-p-2 {
