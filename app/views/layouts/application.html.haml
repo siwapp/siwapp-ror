@@ -17,7 +17,7 @@
   %body
     = render partial: 'shared/navbar'
 
-    .container-fluid{"role" => "main"}
+    .container-fluid.main-body{"role" => "main"}
       - flash.each do |message_type, message|
         %div{:class => "alert alert-#{message_type}"}= message
 

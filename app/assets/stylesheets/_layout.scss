@@ -1,17 +1,10 @@
 body {
-  padding: 5rem 0;
-
-  @include media-breakpoint-up(md) {
-    &.nav-p-2 {
-      padding-top: 1 + rem(100px) + rem;
-    }
-
-    &.nav-p-3 {
-      padding-top: 1 + rem(136px) + rem;
-    }
-  }
+  padding: 0;
 }
 
+.main-body {
+  padding-top: 5rem;
+}
 .ui-autocomplete {
   max-height: 12.5rem;
   overflow-y: scroll;
