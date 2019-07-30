@@ -1,6 +1,6 @@
 language: ruby
 rvm: 2.5.3
-script: "bin/rspec"
+script: xvfb-run rspec
 sudo: required
 dist: xenial
 
@@ -11,7 +11,3 @@ before_install:
   - psql -c 'create database siwapp_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
-  - sudo apt-get install -qq xvfb
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
