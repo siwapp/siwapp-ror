@@ -1,7 +1,7 @@
 language: ruby
 rvm: 2.5.3
 script: xvfb-run bin/rspec
-dist: bionic
+dist: xenial
 
 services:
   - postgresql
@@ -11,3 +11,6 @@ before_install:
   - cp config/database.yml.travis config/database.yml
   - sudo apt-get install -qq libqt5webkit5-dev qt5-default
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+
+addons:
+  artifacts: true
