@@ -13,4 +13,5 @@ before_install:
   - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
 addons:
-  artifacts: true
+  artifacts:
+    working_dir: tmp
