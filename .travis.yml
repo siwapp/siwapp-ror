@@ -1,6 +1,6 @@
 language: ruby
 rvm: 2.5.3
-script: xvfb-run rspec
+script: xvfb-run bin/rspec
 sudo: required
 dist: xenial
 
