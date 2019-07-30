@@ -15,4 +15,4 @@ before_install:
 addons:
   artifacts:
     paths:
-      - $(git ls-files -o | grep png | tr "\n" ":")
+      - $(git ls-files tmp/*.png -o | tr "\n" ":")
