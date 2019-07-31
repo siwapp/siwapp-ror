@@ -28,8 +28,6 @@
   clear: both;
 }
 .siwapp-navbar-scroll {
-  margin-left: -1rem;
-  margin-right: -1rem;
   padding-left: 1rem;
   padding-right: 1rem;
   -webkit-overflow-scrolling: touch;
@@ -40,10 +38,6 @@
     &:last-child {
       margin-right: 1rem;
     }
-  }
-  .active {
-    border-bottom: 0;
-    padding-bottom: 0;
   }
 }
 
