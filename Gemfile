@@ -62,6 +62,8 @@ gem 'fastclick-rails'
 gem 'haml'
 gem 'jquery-ui-rails'
 gem 'js-routes'
+gem 'material_icons'
+gem 'money'
 gem 'pg'
 gem 'pry-rails', group: :development
 gem 'puma'
@@ -73,8 +75,6 @@ gem 'valid_url'
 gem 'wicked_pdf'
 gem 'will_paginate'
 gem 'wkhtmltopdf-binary'
-# money!
-gem 'money'
 # to prevent records from being actually deleted
 gem 'paranoia'
 # to allow async jobs in wisper.
