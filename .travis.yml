@@ -10,7 +10,6 @@ before_install:
   - psql -c 'create database siwapp_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
   - sudo apt-get install -qq libqt5webkit5-dev qt5-default
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
 
 addons:
   artifacts:
