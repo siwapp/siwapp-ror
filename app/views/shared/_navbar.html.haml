@@ -8,7 +8,6 @@
 
   - if current_user
     .siwapp-navbar-scroll
-      %a{:class => "nav-item nav-link #{active_link('dashboard')}", :href => root_path}=t("dashboard")
       %a{:class => "nav-item nav-link #{active_link('invoices')}", :href => invoices_path}=t("invoices")
       %a{:class => "nav-item nav-link #{active_link('recurring_invoices')}", :href => recurring_invoices_path}=t("recurring invoices")
       %a{:class => "nav-item nav-link #{active_link('customers')}", :href => customers_path}=t("customers") 
@@ -32,9 +31,9 @@
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
 
-  #js-navbar.nav.siwapp-navbar-brand
+  #js-navbar.siwapp-navbar-brand
     - if current_user
       - if @type
-        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-right m-l-1"
+        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-right"
       - else
-        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary float-right m-l-1"
+        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary float-right"
