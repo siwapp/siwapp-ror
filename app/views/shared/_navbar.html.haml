@@ -31,7 +31,7 @@
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
 
-  #js-navbar.siwapp-navbar-brand
+  #js-navbar.siwapp-navbar-brand.d-none.d-xl-block
     - if current_user
       - if @type
         = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-right"
