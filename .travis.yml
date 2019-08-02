@@ -13,6 +13,7 @@ before_install:
   - rm -rf /tmp/*.png
 
 addons:
+  postgresql: "9.6"
   artifacts:
     paths:
       - $(ls /tmp/*.png | tr "\n" ":")
