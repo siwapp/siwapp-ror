@@ -7,5 +7,4 @@
 
   = link_to t("send email"), send_email_invoice_path, class: 'btn btn-primary'
   = link_to t("download pdf"), print_invoice_path(:format=>:pdf) , class: 'btn btn-primary'
-  %button.btn.btn-success{type: 'button', data: {activate_flag: 'stay', role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save and continue")
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save")

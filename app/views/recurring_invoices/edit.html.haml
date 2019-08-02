@@ -7,5 +7,4 @@
   = link_to t("delete"), @recurring_invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-xs-left no-margin'
 
   = link_to t("back"), :back, class: 'btn btn-secondary'
-  %button.btn.btn-success{type: 'button', data: {activate_flag: 'stay', role: 'submit-form', target: 'form[data-role="invoice"]'}} Save and continue editing
   %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}} Save

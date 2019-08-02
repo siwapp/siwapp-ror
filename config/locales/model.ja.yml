@@ -151,7 +151,6 @@ ja:
     index:
       build pending invoices: 支払待の請求書を作る
   save:                    保存
-  save and continue:       保存して編集を続ける
   save as draft:           下書きとして保存
   search:                  検索
   select template for e-mail: Eメール用テンプレートを選択
