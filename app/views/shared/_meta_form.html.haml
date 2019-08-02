@@ -6,7 +6,7 @@
       .invoice-col.invoice-col--description.form-group
         = text_field :value, "", value: value, class: 'form-control', placeholder: "Value"
       %a{href: '#', class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
-        %i.material-icons delete
+        = material_icon.delete
         %span Remove Attribute
   .invoice-row.js-meta{"data-role": "new-item"}
     .invoice-col.form-group
@@ -14,7 +14,7 @@
     .invoice-col.invoice-col--description.form-group
       = text_field :value, "", class: 'form-control', placeholder: "Value"
     %a{href: '#', class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
-      %i.material-icons delete
+      = material_icon.delete
       %span Remove Attribute
 
 .invoice-table-actions
