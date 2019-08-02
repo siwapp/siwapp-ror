@@ -21,13 +21,9 @@
   }
 }
 
-
-.siwapp-navbar-brand,
 .siwapp-navbar-scroll {
   @include clearfix;
   clear: both;
-}
-.siwapp-navbar-scroll {
   padding-left: 1rem;
   padding-right: 1rem;
   -webkit-overflow-scrolling: touch;

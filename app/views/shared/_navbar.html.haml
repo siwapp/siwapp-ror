@@ -1,6 +1,6 @@
 %nav.navbar.bg-light.siwapp-navbar
 
-  %a.navbar-brand{:href => root_path}
+  %a.navbar-brand.d-none.d-md-block{:href => root_path}
     = image_tag("logo.svg", alt: "siwapp")
 
   - if current_user and @search
@@ -31,9 +31,16 @@
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
 
-  #js-navbar.siwapp-navbar-brand.d-none.d-xl-block
+  #js-navbar.d-none.d-xl-block
     - if current_user
       - if @type
-        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary float-right"
+        = link_to "#{t("new")} #{current_type_name()}", sti_path(@type, 'new'), class: "btn btn-primary "
       - else
-        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary float-right"
+        = link_to t("new invoice"), new_invoice_path, class: "btn btn-primary"
+
+  .d-xl-none
+    - if current_user
+      - if @type
+        = link_to material_icon.add, sti_path(@type, 'new')
+      - else
+        = link_to material_icon.add, new_invoice_path 
