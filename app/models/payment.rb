@@ -14,6 +14,10 @@ class Payment < ActiveRecord::Base
   	invoice.save
   end
 
+  after_destroy do
+    invoice.save
+  end
+
   def to_jbuilder
     Jbuilder.new do |json|
       json.(self, :date, :amount, :notes)

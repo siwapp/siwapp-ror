@@ -10,7 +10,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
 RUN	apt-get install -y \
 	build-essential \
-    nodejs \
+	nodejs \
 	libpq-dev \
 	libqt5webkit5-dev \
 	qt5-default \
