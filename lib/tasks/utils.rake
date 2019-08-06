@@ -49,8 +49,6 @@ namespace :siwapp do
     task :setup, [:noinput] => :environment do |t, args|
       args.with_defaults(:noinput => false)
       def setup_demo
-        Rake::Task['db:drop'].invoke
-        Rake::Task['db:setup'].invoke
         Rake::Task['db:seed'].invoke
         Rake::Task['siwapp:random:all'].invoke
         Rake::Task['siwapp:user:create'].invoke('demo', 'demo@example.com', 'secret')
