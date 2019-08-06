@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-ruby "2.4.5"
+ruby "2.5.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.8'
+gem 'rails', '5.2.1.1'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 # Use CoffeeScript for .coffee assets and views
@@ -28,6 +28,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
+  gem 'listen'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
@@ -39,7 +41,7 @@ group :development, :test do
 end
 
 # Access an IRB console on exception pages or by using <%= console %> in views
-gem 'web-console', '~> 2.0', group: :development
+gem 'web-console', group: :development
 
 group :test do
   gem 'capybara-webkit'
@@ -50,36 +52,35 @@ end
 gem 'active_model_serializers'
 gem 'acts-as-taggable-on'  # https://github.com/mbleigh/acts-as-taggable-on
 gem 'autoprefixer-rails'
-gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'bootsnap'
+gem 'bootstrap'
 # to add items dinamically
 gem 'cocoon'
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'faker'
 gem 'fastclick-rails'
 gem 'haml'
 gem 'jquery-ui-rails'
 gem 'js-routes'
+gem 'material_icons'
+gem 'money'
 gem 'pg'
 gem 'pry-rails', group: :development
 gem 'puma'
 gem 'rails_12factor', group: :production
-gem "rails-settings-cached"
+gem 'rails-settings-cached'
 gem 'ransack'
 gem 'sass'
 gem 'valid_url'
 gem 'wicked_pdf'
 gem 'will_paginate'
 gem 'wkhtmltopdf-binary'
-# money!
-gem 'money'
 # to prevent records from being actually deleted
-gem "paranoia"
-# to have a pub/sub mechanism
-#gem 'wisper', '2.0.0.rc1'
+gem 'paranoia'
 # to allow async jobs in wisper.
 gem 'wisper-celluloid'
 ## to make http POST requests
-gem "http"
+gem 'http'
 # for translation
 gem 'route_translator'
 gem 'dotenv-rails', groups: [:development, :test]

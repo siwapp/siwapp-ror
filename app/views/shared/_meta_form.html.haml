@@ -6,16 +6,16 @@
       .invoice-col.invoice-col--description.form-group
         = text_field :value, "", value: value, class: 'form-control', placeholder: "Value"
       %a{href: '#', class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
-        %i.material-icons.hidden-md-down delete
-        %span.hidden-lg-up Remove Attribute
+        = material_icon.delete
+        %span Remove Attribute
   .invoice-row.js-meta{"data-role": "new-item"}
     .invoice-col.form-group
       = text_field :key, "", class: 'form-control', placeholder: "Key"
     .invoice-col.invoice-col--description.form-group
       = text_field :value, "", class: 'form-control', placeholder: "Value"
     %a{href: '#', class: "destroy-icon", "data-role": "remove-item", "data-wrapper-class": "js-meta"}
-      %i.material-icons.hidden-md-down delete
-      %span.hidden-lg-up Remove Attribute
+      = material_icon.delete
+      %span Remove Attribute
 
 .invoice-table-actions
   = link_to 'Add Attribute',"#", {class: "btn btn-secondary", "data-insertion-node": "#js-meta-table", "data-role": "add-item"}

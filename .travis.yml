@@ -1,8 +1,7 @@
 language: ruby
-rvm: 2.4.5
-script: "bin/rake spec"
-sudo: required
-dist: trusty
+rvm: 2.5.3
+script: xvfb-run bin/rspec
+dist: bionic
 
 services:
   - postgresql
@@ -10,7 +9,11 @@ services:
 before_install:
   - psql -c 'create database siwapp_test;' -U postgres
   - cp config/database.yml.travis config/database.yml
-  - sudo apt-get install -qq libqt5webkit5-dev qtdeclarative5-dev
-  - export QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
+  - sudo apt-get install -qq libqt5webkit5-dev qt5-default
+  - rm -rf /tmp/*.png
+
+addons:
+  postgresql: "9.6"
+  artifacts:
+    paths:
+      - $(ls /tmp/*.png | tr "\n" ":")

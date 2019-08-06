@@ -7,12 +7,12 @@
     = recurring_invoice.period_type
   %td.text-center
     - if recurring_invoice.enabled
-      %i.material-icons.green  done
+      = material_icon.done.css_class('green')
     - else
-      %i.material-icons.red  clear
+      = material_icon.clear.css_class('red')
   %td.text-center
     - if recurring_invoice.sent_by_email
-      %i.material-icons.green  done
+      = material_icon.done.css_class('green')
     - else
-      %i.material-icons.red  clear
+      = material_icon.clear.css_class('red')
   %td.text-right.no-wrap= display_money recurring_invoice.gross_amount, recurring_invoice.currency

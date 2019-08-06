@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Recurring Invoices:" do
   scenario "User can see a list of recurring invoices, most recent first" do
-    FactoryGirl.create_list(:recurring_invoice, 2)
+    FactoryBot.create_list(:recurring_invoice, 2)
 
     visit recurring_invoices_path
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Customers:" do
   scenario "User can updating a customer", :js => true, :driver => :webkit do
-    customer = FactoryGirl.create(:customer)
+    customer = FactoryBot.create(:customer)
 
     visit customers_path
     click_on "Test Customer"
@@ -18,7 +18,7 @@ feature "Customers:" do
   end
 
   scenario "User can't update a customer with invalid data", :js => true, :driver => :webkit do
-    customer = FactoryGirl.create(:customer)
+    customer = FactoryBot.create(:customer)
 
     visit edit_customer_path(customer)
 

@@ -16,7 +16,7 @@ RSpec.describe Series, :type => :model do
 
   it "can't be deleted if it has invoices that depend on it" do
     series = Series.new(value: "A")
-    customer = FactoryGirl.create(:ncustomer)
+    customer = FactoryBot.create(:ncustomer)
     series.commons << Invoice.new(name: customer.name, customer: customer,
                                   issue_date: Date.current)
     series.save
@@ -30,14 +30,14 @@ RSpec.describe Series, :type => :model do
 
   it "properly returns the next number" do
     series = Series.new(value: "A", first_number: 2)
-    customer = FactoryGirl.create(:ncustomer)
+    customer = FactoryBot.create(:ncustomer)
     series.commons << Invoice.new(name: customer.name, customer: customer,
                                   issue_date: Date.current)
     series.save
 
     expect(series.next_number).to eq 3
 
-    invoice = FactoryGirl.create(:invoice, series: series)
+    invoice = FactoryBot.create(:invoice, series: series)
 
     expect(invoice.number).to eq 3
     expect(series.next_number).to eq 4

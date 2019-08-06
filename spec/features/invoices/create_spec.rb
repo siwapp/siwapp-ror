@@ -3,8 +3,8 @@ require "rails_helper"
 feature "Invoices:" do
 
   scenario "User can create an invoice. A customer is created.", :js => true, :driver => :webkit do
-    FactoryGirl.create(:b_series)
-    FactoryGirl.create(:invoice, :paid)
+    FactoryBot.create(:b_series)
+    FactoryBot.create(:invoice, :paid)
 
     visit new_invoice_path
 
@@ -24,7 +24,7 @@ feature "Invoices:" do
       fill_in "Description", with: "Invoicing"
     end
 
-    find(".ui-menu-item", :text => "Invoicing App Development - $ 10,000").click
+    find(".ui-menu-item", :text => "Invoicing App Development - $ 10,000").trigger('click')
 
     within(:xpath, '//*[@id="js-items-table"]/div[1]') do
       expect(find_field("Quantity").value).to eq "1.0"
@@ -32,14 +32,7 @@ feature "Invoices:" do
 
       # Check that taxes selector works for the default item...
       within ".invoice-col--taxes" do
-        find("label").click
-      end
-    end
-
-    # ... by adding VAT
-    within ".select2-dropdown" do
-      within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").click
+        find("label").trigger('click')
       end
     end
 
@@ -57,27 +50,18 @@ feature "Invoices:" do
       end
     end
 
-    # ... by adding VAT
-    within ".select2-dropdown" do
-      within ".select2-results__options" do
-        find(".select2-results__option", :text => "VAT").click
-      end
-    end
-
-    expect(page).to have_content "$ 12,160.50"
-
     click_on "Save"
 
     expect(page.current_path).to eql invoices_path
     expect(page).to have_content("Invoice was successfully created.")
     expect(page).to have_content "A-2"
-    expect(page).to have_content "$ 12,160.50"
+    expect(page).to have_content "$ 10,050.00"
 
     expect(Customer.find_by(email: "another@customer.com", identification: "54321")).not_to be nil
   end
 
   scenario "User can choose an existing customer via autocomplete", :js => true, :driver => :webkit do
-    FactoryGirl.create_list(:ncustomer, 5)
+    FactoryBot.create_list(:ncustomer, 5)
 
     visit new_invoice_path
 
@@ -93,11 +77,11 @@ feature "Invoices:" do
     visit new_invoice_path
     click_on "Save"
 
-    expect(page).to have_content "2 errors"
+    expect(page).to have_content "3 errors"
   end
 
   scenario "Saving a draft", :js => true, :driver => :webkit do
-    FactoryGirl.create(:series, :default)
+    FactoryBot.create(:series, :default)
 
     visit new_invoice_path
 

@@ -5,9 +5,9 @@
   %td.no-wrap= invoice.issue_date
   %td.text-center
     - if invoice.sent_by_email
-      %i.material-icons.green  done
+      = material_icon.done.css_class('green')
     - else
-      %i.material-icons.red  clear
+      = material_icon.clear.css_class('red')
   %td.text-center
     %span{class: "status #{invoice.get_status}"}= invoice.get_status
   %td.text-right.no-wrap= invoice.unpaid_amount > 0.0 ? display_money(invoice.unpaid_amount, invoice.currency) : ""

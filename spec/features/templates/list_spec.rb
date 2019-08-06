@@ -2,8 +2,8 @@ require "rails_helper"
 
 feature "Templates:" do
   background do
-    @email_template = FactoryGirl.create(:email_template)
-    @print_template = FactoryGirl.create(:print_template)
+    @email_template = FactoryBot.create(:email_template)
+    @print_template = FactoryBot.create(:print_template)
   end
 
   scenario "User can see a couple of default templates if no change was made", :js => true, :driver => :webkit do

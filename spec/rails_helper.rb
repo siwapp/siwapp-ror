@@ -5,6 +5,14 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+require 'shoulda/matchers'
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -48,6 +56,8 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  Capybara.javascript_driver = :webkit
+
   # Configuration of database_cleaner
   # see https://github.com/DatabaseCleaner/database_cleaner
   # and https://github.com/jnicklas/capybara#transactions-and-database-setup
@@ -65,7 +75,7 @@ RSpec.configure do |config|
   # log in before every feature example
   config.before :each, type: :feature do |example|
     unless example.metadata[:not_logged]
-      user = FactoryGirl.create :user
+      user = FactoryBot.create :user
 
       visit login_path
       fill_in 'session_email', with: user.email

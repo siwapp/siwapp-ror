@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Taxes:" do
 
   scenario "User can update a tax", :js => true, :driver => :webkit do
-    vat = FactoryGirl.create(:vat)
+    vat = FactoryBot.create(:vat)
 
     visit taxes_path
     click_on "VAT"
@@ -21,7 +21,7 @@ feature "Taxes:" do
   end
 
   scenario "User can't update a tax with invalid data", :js => true, :driver => :webkit do
-    vat = FactoryGirl.create(:vat)
+    vat = FactoryBot.create(:vat)
 
     visit edit_tax_path(vat)
 

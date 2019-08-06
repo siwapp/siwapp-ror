@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Series:" do
   scenario "User can update a series", :js => true, :driver => :webkit do
-    series = FactoryGirl.create(:series)
+    series = FactoryBot.create(:series)
 
     visit series_index_path
     click_on "A- Series"
@@ -21,7 +21,7 @@ feature "Series:" do
   end
 
   scenario "User can't update a series with invalid data", :js => true, :driver => :webkit do
-    series = FactoryGirl.create(:series)
+    series = FactoryBot.create(:series)
 
     visit edit_series_path(series)
 

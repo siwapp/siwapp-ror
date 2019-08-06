@@ -113,11 +113,9 @@ class CommonsController < ApplicationController
     respond_to do |format|
       instance = get_instance
       set_meta instance
-      if instance.update(type_params) and params[:stay] == ""
+      if instance.update(type_params)
         # Redirect to index
         format.html { redirect_to redirect_address(@type), notice: "#{type_label} was successfully updated." }
-      elsif params[:stay] != ""
-        format.html { redirect_to :back, notice: "#{type_label} was successfully updated." }
       else
         flash[:alert] = "#{type_label} has not been saved."
         format.html { render sti_template(@type, :edit) }

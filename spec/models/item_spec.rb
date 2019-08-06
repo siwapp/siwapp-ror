@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, :type => :model do
 
   it "rounds the net_amount according to currency" do
-    c = FactoryGirl.create(:common)
+    c = FactoryBot.create(:common)
     item = Item.new(quantity: 1, discount: 5, unitary_cost: 0.08, common: c)
     expect(item.discount_amount).to eq 0.004
     expect(item.net_amount).to eq 0.08
@@ -14,7 +14,7 @@ RSpec.describe Item, :type => :model do
   end
 
   it "taxes_hash has net_amount * tax.value / 100.0" do
-    c = FactoryGirl.create(:common)
+    c = FactoryBot.create(:common)
     tax1 = Tax.new(value: 10)
     tax2 = Tax.new(value: 25)
     item = Item.new(

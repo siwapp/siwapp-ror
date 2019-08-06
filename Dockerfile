@@ -1,16 +1,22 @@
-FROM ruby:2.4.5-slim
+FROM ruby:2.5.3-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update -qq && \
-	apt-get install -y \
+RUN apt-get update -qq
+RUN apt-get install -y \
+    curl \
+    gnupg2
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+
+RUN	apt-get install -y \
 	build-essential \
 	nodejs \
 	libpq-dev \
 	libqt5webkit5-dev \
 	qt5-default \
-	xvfb \
-    libssl1.0-dev
+	git \
+	xvfb && \
+    gem install bundler
 
 # Copy project src to container
 COPY ./Gemfile /app/

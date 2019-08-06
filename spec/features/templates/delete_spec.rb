@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Templates:" do
   scenario "User can delete an existing template", :js => true, :driver => :webkit do
-    template = FactoryGirl.create(:print_template)
+    template = FactoryBot.create(:print_template)
     visit edit_template_path(template)
 
     accept_confirm do

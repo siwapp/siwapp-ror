@@ -55,15 +55,6 @@ destroy_invoice_item_autocomplete = (input_field) ->
 jQuery(document).ready ($) ->
 
   #
-  # Navigation
-  #
-
-  # Allow only one collapsible element visible at a time (search vs. menus)
-  $('#js-navbar').on 'click', '[data-toggle="collapse"]', (e) ->
-    $(this).closest('nav').find('[data-toggle="collapse"]').not(this).each () ->
-      $($(this).data('target')).collapse('hide')
-
-  #
   # DIY Nested Forms: necessary when no model relation
   #
 

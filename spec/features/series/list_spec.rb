@@ -3,7 +3,7 @@ require "rails_helper"
 feature "Series:" do
 
   scenario "User can mark a series as default from the list of series", :js => true, :driver => :webkit do
-    FactoryGirl.create_list(:nseries, 3)
+    FactoryBot.create_list(:nseries, 3)
 
     click_on "Account"
     click_on "Series"

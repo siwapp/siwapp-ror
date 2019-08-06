@@ -1,9 +1,9 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :customer do
-    name "Test Customer"
+    name { "Test Customer" }
     name_slug { "#{name.gsub(/^[^\w]+|[^\w]+$/i, '').gsub(/[^\w]+/i, '-').downcase}" }
-    identification "12345"
-    email "customer@example.com"
+    identification { "12345" }
+    email  { "customer@example.com" }
 
     # WARNING: DON'T USE FOR TESTS!!!
     factory :demo_customer do

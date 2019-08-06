@@ -23,7 +23,7 @@ RSpec.describe Customer, :type => :model do
   end
 
   it "is valid with an identification" do
-    expect(Customer.new(name: '123456789Z')).to be_valid
+    expect(Customer.new(identification: '123456789Z')).to be_valid
   end
 
   it "discard drafts and failed invoices when calculating totals" do

@@ -11,7 +11,7 @@ class Tax < ActiveRecord::Base
   def check_is_not_used
     if items.count > 0
       errors.add(:base, "Can't delete a tax which is used in some invoices")
-      return false
+      throw(:abort)
     end
   end
 

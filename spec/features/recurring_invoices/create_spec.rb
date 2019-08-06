@@ -3,9 +3,9 @@ require "rails_helper"
 feature "Recurring Invoices:" do
 
   scenario "User can create a recurring invoice. A Customer is created.", :js => true, :driver => :webkit do
-    FactoryGirl.create(:series, :default)
-    FactoryGirl.create(:vat)
-    FactoryGirl.create(:retention)
+    FactoryBot.create(:series, :default)
+    FactoryBot.create(:vat)
+    FactoryBot.create(:retention)
 
     visit new_recurring_invoice_path
 
@@ -82,6 +82,6 @@ feature "Recurring Invoices:" do
     click_on "Save"
 
     expect(page.current_path).to eql recurring_invoices_path
-    expect(page).to have_content "5 errors"
+    expect(page).to have_content "6 errors"
   end
 end

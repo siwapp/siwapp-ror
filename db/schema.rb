@@ -107,12 +107,12 @@ ActiveRecord::Schema.define(version: 20170608155530) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer  "invoice_id", limit: 8,                           null: false
+    t.integer  "invoice_id",                           null: false
     t.date     "date"
-    t.decimal  "amount",               precision: 53, scale: 15
+    t.decimal  "amount",     precision: 53, scale: 15
     t.text     "notes"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "deleted_at"
   end
 

@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Templates:" do
   scenario "User can update an existing template", :js => true, :driver => :webkit do
-    template = FactoryGirl.create(:print_template)
+    template = FactoryBot.create(:print_template)
 
     visit templates_path
     click_on "Print Default"
@@ -18,7 +18,7 @@ feature "Templates:" do
   end
 
   scenario "User can't update an existing template with invalid data", :js => true, :driver => :webkit do
-    template = FactoryGirl.create(:print_template)
+    template = FactoryBot.create(:print_template)
 
     visit edit_template_path(template)
 

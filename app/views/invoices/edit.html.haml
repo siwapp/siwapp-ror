@@ -1,20 +1,10 @@
 = render partial: 'form'
 
 .action-buttons{"data-role": "action-buttons"}
-  = link_to t("delete"), @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger pull-xs-left no-margin'
+  = link_to t("delete"), @invoice, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-xs-left no-margin'
 
   = link_to t("back"), :back, class: 'btn btn-secondary'
 
-  .btn-group.dropup.hidden-md-up
-    %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save")
-    %button.btn.btn-success.dropdown-toggle{type: 'button', data: {toggle: 'dropdown'}, aria: {haspopup: 'true', expanded:'false'}}
-      %span.sr-only Toggle Dropdown
-    .dropdown-menu.dropdown-menu-right
-      %button.btn.btn-primary.hidden-sm-down{type: 'button', data: {toggle: "modal", target: "#email-template-selector"}}=t("send email")
-      - if @template_url
-        = link_to t("download pdf"), print_invoice_path(:format=>:pdf), class: 'dropdown-item'
-
-  = link_to t("send email"), send_email_invoice_path, class: 'btn btn-primary hidden-sm-down'
-  = link_to t("download pdf"), print_invoice_path(:format=>:pdf) , class: 'btn btn-primary hidden-sm-down'
-  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {activate_flag: 'stay', role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save and continue")
-  %button.btn.btn-success.hidden-sm-down{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save")
+  = link_to t("send email"), send_email_invoice_path, class: 'btn btn-primary'
+  = link_to t("download pdf"), print_invoice_path(:format=>:pdf) , class: 'btn btn-primary'
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form[data-role="invoice"]'}}=t("save")

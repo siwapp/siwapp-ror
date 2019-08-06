@@ -14,7 +14,7 @@
 #
 #= require jquery2
 #= require jquery_ujs
-#= require jquery-ui/autocomplete
+#= require jquery-ui/widgets/autocomplete
 #= require waypoints/jquery.waypoints
 #= require waypoints/shortcuts/infinite
 #= require fastclick

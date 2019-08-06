@@ -2,7 +2,7 @@ require "rails_helper"
 
 feature "Recurring Invoices:" do
   scenario "User can delete a recurring invoice", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
 
     visit edit_recurring_invoice_path(recurring_invoice)
     accept_confirm do
@@ -14,7 +14,7 @@ feature "Recurring Invoices:" do
   end
 
   scenario "User can cancel deletion of a recurring invoice", :js => true, :driver => :webkit do
-    recurring_invoice = FactoryGirl.create(:recurring_invoice)
+    recurring_invoice = FactoryBot.create(:recurring_invoice)
 
     visit edit_recurring_invoice_path(recurring_invoice)
     dismiss_confirm do

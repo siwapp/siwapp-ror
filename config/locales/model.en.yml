@@ -78,7 +78,6 @@ en:
     index:
       build pending invoices: Build Pending Invoices
   save:                  Save
-  save and continue:     Save and continue editing
   save as draft:         Save as draft
   search:                Search
   select template for e-mail: Select Template for E-mail

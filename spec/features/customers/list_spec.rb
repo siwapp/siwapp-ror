@@ -2,8 +2,8 @@ require "rails_helper"
 
 feature "Customers:" do
   scenario "User can see a list of customers", :js => true, :driver => :webkit do
-    FactoryGirl.create(:customer)
-    FactoryGirl.create_list(:ncustomer, 2)
+    FactoryBot.create(:customer)
+    FactoryBot.create_list(:ncustomer, 2)
 
     first(:link, :text => 'Customers').click
 
@@ -12,7 +12,7 @@ feature "Customers:" do
   end
 
   scenario "User can click on a customer to edit it", :js => true, :driver => :webkit do
-    customer = FactoryGirl.create(:customer)
+    customer = FactoryBot.create(:customer)
 
     visit customers_path
     click_link "Test Customer"
@@ -21,8 +21,8 @@ feature "Customers:" do
   end
 
   scenario "User can access to the list of invoices for a certain customer", :js => true, :driver => :webkit do
-    customer = FactoryGirl.create(:customer)
-    invoice = FactoryGirl.create(:invoice, customer: customer)
+    customer = FactoryBot.create(:customer)
+    invoice = FactoryBot.create(:invoice, customer: customer)
 
     visit customers_path
     click_link "See Invoices"

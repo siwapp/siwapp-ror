@@ -3,22 +3,22 @@ require "rails_helper"
 RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   before do
-    FactoryGirl.create :token
-    FactoryGirl.create :user
+    FactoryBot.create :token
+    FactoryBot.create :user
 
     @headers = {
       "Content-Type" => "application/json",
       "Authorization" => "Token token=\"#{Settings.api_token}\""
     }
 
-    @recurring = FactoryGirl.create(:recurring_invoice)
+    @recurring = FactoryBot.create(:recurring_invoice)
     @vat = Tax.find(1)
   end
 
   describe "Show:" do
     it "GET /api/v1/recurring_invoices/:id -- Single recurring with details" do
-      get api_v1_recurring_invoice_path(@recurring), nil, @headers
-      expect(response).to be_success
+      get api_v1_recurring_invoice_path(@recurring), headers: @headers
+      expect(response).to be_successful
       expect(json["data"].length).to eql 5
 
       expect(json["data"]["links"]["self"]).to eql \
@@ -30,9 +30,9 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   describe "Recurring Invoices Listing" do
     it "GET /api/v1/recurring_invoices Standard listing works ok" do
-      get api_v1_recurring_invoices_path, nil, @headers
+      get api_v1_recurring_invoices_path, headers: @headers
 
-      expect(response).to be_success
+      expect(response).to be_successful
       expect(json["data"].is_a? Array).to be true
       expect(json["data"][0]["attributes"]["name"]).to eql "Test Customer"
     end
@@ -40,13 +40,13 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
     describe "Paginated invoices listing" do
 
       before do
-        FactoryGirl.create_list :recurring_invoice, 30,
+        FactoryBot.create_list :recurring_invoice, 30,
           customer: @recurring.customer # 30 more invoices
       end
 
       it "Display only 20 results per page and return pagination headers" do
-        get api_v1_recurring_invoices_path, nil, @headers
-        expect(response).to be_success
+        get api_v1_recurring_invoices_path, headers: @headers
+        expect(response).to be_successful
         expect(json["data"].count).to eql 20
         expect(response.headers).to have_key "X-Pagination"
         pagination_header = JSON.parse response.headers["X-Pagination"]
@@ -55,8 +55,8 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
       end
 
       it "A param sets the page" do
-        get api_v1_recurring_invoices_path, {page: {number: 2}},  @headers
-        expect(response).to be_success
+        get api_v1_recurring_invoices_path, params: {page: {number: 2}}, headers: @headers
+        expect(response).to be_successful
         expect(json["data"].count).to eql 11
       end
     end
@@ -82,7 +82,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
           }
         }
       }
-      post api_v1_recurring_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 201 # created resource
       expect(json["data"]["attributes"]["name"]).to eql "newly created"
       expect(json['data']['meta']['m1']).to eql 'mv1'
@@ -121,7 +121,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
         }
       }
 
-      post api_v1_recurring_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 201
       invoice = RecurringInvoice.find(json["data"]["id"])
       item = invoice.items[0]
@@ -140,7 +140,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
         }
       }
-      post api_v1_recurring_invoices_path, inv.to_json, @headers
+      post api_v1_recurring_invoices_path, params: inv.to_json, headers: @headers
       expect(response.status).to eql 422 # unprocessable entity
     end
 
@@ -158,7 +158,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
           }
         }
       }
-      put api_v1_recurring_invoice_path(@recurring), uhash.to_json, @headers
+      put api_v1_recurring_invoice_path(@recurring), params: uhash.to_json, headers: @headers
       expect(response.status).to eql 200
       expect(json["data"]["attributes"]["name"]).to eql "modified"
       expect(RecurringInvoice.find(@recurring.id).get_meta('m1')).to eql 'mvvv1'
@@ -167,7 +167,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   describe "Recurring Invoice deleting" do
     it "basic recurring invoice deleting" do
-      delete api_v1_recurring_invoice_path(@recurring), nil, @headers
+      delete api_v1_recurring_invoice_path(@recurring), headers: @headers
       expect(response.status).to eql 204 # deleted resoource
       expect(RecurringInvoice.find_by_id(@recurring.id)).to be_nil
     end
@@ -175,7 +175,7 @@ RSpec.describe "Api::V1::RecurringInvoices:", type: :request do
 
   describe "Generate invoices endpoint" do
     it "generates correctly the invoice" do
-      get api_v1_recurring_invoices_path + "/generate_invoices", nil, @headers
+      get api_v1_recurring_invoices_path + "/generate_invoices", headers: @headers
       expect(Invoice.belonging_to(@recurring.id).length).to eql 1
     end
   end

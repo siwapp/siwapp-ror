@@ -6,16 +6,10 @@ services:
   db:
     image: postgres:9.6-alpine
     ports:
-    - 5432:5432
-    volumes:
-    - data_volume:/var/lib/postgresql/data
+      - 5432:5432
   web:
     build: .
-    command:
-    - rails
-    - server
-    - -b
-    - 0.0.0.0
+    command: bundle exec rails s -b '0.0.0.0'
     depends_on:
       - db
     image: siwapp/siwapp
@@ -25,10 +19,9 @@ services:
         aliases:
         - siwapp
     ports:
-    - 3000:3000
+      - 3000:3000
     volumes:
       - .:/app
-version: '2.0'
-volumes:
-  data_volume: {}
-  
+    stdin_open: true
+    tty: true
+version: '3'

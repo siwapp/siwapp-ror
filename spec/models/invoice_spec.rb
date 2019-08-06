@@ -7,7 +7,7 @@ RSpec.describe Invoice, :type => :model do
     kwargs[:series] = Series.new(value: "A") unless kwargs.has_key? :series
 
 
-    customer = FactoryGirl.create(:ncustomer)
+    customer = FactoryBot.create(:ncustomer)
     invoice = Invoice.new(name: customer.name, identification: customer.identification,
                           customer: customer, **kwargs)
     invoice.set_amounts

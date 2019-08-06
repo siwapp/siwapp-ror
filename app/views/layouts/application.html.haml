@@ -7,7 +7,6 @@
 
     %title= content_for?(:title) ? yield(:title) : "Siwapp"
 
-    = stylesheet_link_tag    '//fonts.googleapis.com/icon?family=Material+Icons'
     = stylesheet_link_tag    '//fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic'
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
@@ -17,7 +16,7 @@
   %body
     = render partial: 'shared/navbar'
 
-    .container-fluid{"role" => "main"}
+    .container-fluid.main-body{"role" => "main"}
       - flash.each do |message_type, message|
         %div{:class => "alert alert-#{message_type}"}= message
 
