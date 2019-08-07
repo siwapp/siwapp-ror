@@ -12,7 +12,7 @@ class CustomersController < ApplicationController
     set_redirect_address(request.original_fullpath, "customers")
     @search = Customer.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @customers = @search.result(distinct: true)
+    @customers = @search.result
     @customers = @customers.tagged_with(params[:tag_list]) if params[:tag_list].present?
 
     respond_to do |format|

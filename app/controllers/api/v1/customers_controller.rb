@@ -4,7 +4,7 @@ class Api::V1::CustomersController < Api::V1::BaseController
 
   def index
     @search = Customer.ransack(params[:q])
-    @customers = @search.result(distinct: true).paginate(page: params[:page], per_page: 20)
+    @customers = @search.result.paginate(page: params[:page], per_page: 20)
     render json: @customers
   end
 

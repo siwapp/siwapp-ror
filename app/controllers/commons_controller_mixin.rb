@@ -10,7 +10,7 @@ module CommonsControllerMixin
   def configure_search
     @search = model.ransack(params[:q])
 
-    @results = @search.result(distinct: true)\
+    @results = @search.result\
       .order(issue_date: :desc).order(id: :desc)
 
     if params[:tag_list].present?
@@ -29,7 +29,6 @@ module CommonsControllerMixin
 
     # series has to be included after totals calculations
     @results = @results.includes :series
-
   end
 
   # Protected: set an instance variable for a list of items of the current model
