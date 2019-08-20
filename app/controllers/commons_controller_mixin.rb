@@ -10,21 +10,30 @@ module CommonsControllerMixin
   def configure_search
     @search = model.ransack(params[:q])
 
-    @results = @search.result\
+    @results = @search.result(distinct: true)\
       .order(issue_date: :desc).order(id: :desc)
+
+    # Another query without distinct to get the sums right
+    # This is because the query with distinct looks like:
+    # SELECT SUM(DISTINCT "commons"."net_amount") FROM "commons" INNER JOIN "items" ...
+    # and does not make the right sum
+    @totals = @search.result()
 
     if params[:tag_list].present?
       @results = @results.tagged_with(params[:tag_list].split(/\s*,\s*/))
+      @totals = @totals.tagged_with(params[:tag_list].split(/\s*,\s*/))
     end
 
     # filter by customer
     if params[:customer_id]
       @results = @results.where customer_id: params[:customer_id]
+      @totals = @totals.where customer_id: params[:customer_id]
       @customer = Customer.find params[:customer_id]
     end
 
-    @gross = @results.sum :gross_amount
-    @net = @results.sum :net_amount
+    @gross = @totals.sum :gross_amount
+    @net = @totals.sum :net_amount
+
     @count = @results.count
 
     # series has to be included after totals calculations
