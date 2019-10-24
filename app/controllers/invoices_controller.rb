@@ -58,9 +58,9 @@ class InvoicesController < CommonsController
     @invoice = Invoice.find(params[:id])
     begin
       @invoice.send_email
-      redirect_to :back, notice: "Email successfully sent."
+      redirect_back(fallback_location: root_path, notice: 'Email successfully sent.')
     rescue Exception => e
-      redirect_to :back, alert: e.message
+      redirect_back(fallback_location: root_path, alert: e.message)
     end
   end
 
