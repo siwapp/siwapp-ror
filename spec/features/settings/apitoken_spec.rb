@@ -17,9 +17,9 @@ feature "Settings:" do
     click_on "Generate Token"
 
     expect(page.current_path).to eql settings_api_token_path
-    expect(Settings[:api_token]).not_to be_nil
+    expect(Settings.api_token).not_to be_nil
     expect(page).to have_content "Use this token to authenticate your API requests:"
-    expect(find("code.active").text).to eq Settings[:api_token]
+    expect(find("code.active").text).to eq Settings.api_token
   end
 
   scenario "User with an API token can replace it by a new one", :js => true, :driver => :webkit do
@@ -33,7 +33,7 @@ feature "Settings:" do
     end
 
     expect(page.current_path).to eql settings_api_token_path
-    expect(Settings[:api_token]).not_to be_nil
+    expect(Settings.api_token).not_to be_nil
     expect(find("code.active").text).not_to eq "123token"
   end
 end

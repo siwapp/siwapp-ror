@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.5.7"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.2.1.1'
+gem 'rails', '5.2.3'
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -44,7 +44,7 @@ end
 gem 'web-console', group: :development
 
 group :test do
-  gem 'capybara-webkit'
+  gem 'capybara-webkit', git: 'https://github.com/thoughtbot/capybara-webkit.git', branch: 'master'
   gem 'selenium-webdriver'
   gem 'database_cleaner'
 end
