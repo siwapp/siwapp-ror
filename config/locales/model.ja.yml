@@ -166,7 +166,6 @@ ja:
       press api token:     APIトークンを生成するには、下のボタンを押してください。
     hooks:
       url to post:         '請求書が自動発行された際にPOSTするURL:'
-  smtp settings:           SMTP設定
   status:                  状態
   subtotal:                小計
   tag:                     タグ

@@ -48,8 +48,6 @@ Rails.application.routes.draw do
   put 'settings/global', to: 'settings#global_update'
   get 'settings/profile'
   put 'settings/profile', to: 'settings#profile_update'
-  get 'settings/smtp'
-  put 'settings/smtp', to: 'settings#smtp_update'
   get 'settings/tags'
   put 'settings/tags', to: 'settings#tags_update'
   get 'settings/hooks'

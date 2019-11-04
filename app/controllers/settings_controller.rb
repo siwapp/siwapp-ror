@@ -18,22 +18,6 @@ class SettingsController < ApplicationController
     end
   end
 
-  # GET /settings/smtp
-  def smtp
-    @smtp_settings = SmtpSettings.new
-  end
-
-  # PUT /settings/smtp
-  def smtp_update
-    @smtp_settings = SmtpSettings.new smtp_settings_params
-    if @smtp_settings.save_settings
-      redirect_to settings_smtp_path, notice: "SMTP settings successfully saved"
-    else
-      flash.now[:alert] = "SMTP settings couldn't be saved"
-      render 'settings/smtp'
-    end
-  end
-
   # GET /settings/tags
   def tags
     @common_tags = tags_for 'Common'
@@ -122,10 +106,6 @@ class SettingsController < ApplicationController
 
   def global_settings_params
     params.require(:global_settings).permit(GlobalSettings.keys)
-  end
-
-  def smtp_settings_params
-    params.require(:smtp_settings).permit(SmtpSettings.keys)
   end
 
   def hooks_settings_params

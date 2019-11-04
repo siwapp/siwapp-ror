@@ -6,6 +6,19 @@ Online Invoice Management. See [online demo](https://siwapp-demo.herokuapp.com) 
 
 [API Documentation](https://github.com/siwapp/siwapp/blob/master/API_DOC.md)
 
+
+## SMTP Configuration
+
+In order to be able to send emails through the app, you must configure the following environment variables in your system:
+
+SMTP_HOST
+SMTP_PORT
+SMTP_DOMAIN
+SMTP_USER
+SMTP_PASSWORD
+SMTP_AUTHENTICATION (plain | login | cram_md5)
+SMTP_ENABLE_STARTTLS_AUTO (set to 1 to enable it)
+
 ## Howto Install on Heroku
 
 First clone the siwapp repository into your computer:

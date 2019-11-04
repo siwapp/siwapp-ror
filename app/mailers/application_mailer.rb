@@ -1,11 +1,11 @@
 class ApplicationMailer < ActionMailer::Base
-  # self.smtp_settings = {
-  #   address:              Settings.host,
-  #   port:                 Settings.port.to_i,
-  #   domain:               Settings.domain,
-  #   user_name:            Settings.user,
-  #   password:             Settings.password,
-  #   authentication:       Settings.authentication,
-  #   enable_starttls_auto: Settings.enable_starttls_auto == '1' ? true : false
-  # }
+  self.smtp_settings = {
+    address:              ENV['SMTP_HOST'],
+    port:                 ENV['SMTP_PORT'].to_i,
+    domain:               ENV['SMTP_DOMAIN'],
+    user_name:            ENV['SMTP_USER'],
+    password:             ENV['SMTP_PASSWORD'],
+    authentication:       ENV['SMTP_AUTHENTICATION'],
+    enable_starttls_auto: ENV['SMTP_ENABLE_STARTTLS_AUTO'] == '1' ? true : false
+  }
 end

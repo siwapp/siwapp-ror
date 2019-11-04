@@ -12,14 +12,6 @@ class Settings < RailsSettings::Base
   field :company_url
   field :company_email
   field :legal_terms
-  # Smtp
-  field :host
-  field :port, type: :integer
-  field :domain
-  field :user
-  field :password
-  field :authentication
-  field :enable_starttls_auto, type: :boolean
   field :email_subject
   field :email_body
   # Hooks
