@@ -18,9 +18,9 @@ feature "Settings:" do
 
     expect(page.current_path).to eql settings_global_path
     expect(page).to have_content "successfully saved"
-    expect(Settings[:company_name]).to eql "My Company"
-    expect(Settings[:company_email]).to eql "my@company.com"
-    expect(Settings[:currency]).to eql "usd"
+    expect(Settings.company_name).to eql "My Company"
+    expect(Settings.company_email).to eql "my@company.com"
+    expect(Settings.currency).to eql "usd"
   end
 
   scenario "Can't configure global settings with invalid data", :js => true, :driver => :webkit do
@@ -35,7 +35,7 @@ feature "Settings:" do
     expect(page).to have_content "Global settings could not be saved"
 
     # nothing saved
-    expect(Settings[:days_to_due]).to eql 0 # default setting
-    expect(Settings[:company_email]).to be nil # not saved
+    expect(Settings.days_to_due).to eql 0 # default setting
+    expect(Settings.company_email).to be nil # not saved
   end
 end

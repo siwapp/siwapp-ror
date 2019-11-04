@@ -61,7 +61,7 @@ class Api::V1::BaseController < ApplicationController
 
   def authenticate_token
     authenticate_with_http_token do |token, options|
-      if !token.nil? and token == Settings[:api_token]
+      if !token.nil? and token == Settings.api_token
         User.first
       end
     end
