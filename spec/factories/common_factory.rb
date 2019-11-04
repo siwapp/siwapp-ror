@@ -58,7 +58,7 @@ FactoryBot.define do
         items { build_list(:item, 1, :invoice_item_demo) }
 
         after :build do |invoice|
-          if Faker::Boolean.boolean(0.65)
+          if Faker::Boolean.boolean(true_ratio: 0.65)
             invoice.set_paid
           end
         end
