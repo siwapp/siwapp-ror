@@ -117,13 +117,17 @@ class InvoicesController < CommonsController
           :disposition => 'attachment'
         )
         return
+      when 'duplicate'
+        invoices.each do |inv|
+          inv.duplicate
+        end
+        flash[:info] = "Successfully copy #{invoices.length} invoices."
       else
         flash[:info] = "Unknown action."
       end
     end
     redirect_to action: :index
   end
-
 
   protected
 
