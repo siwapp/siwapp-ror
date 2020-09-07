@@ -193,4 +193,57 @@ RSpec.describe Invoice, :type => :model do
     expect(invoice.paid).to be true
   end
 
+  describe '#duplicate' do
+    before(:each) do
+      5.times do
+        item = FactoryBot.create(:item, quantity: 5, unitary_cost: 10)
+        item.taxes << (Tax.find_by(id: 1) || create(:vat))
+      end
+
+      @invoice = build_invoice(items: Item.all)
+      @invoice.save
+    end
+
+    let(:invoice) { @invoice }
+
+    subject { invoice.duplicate }
+
+    it 'should create new invoice with same customer' do
+      expect{ subject }.to change(Invoice, :count).by(1)
+      expect(Invoice.last.customer).to eq invoice.customer
+    end
+    it 'should increase item numbers' do
+      expect{ subject }.to change(Item, :count).by(5)
+    end
+    it 'should not create new taxes' do
+      expect{ subject }.to change(Tax, :count).by(0)
+    end
+    it 'should not be sent by email' do
+      invoice.update_columns(sent_by_email: true)
+
+      subject
+
+      expect(Invoice.last.sent_by_email).to eq false
+    end
+    it 'should reset paid_amount' do
+      invoice.update_columns(paid_amount: 100)
+
+      subject
+
+      expect(Invoice.last.paid_amount).to eq 0
+    end
+    it 'should set issue date to today date' do
+      invoice.update_columns(issue_date: '2020-03-03')
+
+      subject
+
+      expect(Invoice.last.issue_date).to eq Date.today
+    end
+    it 'should set amounts' do
+      subject
+
+      expect(Invoice.last.gross_amount).to eq invoice.gross_amount
+    end
+  end
+
 end

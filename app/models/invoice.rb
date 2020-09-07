@@ -198,6 +198,17 @@ class Invoice < Common
       margin: {:top => "20mm", :bottom => 0, :left => 0, :right => 0})
   end
 
+  # Duplicate invoice and its items
+  def duplicate
+    new_invoice = Invoice.create(self.attributes.except!('id', 'number', 'issue_date', 'sent_by_email', 'paid_amount'))
+    self.items.each do |item|
+      i = Item.create(item.attributes.except!('id'))
+      new_invoice.items << i
+      i.taxes << item.taxes
+    end
+    new_invoice.set_amounts
+    new_invoice.save
+  end
 
   protected
 
