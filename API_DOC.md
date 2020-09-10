@@ -410,29 +410,47 @@ HTTP/1.1 200 OK
 Content-Type: application/json; charset=UTF-8
 {
     "data": {
-        "id": 1,
+        "id": 14,
         "type": "invoices",
         "attributes": {
-            "name": "Acme",
-            "series_id": "3",
-            "draft": "false",
-            "sent_by_email": "false",
+            "number": 2
+            "reference": "F-2"
+            "series-id": "3",
+            "currency": "eur",
+            "issue-date": "2020-02-01",
+            "due-date": "2020-12-12",
+            "days-to-due": null,
+            "customer-id": 123
             "identification": "D-ABC",
+            "name": "Acme",
             "email": "email@example.com",
-            "invoicing_address": "4332 Elm st. ",
-            "shipping_address": "",
-            "contact_person": "John doe",
-            "terms": "...",
-            "notes": "...",
-            "net_amount": "3000",
-            "gross_amount": "5422",
-            "paid_amount": "234",
-            "issue_date": "2015-02-01",
-            "due_date": "2016-12-12",
-            "days_to_due":"",
-            "series_number": "D-1234-1",
+            "contact-person": "John Doe"
+            "invoicing-address": "4332 Elm st. ",
+            "shipping-address": null,
+            "terms": "",
+            "notes": null,
+            "draft": "false",
+            "tag-list": ["d1","d2"],
+            "download-link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf",
+            "meta": {
+                 "account-code": "1234567890",
+                 "accounting-number": 1234,
+                 "country": "Spain",
+                 "tax-exempted-eu": false,
+                 "tax-exempted-non-eu": false,
+                 "payment-id": "pi_xyz"
+             },
+            "net-amount": "3000",
+            "gross-amount": "5422",
+            "taxes": [{
+                "id": 4,
+                "name": "VAT 21%",
+                "value": 21.0,
+                "active": true,
+                "default": true
+            }],
             "status": "paid",
-            "download_link": "https://siwapp-server.com/api/v1/templates/1/invoices/1.pdf"
+            "sent-by-email": "false"
         },
 
         "links": {
