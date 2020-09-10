@@ -75,6 +75,7 @@ class Invoice < Common
       json.(self, *(serializable_attribute_names))
       json.series_number to_s
       json.status get_status
+      json.reference get_reference
       if customer
         json.customer customer.to_jbuilder
       end
@@ -116,6 +117,13 @@ class Invoice < Common
       # An invoice without a due date can't be past_due
       :pending
     end
+  end
+
+  # Public: Returns the reference of the invoice composed by the series value and the number.
+  #
+  # Returns a string.
+  def get_reference
+    "#{series.value}#{number}"
   end
 
   # Public: Returns the amount that has not been already paid.

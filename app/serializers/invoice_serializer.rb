@@ -2,8 +2,8 @@ class InvoiceSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   #include ActiveModel::Serialization
 
-  attributes :id, :number, :series_id, :currency,
-    :issue_date, :due_date,  :days_to_due, :number,
+  attributes :id, :number, :series_id, :reference
+    :currency, :issue_date, :due_date, :days_to_due,
     :customer_id, :identification, :name,
     :email, :contact_person, :invoicing_address,
     :shipping_address, :terms, :notes, :draft,
@@ -32,6 +32,10 @@ class InvoiceSerializer < ActiveModel::Serializer
 
   def status
     object.get_status
+  end
+
+  def reference
+    object.get_reference
   end
 
   def download_link
