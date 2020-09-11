@@ -2,7 +2,7 @@ class InvoiceSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
   #include ActiveModel::Serialization
 
-  attributes :id, :number, :series_id, :currency,
+  attributes :id, :number, :series_id, :reference, :currency,
     :issue_date, :due_date,  :days_to_due, :number,
     :customer_id, :identification, :name,
     :email, :contact_person, :invoicing_address,
@@ -28,6 +28,10 @@ class InvoiceSerializer < ActiveModel::Serializer
   def initialize(object, options={})
     super
     object.set_amounts
+  end
+
+  def reference
+    object.to_s
   end
 
   def status
