@@ -71,6 +71,8 @@ class ApplicationController < ActionController::Base
     headers["Cache-Control"] = "no-cache"
     headers["Content-Type"] = "text/csv; charset=utf-8"
     headers["Content-Disposition"] = %(attachment; filename="#{filename}")
+    # Rack::ETag 2.2.x no longer respects 'Cache-Control'
+    headers["Last-Modified"] = Time.current.httpdate
   end
 
 end
