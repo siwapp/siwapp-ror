@@ -66,6 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_csv_headers(filename)
+    headers.delete("Content-Length")
     headers["X-Accel-Buffering"] = "no"
     headers["Cache-Control"] = "no-cache"
     headers["Content-Type"] = "text/csv; charset=utf-8"
