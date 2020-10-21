@@ -58,6 +58,7 @@ class CommonsController < ApplicationController
       format.csv do
         set_csv_headers("#{@type.underscore.downcase.pluralize}.csv")
         self.response_body = model.csv @results
+        response.status = 200
       end
     end
   end
