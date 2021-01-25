@@ -27,8 +27,9 @@ class Common < ActiveRecord::Base
   # Validations
   validate :valid_customer_identification
   validates :series, presence: true
+  # from https://emailregex.com/
   validates :email,
-    format: {with: /\A(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})\z/i,
+    format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
              message: "Only valid emails"}, allow_blank: true
 
   # Events
