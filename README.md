@@ -21,7 +21,7 @@ SMTP_AUTHENTICATION (plain | login | cram_md5)
 SMTP_ENABLE_STARTTLS_AUTO (set to 1 to enable it)
 ```
 
-## Howto Install on Heroku
+## How to Install on Heroku
 
 First clone the siwapp repository into your computer:
 
