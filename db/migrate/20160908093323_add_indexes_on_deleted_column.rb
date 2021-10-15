@@ -1,4 +1,4 @@
-class AddIndexesOnDeletedColumn < ActiveRecord::Migration
+class AddIndexesOnDeletedColumn < ActiveRecord::Migration[4.2]
   def change
     add_index :commons, :deleted_at
     add_index :customers, :deleted_at
