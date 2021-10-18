@@ -31,6 +31,10 @@ class Common < ActiveRecord::Base
   validates :email,
     format: {with: /\A([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,})\z/i,
              message: "Only valid emails"}, allow_blank: true
+  validates :invoicing_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "wrong format" }
+  validates :shipping_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "wrong format" }
 
   # Events
   after_save :purge_items
