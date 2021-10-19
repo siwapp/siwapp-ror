@@ -1,4 +1,4 @@
-class AddCurrencyToCommons < ActiveRecord::Migration
+class AddCurrencyToCommons < ActiveRecord::Migration[4.2]
   def up
     add_column :commons, :currency, :string, limit: 3
     currency = Settings.currency

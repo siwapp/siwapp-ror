@@ -11,6 +11,10 @@ class Customer < ActiveRecord::Base
   # Validation
   validate :valid_customer_identification
   validates_uniqueness_of :name,  scope: :identification
+  validates :invoicing_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "Wrong address format" }
+  validates :shipping_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
+    message: "Wrong address format" }
 
   # Behaviors
   acts_as_taggable
