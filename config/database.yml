@@ -17,14 +17,14 @@ default: &default
 development:
   <<: *default
   adapter: postgresql
-  database: d13b08l8vcs2pp
+  database: siwapp
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: d13b08l8vcs2pp_test
+  database: siwapp_test
 
 production:
   adapter: postgresql
