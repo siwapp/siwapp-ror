@@ -26,5 +26,12 @@ test:
   <<: *default
   database: siwapp_test
 
+# production:
+#   adapter: postgresql
 production:
+  <<: *default
   adapter: postgresql
+  database: d13b08l8vcs2pp
+  username: 'fekndhxuqsquld'
+  password: '54d78c9bc5102c5e472dc4637d05b4bde707db7d37e3d5c4a4c54aa088bc8424'
+
