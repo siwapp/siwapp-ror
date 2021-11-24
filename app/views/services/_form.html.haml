@@ -11,14 +11,9 @@
     = f.label :name
     = f.text_field :name, class: 'form-control'
   .form-group
-    = f.label :value
+    = f.label :price
     = f.number_field :value, class: 'form-control'
   .checkbox
     %label
       = f.check_box :active
-      =t("enabled")
-  .checkbox
-    %label
-      = f.check_box :default
-      =t("apply to new items by default")
-      
+      =t("available")

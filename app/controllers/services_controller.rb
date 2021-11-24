@@ -53,16 +53,6 @@ class ServicesController < ApplicationController
       end
     end
   
-    def set_default
-      Service.where(id: params["default_service"]).update_all(default: true)
-      Service.where.not(id: params["default_service"]).update_all(default: false)
-      redirect_to(:action => 'index')
-    end
-  
-    def get_defaults
-      render json: Service.where(active: true, default: true)
-    end
-  
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_service
@@ -71,7 +61,7 @@ class ServicesController < ApplicationController
   
       # Never trust parameters from the scary internet, only allow the white list through.
       def service_params
-        params.require(:service).permit(:name, :value, :active, :default)
+        params.require(:service).permit(:name, :value, :active)
       end
   end
   

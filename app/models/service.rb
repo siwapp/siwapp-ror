@@ -21,10 +21,6 @@ class Service < ActiveRecord::Base
       name
     end
   
-    def self.default
-      self.where(active: true, default: true)
-    end
-  
     def self.enabled
       self.where(active: true)
     end

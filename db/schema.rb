@@ -179,7 +179,6 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.string "name", limit: 50
     t.decimal "value", precision: 53, scale: 2
     t.boolean "active", default: true
-    t.boolean "default", default: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_services_on_deleted_at"
   end

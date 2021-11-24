@@ -1,13 +1,14 @@
 %h1=t("services")
 
-= form_tag url_for(:controller => "services", :action => "set_default"), :method => :post, :class => "change_default" do
+= form_tag url_for(:controller => "services"), :method => :post, :class => "change_default" do
   .table-responsive
     %table.table.table-hover.table-striped.table-bordered
       %thead
-        %th.table-select.text-nowrap=t("default")
-        %th=t("service name")
+        %th.table-select.text-nowrap=t("service name")
+        %th=t("price")
       %tbody
         - @services.each do |service|
           %tr
-            %td.table-select= check_box_tag 'default_service[]', service.id, service.default, {id: "default_service_#{service.id}", "data-role": "select-default"}
             %td= link_to service.name, edit_service_path(service)
+            %td= link_to service.value, edit_service_path(service)
+
