@@ -10,8 +10,8 @@ Rails.application.routes.draw do
 
   get  'taxes/get_defaults', to: 'taxes#get_defaults'
 
-  resources :taxes, :templates, :series
-
+  get  'services/get_defaults', to: 'services#get_defaults'
+  resources :taxes, :templates, :series, :services
   get "invoices/amounts"
   get "recurring_invoices/amounts"
   get "items/amount"
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   post 'templates/set_default', to: 'templates#set_default'
   post 'series/set_default', to: 'series#set_default'
   post 'taxes/set_default', to: 'taxes#set_default'
+  post 'services/set_default', to: 'services#set_default'
 
   get 'settings/global'
   put 'settings/global', to: 'settings#global_update'
@@ -61,13 +62,16 @@ Rails.application.routes.draw do
     namespace :v1 do
       get 'invoices/print_template/:id/invoice/:invoice_id', to: 'commons#print_template', as: :rendered_template
       get 'stats', to: 'invoices#stats'
-      resources :taxes, :series, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
+      resources :taxes, :series, :services, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json}
       resources :customers, only: [:index, :create, :show, :update, :destroy], defaults: { format: :json} do
         resources :invoices, only: [:index] # for filtering
       end
       resources :payments, only: [:show, :update, :destroy], defaults: {format: :json}
       resources :items, only: [:show, :update, :destroy], defaults: {format: :json} do
         resources :taxes, only: [:index], defaults: { format: :json}
+      end
+      resources :items, only: [:show, :update, :destroy], defaults: {format: :json} do
+        resources :services, only: [:index], defaults: { format: :json}
       end
 
       resources :invoices, only: [:index, :create, :show, :update, :destroy, :send_email], defaults: { format: :json} do

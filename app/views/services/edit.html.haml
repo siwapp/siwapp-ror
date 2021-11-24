@@ -1,0 +1,11 @@
+%h1
+  = @service
+
+.row
+  .col-xs-12.col-md-6.col-xl-4
+    = render 'form'
+
+.action-buttons{"data-role": "action-buttons"}
+  = link_to t("delete"), @service, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger float-xs-left no-margin'
+  = link_to t("back"), :back, class: 'btn btn-secondary'
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("save")

@@ -1,0 +1,6 @@
+%h1="#{t("new")}#{t("service")}"
+= render 'form'
+
+.action-buttons{"data-role": "action-buttons"}
+  = link_to t("back"), :back, class: 'btn btn-secondary'
+  %button.btn.btn-success{type: 'button', data: {role: 'submit-form', target: 'form'}}=t("save")

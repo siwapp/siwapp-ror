@@ -1,0 +1,24 @@
+= form_for(@service) do |f|
+  - if @service.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@service.errors.count, "error")
+        prohibited this service from being saved:
+      %ul
+        - @service.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :value
+    = f.number_field :value, class: 'form-control'
+  .checkbox
+    %label
+      = f.check_box :active
+      =t("enabled")
+  .checkbox
+    %label
+      = f.check_box :default
+      =t("apply to new items by default")
+      
