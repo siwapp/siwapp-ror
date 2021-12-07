@@ -97,14 +97,14 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.index ["product_id"], name: "item_product_id_idx"
   end
 
-  create_table "items_taxes", id: false, force: :cascade do |t|
-    t.integer "item_id", null: false
-    t.integer "tax_id", null: false
-  end
-
   create_table "items_services", id: false, force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "service_id", null: false
+  end
+
+  create_table "items_taxes", id: false, force: :cascade do |t|
+    t.integer "item_id", null: false
+    t.integer "tax_id", null: false
   end
 
   create_table "payments", force: :cascade do |t|
@@ -137,6 +137,14 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "deleted_at"
     t.integer "first_number", default: 1
     t.index ["deleted_at"], name: "index_series_on_deleted_at"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string "name", limit: 50
+    t.decimal "value", precision: 53, scale: 2
+    t.boolean "active", default: true
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_services_on_deleted_at"
   end
 
   create_table "settings", force: :cascade do |t|
@@ -175,13 +183,7 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_taxes_on_deleted_at"
   end
-  create_table "services", force: :cascade do |t|
-    t.string "name", limit: 50
-    t.decimal "value", precision: 53, scale: 2
-    t.boolean "active", default: true
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_services_on_deleted_at"
-  end
+
   create_table "templates", force: :cascade do |t|
     t.string "name", limit: 255
     t.text "template"
