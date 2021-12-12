@@ -123,6 +123,7 @@ ja:
   generate:                生成
   global settings:         全体設定
   hooks:                   フック
+  categories:              Categories
   identification:          ID
   invoice:                 請求書
   invoices:                請求書

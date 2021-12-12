@@ -1,0 +1,15 @@
+= form_for @category, url: {action: :create} do |f|
+  %div
+    %h3 Add a category
+  %div
+    %p
+      = "<div>#{@category.errors.full_messages.first}</div>".html_safe if @category.errors.any?
+    %div
+      %label category Name
+      = f.text_field :name
+    %div
+      %label Price
+      = f.text_field :price
+  %div
+    = link_to 'Back', { controller: 'categories', action: 'index'}
+    = f.submit 'Create category'

@@ -27,6 +27,8 @@
           .dropdown-divider
           %a.dropdown-item{:href => settings_hooks_path}=t("hooks")
           .dropdown-divider
+          %a.dropdown-item{:href => categories_path}=t("categories")
+          .dropdown-divider
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
 

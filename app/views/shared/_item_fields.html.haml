@@ -1,7 +1,7 @@
 .invoice-row.invoice-item.js-item
   .invoice-col.invoice-col--description.form-group
     = f.label :description
-    = f.text_area :description, class: "form-control", rows: 1, "data-role": "item-description"
+    = f.collection_select :description, Category.all, :id, :name, {include_blank: t("select template to print")}, {class: 'form-control c-select'}
 
   .invoice-col.invoice-col--quantity.form-group
     = f.label :quantity
