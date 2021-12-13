@@ -7,13 +7,11 @@
       %thead
         %tr
           %th.text-center="Name"
-          %th.text-center="Price"
           %th.text-center="Actions"
       %tbody{data: {role: 'infinite-content'}}
         - @categories.each_with_index do |category, i|
           %tr
             %td.no-wrap.text-center= category.name
-            %td.text-center= category.price
             %td.text-center
               = link_to 'Edit', edit_category_path(category), class: "btn btn-primary"
               = link_to 'Delete', category_path(category), method: :delete, class:"btn btn-danger"

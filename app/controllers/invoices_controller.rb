@@ -12,6 +12,7 @@ class InvoicesController < CommonsController
 
   # GET /invoices/new
   def new
+    @inventories = Inventory.all
     @invoice = Invoice.new
     # put an empty item
     @invoice.items << Item.new(common: @invoice, taxes: Tax.default)

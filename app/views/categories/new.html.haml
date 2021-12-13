@@ -7,9 +7,6 @@
     %div
       %label category Name
       = f.text_field :name
-    %div
-      %label Price
-      = f.text_field :price
   %div
     = link_to 'Back', { controller: 'categories', action: 'index'}
     = f.submit 'Create category'

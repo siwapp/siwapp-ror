@@ -1,0 +1,18 @@
+= form_for @inventory, url: {action: :create} do |f|
+  %div
+    %h3 Add a inventory
+  %div
+    %p
+      = "<div>#{@inventory.errors.full_messages.first}</div>".html_safe if @inventory.errors.any?
+    %div
+      %label Inventory Name
+      = f.text_field :name
+    %div
+      %label Price
+      = f.text_field :price
+    %div
+      %label Category
+      = f.collection_select :category_id, Category.all, :id, :name, {}, {multiple: false, class: 'form-control c-select'}
+  %div
+    = link_to 'Back', { controller: 'inventories', action: 'index'}
+    = f.submit 'Create Inventory'

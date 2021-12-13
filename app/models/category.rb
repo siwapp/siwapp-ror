@@ -1,3 +1,3 @@
 class Category < ActiveRecord::Base
-  belong_to :inventories
+  has_many :inventory
 end

@@ -3,7 +3,7 @@ class CreateInventories < ActiveRecord::Migration[5.2]
     create_table :inventories do |t|
       t.string :name
       t.float :price
-      t.integer :category_id
+      t.references :category, foreign_key: true
 
       t.timestamps
     end

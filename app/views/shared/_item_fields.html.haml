@@ -1,11 +1,12 @@
 .invoice-row.invoice-item.js-item
   .invoice-col.invoice-col--description.form-group
     = f.label "Category"
-    = f.collection_select :description, Category.all, :price, :name, {include_blank: t("select category")}, {class: 'form-control c-select category-select'}
+    = f.collection_select :category_id, Category.all, :id, :name, {include_blank: t("select category")}, {class: 'form-control c-select category-select'}
 
   .invoice-col.invoice-col--description.form-group
-    = f.label "Item"
-    = f.collection_select :description, Item.all, :id, :to_s, {include_blank: t("select item")}, {class: 'form-control c-select'}
+    = f.label "Inventory"
+    = f.select :inventory_id, options_for_select(@inventories.collect { |inventory|   |
+      [inventory.name, inventory.price] }, 0), {}, { class:"form-control c-select inventory-select"} |
 
   .invoice-col.invoice-col--quantity.form-group
     = f.label :quantity
@@ -37,7 +38,7 @@
   = f.hidden_field :id
 
 :javascript
-  $(".category-select").change(function() {
+  $(".inventory-select").change(function() {
     var id_string = this.id;
     var id = id_string.split("_")[3];
     $("#invoice_items_attributes_" + id + "_unitary_cost").val(this.value);

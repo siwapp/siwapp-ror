@@ -1,0 +1,17 @@
+.container
+  = form_for @inventory, url: {action: :update} do |f|
+    %h3 Add a inventory
+    = "<div>#{@inventory.errors.full_messages.first}</div>".html_safe if @inventory.errors.any?
+    %p
+    %div
+      %label Inventory Name
+      = f.text_field :name
+    %div
+      %label Price
+      = f.text_field :price
+    %div
+      %label Category
+      = f.collection_select :category_id, Category.all, :id, :name, {}, {multiple: false, class: 'form-control c-select'}
+    %div
+      = link_to 'Back', { controller: 'inventories', action: 'index'}
+      = f.submit 'Update inventory'

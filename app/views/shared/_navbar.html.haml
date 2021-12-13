@@ -29,6 +29,8 @@
           .dropdown-divider
           %a.dropdown-item{:href => categories_path}=t("categories")
           .dropdown-divider
+          %a.dropdown-item{:href => inventories_path}=t("inventories")
+          .dropdown-divider
           = link_to t("log out"), logout_path, method: "delete", class: "dropdown-item"
 
 

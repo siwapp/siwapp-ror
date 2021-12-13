@@ -124,6 +124,7 @@ ja:
   global settings:         全体設定
   hooks:                   フック
   categories:              Categories
+  inventories:             Inventories
   identification:          ID
   invoice:                 請求書
   invoices:                請求書

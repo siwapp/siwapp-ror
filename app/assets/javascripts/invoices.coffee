@@ -34,10 +34,3 @@ jQuery(document).ready ($) ->
                 show: true
             legend:
               show: false
-  
-  $('.category-select').change ->
-    id_string = @id
-    id = id_string.split('_')[3]
-    $('#invoice_items_attributes_' + id + '_unitary_cost').val @value
-    return
-

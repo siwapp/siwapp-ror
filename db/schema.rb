@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_12_154004) do
+ActiveRecord::Schema.define(version: 2021_12_13_171939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,6 +60,8 @@ ActiveRecord::Schema.define(version: 2021_12_12_154004) do
     t.integer "email_template_id"
     t.integer "deleted_number"
     t.string "currency", limit: 3
+    t.integer "category_id"
+    t.integer "inventory_id"
     t.index ["contact_person"], name: "cntct_idx"
     t.index ["customer_id"], name: "customer_id_idx"
     t.index ["deleted_at"], name: "index_commons_on_deleted_at"
@@ -90,6 +91,15 @@ ActiveRecord::Schema.define(version: 2021_12_12_154004) do
     t.index ["name_slug"], name: "cstm_slug_idx", unique: true
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.string "name"
+    t.float "price"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_inventories_on_category_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.decimal "quantity", precision: 53, scale: 15, default: "1.0", null: false
     t.decimal "discount", precision: 53, scale: 2, default: "0.0", null: false
@@ -98,6 +108,8 @@ ActiveRecord::Schema.define(version: 2021_12_12_154004) do
     t.decimal "unitary_cost", precision: 53, scale: 15, default: "0.0", null: false
     t.integer "product_id"
     t.datetime "deleted_at"
+    t.integer "category_id"
+    t.integer "inventory_id"
     t.index ["common_id"], name: "common_id_idx"
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
     t.index ["description"], name: "desc_idx"
@@ -223,4 +235,5 @@ ActiveRecord::Schema.define(version: 2021_12_12_154004) do
     t.index ["event"], name: "index_webhook_logs_on_event"
   end
 
+  add_foreign_key "inventories", "categories"
 end

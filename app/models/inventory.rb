@@ -1,3 +1,3 @@
-class Inventory < ApplicationRecord
-  has_many :categories
+class Inventory < ActiveRecord::Base
+  belongs_to :category
 end
