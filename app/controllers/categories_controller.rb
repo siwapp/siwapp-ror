@@ -47,14 +47,14 @@ class CategoriesController < ApplicationController
   def destroy   
     @category = Category.find(params[:id])   
     if @category.delete   
-      flash[:notice] = 'Category deleted!'   
+      flash[:notice] = 'Category deleted!'
       redirect_to categories_path
     else   
       flash[:error] = 'Failed to delete this category!'   
       render :destroy   
     end   
-  end   
-   
+  end
+
   # we used strong parameters for the validation of params   
   def category_params   
     params.require(:category).permit(:name, :price)   
