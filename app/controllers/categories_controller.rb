@@ -46,8 +46,8 @@ class CategoriesController < ApplicationController
   # DELETE method for deleting a category from database based on id   
   def destroy   
     @category = Category.find(params[:id])
-    @inventory_count = Inventory.where(@category.id).count
-    if @category.delete && @inventory_count <= 0
+    @inventory_count = Inventory.where(category_id: @category.id).count
+    if @inventory_count <= 0 && @category.delete
       flash[:notice] = 'Category deleted!'
       redirect_to categories_path
     else   
