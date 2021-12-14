@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   get "invoices/amounts"
   get "recurring_invoices/amounts"
   get "items/amount"
+  
+  resources :categories
+  resources :inventories
+  get 'update_inventory', to: "inventories#update_inventory"
 
   resources :commons do
     post 'select_print_template', on: :member

@@ -1,0 +1,19 @@
+%h1="CATEGORIES LIST"
+%div
+  = link_to 'Add category', new_category_path
+%div{data: {role: 'infinite-scroll'}}
+  .table-responsive
+    %table.table.table-hover.table-striped.table-bordered
+      %thead
+        %tr
+          %th.text-center="Name"
+          %th.text-center="Actions"
+      %tbody{data: {role: 'infinite-content'}}
+        - @categories.each_with_index do |category, i|
+          %tr
+            %td.no-wrap.text-center= category.name
+            %td.text-center
+              = link_to 'Edit', edit_category_path(category), class: "btn btn-primary"
+              = link_to 'Delete', category_path(category), method: :delete, class:"btn btn-danger"
+  .content-loading.hide{data: {role: 'infinite-status'}}
+    .spinner

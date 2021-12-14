@@ -1,7 +1,12 @@
 .invoice-row.invoice-item.js-item
   .invoice-col.invoice-col--description.form-group
-    = f.label :description
-    = f.text_area :description, class: "form-control", rows: 1, "data-role": "item-description"
+    = f.label "Category"
+    = f.collection_select :category_id, Category.all, :id, :name, {include_blank: t("select category")}, {class: 'form-control c-select category-select'}
+
+  .invoice-col.invoice-col--description.form-group
+    = f.label "Inventory"
+    = f.select :inventory_id, options_for_select(@inventories.collect { |inventory|   |
+      [inventory.name, inventory.price] }, 0), {}, { class:"form-control c-select inventory-select"} |
 
   .invoice-col.invoice-col--quantity.form-group
     = f.label :quantity
@@ -31,3 +36,10 @@
     %span Remove Line
 
   = f.hidden_field :id
+
+:javascript
+  $(".inventory-select").change(function() {
+    var id_string = this.id;
+    var id = id_string.split("_")[3];
+    $("#invoice_items_attributes_" + id + "_unitary_cost").val(this.value);
+  });

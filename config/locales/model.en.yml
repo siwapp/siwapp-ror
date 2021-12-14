@@ -50,6 +50,8 @@ en:
   generate:              Generate
   global settings:       Global Settings
   hooks:                 Hooks
+  categories:            Categories
+  inventories:           Inventories
   identification:        Identification
   invoice:               Invoice
   invoices:              Invoices

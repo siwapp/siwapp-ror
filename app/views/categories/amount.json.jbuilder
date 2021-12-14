@@ -1,0 +1,1 @@
+json.amount @category.price

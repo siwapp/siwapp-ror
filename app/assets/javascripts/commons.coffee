@@ -245,3 +245,20 @@ jQuery(document).ready ($) ->
 
   $('[data-role="select-autocomplete"]').select2
     theme: "bs4"
+
+  $ ->
+    $(document).on 'change', '.category-select', (evt) ->
+      id_string = this.id;
+      id = id_string.split("_")[3];
+      console.log(id)
+      $.ajax 'http://localhost:3000/update_inventory',
+        type: 'GET'
+        dataType: 'script'
+        data: {
+          category_id: this.value,
+          select_id: id
+        }
+        error: (jqXHR, textStatus, errorThrown) ->
+          console.log("AJAX Error: #{textStatus}")
+        success: (data, textStatus, jqXHR) ->
+          console.log("Dynamic OK!")
