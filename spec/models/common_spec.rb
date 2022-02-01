@@ -51,6 +51,9 @@ RSpec.describe Common, :type => :model do
 
     c.email = "test+test@test.t10.de"
     expect(c).to be_valid
+
+    c.email = "test.test+test.test@test.com"
+    expect(c).to be_valid
   end
 
   it "is not valid with bad e-mails" do
