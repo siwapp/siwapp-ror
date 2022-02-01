@@ -29,7 +29,7 @@ class Common < ActiveRecord::Base
   validates :series, presence: true
   # from https://emailregex.com/
   validates :email,
-    format: {with: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i,
+    format: {with: /\A([\w+\-].?)+@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,})\z/i,
              message: "Only valid emails"}, allow_blank: true
   validates :invoicing_address, format: { without: /<(.*)>.*?|<(.*) \/>/,
     message: "wrong format" }
