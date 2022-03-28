@@ -25,7 +25,7 @@ SMTP_ENABLE_STARTTLS_AUTO (set to 1 to enable it)
 
 First clone the siwapp repository into your computer:
 
-    $ git clone git@github.com:siwapp/siwapp.git
+    $ git clone https://github.com/siwapp/siwapp.git
     $ cd siwapp
 
 Create the app in heroku (we suppose in the terminal your are logged
