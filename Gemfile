@@ -71,6 +71,8 @@ gem 'rails_12factor', group: :production
 gem 'rails-settings-cached'
 gem 'ransack'
 gem 'sass'
+gem 'sentry-ruby'
+gem 'sentry-rails'
 gem 'valid_url'
 gem 'wicked_pdf'
 gem 'will_paginate'
