@@ -11,12 +11,6 @@ class RecurringInvoiceSerializer < ActiveModel::Serializer
     :net_amount, :gross_amount, :taxes,
     :tag_list, :meta
 
-  meta do |serializer|
-    if object.meta_attributes
-      ActiveSupport::JSON.decode(object.meta_attributes)
-    end
-  end
-
   belongs_to :customer, url: true
   has_many :items
 

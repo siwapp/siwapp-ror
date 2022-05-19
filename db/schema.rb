@@ -54,11 +54,13 @@ ActiveRecord::Schema.define(version: 2022_05_19_100550) do
     t.integer "email_template_id"
     t.integer "deleted_number"
     t.string "currency", limit: 3
+    t.index "((meta_attributes ->> 'account_code'::text))", name: "commons_expr_idx"
     t.index ["contact_person"], name: "cntct_idx"
     t.index ["customer_id"], name: "customer_id_idx"
     t.index ["deleted_at"], name: "index_commons_on_deleted_at"
     t.index ["email"], name: "cstml_idx"
     t.index ["identification"], name: "cstid_idx"
+    t.index ["meta_attributes"], name: "cstm_meta_idx"
     t.index ["name"], name: "cstnm_idx"
     t.index ["recurring_invoice_id"], name: "common_recurring_invoice_id_common_id"
     t.index ["series_id", "deleted_number"], name: "common_deleted_number_idx"
