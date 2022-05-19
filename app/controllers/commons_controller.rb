@@ -44,7 +44,6 @@ class CommonsController < ApplicationController
         condition_list = condition_string.split ':'
         if condition_list.length == 1
           conditions.push("meta_attributes::text ilike '%#{condition_list[0]}%'")
-            User.where('preferences @> ?', {newsletter: true}.to_json)
         elsif condition_list.length == 2
           conditions.push("meta_attributes->>'#{condition_list[0]}'='#{condition_list[1]}'")
         end
