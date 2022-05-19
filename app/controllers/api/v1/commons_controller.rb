@@ -20,7 +20,7 @@ class Api::V1::CommonsController < Api::V1::BaseController
     if params[:meta]
       conditions = []
       params[:meta].each do |key, value|
-        conditions.push("meta_attributes ilike '%\"#{key}\":\"#{value}\"%'")
+        conditions.push("meta_attributes->>'#{key}'='#{value}'")
       end
       @results = @results.where(conditions.join(" and "))
     end

@@ -12,9 +12,7 @@ class RecurringInvoiceSerializer < ActiveModel::Serializer
     :tag_list, :meta
 
   meta do |serializer|
-    if object.meta_attributes
-      ActiveSupport::JSON.decode(object.meta_attributes)
-    end
+    object.meta_attributes ? object.meta_attributes : {}
   end
 
   belongs_to :customer, url: true

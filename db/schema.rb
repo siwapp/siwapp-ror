@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2017_06_08_155530) do
+ActiveRecord::Schema.define(version: 2022_05_19_100550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "print_template_id"
-    t.text "meta_attributes"
+    t.jsonb "meta_attributes"
     t.boolean "failed", default: false
     t.integer "email_template_id"
     t.integer "deleted_number"
@@ -97,7 +97,7 @@ ActiveRecord::Schema.define(version: 2017_06_08_155530) do
     t.index ["product_id"], name: "item_product_id_idx"
   end
 
-  create_table "items_taxes", id: false, force: :cascade do |t|
+  create_table "items_taxes", primary_key: ["item_id", "tax_id"], force: :cascade do |t|
     t.integer "item_id", null: false
     t.integer "tax_id", null: false
   end
