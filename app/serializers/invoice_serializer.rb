@@ -11,6 +11,10 @@ class InvoiceSerializer < ActiveModel::Serializer
     :net_amount, :gross_amount, :taxes, :status,
     :sent_by_email
 
+  meta do |serializer|
+    object.meta_attributes ? object.meta_attributes : {}
+  end
+
   belongs_to :customer, url: true
   has_many :items
   has_many :payments, foreign_key: :common_id
