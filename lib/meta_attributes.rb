@@ -15,7 +15,7 @@ module MetaAttributes
     end
     if key != ""
       attributes[key] = value
-      attributes = ActiveSupport::JSON.encode(attributes)
+      # attributes = ActiveSupport::JSON.encode(attributes)
       self.meta_attributes = attributes
       self.save
     end
