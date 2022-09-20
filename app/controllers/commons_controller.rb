@@ -4,7 +4,7 @@ class CommonsController < ApplicationController
   include MetaAttributesControllerMixin
 
   before_action :set_type
-  before_action :configure_search, only: [:index, :chart_data]
+  before_action :configure_chart_search, only: [:index, :chart_data]
   before_action :set_model_instance, only: [:show, :edit, :update, :destroy]
   before_action :set_extra_stuff, only: [:new, :create, :edit, :update]
 

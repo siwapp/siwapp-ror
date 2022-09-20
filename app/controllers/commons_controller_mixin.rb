@@ -10,6 +10,28 @@ module CommonsControllerMixin
   def configure_search
     @search = model.ransack(params[:q])
 
+    @results = @search.result().order(issue_date: :desc).order(id: :desc)
+
+    if params[:tag_list].present?
+      @results = @results.tagged_with(params[:tag_list].split(/\s*,\s*/))
+      @totals = @totals.tagged_with(params[:tag_list].split(/\s*,\s*/))
+    end
+
+    # filter by customer
+    if params[:customer_id]
+      @results = @results.where customer_id: params[:customer_id]
+      @customer = Customer.find params[:customer_id]
+    end
+  end
+
+  # Protected: configures search for charts
+  #
+  # Sets @search to be used with search_form_for.
+  #
+  # Returns the same value received
+  def configure_chart_search
+    @search = model.ransack(params[:q])
+
     @results = @search.result(distinct: true)\
       .order(issue_date: :desc).order(id: :desc)
 
