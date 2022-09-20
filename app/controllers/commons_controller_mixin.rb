@@ -22,6 +22,8 @@ module CommonsControllerMixin
       @results = @results.where customer_id: params[:customer_id]
       @customer = Customer.find params[:customer_id]
     end
+
+    @results
   end
 
   # Protected: configures search for charts
