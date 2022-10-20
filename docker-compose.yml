@@ -14,7 +14,7 @@ services:
     networks:
       default:
         aliases:
-        - siwapp
+        - siwapp-ror
     ports:
       - 3000:3000
     volumes:
