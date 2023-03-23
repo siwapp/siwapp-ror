@@ -5,4 +5,4 @@
 #   ./tests.sh
 #   ./tests.sh spec/features/invoices/create_spec.rb
 #   ./tests.sh spec/features/invoices/*.rb
-docker-compose exec web xvfb-run rspec "$@"
+docker compose exec web xvfb-run rspec "$@"
