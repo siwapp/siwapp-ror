@@ -16,7 +16,7 @@ RUN	apt-get install -y \
 	qt5-default \
 	git \
 	xvfb && \
-    gem install bundler
+    gem install bundler -v 2.3.26
 
 # Copy project src to container
 COPY ./Gemfile /app/
