@@ -3,6 +3,8 @@ services:
     environment:
       - POSTGRES_HOST_AUTH_METHOD=trust
     image: postgres:13.6-alpine
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
   web:
