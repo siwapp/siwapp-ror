@@ -110,7 +110,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    concurrent-ruby (1.1.5)
+    concurrent-ruby (1.1.10)
     crass (1.0.5)
     database_cleaner (1.7.0)
     diff-lcs (1.3)
@@ -134,8 +134,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    globalid (0.4.2)
-      activesupport (>= 4.2.0)
+    globalid (1.0.1)
+      activesupport (>= 5.0)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -149,7 +149,7 @@ GEM
     http-form_data (2.1.1)
     http-parser (1.2.1)
       ffi-compiler (>= 1.0, < 2.0)
-    i18n (1.7.0)
+    i18n (1.7.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
@@ -182,7 +182,7 @@ GEM
       rake
     mini_mime (1.0.2)
     mini_portile2 (2.6.1)
-    minitest (5.13.0)
+    minitest (5.15.0)
     money (6.13.4)
       i18n (>= 0.6.4, <= 2)
     msgpack (1.3.1)
@@ -319,7 +319,7 @@ GEM
     tilt (2.0.10)
     timecop (0.9.1)
     timers (4.3.0)
-    tzinfo (1.2.5)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
