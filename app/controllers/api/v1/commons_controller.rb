@@ -18,11 +18,9 @@ class Api::V1::CommonsController < Api::V1::BaseController
   def index
     # meta attributes filtering
     if params[:meta]
-      conditions = []
       params[:meta].each do |key, value|
-        conditions.push("meta_attributes->>'#{key}'='#{value}'")
+        @results = @results.where("meta_attributes->>? = ?", key.to_s, value.to_s)
       end
-      @results = @results.where(conditions.join(" and "))
     end
 
     # Pagination
